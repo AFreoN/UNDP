@@ -1,0 +1,4 @@
+
+
+let questionArray = [] //assign questions
+
