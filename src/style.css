@@ -1,0 +1,24 @@
+/* Element Z-indices
+        loading page - 4
+        submit page - 3
+        UI - 2
+        Canvas - 1
+ */
+
+html,
+body{
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+}
+
+/* styling for loading page */
+.loading-page{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+}

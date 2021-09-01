@@ -3,16 +3,20 @@ import * as THREE from 'three'
 
 //      Initializing application properties
 //
-let isSurveyStarted = false //other modules can read this value to see if the survey has started
+let surveyStarted = false //other modules can read this value to see if the survey has started
 
 let questionIndex = 0 //indicates the question to be loaded
  
 let confirmedAnswers = [] //stores confirmed answers
 
 function startSurvey(){//call this function when loading is complete
-    isSurveyStarted = true
+    surveyStarted = true
     console.log("Survey started")
     //Call any functions related to starting the survey (setting up the first scene etc..)
+}
+
+function isSurveyStarted(){
+    return surveyStarted;
 }
 //
 //      end of Initializing application properties
