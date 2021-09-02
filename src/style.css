@@ -13,12 +13,42 @@ body{
     margin: 0;
 }
 
-/* styling for loading page */
-.loading-page{
-    width: 100vw;
-    height: 100vh;
+canvas.webgl{
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 5;
+    z-index: 1;
+}
+
+
+.ui-container{
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+
+
+/* styling for loading page */
+.loading-container{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    z-index: 4;
+    background: white;
+}
+
+/* styling for loading page when closed (eg - animations) */
+.loading-container.closed{
+    display: none;
+}
+
+.progress-bar-container{
+    width: 100px;
+    height: 100px;
 }

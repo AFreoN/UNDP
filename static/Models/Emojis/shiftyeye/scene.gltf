@@ -1,0 +1,809 @@
+{
+  "accessors": [
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 28,
+      "max": [
+        0.18409000337123871,
+        0.060619998723268509,
+        0.098609998822212219
+      ],
+      "min": [
+        -0.68463999032974243,
+        -0.052570000290870667,
+        0.0055800001136958599
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 336,
+      "componentType": 5126,
+      "count": 28,
+      "max": [
+        0.73798775672912598,
+        -0.27979674935340881,
+        0.90680146217346191
+      ],
+      "min": [
+        -0.73798775672912598,
+        -0.89745789766311646,
+        -0.47900527715682983
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 0,
+      "componentType": 5125,
+      "count": 72,
+      "max": [
+        27
+      ],
+      "min": [
+        0
+      ],
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 672,
+      "componentType": 5126,
+      "count": 296,
+      "max": [
+        0.19129000604152679,
+        0.082019999623298645,
+        0.18762999773025513
+      ],
+      "min": [
+        -0.69183999300003052,
+        -0.074390001595020294,
+        -0.079989999532699585
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 4224,
+      "componentType": 5126,
+      "count": 296,
+      "max": [
+        0.99785757064819336,
+        0.96868562698364258,
+        0.99659079313278198
+      ],
+      "min": [
+        -0.99785757064819336,
+        -0.99747192859649658,
+        -0.96819627285003662
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 288,
+      "componentType": 5125,
+      "count": 1416,
+      "max": [
+        295
+      ],
+      "min": [
+        0
+      ],
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 7776,
+      "componentType": 5126,
+      "count": 180,
+      "max": [
+        0.18758000433444977,
+        0.082019999623298645,
+        0.18762999773025513
+      ],
+      "min": [
+        -0.68812000751495361,
+        -0.071850001811981201,
+        -0.068410001695156097
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 9936,
+      "componentType": 5126,
+      "count": 180,
+      "max": [
+        0.76452893018722534,
+        0.98305696249008179,
+        0.87711000442504883
+      ],
+      "min": [
+        -0.76452893018722534,
+        -0.96770948171615601,
+        -0.3473946750164032
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 5952,
+      "componentType": 5125,
+      "count": 744,
+      "max": [
+        179
+      ],
+      "min": [
+        0
+      ],
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 12096,
+      "componentType": 5126,
+      "count": 1538,
+      "max": [
+        0.84192001819610596,
+        0.84192001819610596,
+        0.84192001819610596
+      ],
+      "min": [
+        -0.84192001819610596,
+        -0.84192001819610596,
+        -0.84192001819610596
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 30552,
+      "componentType": 5126,
+      "count": 1538,
+      "max": [
+        1,
+        1,
+        1
+      ],
+      "min": [
+        -1,
+        -1,
+        -1
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 8928,
+      "componentType": 5125,
+      "count": 9216,
+      "max": [
+        1537
+      ],
+      "min": [
+        0
+      ],
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 49008,
+      "componentType": 5126,
+      "count": 3786,
+      "max": [
+        0.41576001048088074,
+        0.089469999074935913,
+        0.028009999543428421
+      ],
+      "min": [
+        -0.41576001048088074,
+        -0.016780000180006027,
+        -0.028009999543428421
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 94440,
+      "componentType": 5126,
+      "count": 3786,
+      "max": [
+        1,
+        1,
+        1
+      ],
+      "min": [
+        -1,
+        -1,
+        -1
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 45792,
+      "componentType": 5125,
+      "count": 20160,
+      "max": [
+        3785
+      ],
+      "min": [
+        0
+      ],
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 139872,
+      "componentType": 5126,
+      "count": 6146,
+      "max": [
+        0.054439999163150787,
+        0.037119999527931213,
+        0.045639999210834503
+      ],
+      "min": [
+        -0.046739999204874039,
+        -0.015429999679327011,
+        -0.052590001374483109
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 213624,
+      "componentType": 5126,
+      "count": 6146,
+      "max": [
+        0.99806356430053711,
+        0.99976426362991333,
+        0.99999338388442993
+      ],
+      "min": [
+        -0.99856799840927124,
+        -0.99983477592468262,
+        -0.9934086799621582
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 126432,
+      "componentType": 5125,
+      "count": 36864,
+      "max": [
+        6145
+      ],
+      "min": [
+        0
+      ],
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 287376,
+      "componentType": 5126,
+      "count": 6146,
+      "max": [
+        0.055399999022483826,
+        0.026450000703334808,
+        0.046220000833272934
+      ],
+      "min": [
+        -0.052129998803138733,
+        -0.013039999641478062,
+        -0.050700001418590546
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 361128,
+      "componentType": 5126,
+      "count": 6146,
+      "max": [
+        0.98629528284072876,
+        0.99883228540420532,
+        0.99979299306869507
+      ],
+      "min": [
+        -0.99113154411315918,
+        -0.99915963411331177,
+        -0.99506038427352905
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 273888,
+      "componentType": 5125,
+      "count": 36864,
+      "max": [
+        6145
+      ],
+      "min": [
+        0
+      ],
+      "type": "SCALAR"
+    }
+  ],
+  "asset": {
+    "extras": {
+      "author": "Erik Woods (https://sketchfab.com/erikwoods)",
+      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "source": "https://sketchfab.com/models/63e6d5556d1c41e186c791863730ec4a",
+      "title": "Shifty-eye emoji guy"
+    },
+    "generator": "Sketchfab-3.18.7",
+    "version": "2.0"
+  },
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 421344,
+      "byteOffset": 0,
+      "name": "floatBufferViews",
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 434880,
+      "byteOffset": 421344,
+      "byteStride": 12,
+      "name": "floatBufferViews",
+      "target": 34962
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 856224,
+      "uri": "scene.bin"
+    }
+  ],
+  "materials": [
+    {
+      "doubleSided": true,
+      "emissiveFactor": [
+        0,
+        0,
+        0
+      ],
+      "name": "Eye_Edge",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.59999999999999998
+      }
+    },
+    {
+      "doubleSided": true,
+      "emissiveFactor": [
+        0,
+        0,
+        0
+      ],
+      "name": "Face",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.99110209709999997,
+          0.73046074009999995,
+          0.1247718176,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.59999999999999998
+      }
+    },
+    {
+      "doubleSided": true,
+      "emissiveFactor": [
+        0,
+        0,
+        0
+      ],
+      "name": "Eye_Ball",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.79910273799999998,
+          0.79910273799999998,
+          0.79910273799999998,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.59999999999999998
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "Eye_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 1,
+            "POSITION": 0
+          },
+          "indices": 2,
+          "material": 2,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Eye_1",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 4,
+            "POSITION": 3
+          },
+          "indices": 5,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Eye_2",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 7,
+            "POSITION": 6
+          },
+          "indices": 8,
+          "material": 1,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Head_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 10,
+            "POSITION": 9
+          },
+          "indices": 11,
+          "material": 1,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Mouth_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 13,
+            "POSITION": 12
+          },
+          "indices": 14,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Eye Ball Right_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 16,
+            "POSITION": 15
+          },
+          "indices": 17,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Eye Ball Left_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 19,
+            "POSITION": 18
+          },
+          "indices": 20,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "children": [
+        1
+      ],
+      "name": "RootNode (gltf orientation matrix)",
+      "rotation": [
+        -0.70710678118654746,
+        -0,
+        -0,
+        0.70710678118654757
+      ]
+    },
+    {
+      "children": [
+        2
+      ],
+      "name": "RootNode (model correction matrix)"
+    },
+    {
+      "children": [
+        3,
+        7,
+        9,
+        11,
+        18
+      ],
+      "name": "Root"
+    },
+    {
+      "children": [
+        4,
+        5,
+        6
+      ],
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0.25026999999999999,
+        -0.75708000000000009,
+        0.25581000000000004,
+        1
+      ],
+      "name": "Eye"
+    },
+    {
+      "mesh": 0,
+      "name": "Eye_0"
+    },
+    {
+      "mesh": 1,
+      "name": "Eye_1"
+    },
+    {
+      "mesh": 2,
+      "name": "Eye_2"
+    },
+    {
+      "children": [
+        8
+      ],
+      "name": "Head"
+    },
+    {
+      "mesh": 3,
+      "name": "Head_0"
+    },
+    {
+      "children": [
+        10
+      ],
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        -0.83278000000000008,
+        0.044340000000000011,
+        1
+      ],
+      "name": "Mouth"
+    },
+    {
+      "mesh": 4,
+      "name": "Mouth_0"
+    },
+    {
+      "children": [
+        12,
+        14,
+        16
+      ],
+      "name": "Lights"
+    },
+    {
+      "children": [
+        13
+      ],
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -2.0699999999999998,
+        -2,
+        1.8400000000000001,
+        1
+      ],
+      "name": "Fill Light"
+    },
+    {
+      "name": "Fill Light"
+    },
+    {
+      "children": [
+        15
+      ],
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        2.2459300000000004,
+        -2.3757099999999998,
+        0.13618,
+        1
+      ],
+      "name": "Key Light"
+    },
+    {
+      "name": "Key Light"
+    },
+    {
+      "children": [
+        17
+      ],
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        11.89184,
+        -0.42054000000000002,
+        1
+      ],
+      "name": "Back Light"
+    },
+    {
+      "name": "Back Light"
+    },
+    {
+      "children": [
+        19,
+        21
+      ],
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        -0.74873000000000012,
+        0.29245000000000004,
+        1
+      ],
+      "name": "Eye Ball Empty"
+    },
+    {
+      "children": [
+        20
+      ],
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        -0.37733000000000005,
+        0.013200000000000003,
+        0.016080000000000004,
+        1
+      ],
+      "name": "Eye Ball Right"
+    },
+    {
+      "mesh": 5,
+      "name": "Eye Ball Right_0"
+    },
+    {
+      "children": [
+        22
+      ],
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0.13094000000000003,
+        -0.048090000000000008,
+        0.027550000000000009,
+        1
+      ],
+      "name": "Eye Ball Left"
+    },
+    {
+      "mesh": 6,
+      "name": "Eye Ball Left_0"
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "OSG_Scene",
+      "nodes": [
+        0
+      ]
+    }
+  ]
+}
+
