@@ -29,6 +29,20 @@ export function startSurvey(){//call this function when loading is complete
 export function isSurveyStarted(){
     return surveyStarted;
 }
+
+export function loadNextQuestion(){
+    if (questionIndex < 6){
+        questionIndex++
+        questions.loadQuestion(questionIndex)
+    }
+}
+
+export function loadLastQuestion(){
+    if (questionIndex > 0){
+        questionIndex--
+        questions.loadQuestion(questionIndex)
+    }
+}
 //
 //      end of Initializing application properties
 

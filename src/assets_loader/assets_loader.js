@@ -59,6 +59,8 @@ gltfloader.load(
 )  
 */
 
+
+//Importing player character
 gltfloader.load(
     'Models/AnimationTest_V11-test.gltf',
     (gltf) =>
@@ -69,7 +71,7 @@ gltfloader.load(
         model.position.set(0,-.6, 2)
 
         models['playerCharacter'] = model; // adding the model to the models object
-
+        
         loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
         loadingBar.animate(loadedPercentage) // animate the progress bar
         if(loadedPercentage >= 1){ //if loadedPercentage is 1, then the survey can start.

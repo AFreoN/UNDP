@@ -4,6 +4,7 @@ import * as main from '../script'
 
 //Character control
 
+//can enable/disable player control using canControlPlayer
 let canControlPlayer = false
 
 export function enablePlayerControl(){
@@ -14,9 +15,10 @@ export function disablePlayerControl(){
     canControlPlayer = false
 }
 
-let player = null;
-let playerMixer = null;
-let playerAnimations = null
+
+let player = null; //Holds player model
+let playerMixer = null; //Holds player animation mixer
+let playerAnimations = null //Holds player animation array
 
 const sizes = {
     width: window.innerWidth,
@@ -28,15 +30,15 @@ window.addEventListener('resize',()=>{
     sizes.height = window.innerHeight
 })
 
+//executes when loading is complete. Imports player model, animation mixer and animations
 export function setPlayer(playerModel, playerAnims){
     player = playerModel
     playerMixer = new THREE.AnimationMixer(player)
     playerAnimations = playerAnims
 }
 
-
-const mouse = new THREE.Vector2()
-
+//holds cursor position calculated from center of the screen
+const mouse = new THREE.Vector2() 
 
 window.addEventListener('mousemove', (event) =>
 {
@@ -44,12 +46,14 @@ window.addEventListener('mousemove', (event) =>
     mouse.y = -(event. clientY / sizes.height * 2 -1)
 })
 
+//adding event listeners for controls
+
+//mouse events
 document.addEventListener('mousemove', onDocumentMouseMove)
 document.addEventListener('mousedown', onDocumentMouseDown)
 document.addEventListener('mouseup', onDocumentMouseUp)
 
 //touch events
-
 document.addEventListener('touchstart', onDocumentTouchStart)
 document.addEventListener('touchmove', onDocumenttouchMove, preventDefault)
 document.addEventListener('touchend', onDocumentTouchEnd)
@@ -66,6 +70,9 @@ document.addEventListener('keyup',  keylifted)
 
 const windowX = window.innerWidth / 2 ;
 const windowY = window.innerHeight / 2;
+
+//Is character moving
+var move= false;
 
 //variables for mouse movement
 var mouseoriginalx, mouseoriginaly, mousenewx, mousenewy;
@@ -102,19 +109,15 @@ function onDocumentMouseMove(event) {
             movebackwards = true;
             moveforward = false;
         } 
-
     }   
-} 
-
-
+}
 
 function onDocumentTouchStart(event){
-    if(canControlPlayer){
-        touchx = (event.touches[0].clientX - windowX)
-        touchy = (event.touches[0].clientY - windowY)
-    
-        move = true;
-    }
+
+    touchx = (event.touches[0].clientX - windowX)
+    touchy = (event.touches[0].clientY - windowY)
+
+    move = true;
 
     window.scroll = false;
 }    
@@ -154,7 +157,6 @@ function onDocumenttouchMove(event){
     }   
 }
 
-
 function onDocumentTouchEnd(event){
     move = false;
     moveforward = false;
@@ -164,16 +166,10 @@ function onDocumentTouchEnd(event){
     idle = true;
 }
 
-var move= false;
-
 function onDocumentMouseDown(event){
-    if(canControlPlayer){
-        move = true;
-        mouseoriginalx = mouse.x
-        mouseoriginaly = mouse.y
-
-        
-    }
+    move = true;
+    mouseoriginalx = mouse.x
+    mouseoriginaly = mouse.y
 }
 
 function onDocumentMouseUp(event){
@@ -185,14 +181,10 @@ function onDocumentMouseUp(event){
     idle = true;
 }
 
-////////////////////////////////////////character movement control
-
 var moveforward, movebackwards, moveleft, moveright
 var idle = true;
 
 function Movecharacter(){
-   
-
     idle = true;
     
     if(moveforward ){
@@ -214,7 +206,6 @@ function Movecharacter(){
         idle = false;
     }
   
-
     if(moveleft ){
         player.position.x += -.01
         idle = false;
@@ -259,38 +250,27 @@ function Movecharacter(){
 
 
 function keyPressed(){
-    var character = player;
-
     document.onkeydown = function(e){
-        switch (e.key){
+        switch (e.key.toLowerCase()){
             case 'w':
-                if(canControlPlayer){
                     moveforward = true;
                     idle = false;
-                }
                 break;
                 
             case 's':
-                if(canControlPlayer){
                     movebackwards = true;
                     idle = false;
-                }
                 break;
-            
+
             case 'd':
-                if(canControlPlayer){
                     moveright = true;
                     idle = false;
-                }
                 break;  
                 
             case 'a':
-                if(canControlPlayer){
                     moveleft = true;
                     idle = false;
-                }
                 break;
-
         }
     };
 }
@@ -298,7 +278,7 @@ function keyPressed(){
 
 function keylifted(){
     document.onkeyup = function(e){
-        switch(e.key){
+        switch(e.key.toLowerCase()){
             case 'w':
                 moveforward = false;
                 idle = true;
@@ -322,22 +302,32 @@ function keylifted(){
     }
 }
 
+//animates player depending on player's start (eg - idle/ running)
 function animatePlayer(){
-    if(idle){
-        if(playerMixer !== null)
-        {
-            playerMixer.clipAction(playerAnimations[3]).stop();
-            playerMixer.clipAction(playerAnimations[2]).play();
+    if(canControlPlayer){
+        if(idle){
+            if(playerMixer)
+            {
+                playerMixer.clipAction(playerAnimations[3]).stop();
+                playerMixer.clipAction(playerAnimations[2]).play();
+            }
         }
+        else
+        {
+            if(playerMixer)
+            {
+                playerMixer.clipAction(playerAnimations[2]).stop();      
+                playerMixer.clipAction(playerAnimations[3]).play();
+            }
+        }
+    }else{
+        if(playerMixer)
+            {
+                playerMixer.clipAction(playerAnimations[3]).stop();
+                playerMixer.clipAction(playerAnimations[2]).play();
+            }
     }
-    else
-    {
-        if(playerMixer !== null)
-        {
-            playerMixer.clipAction(playerAnimations[2]).stop();      
-            playerMixer.clipAction(playerAnimations[3]).play();
-        }
-    } 
+    
 }
 
 const clock = new THREE.Clock()
