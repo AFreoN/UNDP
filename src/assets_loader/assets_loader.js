@@ -6,7 +6,8 @@ import * as main from '../script'
 //Object to store loaded models
 //Add empty keys for each model loaded to calculate loading percentage
 let models = {
-    playerCharacter:null
+    playerCharacter:null,
+    centerCharacter:null
 }
 
 //player animations are stored here
@@ -71,8 +72,12 @@ gltfloader.load(
         model.position.set(0,-.6, 2)
 
         models['playerCharacter'] = model; // adding the model to the models object
-        
-        loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
+        models['centerCharacter'] = model.clone()// test center model. need to add to scene
+
+        models['centerCharacter'].position.set(0,-.6, 0)
+
+
+        loadedPercentage += (1/numberOfAssets) * 2 //calculate the percentage the asset contributes to the total loadedPercentage
         loadingBar.animate(loadedPercentage) // animate the progress bar
         if(loadedPercentage >= 1){ //if loadedPercentage is 1, then the survey can start.
             //Call function to start the survey

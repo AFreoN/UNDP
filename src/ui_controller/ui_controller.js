@@ -2,7 +2,6 @@ import * as main from '../script'
 
 //Ui control
 
-
 //UI elements
 
 //question answer containers
@@ -26,6 +25,33 @@ export function disableQuestionControl(){
     canChangeQuestions = false
 }
 
+export function enableConfirmation(){
+    okButton.disabled = false
+    canConfirmAnswer = true
+}
+
+export function disableConfirmation(){
+    okButton.disabled = true
+    canConfirmAnswer = false
+}
+
+export function enableBackButton(){
+    backButton.disabled = false
+}
+
+export function disableBackButton(){
+    backButton.disabled = true
+}
+
+export function enableNextButton(){
+    nextButton.disabled = false
+}
+
+export function disableNextButton(){
+    nextButton.disabled = true
+}
+
+
 //Changes UI in respect to question type, sets the question text, and answers
 export function updateUI(questionType, questionText, answers){
     questionContainer.style.display = 'initial'
@@ -48,6 +74,11 @@ export function updateUI(questionType, questionText, answers){
                     answerBox.classList.add('answer-box')
                     answerBox.appendChild(answerRadio)
                     answerBox.appendChild(document.createTextNode(answer))
+                    answerBox.addEventListener('click',function(){
+                        answerRadio.checked = true
+                        enableConfirmation()
+                    })
+
 
                     mcqAnswerContainer.appendChild(answerBox)
                 }

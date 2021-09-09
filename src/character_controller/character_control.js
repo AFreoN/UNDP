@@ -1,6 +1,4 @@
-import * as assetLoader from '../assets_loader/assets_loader'
 import * as THREE from 'three'
-import * as main from '../script'
 
 //Character control
 
@@ -348,7 +346,5 @@ const tick = () =>
     animatePlayer()
     //Implement loop here
     window.requestAnimationFrame(tick)
-    
 }
-
 tick()
