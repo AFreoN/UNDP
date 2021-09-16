@@ -9,12 +9,12 @@ let surveyStarted = false //other modules can read this value to see if the surv
 
 let questionIndex = 0 //indicates the question to be loaded
  
-export let confirmedAnswers = [] //stores confirmed answers
+let confirmedAnswers = [] //stores confirmed answers
 
 export function startSurvey(){//call this function when loading is complete
     document.getElementById('loading-container').classList.add('closed')
     surveyStarted = true
-
+    
     questions.loadQuestion(questionIndex)
     var player = assetLoader.getModel('playerCharacter')
     var playerAnimations = assetLoader.getPlayerAnimations()
@@ -28,7 +28,8 @@ export function isSurveyStarted(){
 }
 
 export function loadNextQuestion(){
-    if (questionIndex < 6){
+    const numberOfQuestions = questions.numberOfQuestions
+    if (questionIndex < (numberOfQuestions - 1)){
         questionIndex++
         questions.loadQuestion(questionIndex)
     }
@@ -39,6 +40,10 @@ export function loadLastQuestion(){
         questionIndex--
         questions.loadQuestion(questionIndex)
     }
+}
+
+export function saveCurrentAnswer(answer){
+    confirmedAnswers[questionIndex] = answer
 }
 //
 //      end of Initializing application properties

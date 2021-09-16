@@ -60,7 +60,7 @@ export function updateUI(questionType, questionText, answers){
         case 'mcq':
             mcqAnswerContainer.style.display = 'initial'
             mcqAnswerContainer.innerHTML = ''
-            if(answers !== null){
+            if(answers){
                 for (let i = 0; i < answers.length; i++) {
                     // creating a new answer box with text and radio buttons for each in answer for MCQs
                     const answer = answers[i];
@@ -102,3 +102,9 @@ nextButton.addEventListener('click',function(){
     }
 })
 
+okButton.addEventListener('click',function(){
+    if(canConfirmAnswer){
+        
+        main.loadNextQuestion()
+    }
+})

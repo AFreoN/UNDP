@@ -35,8 +35,30 @@ let questionArray = [
             'answer3'
         ],
         centerModelKey:'centerCharacter'
+    },
+    {
+        type: 'joystick', //Type of the question, Can be used for changing UI
+        question: 'Question 3', //Question text, which will be displayed on UI
+        answers: [ //Answers should be written in a meaningful order to be easy to calculate LOC(eg- Not Close being first and Very Close being last etc...)
+            'answer1',
+            'answer2',
+            'answer3'
+        ],
+        centerModelKey:'centerCharacter'
+    },
+    {
+        type: 'joystick', //Type of the question, Can be used for changing UI
+        question: 'Question 4', //Question text, which will be displayed on UI
+        answers: [ //Answers should be written in a meaningful order to be easy to calculate LOC(eg- Not Close being first and Very Close being last etc...)
+            'answer1',
+            'answer2',
+            'answer3'
+        ],
+        centerModelKey:'centerCharacter'
     }
 ]
+
+export const numberOfQuestions = questionArray.length
 //
 //      end of Assigning questions and answers
 
@@ -114,6 +136,8 @@ floor.position.y = -.65
 joystickScene.add(floor);
 
 //Adding rings
+//Highlight material
+const rad1Material = new THREE.MeshBasicMaterial( { color: 0xfcf8ed } );
 
 //radius 1
 const geometry = new THREE.CylinderGeometry( .5, .5, 0.008, 64 );
@@ -178,6 +202,8 @@ const tick = () =>
     const deltatime = elapsedTime - previousTime //delta time can be retrieved from here
     previousTime = elapsedTime
     
+    calculateDistance()
+
     //Implement loop here
 
     window.requestAnimationFrame(tick)
@@ -187,7 +213,10 @@ const tick = () =>
 tick()
 //
 //      end of Implementing game loop
-let currentCenterModel
+
+//      Implementation for loading a question 
+//
+var currentCenterModel
 
 //Takes a question object from the array above and updates UI with the info.
 //Implement updating models/ environment in respect to the question
@@ -195,10 +224,15 @@ export function loadQuestion(questionIndex){
     const player = assetLoader.getModel('playerCharacter')
     const questionObject = questionArray[questionIndex]
     if(questionObject){
-        if(questionIndex == 0 ){
+        if(questionIndex <= 0 ){
             uiControl.disableBackButton()
         }else{
             uiControl.enableBackButton()
+        }
+        if(questionIndex >= numberOfQuestions - 1){
+            uiControl.disableNextButton()
+        }else{
+            uiControl.enableNextButton()
         }
         uiControl.disableConfirmation()
 
@@ -209,32 +243,32 @@ export function loadQuestion(questionIndex){
         switch(questionType.toLowerCase()){
             case 'mcq':
                 updateSceneAndCamera(mcqScene, mcqCamera)
+                currentCenterModel = null
                 player.position.set(0,-.6, 2)
                 player.rotation.set(0,0,0)
                 controls.disablePlayerControl()
                 break;
             case 'joystick':
-                /* if(questionObject.centerModelKey){
+                if(questionObject.centerModelKey){
                     const centerModel = assetLoader.getModel(questionObject.centerModelKey)
-                    centerModel.position.set(0,-.6, 0)
-                    console.log(centerModel);
                     if(currentCenterModel){
                         joystickScene.remove(currentCenterModel)
                         currentCenterModel = null
                     }
                     joystickScene.add(centerModel)
                     currentCenterModel = centerModel
-                } */
+                }
                 updateSceneAndCamera(joystickScene, joystickCamera)
                 controls.enablePlayerControl()
                 break;
         }
-
+        
         uiControl.updateUI(questionType, questionText, answers)
         mainScene.add(player)
     }
 }
 
+//Used to change the scene and camera
 function updateSceneAndCamera(sceneObject, cameraObject){
     mainScene = sceneObject
     mainCamera = cameraObject
@@ -242,3 +276,45 @@ function updateSceneAndCamera(sceneObject, cameraObject){
     mainCamera.aspect = sizes.width / sizes.height
     mainCamera.updateProjectionMatrix()
 }
+//
+//      end of Implementation for loading a question
+
+//      Calculating distance between player and the center model
+//
+
+function calculateDistance(){
+    const player = assetLoader.getModel('playerCharacter')
+    let distance
+
+    if(player && currentCenterModel){
+        distance = player.position.distanceTo(currentCenterModel.position)
+    }
+
+    if(distance > 1 && distance < 1.5){
+        cylinder3.material = rad1Material
+    }
+    else
+    {
+        cylinder3.material = RingMaterial
+    }
+
+     //neutral face
+    if(distance > 0.5 && distance < 1){
+        cylinder2.material = rad1Material
+    }
+    else{
+        cylinder2.material = floorMaterial
+    
+    }
+
+     // Happy face
+    if(distance > 0 && distance < 0.5){
+        cylinder.material = rad1Material
+        }  
+    else{
+        cylinder.material = RingMaterial  
+    }
+}
+
+//
+//      end of Calculating distance between player and the center model

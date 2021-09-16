@@ -72,12 +72,8 @@ gltfloader.load(
         model.position.set(0,-.6, 2)
 
         models['playerCharacter'] = model; // adding the model to the models object
-        models['centerCharacter'] = model.clone()// test center model. need to add to scene
 
-        models['centerCharacter'].position.set(0,-.6, 0)
-
-
-        loadedPercentage += (1/numberOfAssets) * 2 //calculate the percentage the asset contributes to the total loadedPercentage
+        loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
         loadingBar.animate(loadedPercentage) // animate the progress bar
         if(loadedPercentage >= 1){ //if loadedPercentage is 1, then the survey can start.
             //Call function to start the survey
@@ -86,6 +82,24 @@ gltfloader.load(
     }
 )  
 
+gltfloader.load(
+    'Models/AnimationTest_V11-test.gltf',
+    (gltf) =>
+    {
+        let model = gltf.scene
+        model.scale.set(.07,.07,.07)
+        model.position.set(0,-.6, 0)
+
+        models['centerCharacter'] = model// test center model.
+
+        loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
+        loadingBar.animate(loadedPercentage) // animate the progress bar
+        if(loadedPercentage >= 1){ //if loadedPercentage is 1, then the survey can start.
+            //Call function to start the survey
+            main.startSurvey()
+        }
+    }
+)
 
 //
 //      end of Loading models

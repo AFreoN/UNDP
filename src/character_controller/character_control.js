@@ -2,6 +2,8 @@ import * as THREE from 'three'
 
 //Character control
 
+
+
 //can enable/disable player control using canControlPlayer
 let canControlPlayer = false
 
