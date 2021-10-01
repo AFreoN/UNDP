@@ -44,17 +44,7 @@ let questionArray = [
             'answer2',
             'answer3'
         ],
-        centerModelKey:'centerCharacter'
-    },
-    {
-        type: 'joystick', //Type of the question, Can be used for changing UI
-        question: 'Question 4', //Question text, which will be displayed on UI
-        answers: [ //Answers should be written in a meaningful order to be easy to calculate LOC(eg- Not Close being first and Very Close being last etc...)
-            'answer1',
-            'answer2',
-            'answer3'
-        ],
-        centerModelKey:'centerCharacter'
+        centerModelKey:'centerEmoji'
     }
 ]
 
@@ -214,8 +204,7 @@ tick()
 //
 //      end of Implementing game loop
 
-//      Implementation for loading a question 
-//
+//References current loaded center model
 var currentCenterModel
 
 //Takes a question object from the array above and updates UI with the info.
@@ -258,6 +247,7 @@ export function loadQuestion(questionIndex){
                     joystickScene.add(centerModel)
                     currentCenterModel = centerModel
                 }
+                updateRingLocation()
                 updateSceneAndCamera(joystickScene, joystickCamera)
                 controls.enablePlayerControl()
                 break;
@@ -276,12 +266,8 @@ function updateSceneAndCamera(sceneObject, cameraObject){
     mainCamera.aspect = sizes.width / sizes.height
     mainCamera.updateProjectionMatrix()
 }
-//
-//      end of Implementation for loading a question
 
-//      Calculating distance between player and the center model
-//
-
+//Calculating distance between player and the center model
 function calculateDistance(){
     const player = assetLoader.getModel('playerCharacter')
     let distance
@@ -316,5 +302,15 @@ function calculateDistance(){
     }
 }
 
-//
-//      end of Calculating distance between player and the center model
+//Updates rings' location in regard center model position
+function updateRingLocation(){
+    if(currentCenterModel){
+        const centerModelPosX = currentCenterModel.position.x 
+        const centerModelPosZ = currentCenterModel.position.z 
+        
+        cylinder.position.set(centerModelPosX,-.59,centerModelPosZ)
+        cylinder2.position.set(centerModelPosX,-.60,centerModelPosZ)
+        cylinder3.position.set(centerModelPosX,-.61,centerModelPosZ)
+
+    }
+} 

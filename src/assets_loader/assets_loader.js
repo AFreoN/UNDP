@@ -7,7 +7,8 @@ import * as main from '../script'
 //Add empty keys for each model loaded to calculate loading percentage
 let models = {
     playerCharacter:null,
-    centerCharacter:null
+    centerCharacter:null,
+    centerEmoji:null
 }
 
 //player animations are stored here
@@ -100,6 +101,26 @@ gltfloader.load(
         }
     }
 )
+
+gltfloader.load(
+    'Models/Emojis/love/scene.gltf',
+    (gltf) =>
+    {
+        let model = gltf.scene
+        model.scale.set(.06,.06,.06)
+        model.position.set(1.5,-0.2, 0)
+
+        models['centerEmoji'] = model
+
+        loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
+        loadingBar.animate(loadedPercentage) // animate the progress bar
+        if(loadedPercentage >= 1){ //if loadedPercentage is 1, then the survey can start.
+            //Call function to start the survey
+            main.startSurvey()
+        }
+    }
+)
+
 
 //
 //      end of Loading models

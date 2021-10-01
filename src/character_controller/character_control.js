@@ -251,27 +251,29 @@ function Movecharacter(){
 
 function keyPressed(){
     document.onkeydown = function(e){
-        switch (e.key.toLowerCase()){
-            case 'w':
-                    moveforward = true;
-                    idle = false;
-                break;
-                
-            case 's':
-                    movebackwards = true;
-                    idle = false;
-                break;
-
-            case 'd':
-                    moveright = true;
-                    idle = false;
-                break;  
-                
-            case 'a':
-                    moveleft = true;
-                    idle = false;
-                break;
-        }
+        if(!e.ctrlKey){
+            switch (e.key.toLowerCase()){
+                case 'w':
+                        moveforward = true;
+                        idle = false;
+                    break;
+                    
+                case 's':
+                        movebackwards = true;
+                        idle = false;
+                    break;
+    
+                case 'd':
+                        moveright = true;
+                        idle = false;
+                    break;  
+                    
+                case 'a':
+                        moveleft = true;
+                        idle = false;
+                    break;
+            }
+        }        
     };
 }
 
