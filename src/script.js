@@ -44,10 +44,13 @@ export function loadLastQuestion(){
 
 export function saveCurrentAnswer(answer){
     confirmedAnswers[questionIndex] = answer
+    console.log(confirmedAnswers)
 }
 //
 //      end of Initializing application properties
-
+export function getSelectedCountry(){
+    return confirmedAnswers[0]
+}
 
 //      Main JS Notes
 //-Controls question index

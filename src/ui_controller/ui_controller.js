@@ -7,6 +7,9 @@ import * as main from '../script'
 //question answer containers
 let questionContainer = document.getElementById('question-container')
 let mcqAnswerContainer = document.getElementById('mcq-answer-container')// answer container holds the answer buttons for MCQ
+let joystickAnswerContainer = document.getElementById('joystick-answer-container')
+let countryAnswerContainer = document.getElementById('country-answer-container')
+
 
 //control buttons
 let backButton = document.getElementById('control-back-button')
@@ -17,6 +20,8 @@ let okButton = document.getElementById('control-ok-button')
 let canChangeQuestions = true
 let canConfirmAnswer = false
 
+let selectedAnswerIndex
+
 export function enableQuestionControl(){
     canChangeQuestions = true
 }
@@ -25,14 +30,16 @@ export function disableQuestionControl(){
     canChangeQuestions = false
 }
 
-export function enableConfirmation(){
+export function enableConfirmation(selectedAnswer){
     okButton.disabled = false
     canConfirmAnswer = true
+    selectedAnswerIndex = selectedAnswer
 }
 
 export function disableConfirmation(){
     okButton.disabled = true
     canConfirmAnswer = false
+    selectedAnswerIndex = null
 }
 
 export function enableBackButton(){
@@ -57,8 +64,20 @@ export function updateUI(questionType, questionText, answers){
     questionContainer.style.display = 'initial'
     questionContainer.innerText= questionText
     switch(questionType){
+        case 'country':
+            mcqAnswerContainer.style.display = 'none'
+            joystickAnswerContainer.style.display = 'none'
+            countryAnswerContainer.style.display = 'initial'
+            break;
+        case 'province':
+            mcqAnswerContainer.style.display = 'none'
+            joystickAnswerContainer.style.display = 'none'
+            countryAnswerContainer.style.display = 'none'
+            break;
         case 'mcq':
             mcqAnswerContainer.style.display = 'initial'
+            joystickAnswerContainer.style.display = 'none'
+            countryAnswerContainer.style.display = 'none'
             mcqAnswerContainer.innerHTML = ''
             if(answers){
                 for (let i = 0; i < answers.length; i++) {
@@ -76,7 +95,7 @@ export function updateUI(questionType, questionText, answers){
                     answerBox.appendChild(document.createTextNode(answer))
                     answerBox.addEventListener('click',function(){
                         answerRadio.checked = true
-                        enableConfirmation()
+                        enableConfirmation(i)
                     })
 
 
@@ -86,6 +105,8 @@ export function updateUI(questionType, questionText, answers){
             break;
         case 'joystick':
             mcqAnswerContainer.style.display = 'none'
+            joystickAnswerContainer.style.display = 'initial'
+            countryAnswerContainer.style.display = 'none'
             break;
     }
 }
@@ -104,7 +125,7 @@ nextButton.addEventListener('click',function(){
 
 okButton.addEventListener('click',function(){
     if(canConfirmAnswer){
-        
+        main.saveCurrentAnswer(selectedAnswerIndex)
         main.loadNextQuestion()
     }
 })

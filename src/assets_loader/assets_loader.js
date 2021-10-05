@@ -140,7 +140,7 @@ gltfloader.load(
     {
         let model = gltf.scene
         model.scale.set(.06,.06,.06)
-        model.position.set(1.5,-0.2, 0)
+        model.position.set(1.5,-0.3, 0)
 
         models['centerEmoji'] = model
 
