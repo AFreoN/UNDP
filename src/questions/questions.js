@@ -103,6 +103,9 @@ const joystickCamera = scenes.joystickCamera
 const maldivesScene = scenes.maldivesScene
 const maldivesCamera = scenes.maldivesCamera
 
+const sriLankaScene = scenes.sriLankaScene
+const sriLankaCamera = scenes.sriLankaCamera
+
 
 //an empty scene to load when no country was selected
 const emptyScene = new THREE.Scene()
@@ -162,6 +165,18 @@ const tick = () =>
         scenes.raycastCountry()
     }
 
+    if(currentQuestion && currentQuestion.type === 'province'){
+        const selectedCountryIndex = getSelectedCountry()
+        switch(selectedCountryIndex){
+            case 0:
+                scenes.raycastMaldivesRegions()
+                break;
+            case 1:
+                scenes.raycastSriLankaRegions()
+                break;
+        }
+    }
+
     //Implement loop here
 
     window.requestAnimationFrame(tick)
@@ -208,9 +223,15 @@ export function loadQuestion(questionIndex){
                 const selectedCountryIndex = getSelectedCountry()
                 switch(selectedCountryIndex){
                     case 0:
+                        scenes.resetMaldivesSelections()
                         updateSceneAndCamera(maldivesScene, maldivesCamera)
                         break;
+                    case 1:
+                        scenes.resetSriLankaSelections()
+                        updateSceneAndCamera(sriLankaScene, sriLankaCamera)
+                        break;
                     default:
+                        console.log('select a country');
                         updateSceneAndCamera(emptyScene, emptyCamera)
                         break;
                 }

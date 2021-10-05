@@ -1,5 +1,6 @@
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader'
 import * as main from '../script'
+import * as scenes from '../questions/scenes'
 
 //      Initializing loader module properties
 //
@@ -8,7 +9,8 @@ import * as main from '../script'
 let models = {
     playerCharacter:null,
     centerCharacter:null,
-    centerEmoji:null
+    centerEmoji:null,
+    sriLankaMap:null
 }
 
 //player animations are stored here
@@ -143,6 +145,30 @@ gltfloader.load(
         model.position.set(1.5,-0.3, 0)
 
         models['centerEmoji'] = model
+
+        loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
+        loadingBar.animate(loadedPercentage) // animate the progress bar
+        // if(loadedPercentage >= 1){ //if loadedPercentage is 1, then the survey can start.
+        //     //Call function to start the survey
+        //     main.startSurvey()
+        // }
+    }
+)
+
+gltfloader.load(
+    'Sri Lankan Map.glb',
+    (gltf) =>
+    {
+        let model = gltf.scene
+        model.scale.set(4,4,4)
+        model.position.set(0, 0, 0)
+
+        models['sriLankaMap'] = model
+        
+        scenes.sriLankaScene.add(models['sriLankaMap'])
+        let sriLankaRegions = models['sriLankaMap'].children.slice()
+        sriLankaRegions.splice(0,2)
+        scenes.setSriLankaRegions(sriLankaRegions)
 
         loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
         loadingBar.animate(loadedPercentage) // animate the progress bar

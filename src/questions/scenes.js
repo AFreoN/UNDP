@@ -32,8 +32,7 @@ sriLankaCube.position.set(1.5,0,0)
 
 const countryAmbientLight = new THREE.AmbientLight(0xffffff)
 countryScene.add(countryAmbientLight)
-//
-//      end of Country selection scene
+
 
 export function resetCountrySelections(){
     sriLankaCube.position.y = 0
@@ -97,6 +96,8 @@ function onCountryClick(){
         }
     }
 }
+//
+//      end of Country selection scene
 
 
 //      Maldives region selection scene
@@ -136,10 +137,171 @@ const southCube = new THREE.Mesh(new THREE.BoxGeometry(0.75,0.1,0.75), new THREE
 maldivesScene.add(southCube)
 southCube.position.set(0,0,3)
 
+var maldivesRegions = [//Storing region objects in an array for easy access 
+    upperNorthCube,
+    northCube,
+    northCentralCube,
+    centralCube,
+    upperSouthCube,
+    southCentralCube,
+    southCube
+]
+
+export function setMaldivesRegions(regions){
+    maldivesRegions = regions
+}
+
 const maldivesAmbientLight = new THREE.AmbientLight(0xffffff)
 maldivesScene.add(maldivesAmbientLight)
+
+
+export function resetMaldivesSelections(){
+   for (let i = 0; i < maldivesRegions.length; i++) {
+       const element = maldivesRegions[i];
+       element.position.y = 0
+   }
+
+    hoveringMaldivesRegion = null
+    selectedMaldivesRegion = null
+}
+
+var hoveringMaldivesRegion
+var selectedMaldivesRegion
+
+export function raycastMaldivesRegions(){
+    raycaster.setFromCamera(mouse,maldivesCamera)
+    
+    const intersects = raycaster.intersectObjects(maldivesRegions)
+
+    if(intersects.length > 0){
+        const closestIntersect = intersects[0].object
+        if(closestIntersect !== selectedMaldivesRegion){
+            if(closestIntersect !== hoveringMaldivesRegion){
+                if(hoveringMaldivesRegion){
+                    hoveringMaldivesRegion.position.y = 0
+                    hoveringMaldivesRegion.material.emissive.setHex(0x000000)
+                }
+
+                hoveringMaldivesRegion = closestIntersect
+                hoveringMaldivesRegion.material.emissive.setHex(0x444444)
+                hoveringMaldivesRegion.position.y = 0.1
+            }
+        }
+    }
+    else{
+        if(hoveringMaldivesRegion){
+            hoveringMaldivesRegion.position.y = 0
+            hoveringMaldivesRegion.material.emissive.setHex(0x000000)
+            hoveringMaldivesRegion = null
+        }
+    }
+}
+
+document.addEventListener('click',onMaldivesRegionClick)
+
+function onMaldivesRegionClick(){
+    if(hoveringMaldivesRegion){
+        if(hoveringMaldivesRegion !== selectedMaldivesRegion){
+            if(selectedMaldivesRegion){
+                selectedMaldivesRegion.position.y = 0
+                selectedMaldivesRegion = null
+            }
+            selectedMaldivesRegion = hoveringMaldivesRegion
+            hoveringMaldivesRegion = null
+            selectedMaldivesRegion.position.y = 0.25
+            selectedMaldivesRegion.material.emissive.setHex(0x000000)
+            const regionIndex = maldivesRegions.indexOf(selectedMaldivesRegion)
+            console.log(regionIndex);
+            uiControl.enableConfirmation(regionIndex)
+        }
+    }
+}
 //
-//      end of Country selection scene
+//      end of Maldives region selection scene
+
+
+//      Sri Lanka region selection scene
+//
+export const sriLankaScene = new THREE.Scene()
+export const sriLankaCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100)
+sriLankaScene.add(sriLankaCamera)
+
+sriLankaCamera.position.set(0,4,2)
+sriLankaCamera.rotation.set(Math.PI * -0.4,0,0)
+
+var sriLankaRegions = []
+
+export function setSriLankaRegions(regions){
+    sriLankaRegions = regions
+}
+
+const sriLankaAmbientLight = new THREE.AmbientLight(0xffffff)
+sriLankaScene.add(sriLankaAmbientLight)
+
+
+export function resetSriLankaSelections(){
+    for (let i = 0; i < sriLankaRegions.length; i++) {
+        const element = sriLankaRegions[i];
+        element.position.y = 0
+    }
+
+    hoveringSriLankaRegion = null
+    selectedSriLankaRegion = null
+}
+
+var hoveringSriLankaRegion
+var selectedSriLankaRegion
+
+export function raycastSriLankaRegions(){
+    raycaster.setFromCamera(mouse,sriLankaCamera)
+    
+    const intersects = raycaster.intersectObjects(sriLankaRegions)
+
+    if(intersects.length > 0){
+        const closestIntersect = intersects[0].object
+        if(closestIntersect !== selectedSriLankaRegion){
+            if(closestIntersect !== hoveringSriLankaRegion){
+                if(hoveringSriLankaRegion){
+                    hoveringSriLankaRegion.position.y = 0
+                    hoveringSriLankaRegion.material.emissive.setHex(0x000000)
+                }
+                hoveringSriLankaRegion = closestIntersect
+                hoveringSriLankaRegion.material.emissive.setHex(0x444444)
+                hoveringSriLankaRegion.position.y = 0.04
+            }
+        }
+    }
+    else{
+        if(hoveringSriLankaRegion){
+            hoveringSriLankaRegion.position.y = 0
+            hoveringSriLankaRegion.material.emissive.setHex(0x000000)
+            hoveringSriLankaRegion = null
+        }
+    }
+}
+
+document.addEventListener('click',onSriLankaRegionClick)
+
+function onSriLankaRegionClick(){
+    if(hoveringSriLankaRegion){
+        if(hoveringSriLankaRegion !== selectedSriLankaRegion){
+            if(selectedSriLankaRegion){
+                selectedSriLankaRegion.position.y = 0
+                selectedSriLankaRegion = null
+            }
+            selectedSriLankaRegion = hoveringSriLankaRegion
+            hoveringSriLankaRegion = null
+            selectedSriLankaRegion.position.y = 0.08
+            selectedSriLankaRegion.material.emissive.setHex(0x000000)
+            const regionIndex = sriLankaRegions.indexOf(selectedSriLankaRegion)
+            console.log(regionIndex);
+            uiControl.enableConfirmation(regionIndex)
+        }
+    }
+}
+//
+//      end of Sri Lanka region selection scene
+
 
 //      MCQ scene
 //
