@@ -24,11 +24,11 @@ countryCamera.rotation.set(Math.PI * -0.4,0,0)
 
 const maldivesCube = new THREE.Mesh(new THREE.BoxGeometry(1,0.1,1), new THREE.MeshLambertMaterial({color: 0xee2b2b}))
 countryScene.add(maldivesCube)
-maldivesCube.position.set(-1.5,0,0)
+maldivesCube.position.set(-1,0,0)
 
 const sriLankaCube = new THREE.Mesh(new THREE.BoxGeometry(1,0.1,1), new THREE.MeshLambertMaterial({color: 0x2b2bee}))
 countryScene.add(sriLankaCube)
-sriLankaCube.position.set(1.5,0,0)
+sriLankaCube.position.set(1,0,0)
 
 const countryAmbientLight = new THREE.AmbientLight(0xffffff)
 countryScene.add(countryAmbientLight)
@@ -62,6 +62,7 @@ export function raycastCountry(){
                 hoveringCountry = closestIntersect
                 hoveringCountry.material.emissive.setHex(0x444444)
                 hoveringCountry.position.y = 0.1
+
             }
         }
     }
@@ -90,8 +91,10 @@ function onCountryClick(){
             uiControl.enableNextButton()
             if(selectedCountry === maldivesCube){
                 uiControl.enableConfirmation(0)
+                uiControl.setCountryName('Maldives')
             } else if (selectedCountry === sriLankaCube){
                 uiControl.enableConfirmation(1)
+                uiControl.setCountryName('Sri Lanka')
             }
         }
     }
@@ -112,30 +115,40 @@ maldivesCamera.rotation.set(Math.PI * -0.4,0,0)
 const upperNorthCube = new THREE.Mesh(new THREE.BoxGeometry(0.75,0.1,0.75), new THREE.MeshLambertMaterial({color: 0x03d7fc}))
 maldivesScene.add(upperNorthCube)
 upperNorthCube.position.set(0,0,-3)
+upperNorthCube.name = 'Upper North province'
 
 const northCube = new THREE.Mesh(new THREE.BoxGeometry(0.75,0.1,0.75), new THREE.MeshLambertMaterial({color: 0xff5252}))
 maldivesScene.add(northCube)
 northCube.position.set(0,0,-2)
+northCube.name = 'North province'
+
 
 const northCentralCube = new THREE.Mesh(new THREE.BoxGeometry(0.75,0.1,0.75), new THREE.MeshLambertMaterial({color: 0xcfcfcf}))
 maldivesScene.add(northCentralCube)
 northCentralCube.position.set(0,0,-1)
+northCentralCube.name = 'North Central province'
 
 const centralCube = new THREE.Mesh(new THREE.BoxGeometry(0.75,0.1,0.75), new THREE.MeshLambertMaterial({color: 0xffe0e0}))
 maldivesScene.add(centralCube)
 centralCube.position.set(0,0,0)
+centralCube.name = 'Central province'
 
 const upperSouthCube = new THREE.Mesh(new THREE.BoxGeometry(0.75,0.1,0.75), new THREE.MeshLambertMaterial({color: 0xffe17d}))
 maldivesScene.add(upperSouthCube)
 upperSouthCube.position.set(0,0,1)
+upperSouthCube.name = 'Upper South province'
 
 const southCentralCube = new THREE.Mesh(new THREE.BoxGeometry(0.75,0.1,0.75), new THREE.MeshLambertMaterial({color: 0x4dff3d}))
 maldivesScene.add(southCentralCube)
 southCentralCube.position.set(0,0,2)
+southCentralCube.name = 'South Central province'
 
 const southCube = new THREE.Mesh(new THREE.BoxGeometry(0.75,0.1,0.75), new THREE.MeshLambertMaterial({color: 0xab7aff}))
 maldivesScene.add(southCube)
 southCube.position.set(0,0,3)
+southCube.name = 'South province'
+
+
 
 var maldivesRegions = [//Storing region objects in an array for easy access 
     upperNorthCube,
@@ -211,8 +224,9 @@ function onMaldivesRegionClick(){
             selectedMaldivesRegion.position.y = 0.25
             selectedMaldivesRegion.material.emissive.setHex(0x000000)
             const regionIndex = maldivesRegions.indexOf(selectedMaldivesRegion)
-            console.log(regionIndex);
+            // console.log(regionIndex);
             uiControl.enableConfirmation(regionIndex)
+            uiControl.setRegionName(selectedMaldivesRegion.name)
         }
     }
 }
@@ -294,8 +308,9 @@ function onSriLankaRegionClick(){
             selectedSriLankaRegion.position.y = 0.08
             selectedSriLankaRegion.material.emissive.setHex(0x000000)
             const regionIndex = sriLankaRegions.indexOf(selectedSriLankaRegion)
-            console.log(regionIndex);
+            // console.log(regionIndex);
             uiControl.enableConfirmation(regionIndex)
+            uiControl.setRegionName(selectedSriLankaRegion.name)
         }
     }
 }

@@ -9,6 +9,7 @@ let questionContainer = document.getElementById('question-container')
 let mcqAnswerContainer = document.getElementById('mcq-answer-container')// answer container holds the answer buttons for MCQ
 let joystickAnswerContainer = document.getElementById('joystick-answer-container')
 let countryAnswerContainer = document.getElementById('country-answer-container')
+let regionAnswerContainer = document.getElementById('region-answer-container')
 
 
 //control buttons
@@ -59,6 +60,15 @@ export function disableNextButton(){
 }
 
 
+
+export function setCountryName(name){
+    countryAnswerContainer.innerText = name
+}
+
+export function setRegionName(name){
+    regionAnswerContainer.innerText = name
+}
+
 //Changes UI in respect to question type, sets the question text, and answers
 export function updateUI(questionType, questionText, answers){
     questionContainer.style.display = 'initial'
@@ -68,16 +78,23 @@ export function updateUI(questionType, questionText, answers){
             mcqAnswerContainer.style.display = 'none'
             joystickAnswerContainer.style.display = 'none'
             countryAnswerContainer.style.display = 'initial'
+            regionAnswerContainer.style.display = 'none'
+
+            countryAnswerContainer.innerText = ''
             break;
         case 'province':
             mcqAnswerContainer.style.display = 'none'
             joystickAnswerContainer.style.display = 'none'
             countryAnswerContainer.style.display = 'none'
+            regionAnswerContainer.style.display = 'initial'
+            
+            regionAnswerContainer.innerText = ''
             break;
         case 'mcq':
             mcqAnswerContainer.style.display = 'initial'
             joystickAnswerContainer.style.display = 'none'
             countryAnswerContainer.style.display = 'none'
+            regionAnswerContainer.style.display = 'none'
             mcqAnswerContainer.innerHTML = ''
             if(answers){
                 for (let i = 0; i < answers.length; i++) {
@@ -107,6 +124,7 @@ export function updateUI(questionType, questionText, answers){
             mcqAnswerContainer.style.display = 'none'
             joystickAnswerContainer.style.display = 'initial'
             countryAnswerContainer.style.display = 'none'
+            regionAnswerContainer.style.display = 'none'
             break;
     }
 }
