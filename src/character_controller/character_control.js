@@ -19,6 +19,11 @@ export function disablePlayerControl(){
 let player = null; //Holds player model
 let playerMixer = null; //Holds player animation mixer
 let playerAnimations = null //Holds player animation array
+var animationIndex = 0;     //Id for current playing animation  2-Idle, 3-Walk
+
+const playerSpeed = 0.15
+var moveDirection = new THREE.Vector2(0,0)
+var curDirection = new THREE.Vector2()
 
 const sizes = {
     width: window.innerWidth,
@@ -37,19 +42,23 @@ export function setPlayer(playerModel, playerAnims){
     playerAnimations = playerAnims
 }
 
-//holds cursor position calculated from center of the screen
-const mouse = new THREE.Vector2() 
+const up = new THREE.Vector2(0,1)
+const startMousePos = new THREE.Vector2()
+const curMousePos = new THREE.Vector2()
+const startTouchPos =  new THREE.Vector2()
+const curTouchPos = new THREE.Vector2()
+
+const minMoveDis = 0.04     //Minimum distance(movePixels/screenwidth) to change start mouse position
 
 window.addEventListener('mousemove', (event) =>
 {
-    mouse.x = event.clientX /sizes.width * 2 -1
-    mouse.y = -(event. clientY / sizes.height * 2 -1)
+    onDocumentMouseMove(event)
 })
 
 //adding event listeners for controls
 
 //mouse events
-document.addEventListener('mousemove', onDocumentMouseMove)
+//document.addEventListener('mousemove', onDocumentMouseMove)
 document.addEventListener('mousedown', onDocumentMouseDown)
 document.addEventListener('mouseup', onDocumentMouseUp)
 
@@ -65,8 +74,8 @@ function preventDefault(e) {
 }
 
 //keyboard events
-document.addEventListener('keydown', keyPressed )
-document.addEventListener('keyup',  keylifted)
+document.addEventListener('keydown', keyPressedNew )
+document.addEventListener('keyup',  keyLiftedNew)
 
 const windowX = window.innerWidth / 2 ;
 const windowY = window.innerHeight / 2;
@@ -74,102 +83,43 @@ const windowY = window.innerHeight / 2;
 //Is character moving
 var move= false;
 
-//variables for mouse movement
-var mouseoriginalx, mouseoriginaly, mousenewx, mousenewy;
-
 //variables for touch movement
 var touchy,touchx, touchnewy, touchnewx;
 
+function onDocumentMouseDown(event){
+    move = true;
+
+    startMousePos.x = event.clientX;
+    startMousePos.y = event.clientY;
+
+    moveDirection.x = 0;
+    moveDirection.y = 0;
+    curDirection.x = 0;
+    curDirection.y = 0;
+}
 
 function onDocumentMouseMove(event) {
-    mousenewx = mouse.x
-    mousenewy = mouse.y
+    curMousePos.x = event.clientX;
+    curMousePos.y = event.clientY;
+
+    var deltaX = curMousePos.x - startMousePos.x;
+    var deltaY = curMousePos.y - startMousePos.y;
 
     if(move)
     {
          idle = false;
 
-        if(mousenewx - mouseoriginalx > 0.1){
-            moveright = true;
-            moveleft = false;
-        }
+         moveDirection.x = deltaX;
+         moveDirection.y = deltaY;
+         moveDirection.normalize();
 
-        if(mousenewx - mouseoriginalx < -0.1){
-            moveleft = true;
-            moveright = false;
-        }
+         var val = curMousePos.clone().sub(startMousePos).length() / screen.width;
 
-         if(mousenewy - mouseoriginaly > 0.1){
-            moveforward =  true;
-            movebackwards = false;
-
-        }
-
-        if(mousenewy - mouseoriginaly < -0.1){
-            movebackwards = true;
-            moveforward = false;
-        } 
+         if(val >= minMoveDis){
+            startMousePos.x = curMousePos.x;
+            startMousePos.y = curMousePos.y;
+         }
     }   
-}
-
-function onDocumentTouchStart(event){
-
-    touchx = (event.touches[0].clientX - windowX)
-    touchy = (event.touches[0].clientY - windowY)
-
-    move = true;
-
-    window.scroll = false;
-}    
-
-function onDocumenttouchMove(event){
-    touchnewx = (event.touches[0].clientX - windowX)
-    touchnewy = (event.touches[0].clientY - windowY)
-
-    if(move)
-    {
-         
-        idle = false;
-        if(touchnewx - touchx > 10 ){
-            moveright = true;
-            moveleft = false;
-        }else{
-            moveright = false;
-        }
-
-        if( touchnewx - touchx < -10 ){
-            moveleft = true;
-            moveright = false;
-        }else{
-            moveleft = false;
-        }
-
-         if(touchnewy - touchy  < -10){
-            moveforward =  true;
-            movebackwards = false;
-
-        }
-
-        if(touchnewy - touchy > 10){
-            movebackwards = true;
-            moveforward = false;
-        } 
-    }   
-}
-
-function onDocumentTouchEnd(event){
-    move = false;
-    moveforward = false;
-    movebackwards= false;
-    moveleft = false;
-    moveright = false;
-    idle = true;
-}
-
-function onDocumentMouseDown(event){
-    move = true;
-    mouseoriginalx = mouse.x
-    mouseoriginaly = mouse.y
 }
 
 function onDocumentMouseUp(event){
@@ -181,18 +131,75 @@ function onDocumentMouseUp(event){
     idle = true;
 }
 
+function onDocumentTouchStart(event){
+    
+    move = true;
+
+    startTouchPos.x = event.touches[0].clientX;
+    startTouchPos.y = event.touches[0].clientY;
+    
+    moveDirection.x = 0;
+    moveDirection.y = 0;
+    curDirection.x = 0;
+    curDirection.y = 0;
+
+    window.scroll = false;
+}    
+
+function onDocumenttouchMove(event){
+    curTouchPos.x = event.touches[0].clientX;
+    curTouchPos.y = event.touches[0].clientY;
+
+    var deltaX = curTouchPos.x - startTouchPos.x;
+    var deltaY = curTouchPos.y - startTouchPos.y;
+
+    if(move)
+    {
+         idle = false;
+
+         moveDirection.x = deltaX;
+         moveDirection.y = deltaY;
+         moveDirection.normalize();
+
+         var val = curTouchPos.clone().sub(startTouchPos).length() / screen.width;
+
+         if(val >= minMoveDis){
+            startTouchPos.x = curTouchPos.x;
+            startTouchPos.y = curTouchPos.y;
+         }
+    } 
+}
+
+function onDocumentTouchEnd(event){
+    move = false;
+    moveforward = false;
+    movebackwards= false;
+    moveleft = false;
+    moveright = false;
+    idle = true;
+}
+
+
+
 var moveforward, movebackwards, moveleft, moveright
 var idle = true;
 
 function Movecharacter(){
     idle = true;
     
+    newPlayerMovement()
+
+    //oldPlayerRotation()
+
+    limitArea()
+}
+
+function oldPlayerMovement(){
     if(moveforward ){
         player.position.z +=  -.01
         player.rotation.set(0,Math.PI * 1,0)
         idle = false;
     }
-  
 
     if(movebackwards ){
         player.position.z +=  .01
@@ -211,7 +218,39 @@ function Movecharacter(){
         idle = false;
         player.rotation.set(0,Math.PI * -.5 ,0)
     }
+}
 
+function newPlayerMovement(){
+    if(!move){
+        return;
+    }
+
+    //idle = false;
+    idle = moveDirection.length() > 0 ? false : true;
+    curDirection.lerpVectors(curDirection, moveDirection, 0.7);
+    player.position.x += curDirection.x * playerSpeed * 0.1;
+    player.position.z += curDirection.y * playerSpeed * 0.1;
+
+    newPlayerRotation();
+}
+
+function newPlayerRotation(){
+
+    var dot = up.dot(curDirection);
+    var angle = Math.acos(dot) * 57.296;
+    //curMousePos.x < startMousePos.x
+    if(curDirection.x < 0){
+        angle = 360-angle;
+    }
+
+    var eu = new THREE.Euler(0, THREE.Math.degToRad(angle), 0, 'XYZ');
+    var quat = new THREE.Quaternion().setFromEuler(eu);
+
+    //player.rotation.set(0, THREE.Math.degToRad(angle), 0);
+    player.quaternion.set(quat.x, quat.y, quat.z, quat.w);
+}
+
+function oldPlayerRotation(){
     if(moveleft && moveforward){
         player.rotation.set(0,Math.PI * -.7 ,0)
     }
@@ -227,7 +266,9 @@ function Movecharacter(){
     if(moveright && movebackwards){
         player.rotation.set(0,Math.PI * .3 ,0)
     }
+}
 
+function limitArea(){
     //limit the player movment area
     if(player !== null){
         if( player.position.z >= 2.5){
@@ -277,7 +318,58 @@ function keyPressed(){
     };
 }
 
+function keyPressedNew(){
+    document.onkeydown = function(e){
+        if(!e.ctrlKey){
+            var isMoveKeyPressed = e.key.toLowerCase() == 'w' || e.key.toLowerCase() == 's' || 
+                e.key.toLowerCase() == 'd' || e.key.toLowerCase() == 'a';
+            
+            if(!isMoveKeyPressed){
+                return;
+            }
+            
+            if(e.key.toLowerCase() == 'w'){     //Forward
+                moveDirection.y += -1;
+            }
+            if(e.key.toLowerCase() == 's'){     //Backward
+                moveDirection.y += 1;
+            }
+            if(e.key.toLowerCase() == 'd'){     //Right
+                moveDirection.x += 1;
+            }
+            if(e.key.toLowerCase() == 'a'){      //Left
+                moveDirection.x += -1;
+            }
 
+            move = true;
+            moveDirection.normalize();
+        }        
+    };
+}
+
+function keyLiftedNew(){
+    document.onkeyup = function(e){
+        if(!e.ctrlKey){
+            
+
+            if(e.key.toLowerCase() == 'w'){     //Forward
+                moveDirection.y = 0;
+            }
+            if(e.key.toLowerCase() == 's'){     //Backward
+                moveDirection.y = 0;
+            }
+            if(e.key.toLowerCase() == 'd'){     //Right
+                moveDirection.x = 0;
+            }
+            if(e.key.toLowerCase() == 'a'){      //Left
+                moveDirection.x = 0;
+            }
+
+            moveDirection.normalize();
+            move = moveDirection.length() > 0 ? true : false;
+        }        
+    };
+}
 function keylifted(){
     document.onkeyup = function(e){
         switch(e.key.toLowerCase()){
@@ -304,29 +396,60 @@ function keylifted(){
     }
 }
 
-//animates player depending on player's start (eg - idle/ running)
+//animates player depending on player's start (eg - idle/ running)  //2 - Idle, 3 - Walk
 function animatePlayer(){
+    const fadeDuration = 0.25;
     if(canControlPlayer){
+        const idleAction = playerMixer.clipAction(playerAnimations[2]);
+        const walkAction = playerMixer.clipAction(playerAnimations[3]);
         if(idle){
             if(playerMixer)
             {
-                playerMixer.clipAction(playerAnimations[3]).stop();
-                playerMixer.clipAction(playerAnimations[2]).play();
+                // playerMixer.clipAction(playerAnimations[3]).stop();
+                // playerMixer.clipAction(playerAnimations[2]).play();
+                //Go to Idle
+                if(animationIndex != 2){
+                    animationIndex = 2;
+
+                    //walkAction.stop();
+                    idleAction.reset();
+                    idleAction.crossFadeFrom(walkAction ,fadeDuration);
+                    idleAction.play();
+                }
             }
         }
         else
         {
             if(playerMixer)
             {
-                playerMixer.clipAction(playerAnimations[2]).stop();      
-                playerMixer.clipAction(playerAnimations[3]).play();
+                // playerMixer.clipAction(playerAnimations[2]).stop();      
+                // playerMixer.clipAction(playerAnimations[3]).play();
+                //Go to Walk
+                if(animationIndex != 3){
+                    animationIndex = 3;
+
+                    //idleAction.stop();
+                    walkAction.reset();
+                    walkAction.crossFadeFrom(idleAction, fadeDuration);
+                    walkAction.play();
+                }
             }
         }
     }else{
         if(playerMixer)
             {
-                playerMixer.clipAction(playerAnimations[3]).stop();
-                playerMixer.clipAction(playerAnimations[2]).play();
+                //Go to Idle
+                if(animationIndex != 2){
+                    animationIndex = 2;
+
+                    const idleAction = playerMixer.clipAction(playerAnimations[2]);
+                    const walkAction = playerMixer.clipAction(playerAnimations[3]);
+
+                    //walkAction.stop();
+                    idleAction.reset();
+                    idleAction.crossFadeFrom(walkAction ,fadeDuration);
+                    idleAction.play();
+                }
             }
     }
     
