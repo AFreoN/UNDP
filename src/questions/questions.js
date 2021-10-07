@@ -157,25 +157,29 @@ const tick = () =>
     const deltatime = elapsedTime - previousTime //delta time can be retrieved from here
     previousTime = elapsedTime
     
-    if(currentQuestion && currentQuestion.type === 'joystick'){
-        scenes.calculateDistance(currentCenterModel,currentQuestion.answers)   
-    }
-
-    if(currentQuestion && currentQuestion.type === 'country'){
-        scenes.raycastCountry()
-    }
-
-    if(currentQuestion && currentQuestion.type === 'province'){
-        const selectedCountryIndex = getSelectedCountry()
-        switch(selectedCountryIndex){
-            case 0:
-                scenes.raycastMaldivesRegions()
-                break;
-            case 1:
-                scenes.raycastSriLankaRegions()
-                break;
+    if(!(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))){
+        if(currentQuestion && currentQuestion.type === 'joystick'){
+            scenes.calculateDistance(currentCenterModel,currentQuestion.answers)   
+        }
+    
+        if(currentQuestion && currentQuestion.type === 'country'){
+            scenes.raycastCountry()
+        }
+    
+        if(currentQuestion && currentQuestion.type === 'province'){
+            const selectedCountryIndex = getSelectedCountry()
+            switch(selectedCountryIndex){
+                case 0:
+                    scenes.raycastMaldivesRegions()
+                    break;
+                case 1:
+                    scenes.raycastSriLankaRegions()
+                    break;
+            }
         }
     }
+
+    
 
     //Implement loop here
 
@@ -215,7 +219,7 @@ export function loadQuestion(questionIndex){
         
         switch(questionType.toLowerCase()){
             case 'country':
-                scenes.resetCountrySelections()
+                scenes.resetCountrySelection()
                 // uiControl.disableNextButton()
                 updateSceneAndCamera(countryScene, countryCamera)
                 break;
@@ -223,11 +227,11 @@ export function loadQuestion(questionIndex){
                 const selectedCountryIndex = getSelectedCountry()
                 switch(selectedCountryIndex){
                     case 0:
-                        scenes.resetMaldivesSelections()
+                        scenes.resetMaldivesSelection()
                         updateSceneAndCamera(maldivesScene, maldivesCamera)
                         break;
                     case 1:
-                        scenes.resetSriLankaSelections()
+                        scenes.resetSriLankaSelection()
                         updateSceneAndCamera(sriLankaScene, sriLankaCamera)
                         break;
                     default:
