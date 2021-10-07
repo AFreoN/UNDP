@@ -69,15 +69,17 @@ export function setRegionName(name){
     regionAnswerContainer.innerText = name
 }
 
+var selectedMcqAnswer = null
+
 //Changes UI in respect to question type, sets the question text, and answers
 export function updateUI(questionType, questionText, answers){
-    questionContainer.style.display = 'initial'
+    questionContainer.style.display = ''
     questionContainer.innerText= questionText
     switch(questionType){
         case 'country':
             mcqAnswerContainer.style.display = 'none'
             joystickAnswerContainer.style.display = 'none'
-            countryAnswerContainer.style.display = 'initial'
+            countryAnswerContainer.style.display = ''
             regionAnswerContainer.style.display = 'none'
 
             countryAnswerContainer.innerText = ''
@@ -86,16 +88,17 @@ export function updateUI(questionType, questionText, answers){
             mcqAnswerContainer.style.display = 'none'
             joystickAnswerContainer.style.display = 'none'
             countryAnswerContainer.style.display = 'none'
-            regionAnswerContainer.style.display = 'initial'
-            
+            regionAnswerContainer.style.display = ''
+
             regionAnswerContainer.innerText = ''
             break;
         case 'mcq':
-            mcqAnswerContainer.style.display = 'initial'
+            mcqAnswerContainer.style.display = ''
             joystickAnswerContainer.style.display = 'none'
             countryAnswerContainer.style.display = 'none'
             regionAnswerContainer.style.display = 'none'
             mcqAnswerContainer.innerHTML = ''
+            selectedMcqAnswer = null
             if(answers){
                 for (let i = 0; i < answers.length; i++) {
                     // creating a new answer box with text and radio buttons for each in answer for MCQs
@@ -104,6 +107,7 @@ export function updateUI(questionType, questionText, answers){
                     const answerRadio = document.createElement('input')
                     answerRadio.type = 'radio'
                     answerRadio.name = 'answer'
+                    answerRadio.classList.add('hidden-radio')
                     answerRadio.id = `answer-${i}`
 
                     const answerBox = document.createElement('div')
@@ -113,6 +117,12 @@ export function updateUI(questionType, questionText, answers){
                     answerBox.addEventListener('click',function(){
                         answerRadio.checked = true
                         enableConfirmation(i)
+                        if(selectedMcqAnswer){
+                            selectedMcqAnswer.classList.remove('selected')
+                            selectedMcqAnswer = null
+                        }
+                        selectedMcqAnswer = answerBox
+                        selectedMcqAnswer.classList.add('selected')
                     })
 
 
@@ -122,7 +132,7 @@ export function updateUI(questionType, questionText, answers){
             break;
         case 'joystick':
             mcqAnswerContainer.style.display = 'none'
-            joystickAnswerContainer.style.display = 'initial'
+            joystickAnswerContainer.style.display = ''
             countryAnswerContainer.style.display = 'none'
             regionAnswerContainer.style.display = 'none'
             break;

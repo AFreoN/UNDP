@@ -22,14 +22,16 @@
     </div>
     <div class="ui-container">
         <div class="question-container" id="question-container"> Question </div>
+        <div class="country-answer-container answer-container" id="country-answer-container"></div>
+        <div class="region-answer-container answer-container" id="region-answer-container"></div>
         <div class="mcq-answers-container" id="mcq-answer-container"></div>
-        <div class="joystick-answer-container" id="joystick-answer-container"></div>
-        <div class="country-answer-container" id="country-answer-container"></div>
-        <div class="region-answer-container" id="region-answer-container"></div>
+        <div class="joystick-answer-container answer-container" id="joystick-answer-container"></div>
         <div class="control-container">
-            <button class="page-control-button" id="control-back-button"> back </button>
-            <button class="page-control-button" id="control-next-button"> next </button>
-            <button class="page-control-button" id="control-ok-button"> ok </button>
+            <div class="control-page-button-container">
+                <button class="control-button" id="control-back-button"> &#x25C0 </button>
+                <button class="control-button" id="control-next-button"> &#x25B6 </button>
+            </div>
+            <button class="control-button" id="control-ok-button"> ok &#x2713 </button>
         </div>
     </div>
     <canvas class="webgl"></canvas>
