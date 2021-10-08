@@ -10,6 +10,7 @@ let mcqAnswerContainer = document.getElementById('mcq-answer-container')// answe
 let joystickAnswerContainer = document.getElementById('joystick-answer-container')
 let countryAnswerContainer = document.getElementById('country-answer-container')
 let regionAnswerContainer = document.getElementById('region-answer-container')
+let joystickTutorialContainer = document.getElementById('joystick-tutorial-frame')
 
 
 //control buttons
@@ -81,6 +82,7 @@ export function updateUI(questionType, questionText, answers){
             joystickAnswerContainer.style.display = 'none'
             countryAnswerContainer.style.display = ''
             regionAnswerContainer.style.display = 'none'
+            joystickTutorialContainer.style.display = 'none'
 
             countryAnswerContainer.innerText = ''
             break;
@@ -89,6 +91,7 @@ export function updateUI(questionType, questionText, answers){
             joystickAnswerContainer.style.display = 'none'
             countryAnswerContainer.style.display = 'none'
             regionAnswerContainer.style.display = ''
+            joystickTutorialContainer.style.display = 'none'
 
             regionAnswerContainer.innerText = ''
             break;
@@ -97,6 +100,8 @@ export function updateUI(questionType, questionText, answers){
             joystickAnswerContainer.style.display = 'none'
             countryAnswerContainer.style.display = 'none'
             regionAnswerContainer.style.display = 'none'
+            joystickTutorialContainer.style.display = 'none'
+
             mcqAnswerContainer.innerHTML = ''
             selectedMcqAnswer = null
             if(answers){
@@ -135,9 +140,21 @@ export function updateUI(questionType, questionText, answers){
             joystickAnswerContainer.style.display = ''
             countryAnswerContainer.style.display = 'none'
             regionAnswerContainer.style.display = 'none'
+            if(main.isJoyStickTutorialDisplayed() == false){
+                joystickTutorialContainer.style.display = ''
+            }
+            else{
+                joystickTutorialContainer.style.display = 'none'
+            }
             break;
     }
 }
+
+joystickTutorialContainer.addEventListener('click', function(){
+    main.joystickTutorialEnded();
+    joystickTutorialContainer.style.display = 'none';
+    main.enablePlayerControl();
+})
 
 backButton.addEventListener('click',function(){
     if(canChangeQuestions){

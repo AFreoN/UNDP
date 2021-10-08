@@ -4,6 +4,8 @@ import * as controls from '../character_controller/character_control'
 import * as uiControl from '../ui_controller/ui_controller'
 import * as scenes from './scenes'
 import {getSelectedCountry} from '../script'
+import main from 'progressbar.js'
+import * as mainScript from '../script.js'
 
 //      Assigning questions and answers
 //
@@ -262,7 +264,8 @@ export function loadQuestion(questionIndex){
                 scenes.updateRingLocation(currentCenterModel)
                 updateSceneAndCamera(joystickScene, joystickCamera)
                 joystickScene.add(player)
-                controls.enablePlayerControl()
+                if(mainScript.isJoyStickTutorialDisplayed())
+                    controls.enablePlayerControl()
                 break;
         }
         

@@ -6,6 +6,7 @@ import * as controls from './character_controller/character_control'
 //      Initializing application properties
 //
 let surveyStarted = false //other modules can read this value to see if the survey has started
+let joystickTutorialShown = false;
 
 let questionIndex = 0 //indicates the question to be loaded
  
@@ -50,6 +51,18 @@ export function saveCurrentAnswer(answer){
 //      end of Initializing application properties
 export function getSelectedCountry(){
     return confirmedAnswers[0]
+}
+
+export function isJoyStickTutorialDisplayed(){
+    return joystickTutorialShown;
+}
+
+export function joystickTutorialEnded(){
+    joystickTutorialShown = true;
+}
+
+export function enablePlayerControl(){
+    controls.enablePlayerControl();
 }
 
 //      Main JS Notes

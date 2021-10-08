@@ -169,7 +169,32 @@ canvas.webgl{
     font-size: 3vh;
 }
 
+.joystick-tutorial-container{
+    width: 60vh;
+    height: 40vh;
+    border-width: 5px;
+    border-style: dashed;
+    display: flex;
+    position: absolute;
 
+    justify-content: center;
+    align-items: top;
+    padding-top: 2vh;
+    padding-left: 2vw;
+    padding-right: 2vw;
+
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+
+    background: #e5fd79;
+    font-weight: 1000;
+    color: rgba(0, 0, 0, 0.7);
+    border-radius: 20px;
+    font-size: 3vh; 
+}
 
 #control-back-button{
     border-radius: 6px 0 0 6px;
