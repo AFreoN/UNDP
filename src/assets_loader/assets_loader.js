@@ -1,6 +1,8 @@
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader'
 import * as main from '../script'
 import * as scenes from '../questions/scenes'
+import * as THREE from 'three'
+
 
 //      Initializing loader module properties
 //
@@ -10,7 +12,8 @@ let models = {
     playerCharacter:null,
     centerCharacter:null,
     centerEmoji:null,
-    sriLankaMap:null
+    sriLankaMap:null,
+    maldivesMap:null
 }
 
 //player animations are stored here
@@ -156,22 +159,132 @@ gltfloader.load(
 )
 
 gltfloader.load(
-    'Sri Lankan Map.glb',
+    'New Sri Lankan Provinces.glb',
     (gltf) =>
     {
         let model = gltf.scene
-        model.scale.set(4,4,4)
-        model.position.set(0, 0, 0)
+        model.scale.set(0.75,0.75,0.75)
+        model.position.set(-1, 0, 0.5)
 
         models['sriLankaMap'] = model
         
-        scenes.sriLankaScene.add(models['sriLankaMap'])
-        let sriLankaRegions = models['sriLankaMap'].children.slice()
-        sriLankaRegions.splice(0,2)
+        //Setting up model for country selection
+        let countrySelectionModel = models['sriLankaMap'].clone(true)
+        countrySelectionModel.scale.set(0.2,0.2,0.2)
+        countrySelectionModel.position.set(-.25,0,0.1)
+        scenes.sriLankaCube.add(countrySelectionModel)
+
+        //Storing state colors as new properties
+        scenes.sriLankaCube.regionMaterial = countrySelectionModel.children[0].material//Material for all regions
+
+        scenes.sriLankaCube.standardColor = countrySelectionModel.children[0].material.color.clone()//standard color
+        scenes.sriLankaCube.hoveringColor =  new THREE.Color( 0xff0000 )//hovering color
+        scenes.sriLankaCube.selectedColor = new THREE.Color( 0x0000ff )//selected color
+
+
+        //Setting up model for region selection
+        let regionSelectionModel = models['sriLankaMap'].clone(true) 
+        scenes.sriLankaScene.add(regionSelectionModel)
+
+        //Setting up and filtering regions and setting up region state colors
+        let sriLankaRegions = regionSelectionModel.children.slice() //Region references
+        sriLankaRegions.splice(9,2)//Removes sealine and provincial divider from regions references
+        sriLankaRegions.forEach(region => {
+            region.name = region.name.replaceAll('_',' ')
+
+            region.standardMaterial = region.material.clone()//standard material
+            region.material = region.standardMaterial
+
+            region.hoveringMaterial = region.material.clone()//hovering material
+            region.hoveringMaterial.color = new THREE.Color( 0xff0000 )
+
+            region.selectedMaterial = region.material.clone()//selected material
+            region.selectedMaterial.color = new THREE.Color( 0x0000ff )
+
+
+        });
+
+        model.castShadow = true
+        model.receiveShadow = true
+
         scenes.setSriLankaRegions(sriLankaRegions)
 
         loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
         loadingBar.animate(loadedPercentage) // animate the progress bar
+        // if(loadedPercentage >= 1){ //if loadedPercentage is 1, then the survey can start.
+        //     //Call function to start the survey
+        //     main.startSurvey()
+        // }
+    }
+)
+
+gltfloader.load(
+    'Maldives provinces.glb',
+    (gltf) =>
+    {
+        let model = gltf.scene
+        model.scale.set(0.38,0.38,0.38)
+        model.position.set(0, 0, 0)
+
+        models['maldivesMap'] = model
+        
+        //Setting up model for country selection
+        let countrySelectionModel = models['maldivesMap'].clone(true)
+        countrySelectionModel.scale.set(0.2,0.2,0.2)
+        countrySelectionModel.position.set(0,0,0)
+        scenes.maldivesCube.add(countrySelectionModel)
+
+        scenes.maldivesCube.regionMaterial = countrySelectionModel.children[0].material//Material for all regions
+
+        scenes.maldivesCube.standardColor = countrySelectionModel.children[0].material.color.clone()//standard color
+        scenes.maldivesCube.hoveringColor = new THREE.Color( 0xff0000 )//hovering color
+        scenes.maldivesCube.selectedColor = new THREE.Color( 0x0000ff )//selected color
+
+        //Setting up model for region selection
+        let regionSelectionModel = models['maldivesMap'].clone(true) 
+        scenes.maldivesScene.add(regionSelectionModel)
+
+        //Setting up and filtering regions and setting up region state colors
+        let maldivesRegions = regionSelectionModel.children.slice() //Region references
+        maldivesRegions.splice(4,1)//Removes sealine from regions references
+        maldivesRegions.forEach(region => {
+            region.name = region.name.replaceAll('_',' ')
+
+            region.standardMaterial = region.material.clone()//standard material
+            region.material = region.standardMaterial
+
+            region.hoveringMaterial = region.material.clone()//hovering material
+            region.hoveringMaterial.color = new THREE.Color( 0xff0000 )
+
+            region.selectedMaterial = region.material.clone()//selected material
+            region.selectedMaterial.color = new THREE.Color( 0x0000ff )
+
+        });
+
+        model.castShadow = true
+        model.receiveShadow = true
+
+        scenes.setMaldivesRegions(maldivesRegions)
+
+        loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
+        loadingBar.animate(loadedPercentage) // animate the progress bar
+        // if(loadedPercentage >= 1){ //if loadedPercentage is 1, then the survey can start.
+        //     //Call function to start the survey
+        //     main.startSurvey()
+        // }
+    }
+)
+
+gltfloader.load(
+    'Maldives provinces.glb',
+    (gltf) =>
+    {
+        let model = gltf.scene
+
+        console.log(model);
+        
+        // loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
+        // loadingBar.animate(loadedPercentage) // animate the progress bar
         // if(loadedPercentage >= 1){ //if loadedPercentage is 1, then the survey can start.
         //     //Call function to start the survey
         //     main.startSurvey()

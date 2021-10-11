@@ -25,13 +25,15 @@ countryScene.add(countryCamera)
 countryCamera.position.set(0,4,2)
 countryCamera.rotation.set(Math.PI * -0.4,0,0)
 
-const maldivesCube = new THREE.Mesh(new THREE.BoxGeometry(1,0.1,1), new THREE.MeshLambertMaterial({color: 0xee2b2b}))
+export const maldivesCube = new THREE.Mesh(new THREE.BoxGeometry(0.75,0.1,2.8), new THREE.MeshLambertMaterial({color: 0xee2b2b,wireframe:true}))
 countryScene.add(maldivesCube)
 maldivesCube.position.set(-1,0,0)
+maldivesCube.material.visible = false
 
-const sriLankaCube = new THREE.Mesh(new THREE.BoxGeometry(1,0.1,1), new THREE.MeshLambertMaterial({color: 0x2b2bee}))
+export const sriLankaCube = new THREE.Mesh(new THREE.BoxGeometry(0.9,0.1,1.5), new THREE.MeshLambertMaterial({color: 0x2b2bee,wireframe:true}))
 countryScene.add(sriLankaCube)
 sriLankaCube.position.set(1,0,0)
+sriLankaCube.material.visible = false
 
 const countryAmbientLight = new THREE.AmbientLight(0xffffff)
 countryScene.add(countryAmbientLight)
@@ -42,6 +44,12 @@ export function resetCountrySelection(){
     sriLankaCube.position.y = 0
     maldivesCube.position.y = 0
 
+    if(hoveringCountry){
+        hoveringCountry.regionMaterial.color = hoveringCountry.standardColor
+    }
+    if(selectedCountry){
+        selectedCountry.regionMaterial.color = selectedCountry.standardColor
+    }
     hoveringCountry = null
     selectedCountry = null
 }
@@ -60,11 +68,11 @@ export function raycastCountry(){
             if(closestIntersect !== hoveringCountry){
                 if(hoveringCountry){
                     hoveringCountry.position.y = 0
-                    hoveringCountry.material.emissive.setHex(0x000000)
+                    hoveringCountry.regionMaterial.color = hoveringCountry.standardColor
                 }
 
                 hoveringCountry = closestIntersect
-                hoveringCountry.material.emissive.setHex(0x444444)
+                hoveringCountry.regionMaterial.color = hoveringCountry.hoveringColor
                 hoveringCountry.position.y = 0.1
                 if(hoveringCountry === maldivesCube){
                     uiControl.setCountryName('Maldives')
@@ -78,7 +86,7 @@ export function raycastCountry(){
     else{
         if(hoveringCountry){
             hoveringCountry.position.y = 0
-            hoveringCountry.material.emissive.setHex(0x000000)
+            hoveringCountry.regionMaterial.color = hoveringCountry.standardColor
             hoveringCountry = null
             uiControl.setCountryName('')
         }
@@ -99,12 +107,13 @@ function onCountryClick(){
         if(hoveringCountry !== selectedCountry){
             if(selectedCountry){
                 selectedCountry.position.y = 0
+                selectedCountry.regionMaterial.color = selectedCountry.standardColor
                 selectedCountry = null
             }
             selectedCountry = hoveringCountry
             hoveringCountry = null
             selectedCountry.position.y = 0.25
-            selectedCountry.material.emissive.setHex(0x000000)
+            selectedCountry.regionMaterial.color = selectedCountry.selectedColor
             uiControl.enableNextButton()
             if(selectedCountry === maldivesCube){
                 uiControl.enableConfirmation(0)
@@ -134,11 +143,12 @@ function onCountryTouch(event){
         if(closestIntersect !== selectedCountry){
             if(selectedCountry){
                 selectedCountry.position.y = 0
+                selectedCountry.regionMaterial.color = selectedCountry.standardColor
                 selectedCountry = null
             }
             selectedCountry = closestIntersect
             selectedCountry.position.y = 0.25
-            selectedCountry.material.emissive.setHex(0x000000)
+            selectedCountry.regionMaterial.color = selectedCountry.selectedColor
             if(selectedCountry === maldivesCube){
                 uiControl.enableConfirmation(0)
                 uiControl.setCountryName('Maldives')
@@ -163,51 +173,51 @@ maldivesScene.add(maldivesCamera)
 maldivesCamera.position.set(0,4,2)
 maldivesCamera.rotation.set(Math.PI * -0.4,0,0)
 
-const upperNorthCube = new THREE.Mesh(new THREE.BoxGeometry(0.75,0.1,0.75), new THREE.MeshLambertMaterial({color: 0x03d7fc}))
-maldivesScene.add(upperNorthCube)
-upperNorthCube.position.set(0,0,-3)
-upperNorthCube.name = 'Upper North province'
+// const upperNorthCube = new THREE.Mesh(new THREE.BoxGeometry(0.75,0.1,0.75), new THREE.MeshLambertMaterial({color: 0x03d7fc, wireframe: true}))
+// maldivesScene.add(upperNorthCube)
+// upperNorthCube.position.set(0,0,-3)
+// upperNorthCube.name = 'Upper North province'
 
-const northCube = new THREE.Mesh(new THREE.BoxGeometry(0.75,0.1,0.75), new THREE.MeshLambertMaterial({color: 0xff5252}))
-maldivesScene.add(northCube)
-northCube.position.set(0,0,-2)
-northCube.name = 'North province'
+// const northCube = new THREE.Mesh(new THREE.BoxGeometry(0.75,0.1,0.75), new THREE.MeshLambertMaterial({color: 0xff5252, wireframe: true}))
+// maldivesScene.add(northCube)
+// northCube.position.set(0,0,-2)
+// northCube.name = 'North province'
 
-const northCentralCube = new THREE.Mesh(new THREE.BoxGeometry(0.75,0.1,0.75), new THREE.MeshLambertMaterial({color: 0xcfcfcf}))
-maldivesScene.add(northCentralCube)
-northCentralCube.position.set(0,0,-1)
-northCentralCube.name = 'North Central province'
+// const northCentralCube = new THREE.Mesh(new THREE.BoxGeometry(0.75,0.1,0.75), new THREE.MeshLambertMaterial({color: 0xcfcfcf, wireframe: true}))
+// maldivesScene.add(northCentralCube)
+// northCentralCube.position.set(0,0,-1)
+// northCentralCube.name = 'North Central province'
 
-const centralCube = new THREE.Mesh(new THREE.BoxGeometry(0.75,0.1,0.75), new THREE.MeshLambertMaterial({color: 0xffe0e0}))
-maldivesScene.add(centralCube)
-centralCube.position.set(0,0,0)
-centralCube.name = 'Central province'
+// const centralCube = new THREE.Mesh(new THREE.BoxGeometry(0.75,0.1,0.75), new THREE.MeshLambertMaterial({color: 0xffe0e0, wireframe: true}))
+// maldivesScene.add(centralCube)
+// centralCube.position.set(0,0,0)
+// centralCube.name = 'Central province'
 
-const upperSouthCube = new THREE.Mesh(new THREE.BoxGeometry(0.75,0.1,0.75), new THREE.MeshLambertMaterial({color: 0xffe17d}))
-maldivesScene.add(upperSouthCube)
-upperSouthCube.position.set(0,0,1)
-upperSouthCube.name = 'Upper South province'
+// const upperSouthCube = new THREE.Mesh(new THREE.BoxGeometry(0.75,0.1,0.75), new THREE.MeshLambertMaterial({color: 0xffe17d, wireframe: true}))
+// maldivesScene.add(upperSouthCube)
+// upperSouthCube.position.set(0,0,1)
+// upperSouthCube.name = 'Upper South province'
 
-const southCentralCube = new THREE.Mesh(new THREE.BoxGeometry(0.75,0.1,0.75), new THREE.MeshLambertMaterial({color: 0x4dff3d}))
-maldivesScene.add(southCentralCube)
-southCentralCube.position.set(0,0,2)
-southCentralCube.name = 'South Central province'
+// const southCentralCube = new THREE.Mesh(new THREE.BoxGeometry(0.75,0.1,0.75), new THREE.MeshLambertMaterial({color: 0x4dff3d, wireframe: true}))
+// maldivesScene.add(southCentralCube)
+// southCentralCube.position.set(0,0,2)
+// southCentralCube.name = 'South Central province'
 
-const southCube = new THREE.Mesh(new THREE.BoxGeometry(0.75,0.1,0.75), new THREE.MeshLambertMaterial({color: 0xab7aff}))
-maldivesScene.add(southCube)
-southCube.position.set(0,0,3)
-southCube.name = 'South province'
+// const southCube = new THREE.Mesh(new THREE.BoxGeometry(0.75,0.1,0.75), new THREE.MeshLambertMaterial({color: 0xab7aff, wireframe: true}))
+// maldivesScene.add(southCube)
+// southCube.position.set(0,0,3)
+// southCube.name = 'South province'
 
 
 
 var maldivesRegions = [//Storing region objects in an array for easy access 
-    upperNorthCube,
-    northCube,
-    northCentralCube,
-    centralCube,
-    upperSouthCube,
-    southCentralCube,
-    southCube
+    // upperNorthCube,
+    // northCube,
+    // northCentralCube,
+    // centralCube,
+    // upperSouthCube,
+    // southCentralCube,
+    // southCube
 ]
 
 export function setMaldivesRegions(regions){
@@ -223,7 +233,14 @@ export function resetMaldivesSelection(){
     for (let i = 0; i < maldivesRegions.length; i++) {
        const element = maldivesRegions[i];
        element.position.y = 0
-   }
+    }
+
+    if(hoveringMaldivesRegion){
+        hoveringMaldivesRegion.material = hoveringMaldivesRegion.standardMaterial
+    }
+    if(selectedMaldivesRegion){
+        selectedMaldivesRegion.material = selectedMaldivesRegion.standardMaterial
+    }
 
     hoveringMaldivesRegion = null
     selectedMaldivesRegion = null
@@ -242,12 +259,12 @@ export function raycastMaldivesRegions(){
             if(closestIntersect !== hoveringMaldivesRegion){
                 if(hoveringMaldivesRegion){
                     hoveringMaldivesRegion.position.y = 0
-                    hoveringMaldivesRegion.material.emissive.setHex(0x000000)
+                    hoveringMaldivesRegion.material = hoveringMaldivesRegion.standardMaterial
                 }
 
                 hoveringMaldivesRegion = closestIntersect
-                hoveringMaldivesRegion.material.emissive.setHex(0x444444)
-                hoveringMaldivesRegion.position.y = 0.1
+                hoveringMaldivesRegion.material = hoveringMaldivesRegion.hoveringMaterial
+                hoveringMaldivesRegion.position.y = 0.2
                 uiControl.setRegionName(hoveringMaldivesRegion.name)
 
             }
@@ -256,7 +273,7 @@ export function raycastMaldivesRegions(){
     else{
         if(hoveringMaldivesRegion){
             hoveringMaldivesRegion.position.y = 0
-            hoveringMaldivesRegion.material.emissive.setHex(0x000000)
+            hoveringMaldivesRegion.material = hoveringMaldivesRegion.standardMaterial
             hoveringMaldivesRegion = null
             uiControl.setRegionName('')
         }
@@ -273,12 +290,13 @@ function onMaldivesRegionClick(){
         if(hoveringMaldivesRegion !== selectedMaldivesRegion){
             if(selectedMaldivesRegion){
                 selectedMaldivesRegion.position.y = 0
+                selectedMaldivesRegion.material = hoveringMaldivesRegion.standardMaterial
                 selectedMaldivesRegion = null
             }
             selectedMaldivesRegion = hoveringMaldivesRegion
             hoveringMaldivesRegion = null
-            selectedMaldivesRegion.position.y = 0.15
-            selectedMaldivesRegion.material.emissive.setHex(0x000000)
+            selectedMaldivesRegion.position.y = 0.3
+            selectedMaldivesRegion.material = selectedMaldivesRegion.selectedMaterial
             const regionIndex = maldivesRegions.indexOf(selectedMaldivesRegion)
             // console.log(regionIndex);
             uiControl.enableConfirmation(regionIndex)
@@ -305,11 +323,12 @@ function onMaldivesRegionTouch(event){
         if(closestIntersect !== selectedMaldivesRegion){
             if(selectedMaldivesRegion){
                 selectedMaldivesRegion.position.y = 0
+                selectedMaldivesRegion.material = selectedMaldivesRegion.standardMaterial
                 selectedMaldivesRegion = null
             }
             selectedMaldivesRegion = closestIntersect
-            selectedMaldivesRegion.position.y = 0.15
-            selectedMaldivesRegion.material.emissive.setHex(0x000000)
+            selectedMaldivesRegion.position.y = 0.3
+            selectedMaldivesRegion.material = selectedMaldivesRegion.selectedMaterial
             const regionIndex = maldivesRegions.indexOf(selectedMaldivesRegion)
             uiControl.enableConfirmation(regionIndex)
             uiControl.setRegionName(selectedMaldivesRegion.name)
@@ -348,6 +367,13 @@ export function resetSriLankaSelection(){
         element.position.y = 0
     }
 
+    if(hoveringSriLankaRegion){
+        hoveringSriLankaRegion.material = hoveringSriLankaRegion.standardMaterial
+    }
+    if(selectedSriLankaRegion){
+        selectedSriLankaRegion.material = selectedSriLankaRegion.standardMaterial
+    }
+
     hoveringSriLankaRegion = null
     selectedSriLankaRegion = null
 }
@@ -366,11 +392,11 @@ export function raycastSriLankaRegions(){
             if(closestIntersect !== hoveringSriLankaRegion){
                 if(hoveringSriLankaRegion){
                     hoveringSriLankaRegion.position.y = 0
-                    hoveringSriLankaRegion.material.emissive.setHex(0x000000)
+                    hoveringSriLankaRegion.material = hoveringSriLankaRegion.standardMaterial
                 }
                 hoveringSriLankaRegion = closestIntersect
-                hoveringSriLankaRegion.material.emissive.setHex(0x444444)
-                hoveringSriLankaRegion.position.y = 0.04
+                hoveringSriLankaRegion.material = hoveringSriLankaRegion.hoveringMaterial
+                hoveringSriLankaRegion.position.y = 0.1
                 uiControl.setRegionName(hoveringSriLankaRegion.name)
 
             }
@@ -379,7 +405,7 @@ export function raycastSriLankaRegions(){
     else{
         if(hoveringSriLankaRegion){
             hoveringSriLankaRegion.position.y = 0
-            hoveringSriLankaRegion.material.emissive.setHex(0x000000)
+            hoveringSriLankaRegion.material = hoveringSriLankaRegion.standardMaterial
             hoveringSriLankaRegion = null
             uiControl.setRegionName('')
         }
@@ -396,12 +422,13 @@ function onSriLankaRegionClick(){
         if(hoveringSriLankaRegion !== selectedSriLankaRegion){
             if(selectedSriLankaRegion){
                 selectedSriLankaRegion.position.y = 0
+                selectedSriLankaRegion.material = selectedSriLankaRegion.standardMaterial
                 selectedSriLankaRegion = null
             }
             selectedSriLankaRegion = hoveringSriLankaRegion
             hoveringSriLankaRegion = null
-            selectedSriLankaRegion.position.y = 0.08
-            selectedSriLankaRegion.material.emissive.setHex(0x000000)
+            selectedSriLankaRegion.position.y = 0.2
+            selectedSriLankaRegion.material = selectedSriLankaRegion.selectedMaterial
             const regionIndex = sriLankaRegions.indexOf(selectedSriLankaRegion)
             uiControl.enableConfirmation(regionIndex)
             uiControl.setRegionName(selectedSriLankaRegion.name)
@@ -427,11 +454,12 @@ function onSriLankaRegionTouch(event){
         if(closestIntersect !== selectedSriLankaRegion){
             if(selectedSriLankaRegion){
                 selectedSriLankaRegion.position.y = 0
+                selectedSriLankaRegion.material = selectedSriLankaRegion.standardMaterial
                 selectedSriLankaRegion = null
             }
             selectedSriLankaRegion = closestIntersect
-            selectedSriLankaRegion.position.y = 0.08
-            selectedSriLankaRegion.material.emissive.setHex(0x000000)
+            selectedSriLankaRegion.position.y = 0.2
+            selectedSriLankaRegion.material = selectedSriLankaRegion.selectedMaterial
             const regionIndex = sriLankaRegions.indexOf(selectedSriLankaRegion)
             // console.log(regionIndex);
             uiControl.enableConfirmation(regionIndex)
