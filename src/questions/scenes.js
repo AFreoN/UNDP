@@ -1,6 +1,8 @@
+import main from 'progressbar.js'
 import * as THREE from 'three'
 import * as assetLoader from '../assets_loader/assets_loader'
 import * as uiControl from '../ui_controller/ui_controller'
+import * as mainScipt from '../script'
 
 const mouse = new THREE.Vector2() 
 
@@ -492,24 +494,66 @@ joystickScene.add(floor);
 //Highlight material
 const rad1Material = new THREE.MeshBasicMaterial( { color: 0xfcf8ed } );
 
+const totalCircleArea = 7;
+const ringRadius = 0.3;
+const ringHeight = 0.001;
+const ringSegments = 64;
+var curRadius = 0.3;
+var yPos = -0.5;    //prev - ends in 0.61
+
 //radius 1
-const geometry = new THREE.CylinderGeometry( .5, .5, 0.008, 64 );
+const geometry = new THREE.CylinderGeometry( curRadius, curRadius, ringHeight, ringSegments );
 const cylinder = new THREE.Mesh( geometry, RingMaterial );
-cylinder.position.set(0,-.59,0)
+cylinder.position.set(0,yPos,0)
+curRadius += ringRadius;
+yPos -= 0.01;
 
 //radius 2
-const geometry2 = new THREE.CylinderGeometry( 1, 1, 0.008, 64 );
+const geometry2 = new THREE.CylinderGeometry( curRadius, curRadius, ringHeight, ringSegments );
 const cylinder2 = new THREE.Mesh( geometry2, floorMaterial );
-cylinder2.position.set(0,-.60,0)
+cylinder2.position.set(0,yPos,0)
+curRadius += ringRadius;
+yPos -= 0.01;
 
 //radius 3
-const geometry3 = new THREE.CylinderGeometry( 1.5, 1.5, 0.008, 64 );
+const geometry3 = new THREE.CylinderGeometry( curRadius, curRadius, ringHeight, ringSegments );
 const cylinder3 = new THREE.Mesh( geometry3, RingMaterial );
-cylinder3.position.set(0,-.61,0)
+cylinder3.position.set(0,yPos,0)
+curRadius += ringRadius;
+yPos -= 0.01;
+
+//radius 4
+const geometry4 = new THREE.CylinderGeometry( curRadius, curRadius, ringHeight, ringSegments);
+const cylinder4 = new THREE.Mesh(geometry4, floorMaterial);
+cylinder4.position.set(0,yPos,0);
+curRadius += ringRadius;
+yPos -= 0.01;
+
+//radius 5
+const geometry5 = new THREE.CylinderGeometry( curRadius, curRadius, ringHeight, ringSegments);
+const cylinder5 = new THREE.Mesh(geometry5, RingMaterial);
+cylinder5.position.set(0,yPos,0);
+curRadius += ringRadius;
+yPos -= 0.01;
+
+//radius 6
+const geometry6 = new THREE.CylinderGeometry( curRadius, curRadius, ringHeight, ringSegments);
+const cylinder6 = new THREE.Mesh(geometry6, floorMaterial);
+cylinder6.position.set(0,yPos,0);
+curRadius += ringRadius;
+yPos -= 0.01;
+
+const geometry7 = new THREE.CylinderGeometry( curRadius, curRadius, ringHeight, ringSegments);
+const cylinder7 = new THREE.Mesh(geometry7, RingMaterial);
+cylinder7.position.set(0,yPos,0);
 
 joystickScene.add( cylinder);
 joystickScene.add( cylinder2 );
 joystickScene.add( cylinder3 );
+joystickScene.add( cylinder4 );
+joystickScene.add( cylinder5 );
+joystickScene.add( cylinder6 );
+joystickScene.add( cylinder7 );
 
 //Adding light
 const joystickPointLight = new THREE.PointLight(0xffffff, 3)
@@ -533,37 +577,80 @@ export function calculateDistance(currentCenterModel, answers){
         distance = player.position.distanceTo(currentCenterModel.position)
     }
 
-    if(distance > 1 && distance < 1.5){
-        cylinder3.material = rad1Material
+    if(distance > ringRadius * (totalCircleArea - 1) && distance < ringRadius * (totalCircleArea)){
+        cylinder7.material = rad1Material
         answerDisplay.innerText = answers[0]
-        uiControl.enableConfirmation(0)
+        if(mainScipt.isShowingTutorial() == false)
+            uiControl.enableConfirmation(0)
     }
     else
     {
-        cylinder3.material = RingMaterial
+        cylinder7.material = RingMaterial
     }
 
      //neutral face
-    if(distance > 0.5 && distance < 1){
-        cylinder2.material = rad1Material
+    if(distance > ringRadius * (totalCircleArea - 2) && distance < ringRadius * (totalCircleArea - 1)){
+        cylinder6.material = rad1Material
         answerDisplay.innerText = answers[1]
-        uiControl.enableConfirmation(1)
+        if(mainScipt.isShowingTutorial() == false)
+            uiControl.enableConfirmation(1)
     }
     else{
-        cylinder2.material = floorMaterial
+        cylinder6.material = floorMaterial
     }
 
      // Happy face
-    if(distance > 0 && distance < 0.5){
-        cylinder.material = rad1Material
+    if(distance > ringRadius * (totalCircleArea - 3) && distance < ringRadius * (totalCircleArea - 2)){
+        cylinder5.material = rad1Material
         answerDisplay.innerText = answers[2]
-        uiControl.enableConfirmation(2)
+        if(mainScipt.isShowingTutorial() == false)
+            uiControl.enableConfirmation(2)
+    }
+    else{
+        cylinder5.material = RingMaterial  
+    }
+
+    if(distance > ringRadius * (totalCircleArea - 4) && distance < ringRadius * (totalCircleArea - 3)){
+        cylinder4.material = rad1Material
+        answerDisplay.innerText = answers[3]
+        if(mainScipt.isShowingTutorial() == false)
+            uiControl.enableConfirmation(3)
+    }
+    else{
+        cylinder4.material = floorMaterial  
+    }
+
+    if(distance > ringRadius * (totalCircleArea - 5) && distance < ringRadius * (totalCircleArea - 4)){
+        cylinder3.material = rad1Material
+        answerDisplay.innerText = answers[4]
+        if(mainScipt.isShowingTutorial() == false)
+            uiControl.enableConfirmation(4)
+    }
+    else{
+        cylinder3.material = RingMaterial  
+    }
+
+    if(distance > ringRadius * (totalCircleArea - 6) && distance < ringRadius * (totalCircleArea - 5)){
+        cylinder2.material = rad1Material
+        answerDisplay.innerText = answers[5]
+        if(mainScipt.isShowingTutorial() == false)
+            uiControl.enableConfirmation(5)
+    }
+    else{
+        cylinder2.material = floorMaterial  
+    }
+
+    if(distance >= 0 && distance <= ringRadius){
+        cylinder.material = rad1Material
+        answerDisplay.innerText = answers[6]
+        if(mainScipt.isShowingTutorial() == false)
+            uiControl.enableConfirmation(6)
     }
     else{
         cylinder.material = RingMaterial  
     }
 
-    if(distance > 1.5){
+    if(distance > ringRadius * totalCircleArea){
         answerDisplay.innerText  = ''
         uiControl.disableConfirmation()
     }
@@ -575,10 +662,13 @@ export function updateRingLocation(currentCenterModel){
         const centerModelPosX = currentCenterModel.position.x 
         const centerModelPosZ = currentCenterModel.position.z 
         
-        cylinder.position.set(centerModelPosX,-.59,centerModelPosZ)
-        cylinder2.position.set(centerModelPosX,-.60,centerModelPosZ)
-        cylinder3.position.set(centerModelPosX,-.61,centerModelPosZ)
-
+        cylinder.position.set(centerModelPosX,-.55,centerModelPosZ)
+        cylinder2.position.set(centerModelPosX,-.56,centerModelPosZ)
+        cylinder3.position.set(centerModelPosX,-.57,centerModelPosZ)
+        cylinder4.position.set(centerModelPosX,-.58,centerModelPosZ)
+        cylinder5.position.set(centerModelPosX,-.59,centerModelPosZ)
+        cylinder6.position.set(centerModelPosX,-.60,centerModelPosZ)
+        cylinder7.position.set(centerModelPosX,-.61,centerModelPosZ)
     }
 }
 

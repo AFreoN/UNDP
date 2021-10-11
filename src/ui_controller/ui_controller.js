@@ -18,6 +18,8 @@ let backButton = document.getElementById('control-back-button')
 let nextButton = document.getElementById('control-next-button')
 let okButton = document.getElementById('control-ok-button')
 
+let joystickTutCloseButton = document.getElementById('joystick-tutorial-close-button');
+
 //enabling/disabling control buttons
 let canChangeQuestions = true
 let canConfirmAnswer = false
@@ -141,7 +143,11 @@ export function updateUI(questionType, questionText, answers){
             countryAnswerContainer.style.display = 'none'
             regionAnswerContainer.style.display = 'none'
             if(main.isJoyStickTutorialDisplayed() == false){
-                joystickTutorialContainer.style.display = ''
+                joystickTutorialContainer.style.display = ''    //Shows tutorial if it's not displayed before
+                main.displayTutorial();
+                disableBackButton();
+                disableNextButton();
+                disableConfirmation();
             }
             else{
                 joystickTutorialContainer.style.display = 'none'
@@ -150,7 +156,7 @@ export function updateUI(questionType, questionText, answers){
     }
 }
 
-joystickTutorialContainer.addEventListener('click', function(){
+joystickTutCloseButton.addEventListener('click', function(){
     main.joystickTutorialEnded();
     joystickTutorialContainer.style.display = 'none';
     main.enablePlayerControl();

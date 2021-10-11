@@ -2,10 +2,13 @@ import './style.css'
 import * as questions from './questions/questions' 
 import * as assetLoader from './assets_loader/assets_loader'
 import * as controls from './character_controller/character_control'
+import { enableBackButton, enableConfirmation, enableNextButton } from './ui_controller/ui_controller'
 
 //      Initializing application properties
 //
 let surveyStarted = false //other modules can read this value to see if the survey has started
+let showingTutorial = false;
+
 let joystickTutorialShown = false;
 
 let questionIndex = 0 //indicates the question to be loaded
@@ -59,10 +62,25 @@ export function isJoyStickTutorialDisplayed(){
 
 export function joystickTutorialEnded(){
     joystickTutorialShown = true;
+    console.log("Ques index = " + questionIndex);
+    if(questionIndex > 0){
+        enableBackButton();
+    }
+    if(questionIndex < questions.questionArray.length - 1){
+        enableNextButton();
+    }
+    showingTutorial = false;
 }
 
 export function enablePlayerControl(){
     controls.enablePlayerControl();
+}
+
+export function displayTutorial(){
+    showingTutorial = true;
+}
+export function isShowingTutorial(){
+    return showingTutorial;
 }
 
 //      Main JS Notes

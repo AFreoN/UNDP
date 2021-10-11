@@ -9,7 +9,7 @@ import * as mainScript from '../script.js'
 
 //      Assigning questions and answers
 //
-let questionArray = [
+export let questionArray = [
     /* Code snippet for question structure. Each object has a single question and a set of answers
     {
         type: 'mcq | joystick', //Type of the question, Can be used for changing UI
@@ -44,7 +44,11 @@ let questionArray = [
         answers: [ //Answers should be written in a meaningful order to be easy to calculate LOC(eg- Not Close being first and Very Close being last etc...)
             'answer1',
             'answer2',
-            'answer3'
+            'answer3',
+            'answer4',
+            'answer5',
+            'answer6',
+            'answer7'
         ],
         centerModelKey:'centerCharacter'
     },
@@ -54,7 +58,11 @@ let questionArray = [
         answers: [ //Answers should be written in a meaningful order to be easy to calculate LOC(eg- Not Close being first and Very Close being last etc...)
             'answer1',
             'answer2',
-            'answer3'
+            'answer3',
+            'answer4',
+            'answer5',
+            'answer6',
+            'answer7'
         ],
         centerModelKey:'centerEmoji'
     }

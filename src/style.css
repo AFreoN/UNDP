@@ -196,6 +196,23 @@ canvas.webgl{
     font-size: 3vh; 
 }
 
+.close-button{
+    position: absolute;
+    right: -17px;
+    top: -17px;
+    border-radius: 25px;
+    
+    width: 50px;
+    height: 50px;
+    background: #ade6ff;
+    opacity: 1;
+
+    color: rgba(59, 106, 128, 0.7);
+    font-size: 30px; 
+    text-align: center;
+    text-justify: center;
+}
+
 #control-back-button{
     border-radius: 6px 0 0 6px;
     border: none;
