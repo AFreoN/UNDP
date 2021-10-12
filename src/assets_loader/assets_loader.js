@@ -247,24 +247,37 @@ gltfloader.load(
         //Setting up and filtering regions and setting up region state colors
         let maldivesRegions = regionSelectionModel.children.slice() //Region references
         maldivesRegions.splice(4,1)//Removes sealine from regions references
-        maldivesRegions.forEach(region => {
+        console.log(maldivesRegions)
+
+        for (let i = 0; i < maldivesRegions.length; i++) {
+            const region = maldivesRegions[i];
             region.name = region.name.replaceAll('_',' ')
+            scenes.maldivesRegionBoxes[i].name = region.name
+            scenes.maldivesRegionBoxes[i].position.copy(region.position)
 
-            region.standardMaterial = region.material.clone()//standard material
-            region.material = region.standardMaterial
+            // scenes.maldivesRegionBoxes[i].add(region)
+            // region.position.set(0,0,0)
 
-            region.hoveringMaterial = region.material.clone()//hovering material
-            region.hoveringMaterial.color = new THREE.Color( 0xff0000 )
 
-            region.selectedMaterial = region.material.clone()//selected material
-            region.selectedMaterial.color = new THREE.Color( 0x0000ff )
+            // region.standardMaterial = region.material.clone()//standard material
+            // region.material = region.standardMaterial
 
-        });
+            scenes.maldivesRegionBoxes[i].regionMaterial = region.material.clone()
+            scenes.maldivesRegionBoxes[i].regionPosition = region.position
+            region.material = scenes.maldivesRegionBoxes[i].regionMaterial
+
+            scenes.maldivesRegionBoxes[i].standardColor = scenes.maldivesRegionBoxes[i].regionMaterial.color
+            scenes.maldivesRegionBoxes[i].hoveringColor = new THREE.Color( 0xff0000 )
+
+            scenes.maldivesRegionBoxes[i].selectedColor = new THREE.Color( 0x0000ff )
+            
+        }
+        
 
         model.castShadow = true
         model.receiveShadow = true
 
-        scenes.setMaldivesRegions(maldivesRegions)
+        // scenes.setMaldivesRegions(maldivesRegions)
 
         loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
         loadingBar.animate(loadedPercentage) // animate the progress bar
@@ -281,7 +294,7 @@ gltfloader.load(
     {
         let model = gltf.scene
 
-        console.log(model);
+        // console.log(model);
         
         // loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
         // loadingBar.animate(loadedPercentage) // animate the progress bar

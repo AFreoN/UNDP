@@ -14,6 +14,29 @@ window.addEventListener('mousemove', (event) =>
 
 const raycaster = new THREE.Raycaster()
 
+const oceanPlane = new THREE.PlaneGeometry(20,20)
+var oceanNormal = null
+const oceanMaterial = new THREE.MeshStandardMaterial(
+    {
+        color:0x4dc1ff,
+        normalMap: new THREE.TextureLoader().load( 'waternormals.jpg', function ( texture ) {
+            texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+            texture.repeat.set(4,4)
+            // texture.offset.set(0.5,0)
+            oceanNormal = texture
+        })
+    })
+const oceanMesh = new THREE.Mesh(oceanPlane,oceanMaterial)
+oceanMesh.rotation.set(Math.PI / -2, 0 ,0)
+oceanMesh.position.set(0,-0.01 ,0)
+
+var oceanNormalOffset = 0
+export function updateOceanNormalOffset(delta){
+    if(oceanNormal){
+        oceanNormal.offset.add(new THREE.Vector2(delta, 0))
+    }
+}
+
 var currentSelectionScene = null
 
 //      Country selection scene
@@ -21,6 +44,7 @@ var currentSelectionScene = null
 export const countryScene = new THREE.Scene()
 export const countryCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100)
 countryScene.add(countryCamera)
+countryScene.add(oceanMesh.clone())
 
 countryCamera.position.set(0,4,2)
 countryCamera.rotation.set(Math.PI * -0.4,0,0)
@@ -35,8 +59,9 @@ countryScene.add(sriLankaCube)
 sriLankaCube.position.set(1,0,0)
 sriLankaCube.material.visible = false
 
-const countryAmbientLight = new THREE.AmbientLight(0xffffff)
-countryScene.add(countryAmbientLight)
+const countryDirectionalLight = new THREE.DirectionalLight(0xffffff,0.75)
+countryScene.add(countryDirectionalLight)
+countryDirectionalLight.position.set(2,10,2)
 
 
 export function resetCountrySelection(){
@@ -170,76 +195,76 @@ export const maldivesScene = new THREE.Scene()
 export const maldivesCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100)
 maldivesScene.add(maldivesCamera)
 
+maldivesScene.add(oceanMesh.clone())
+
 maldivesCamera.position.set(0,4,2)
 maldivesCamera.rotation.set(Math.PI * -0.4,0,0)
 
-// const upperNorthCube = new THREE.Mesh(new THREE.BoxGeometry(0.75,0.1,0.75), new THREE.MeshLambertMaterial({color: 0x03d7fc, wireframe: true}))
-// maldivesScene.add(upperNorthCube)
-// upperNorthCube.position.set(0,0,-3)
-// upperNorthCube.name = 'Upper North province'
+const maldivesRegionBboxGroup = new THREE.Group()
+maldivesRegionBboxGroup.scale.set(0.375,0.375,0.375)
+maldivesScene.add(maldivesRegionBboxGroup)
 
-// const northCube = new THREE.Mesh(new THREE.BoxGeometry(0.75,0.1,0.75), new THREE.MeshLambertMaterial({color: 0xff5252, wireframe: true}))
-// maldivesScene.add(northCube)
-// northCube.position.set(0,0,-2)
-// northCube.name = 'North province'
+const bboxMat = new THREE.MeshLambertMaterial({color: 0x03d7fc, wireframe: true, visible: false})
 
-// const northCentralCube = new THREE.Mesh(new THREE.BoxGeometry(0.75,0.1,0.75), new THREE.MeshLambertMaterial({color: 0xcfcfcf, wireframe: true}))
-// maldivesScene.add(northCentralCube)
-// northCentralCube.position.set(0,0,-1)
-// northCentralCube.name = 'North Central province'
+const upperNorthCube = new THREE.Mesh(new THREE.BoxGeometry(1.4,0.5,1.6),bboxMat )
+maldivesRegionBboxGroup.add(upperNorthCube)
+upperNorthCube.name = 'Upper North province'
 
-// const centralCube = new THREE.Mesh(new THREE.BoxGeometry(0.75,0.1,0.75), new THREE.MeshLambertMaterial({color: 0xffe0e0, wireframe: true}))
-// maldivesScene.add(centralCube)
-// centralCube.position.set(0,0,0)
-// centralCube.name = 'Central province'
+const northCube = new THREE.Mesh(new THREE.BoxGeometry(1.4,0.5,1.75), bboxMat)
+maldivesRegionBboxGroup.add(northCube)
+northCube.name = 'North province'
 
-// const upperSouthCube = new THREE.Mesh(new THREE.BoxGeometry(0.75,0.1,0.75), new THREE.MeshLambertMaterial({color: 0xffe17d, wireframe: true}))
-// maldivesScene.add(upperSouthCube)
-// upperSouthCube.position.set(0,0,1)
-// upperSouthCube.name = 'Upper South province'
+const northCentralCube = new THREE.Mesh(new THREE.BoxGeometry(1.75,0.5,1.75), bboxMat)
+maldivesRegionBboxGroup.add(northCentralCube)
+northCentralCube.name = 'North Central province'
 
-// const southCentralCube = new THREE.Mesh(new THREE.BoxGeometry(0.75,0.1,0.75), new THREE.MeshLambertMaterial({color: 0x4dff3d, wireframe: true}))
-// maldivesScene.add(southCentralCube)
-// southCentralCube.position.set(0,0,2)
-// southCentralCube.name = 'South Central province'
+const centralCube = new THREE.Mesh(new THREE.BoxGeometry(1.6,0.5,1), bboxMat)
+maldivesRegionBboxGroup.add(centralCube)
+centralCube.name = 'Central province'
 
-// const southCube = new THREE.Mesh(new THREE.BoxGeometry(0.75,0.1,0.75), new THREE.MeshLambertMaterial({color: 0xab7aff, wireframe: true}))
-// maldivesScene.add(southCube)
-// southCube.position.set(0,0,3)
-// southCube.name = 'South province'
+const upperSouthCube = new THREE.Mesh(new THREE.BoxGeometry(1.1,0.5,1.1), bboxMat)
+maldivesRegionBboxGroup.add(upperSouthCube)
+upperSouthCube.name = 'Upper South province'
 
+const southCentralCube = new THREE.Mesh(new THREE.BoxGeometry(1.1,0.5,1.2), bboxMat)
+maldivesRegionBboxGroup.add(southCentralCube)
+southCentralCube.name = 'South Central province'
 
+const southCube = new THREE.Mesh(new THREE.BoxGeometry(1,0.5,1), bboxMat)
+maldivesRegionBboxGroup.add(southCube)
+southCube.name = 'South province'
 
-var maldivesRegions = [//Storing region objects in an array for easy access 
-    // upperNorthCube,
-    // northCube,
-    // northCentralCube,
-    // centralCube,
-    // upperSouthCube,
-    // southCentralCube,
-    // southCube
+export var maldivesRegionBoxes = [//Storing region objects in an array for easy access 
+    upperNorthCube,
+    centralCube,
+    northCentralCube,
+    northCube,
+    southCentralCube,
+    southCube,
+    upperSouthCube
 ]
 
-export function setMaldivesRegions(regions){
-    maldivesRegions = regions
-}
+// export function setMaldivesRegions(regions){
+//     maldivesRegionBoxes = regions
+// }
 
-const maldivesAmbientLight = new THREE.AmbientLight(0xffffff)
-maldivesScene.add(maldivesAmbientLight)
+const maldivesDirectionalLight = new THREE.DirectionalLight(0xffffff,0.75)
+maldivesScene.add(maldivesDirectionalLight)
+maldivesDirectionalLight.position.set(2,10,2)
 
 
 export function resetMaldivesSelection(){
     currentSelectionScene = 'maldives'
-    for (let i = 0; i < maldivesRegions.length; i++) {
-       const element = maldivesRegions[i];
+    for (let i = 0; i < maldivesRegionBoxes.length; i++) {
+       const element = maldivesRegionBoxes[i];
        element.position.y = 0
     }
 
     if(hoveringMaldivesRegion){
-        hoveringMaldivesRegion.material = hoveringMaldivesRegion.standardMaterial
+        hoveringMaldivesRegion.regionMaterial.color = hoveringMaldivesRegion.standardColor
     }
     if(selectedMaldivesRegion){
-        selectedMaldivesRegion.material = selectedMaldivesRegion.standardMaterial
+        selectedMaldivesRegion.regionMaterial.color = selectedMaldivesRegion.standardColor
     }
 
     hoveringMaldivesRegion = null
@@ -251,20 +276,20 @@ var selectedMaldivesRegion
 
 export function raycastMaldivesRegions(){
     raycaster.setFromCamera(mouse,maldivesCamera)
-    const intersects = raycaster.intersectObjects(maldivesRegions)
+    const intersects = raycaster.intersectObjects(maldivesRegionBoxes)
 
     if(intersects.length > 0){
         const closestIntersect = intersects[0].object
         if(closestIntersect !== selectedMaldivesRegion){
             if(closestIntersect !== hoveringMaldivesRegion){
                 if(hoveringMaldivesRegion){
-                    hoveringMaldivesRegion.position.y = 0
-                    hoveringMaldivesRegion.material = hoveringMaldivesRegion.standardMaterial
+                    hoveringMaldivesRegion.regionPosition.y = 0
+                    hoveringMaldivesRegion.regionMaterial.color = hoveringMaldivesRegion.standardColor
                 }
 
                 hoveringMaldivesRegion = closestIntersect
-                hoveringMaldivesRegion.material = hoveringMaldivesRegion.hoveringMaterial
-                hoveringMaldivesRegion.position.y = 0.2
+                hoveringMaldivesRegion.regionMaterial.color = hoveringMaldivesRegion.hoveringColor
+                hoveringMaldivesRegion.regionPosition.y = 0.2
                 uiControl.setRegionName(hoveringMaldivesRegion.name)
 
             }
@@ -272,8 +297,8 @@ export function raycastMaldivesRegions(){
     }
     else{
         if(hoveringMaldivesRegion){
-            hoveringMaldivesRegion.position.y = 0
-            hoveringMaldivesRegion.material = hoveringMaldivesRegion.standardMaterial
+            hoveringMaldivesRegion.regionPosition.y = 0
+            hoveringMaldivesRegion.regionMaterial.color = hoveringMaldivesRegion.standardColor
             hoveringMaldivesRegion = null
             uiControl.setRegionName('')
         }
@@ -289,15 +314,15 @@ function onMaldivesRegionClick(){
     if(hoveringMaldivesRegion){
         if(hoveringMaldivesRegion !== selectedMaldivesRegion){
             if(selectedMaldivesRegion){
-                selectedMaldivesRegion.position.y = 0
-                selectedMaldivesRegion.material = hoveringMaldivesRegion.standardMaterial
+                selectedMaldivesRegion.regionPosition.y = 0
+                selectedMaldivesRegion.regionMaterial.color = selectedMaldivesRegion.standardColor
                 selectedMaldivesRegion = null
             }
             selectedMaldivesRegion = hoveringMaldivesRegion
             hoveringMaldivesRegion = null
-            selectedMaldivesRegion.position.y = 0.3
-            selectedMaldivesRegion.material = selectedMaldivesRegion.selectedMaterial
-            const regionIndex = maldivesRegions.indexOf(selectedMaldivesRegion)
+            selectedMaldivesRegion.regionPosition.y = 0.3
+            selectedMaldivesRegion.regionMaterial.color = selectedMaldivesRegion.selectedColor
+            const regionIndex = maldivesRegionBoxes.indexOf(selectedMaldivesRegion)
             // console.log(regionIndex);
             uiControl.enableConfirmation(regionIndex)
             uiControl.setRegionName(selectedMaldivesRegion.name)
@@ -316,20 +341,20 @@ function onMaldivesRegionTouch(event){
     mouse.y = -(event.changedTouches[0].clientY / window.innerHeight) * 2 + 1;
 
     raycaster.setFromCamera(mouse,maldivesCamera)
-    const intersects = raycaster.intersectObjects(maldivesRegions)
+    const intersects = raycaster.intersectObjects(maldivesRegionBoxes)
 
     if(intersects.length > 0){
         const closestIntersect = intersects[0].object
         if(closestIntersect !== selectedMaldivesRegion){
             if(selectedMaldivesRegion){
-                selectedMaldivesRegion.position.y = 0
-                selectedMaldivesRegion.material = selectedMaldivesRegion.standardMaterial
+                selectedMaldivesRegion.regionPosition.y = 0
+                selectedMaldivesRegion.regionMaterial.color = selectedMaldivesRegion.standardColor
                 selectedMaldivesRegion = null
             }
             selectedMaldivesRegion = closestIntersect
-            selectedMaldivesRegion.position.y = 0.3
-            selectedMaldivesRegion.material = selectedMaldivesRegion.selectedMaterial
-            const regionIndex = maldivesRegions.indexOf(selectedMaldivesRegion)
+            selectedMaldivesRegion.regionPosition.y = 0.3
+            selectedMaldivesRegion.regionMaterial.color = selectedMaldivesRegion.selectedColor
+            const regionIndex = maldivesRegionBoxes.indexOf(selectedMaldivesRegion)
             uiControl.enableConfirmation(regionIndex)
             uiControl.setRegionName(selectedMaldivesRegion.name)
         }
@@ -347,6 +372,8 @@ export const sriLankaScene = new THREE.Scene()
 export const sriLankaCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100)
 sriLankaScene.add(sriLankaCamera)
 
+sriLankaScene.add(oceanMesh.clone())
+
 sriLankaCamera.position.set(0,4,2)
 sriLankaCamera.rotation.set(Math.PI * -0.4,0,0)
 
@@ -356,8 +383,9 @@ export function setSriLankaRegions(regions){
     sriLankaRegions = regions
 }
 
-const sriLankaAmbientLight = new THREE.AmbientLight(0xffffff)
-sriLankaScene.add(sriLankaAmbientLight)
+const sriLankaDirectionalLight = new THREE.DirectionalLight(0xffffff,0.75)
+sriLankaScene.add(sriLankaDirectionalLight)
+sriLankaDirectionalLight.position.set(2,10,2)
 
 
 export function resetSriLankaSelection(){
