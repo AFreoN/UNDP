@@ -1,4 +1,6 @@
 import * as THREE from 'three'
+import { Vector3 } from 'three';
+import { joystickSlideValue } from '../ui_controller/ui_controller';
 
 //Character control
 
@@ -58,15 +60,14 @@ window.addEventListener('mousemove', (event) =>
 //adding event listeners for controls
 
 //mouse events
-//document.addEventListener('mousemove', onDocumentMouseMove)
-document.addEventListener('mousedown', onDocumentMouseDown)
-document.addEventListener('mouseup', onDocumentMouseUp)
+//document.addEventListener('mousedown', onDocumentMouseDown)
+//document.addEventListener('mouseup', onDocumentMouseUp)
 
 //touch events
-document.addEventListener('touchstart', onDocumentTouchStart)
-document.addEventListener('touchmove', onDocumenttouchMove, preventDefault)
-document.addEventListener('touchend', onDocumentTouchEnd)
-document.addEventListener('touchcancel', onDocumentTouchEnd)
+//document.addEventListener('touchstart', onDocumentTouchStart)
+//document.addEventListener('touchmove', onDocumenttouchMove, preventDefault)
+//document.addEventListener('touchend', onDocumentTouchEnd)
+//document.addEventListener('touchcancel', onDocumentTouchEnd)
 
 //disable Scrolling
 function preventDefault(e) {
@@ -183,15 +184,25 @@ function onDocumentTouchEnd(event){
 
 var moveforward, movebackwards, moveleft, moveright
 var idle = true;
+var currentPosition = new THREE.Vector3(-2, -0.6, 0);
 
 function Movecharacter(){
     idle = true;
-    
-    newPlayerMovement()
 
-    //oldPlayerRotation()
+    var xPos = -2 + 0.5 * joystickSlideValue;
+    currentPosition.lerp(new Vector3(xPos, -0.6, 0), 0.2);
 
-    limitArea()
+    player.position.set(currentPosition.x, currentPosition.y, currentPosition.z);
+
+    if((xPos - player.position.x) < 0.05){
+        idle = true;
+    }
+    else
+        idle = false;
+
+
+    //newPlayerMovement()
+    //limitArea()
 }
 
 function oldPlayerMovement(){

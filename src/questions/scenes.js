@@ -603,13 +603,13 @@ const geometry7 = new THREE.CylinderGeometry( curRadius, curRadius, ringHeight, 
 const cylinder7 = new THREE.Mesh(geometry7, RingMaterial);
 cylinder7.position.set(0,yPos,0);
 
-joystickScene.add( cylinder);
-joystickScene.add( cylinder2 );
-joystickScene.add( cylinder3 );
-joystickScene.add( cylinder4 );
-joystickScene.add( cylinder5 );
-joystickScene.add( cylinder6 );
-joystickScene.add( cylinder7 );
+//joystickScene.add( cylinder);
+//joystickScene.add( cylinder2 );
+//joystickScene.add( cylinder3 );
+//joystickScene.add( cylinder4 );
+//joystickScene.add( cylinder5 );
+//joystickScene.add( cylinder6 );
+//joystickScene.add( cylinder7 );
 
 //Adding light
 const joystickPointLight = new THREE.PointLight(0xffffff, 3)
@@ -629,6 +629,8 @@ export function calculateDistance(currentCenterModel, answers){
     let distance
     let answerDisplay = document.getElementById('joystick-answer-container')
 
+    //#region Old Distance Check
+    /*
     if(player && currentCenterModel){
         distance = player.position.distanceTo(currentCenterModel.position)
     }
@@ -710,6 +712,8 @@ export function calculateDistance(currentCenterModel, answers){
         answerDisplay.innerText  = ''
         uiControl.disableConfirmation()
     }
+    */
+    //#endregion
 }
 
 //Updates rings' location in regard center model position

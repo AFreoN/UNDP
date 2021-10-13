@@ -12,6 +12,16 @@ let countryAnswerContainer = document.getElementById('country-answer-container')
 let regionAnswerContainer = document.getElementById('region-answer-container')
 let joystickTutorialContainer = document.getElementById('joystick-tutorial-frame')
 
+let joystickSlider = document.getElementById('myRange');
+export var joystickSlideValue = 1;
+joystickSlider.oninput = function(){
+    joystickSlideValue = joystickSlider.value;
+}
+
+export function resetJoystickSlider(){
+    joystickSlider.value = 1;
+    joystickSlideValue = 1;
+}
 
 //control buttons
 let backButton = document.getElementById('control-back-button')
@@ -62,8 +72,6 @@ export function disableNextButton(){
     nextButton.disabled = true
 }
 
-
-
 export function setCountryName(name){
     countryAnswerContainer.innerText = name
 }
@@ -85,16 +93,16 @@ export function updateUI(questionType, questionText, answers){
             countryAnswerContainer.style.display = ''
             regionAnswerContainer.style.display = 'none'
             joystickTutorialContainer.style.display = 'none'
-
+            joystickSlider.style.display = 'none'
             countryAnswerContainer.innerText = ''
             break;
         case 'province':
-            mcqAnswerContainer.style.display = 'none'
+            mcqAnswerContainer.style.display = 'none' 
             joystickAnswerContainer.style.display = 'none'
             countryAnswerContainer.style.display = 'none'
             regionAnswerContainer.style.display = ''
             joystickTutorialContainer.style.display = 'none'
-
+            joystickSlider.style.display = 'none'
             regionAnswerContainer.innerText = ''
             break;
         case 'mcq':
@@ -103,7 +111,7 @@ export function updateUI(questionType, questionText, answers){
             countryAnswerContainer.style.display = 'none'
             regionAnswerContainer.style.display = 'none'
             joystickTutorialContainer.style.display = 'none'
-
+            joystickSlider.style.display = 'none'
             mcqAnswerContainer.innerHTML = ''
             selectedMcqAnswer = null
             if(answers){
@@ -142,16 +150,19 @@ export function updateUI(questionType, questionText, answers){
             joystickAnswerContainer.style.display = ''
             countryAnswerContainer.style.display = 'none'
             regionAnswerContainer.style.display = 'none'
-            if(main.isJoyStickTutorialDisplayed() == false){
-                joystickTutorialContainer.style.display = ''    //Shows tutorial if it's not displayed before
-                main.displayTutorial();
-                disableBackButton();
-                disableNextButton();
-                disableConfirmation();
-            }
-            else{
-                joystickTutorialContainer.style.display = 'none'
-            }
+            joystickTutorialContainer.style.display = 'none'
+            // if(main.isJoyStickTutorialDisplayed() == false){
+            //     joystickTutorialContainer.style.display = ''    //Shows tutorial if it's not displayed before
+            //     main.displayTutorial();
+            //     disableBackButton();
+            //     disableNextButton();
+            //     disableConfirmation();
+            // }
+            // else{
+            //     joystickTutorialContainer.style.display = 'none'
+            // }
+            joystickSlider.style.display = ''
+            enableConfirmation();
             break;
     }
 }
