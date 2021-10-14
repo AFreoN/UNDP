@@ -4,8 +4,9 @@ import * as controls from '../character_controller/character_control'
 import * as uiControl from '../ui_controller/ui_controller'
 import * as scenes from './scenes'
 import {getSelectedCountry} from '../script'
-import main from 'progressbar.js'
-import * as mainScript from '../script.js'
+//import main from 'progressbar.js'
+//import * as mainScript from '../script.js'
+//import { render } from 'progressbar.js/utils'
 
 //      Assigning questions and answers
 //
@@ -84,12 +85,17 @@ const canvas = document.querySelector('canvas.webgl')
 const renderer = new THREE.WebGLRenderer({
     canvas: canvas,
     alpha: true,
-    antialias: true
+    antialias: true,
 })
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
 let mainScene = new THREE.Scene() //scene can be imported by questions module to add and remove question specific models
 
 let mainCamera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
+
+let ambLight = new THREE.AmbientLight(0x404040 ,0.7);
+mainScene.add(ambLight);
 
 
 // Update renderer
@@ -106,6 +112,7 @@ const countryCamera = scenes.countryCamera
 
 const mcqScene = scenes.mcqScene
 const mcqCamera = scenes.mcqCamera
+mcqScene.add(ambLight);
 
 const joystickScene = scenes.joystickScene
 const joystickCamera = scenes.joystickCamera
@@ -270,14 +277,15 @@ export function loadQuestion(questionIndex){
                     }
                     joystickScene.add(centerModel)
                     currentCenterModel = centerModel
+                    controls.setOtherCharacter(currentCenterModel)
                 }
                 uiControl.resetJoystickSlider();
 
                 //scenes.updateRingLocation(currentCenterModel)
                 currentCenterModel.position.set(2, currentCenterModel.position.y, 0);
-                currentCenterModel.rotation.set(0, -90,0);
+                //currentCenterModel.rotation.set(0, -90,0);
                 player.position.set(-1.5, -0.6, 0);
-                player.rotation.set(0, 90,0);
+                //player.rotation.set(0, 90,0);
 
                 updateSceneAndCamera(joystickScene, joystickCamera)
                 joystickScene.add(player)
