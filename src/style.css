@@ -106,6 +106,30 @@ canvas.webgl{
     margin: 2vh 0;
 }
 
+.submit-container{
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+}
+
+.submit-button{
+    background: #ade6ff;
+    font-weight: 1000;
+    color: rgba(0, 0, 0, 0.575);
+    border-radius: 3px;
+    border:none;
+    padding: 5px;
+    box-shadow: 0 3px 7px 0 rgba(0, 0, 0, 0.32);
+    padding: 10px;
+}
+
 .ui-container{
     position: absolute;
     width: 100vw;
@@ -364,6 +388,9 @@ canvas.webgl{
     .country-skip-button:hover{
         background: #cdf0ff;
     }
+    .submit-button:hover{
+        background: #cdf0ff;
+    }
 }
 
 .control-button:active{
@@ -377,6 +404,10 @@ canvas.webgl{
 .country-skip-button:active{
     background: #90bfd3;
 
+}
+
+.submit-button:active{
+    background: #90bfd3;
 }
 
 .control-button:disabled{
@@ -413,7 +444,7 @@ canvas.webgl{
         font-size: 2.8vw;
     }
 
-    .question-container{
+    .question-container, .submit-button{
         font-size: 5vw;
 
     }
@@ -425,6 +456,8 @@ canvas.webgl{
     .answer-box{
         font-size: 4.5vw;
     }
+
+    
 }
 
 @media screen and (min-width: 601px) {
@@ -456,7 +489,7 @@ canvas.webgl{
         font-size: 2.25vw;
     }
     
-    .question-container{
+    .question-container, .submit-button{
         font-size: 4vw;
 
     }
@@ -496,7 +529,7 @@ canvas.webgl{
         font-size: 1.9vw;
     }
 
-    .question-container{
+    .question-container, .submit-button{
         font-size: 3.2vw;
     }
 
@@ -535,7 +568,7 @@ canvas.webgl{
         font-size: 1.6vw;
     }
 
-    .question-container{
+    .question-container, .submit-button{
         font-size: 2.8vw;
     }
 
@@ -574,7 +607,7 @@ canvas.webgl{
         font-size: 1.2vw;
     }
 
-    .question-container{
+    .question-container, .submit-button{
         font-size: 2.2vw;
     }
 

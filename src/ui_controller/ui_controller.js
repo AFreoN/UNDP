@@ -12,12 +12,13 @@ let countryAnswerContainer = document.getElementById('country-answer-container')
 let regionAnswerContainer = document.getElementById('region-answer-container')
 let joystickTutorialContainer = document.getElementById('joystick-tutorial-frame')
 let countrySkipContainer = document.getElementById('country-skip-container')
-
+let submitContainer = document.getElementById('submit-container') 
 
 let joystickSlider = document.getElementById('myRange');
 export var joystickSlideValue = 1;
 joystickSlider.oninput = function(){
     joystickSlideValue = joystickSlider.value;
+    enableConfirmation(parseInt(joystickSlideValue))
 }
 
 export function resetJoystickSlider(){
@@ -30,7 +31,7 @@ let backButton = document.getElementById('control-back-button')
 let nextButton = document.getElementById('control-next-button')
 let okButton = document.getElementById('control-ok-button')
 let regionSkipButton = document.getElementById('country-skip-button')
-
+let submitButton = document.getElementById('submit-button')
 let joystickTutCloseButton = document.getElementById('joystick-tutorial-close-button');
 
 //enabling/disabling control buttons
@@ -93,6 +94,7 @@ export function updateUI(questionType, questionText, answers){
         case 'country':
             mcqAnswerContainer.style.display = 'none'
             joystickAnswerContainer.style.display = 'none'
+            submitContainer.style.display = 'none'
             countryAnswerContainer.style.display = ''
             regionAnswerContainer.style.display = 'none'
             joystickTutorialContainer.style.display = 'none'
@@ -103,6 +105,7 @@ export function updateUI(questionType, questionText, answers){
         case 'province':
             mcqAnswerContainer.style.display = 'none' 
             joystickAnswerContainer.style.display = 'none'
+            submitContainer.style.display = 'none'
             countryAnswerContainer.style.display = 'none'
             regionAnswerContainer.style.display = ''
             joystickTutorialContainer.style.display = 'none'
@@ -113,6 +116,7 @@ export function updateUI(questionType, questionText, answers){
         case 'mcq':
             mcqAnswerContainer.style.display = ''
             joystickAnswerContainer.style.display = 'none'
+            submitContainer.style.display = 'none'
             countryAnswerContainer.style.display = 'none'
             regionAnswerContainer.style.display = 'none'
             joystickTutorialContainer.style.display = 'none'
@@ -154,6 +158,7 @@ export function updateUI(questionType, questionText, answers){
         case 'joystick':
             mcqAnswerContainer.style.display = 'none'
             joystickAnswerContainer.style.display = ''
+            submitContainer.style.display = 'none'
             countryAnswerContainer.style.display = 'none'
             regionAnswerContainer.style.display = 'none'
             joystickTutorialContainer.style.display = 'none'
@@ -169,9 +174,17 @@ export function updateUI(questionType, questionText, answers){
             //     joystickTutorialContainer.style.display = 'none'
             // }
             joystickSlider.style.display = ''
-            enableConfirmation();
+            enableConfirmation(joystickSlideValue);
             break;
     }
+}
+
+export function enableSubmitPage(){
+    submitContainer.style.display = ''
+}
+
+export function disableSubmitPage(){
+    submitContainer.style.display = 'none'
 }
 
 joystickTutCloseButton.addEventListener('click', function(){
@@ -201,4 +214,8 @@ okButton.addEventListener('click',function(){
 
 regionSkipButton.addEventListener('click',function(){
     main.skipCountrySelection()
+})
+
+submitButton.addEventListener('click',function(){
+    main.validateAnswers()
 })

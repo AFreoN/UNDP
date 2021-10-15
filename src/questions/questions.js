@@ -19,16 +19,19 @@ export let questionArray = [
             'answer1',
             'answer2'
         ],
-        centerModelKey: 'modelKey' //If available
+        centerModelKey: 'modelKey', //If available
+        compulsory: true // is the question compulsory
     } 
     */
     {
         type: 'country', //Type of the question, Can be used for changing UI
         question: 'Country Selection', //Question text, which will be displayed on UI
+        compulsory: true
     },
     {
         type: 'province', //Type of the question, Can be used for changing UI
         question: 'Region Selection', //Question text, which will be displayed on UI
+        compulsory: false
     },
     {
         type: 'mcq', //Type of the question, Can be used for changing UI
@@ -37,7 +40,8 @@ export let questionArray = [
             'answer1',
             'answer2',
             'answer3'
-        ]
+        ],
+        compulsory: false
     },
     {
         type: 'joystick', //Type of the question, Can be used for changing UI
@@ -51,7 +55,8 @@ export let questionArray = [
             'answer6',
             'answer7'
         ],
-        centerModelKey:'centerCharacter'
+        centerModelKey:'centerCharacter',
+        compulsory: true
     },
     {
         type: 'joystick', //Type of the question, Can be used for changing UI
@@ -65,11 +70,17 @@ export let questionArray = [
             'answer6',
             'answer7'
         ],
-        centerModelKey:'centerEmoji'
+        centerModelKey:'centerEmoji',
+        compulsory: true
     }
 ]
 
 export const numberOfQuestions = questionArray.length
+
+export function isQuestionCompulsory(questionIndex){
+    return questionArray[questionIndex].compulsory
+}
+
 //
 //      end of Assigning questions and answers
 
@@ -225,11 +236,11 @@ export function loadQuestion(questionIndex){
         }else{
             uiControl.enableBackButton()
         }
-        if(questionIndex >= numberOfQuestions - 1){
-            uiControl.disableNextButton()
-        }else{
-            uiControl.enableNextButton()
-        }
+        // if(questionIndex >= numberOfQuestions - 1){
+        //     uiControl.disableNextButton()
+        // }else{
+        //     uiControl.enableNextButton()
+        // }
         uiControl.disableConfirmation()
 
         let questionType = currentQuestion.type
