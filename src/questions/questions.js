@@ -254,6 +254,7 @@ export function loadQuestion(questionIndex){
                 
                 break;
             case 'mcq':
+                scenes.resetCurrentSelectionScene()
                 updateSceneAndCamera(mcqScene, mcqCamera)
                 currentCenterModel = null
                 player.position.set(0,-.6, 2)
@@ -262,6 +263,7 @@ export function loadQuestion(questionIndex){
                 mcqScene.add(player)
                 break;
             case 'joystick':
+                scenes.resetCurrentSelectionScene()
                 if(currentQuestion.centerModelKey){
                     const centerModel = assetLoader.getModel(currentQuestion.centerModelKey)
                     if(currentCenterModel){

@@ -11,6 +11,8 @@ let joystickAnswerContainer = document.getElementById('joystick-answer-container
 let countryAnswerContainer = document.getElementById('country-answer-container')
 let regionAnswerContainer = document.getElementById('region-answer-container')
 let joystickTutorialContainer = document.getElementById('joystick-tutorial-frame')
+let countrySkipContainer = document.getElementById('country-skip-container')
+
 
 let joystickSlider = document.getElementById('myRange');
 export var joystickSlideValue = 1;
@@ -27,6 +29,7 @@ export function resetJoystickSlider(){
 let backButton = document.getElementById('control-back-button')
 let nextButton = document.getElementById('control-next-button')
 let okButton = document.getElementById('control-ok-button')
+let regionSkipButton = document.getElementById('country-skip-button')
 
 let joystickTutCloseButton = document.getElementById('joystick-tutorial-close-button');
 
@@ -95,6 +98,7 @@ export function updateUI(questionType, questionText, answers){
             joystickTutorialContainer.style.display = 'none'
             joystickSlider.style.display = 'none'
             countryAnswerContainer.innerText = ''
+            countrySkipContainer.style.display = ''
             break;
         case 'province':
             mcqAnswerContainer.style.display = 'none' 
@@ -104,6 +108,7 @@ export function updateUI(questionType, questionText, answers){
             joystickTutorialContainer.style.display = 'none'
             joystickSlider.style.display = 'none'
             regionAnswerContainer.innerText = ''
+            countrySkipContainer.style.display = 'none'
             break;
         case 'mcq':
             mcqAnswerContainer.style.display = ''
@@ -112,6 +117,7 @@ export function updateUI(questionType, questionText, answers){
             regionAnswerContainer.style.display = 'none'
             joystickTutorialContainer.style.display = 'none'
             joystickSlider.style.display = 'none'
+            countrySkipContainer.style.display = 'none'
             mcqAnswerContainer.innerHTML = ''
             selectedMcqAnswer = null
             if(answers){
@@ -151,6 +157,7 @@ export function updateUI(questionType, questionText, answers){
             countryAnswerContainer.style.display = 'none'
             regionAnswerContainer.style.display = 'none'
             joystickTutorialContainer.style.display = 'none'
+            countrySkipContainer.style.display = 'none'
             // if(main.isJoyStickTutorialDisplayed() == false){
             //     joystickTutorialContainer.style.display = ''    //Shows tutorial if it's not displayed before
             //     main.displayTutorial();
@@ -190,4 +197,8 @@ okButton.addEventListener('click',function(){
         main.saveCurrentAnswer(selectedAnswerIndex)
         main.loadNextQuestion()
     }
+})
+
+regionSkipButton.addEventListener('click',function(){
+    main.skipCountrySelection()
 })

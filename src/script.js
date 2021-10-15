@@ -83,6 +83,13 @@ export function isShowingTutorial(){
     return showingTutorial;
 }
 
+export function skipCountrySelection(){
+    confirmedAnswers[0] = 2
+    questionIndex = 2
+    questions.loadQuestion(questionIndex)
+
+}
+
 //      Main JS Notes
 //-Controls question index
 //-Stores selected answers
