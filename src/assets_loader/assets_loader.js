@@ -18,6 +18,7 @@ let models = {
 
 //player animations are stored here
 let playerAnimations = null
+let otherAnimations = null
 
 //assign the number assets imported in this module
 const numberOfAssets = Object.keys(models).length
@@ -97,7 +98,21 @@ gltfloader.load(
     }
 )  
 */
+const fiveTone = new THREE.DataTexture(
+    Uint8Array.from([0, 0, 0, 255 ,
+        64, 64,64,255,
+         128, 128, 128, 255,
+         180,180,180,255,
+          255, 255, 255,255])
+          ,5,1,THREE.RGBAFormat
+);
 
+const threeTone = new THREE.DataTexture(
+    Uint8Array.from([0, 0, 0, 255 ,
+         128, 128, 128, 255,
+          255, 255, 255,255])
+          ,3,1,THREE.RGBAFormat
+);
 
 //Importing player character
 gltfloader.load(
@@ -108,6 +123,17 @@ gltfloader.load(
         let model = gltf.scene
         model.scale.set(.07,.07,.07)
         model.position.set(0,-.6, 2)
+
+        model.traverse((child) => {
+            if (child.isMesh){
+                var tex = new THREE.TextureLoader().load('Textures/grad.png');
+                tex.minFilter = THREE.NearestFilter;
+                tex.magFilter = THREE.NearestFilter;
+                let toonMaterial = new THREE.MeshToonMaterial({ color : 0x717DFF, gradientMap : tex});
+                child.material = toonMaterial; // a material i created in the code earlier
+                child.castShadow = true;
+            }
+        });
 
         models['playerCharacter'] = model; // adding the model to the models object
 
@@ -124,9 +150,21 @@ gltfloader.load(
     'Models/AnimationTest_V11-test.gltf',
     (gltf) =>
     {
+        otherAnimations = gltf.animations
         let model = gltf.scene
         model.scale.set(.07,.07,.07)
         model.position.set(0,-.6, 0)
+
+        model.traverse((child) => {
+            if (child.isMesh){
+                var tex = new THREE.TextureLoader().load('Textures/grad.png');
+                tex.minFilter = THREE.NearestFilter;
+                tex.magFilter = THREE.NearestFilter;
+                let toonMaterial = new THREE.MeshToonMaterial({ color : 0x717DFF, gradientMap : tex});
+                child.material = toonMaterial; // a material i created in the code earlier
+                child.castShadow = true;
+            }
+        });
 
         models['centerCharacter'] = model// test center model.
 
@@ -316,4 +354,8 @@ export function getModel(modelKey){
 
 export function getPlayerAnimations(){
     return playerAnimations
+}
+
+export function getOtherCharacterAnimations(){
+    return otherAnimations
 }

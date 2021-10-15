@@ -529,7 +529,15 @@ mcqScene.add(mcqPointLight)
 //      Joystick scene
 //
 export const joystickScene = new THREE.Scene() 
-export const joystickCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100)
+export const joystickCamera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100)
+
+joystickScene.background = new THREE.Color(0x99CCFF);
+
+const color = 0x99CCFF;  // white
+const near = 10;
+const far = 100;
+const density = 0.05;
+joystickScene.fog = new THREE.FogExp2(color, density);
 
 joystickCamera.position.x = 0
 joystickCamera.position.y = 2
@@ -540,17 +548,32 @@ joystickScene.add(joystickCamera)
 //Setting up level
 
 //add floor
-const floorgeo = new THREE.BoxGeometry(100,.05,100);
-const floorMaterial = new THREE.MeshBasicMaterial( {color: 0xfff4db});
-const RingMaterial = new THREE.MeshBasicMaterial({color: 0xf5eddc})
+//const floorgeo = new THREE.PlaneBufferGeometry(10000,10000);
+const floorgeo = new THREE.CylinderGeometry(100,100,0.05, 256);
+const floorMaterial = new THREE.MeshLambertMaterial( {color: 0xffffff});    //prev color 0xfff4db
+const RingMaterial = new THREE.MeshBasicMaterial({color: 0xf5eddc}) 
 
 const floor = new THREE.Mesh (floorgeo, floorMaterial);
-floor.position.y = -.65
-
+//floor.rotation.set(Math.PI / -2, 0, 0)
+floor.position.y = -.6
+floor.receiveShadow = true;
 joystickScene.add(floor);
+
+const ambLight = new THREE.AmbientLight(0x404040, 0.1);
+joystickScene.add(ambLight);
+
+const joyDirLight = new THREE.DirectionalLight(0xffffff, 1.2 );
+joyDirLight.position.set(4,8,5);
+joyDirLight.castShadow = true;
+joyDirLight.shadow.camera.near = 0.1;
+joyDirLight.shadow.camera.far = 100;
+joystickScene.add(joyDirLight);
+
 
 //Adding rings
 //Highlight material
+//#region Radius Cylinders
+/*
 const rad1Material = new THREE.MeshBasicMaterial( { color: 0xfcf8ed } );
 
 const totalCircleArea = 7;
@@ -613,7 +636,10 @@ cylinder7.position.set(0,yPos,0);
 //joystickScene.add( cylinder5 );
 //joystickScene.add( cylinder6 );
 //joystickScene.add( cylinder7 );
+*/
+//#endregion
 
+/*
 //Adding light
 const joystickPointLight = new THREE.PointLight(0xffffff, 3)
 
@@ -621,10 +647,12 @@ joystickPointLight.position.x = 2
 joystickPointLight.position.y = 3
 joystickPointLight.position.z = 4
 joystickPointLight.intensity = 1.3
+joystickPointLight.castShadow = true;
 
 joystickScene.add(joystickPointLight)
 //
 //      end of Joystick scene
+*/
 
 
 export function calculateDistance(currentCenterModel, answers){
@@ -725,6 +753,7 @@ export function updateRingLocation(currentCenterModel){
         const centerModelPosX = currentCenterModel.position.x 
         const centerModelPosZ = currentCenterModel.position.z 
         
+        /*
         cylinder.position.set(centerModelPosX,-.55,centerModelPosZ)
         cylinder2.position.set(centerModelPosX,-.56,centerModelPosZ)
         cylinder3.position.set(centerModelPosX,-.57,centerModelPosZ)
@@ -732,6 +761,7 @@ export function updateRingLocation(currentCenterModel){
         cylinder5.position.set(centerModelPosX,-.59,centerModelPosZ)
         cylinder6.position.set(centerModelPosX,-.60,centerModelPosZ)
         cylinder7.position.set(centerModelPosX,-.61,centerModelPosZ)
+        */
     }
 }
 

@@ -23,6 +23,12 @@ let playerMixer = null; //Holds player animation mixer
 let playerAnimations = null //Holds player animation array
 var animationIndex = 0;     //Id for current playing animation  2-Idle, 3-Walk
 
+let otherCharacter = null;
+let otherMixer = null;
+let otherAnimations = null;
+var otherIdle = true;
+var otherAnimationIndex = 0;    // 2- idle, 3-walk
+
 const playerSpeed = 0.15
 var moveDirection = new THREE.Vector2(0,0)
 var curDirection = new THREE.Vector2()
@@ -42,6 +48,12 @@ export function setPlayer(playerModel, playerAnims){
     player = playerModel
     playerMixer = new THREE.AnimationMixer(player)
     playerAnimations = playerAnims
+}
+
+export function setOtherCharacter(otherModel){
+    otherCharacter = otherModel;
+    otherMixer = new THREE.AnimationMixer(otherCharacter);
+    otherAnimations = playerAnimations;
 }
 
 const up = new THREE.Vector2(0,1)
@@ -84,6 +96,7 @@ const windowY = window.innerHeight / 2;
 //Is character moving
 var move= false;
 
+//#region Event function set
 //variables for touch movement
 var touchy,touchx, touchnewy, touchnewx;
 
@@ -179,31 +192,45 @@ function onDocumentTouchEnd(event){
     moveright = false;
     idle = true;
 }
-
-
+//#endregion
 
 var moveforward, movebackwards, moveleft, moveright
 var idle = true;
-var currentPosition = new THREE.Vector3(-2, -0.6, 0);
+var curPlayerPosition = new THREE.Vector3(-2, -0.6, 0);
+var curOtherPosition = new THREE.Vector3(2, -0.6, 0);
 
 function Movecharacter(){
     idle = true;
 
-    var xPos = -2 + 0.5 * joystickSlideValue;
-    currentPosition.lerp(new Vector3(xPos, -0.6, 0), 0.2);
+    var xPos = -2 + 0.25 * joystickSlideValue;
+    curPlayerPosition.lerp(new Vector3(xPos, -0.6, 0), 0.2);
 
-    player.position.set(currentPosition.x, currentPosition.y, currentPosition.z);
+    player.position.set(curPlayerPosition.x, curPlayerPosition.y, curPlayerPosition.z);
 
     if((xPos - player.position.x) < 0.05){
         idle = true;
     }
-    else
+    else{
         idle = false;
+    }
 
+    xPos = 2 - 0.25 * joystickSlideValue;
+    curOtherPosition.lerp(new Vector3(xPos, -0.6, 0), 0.2);
+
+    otherCharacter.position.set(curOtherPosition.x, curOtherPosition.y, curOtherPosition.z);
+
+    if((xPos - otherCharacter.position.x) < 0.05){
+        otherIdle = true;
+    }
+    else{
+        otherIdle = false;
+    }
 
     //newPlayerMovement()
     //limitArea()
 }
+
+//#region JoystickControls
 
 function oldPlayerMovement(){
     if(moveforward ){
@@ -406,6 +433,7 @@ function keylifted(){
         }
     }
 }
+//#endregion
 
 //animates player depending on player's start (eg - idle/ running)  //2 - Idle, 3 - Walk
 function animatePlayer(){
@@ -466,6 +494,60 @@ function animatePlayer(){
     
 }
 
+function animateOtherCharacter(){
+    const fadeDuration = 0.25;
+    if(canControlPlayer){
+        const idleAction = otherMixer.clipAction(otherAnimations[2]);
+        const walkAction = otherMixer.clipAction(otherAnimations[3]);
+        if(otherIdle){
+            if(otherMixer)
+            {
+                //Go to Idle
+                if(otherAnimationIndex != 2){
+                    otherAnimationIndex = 2;
+
+                    //walkAction.stop();
+                    idleAction.reset();
+                    idleAction.crossFadeFrom(walkAction ,fadeDuration);
+                    idleAction.play();
+                }
+            }
+        }
+        else
+        {
+            if(otherMixer)
+            {
+                //Go to Walk
+                if(otherAnimationIndex != 3){
+                    otherAnimationIndex = 3;
+
+                    //idleAction.stop();
+                    walkAction.reset();
+                    walkAction.crossFadeFrom(idleAction, fadeDuration);
+                    walkAction.play();
+                }
+            }
+        }
+    }else{
+        if(otherMixer)
+            {
+                //Go to Idle
+                if(otherAnimationIndex != 2){
+                    otherAnimationIndex = 2;
+
+                    const idleAction = otherMixer.clipAction(otherAnimations[2]);
+                    const walkAction = otherMixer.clipAction(otherAnimations[3]);
+
+                    //walkAction.stop();
+                    idleAction.reset();
+                    idleAction.crossFadeFrom(walkAction ,fadeDuration);
+                    idleAction.play();
+                }
+            }
+    }
+    
+}
+
 const clock = new THREE.Clock()
 let previousTime = 0
 
@@ -480,8 +562,10 @@ const tick = () =>
     }
 
     if(playerMixer !== null)playerMixer.update(deltatime)
+    if(otherMixer != null) otherMixer.update(deltatime)
 
     animatePlayer()
+    animateOtherCharacter()
     //Implement loop here
     window.requestAnimationFrame(tick)
 }
