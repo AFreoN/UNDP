@@ -23,11 +23,7 @@ export function startSurvey(){//call this function when loading is complete
     var player = assetLoader.getModel('playerCharacter')
     var playerAnimations = assetLoader.getPlayerAnimations()
 
-    var otherCharacter = assetLoader.getModel('centerCharacter')
-    var otherAnimations = assetLoader.getOtherCharacterAnimations()
-
     controls.setPlayer(player, playerAnimations)
-    controls.setOtherCharacter(otherCharacter, otherAnimations)
     //Call any functions related to starting the survey (setting up the first scene etc..)
 }
 

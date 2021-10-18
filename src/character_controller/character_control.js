@@ -24,6 +24,7 @@ let playerAnimations = null //Holds player animation array
 var animationIndex = 0;     //Id for current playing animation  2-Idle, 3-Walk
 
 let otherCharacter = null;
+var otherYPos = 0;
 let otherMixer = null;
 let otherAnimations = null;
 var otherIdle = true;
@@ -50,10 +51,19 @@ export function setPlayer(playerModel, playerAnims){
     playerAnimations = playerAnims
 }
 
-export function setOtherCharacter(otherModel){
+export function setOtherCharacter(otherModel, _otherAnimation){
+    otherYPos = otherModel.position.y;
+    curOtherPosition.y = otherYPos;
     otherCharacter = otherModel;
-    otherMixer = new THREE.AnimationMixer(otherCharacter);
-    otherAnimations = playerAnimations;
+    //curOtherPosition = otherCharacter.position;
+    if(_otherAnimation != null){
+        otherMixer = new THREE.AnimationMixer(otherCharacter);
+        otherAnimations = _otherAnimation;
+    }
+    else{
+        otherAnimations = null;
+        otherMixer = null;
+    }
 }
 
 const up = new THREE.Vector2(0,1)
@@ -201,13 +211,15 @@ var curOtherPosition = new THREE.Vector3(2, -0.6, 0);
 
 function Movecharacter(){
     idle = true;
+    let lerpSpeed = 0.1;
 
     var xPos = -2 + 0.25 * joystickSlideValue;
-    curPlayerPosition.lerp(new Vector3(xPos, -0.6, 0), 0.2);
+    curPlayerPosition.lerp(new Vector3(xPos, player.position.y, 0), lerpSpeed);
 
     player.position.set(curPlayerPosition.x, curPlayerPosition.y, curPlayerPosition.z);
 
-    if((xPos - player.position.x) < 0.05){
+    var abs = Math.abs(xPos - player.position.x);
+    if((abs) < 0.05){
         idle = true;
     }
     else{
@@ -215,11 +227,12 @@ function Movecharacter(){
     }
 
     xPos = 2 - 0.25 * joystickSlideValue;
-    curOtherPosition.lerp(new Vector3(xPos, -0.6, 0), 0.2);
+    curOtherPosition.lerp(new Vector3(xPos, otherYPos, 0), lerpSpeed);
 
     otherCharacter.position.set(curOtherPosition.x, curOtherPosition.y, curOtherPosition.z);
 
-    if((xPos - otherCharacter.position.x) < 0.05){
+    abs = Math.abs(xPos - otherCharacter.position.x);
+    if((abs) < 0.05){
         otherIdle = true;
     }
     else{
@@ -438,17 +451,18 @@ function keylifted(){
 //animates player depending on player's start (eg - idle/ running)  //2 - Idle, 3 - Walk
 function animatePlayer(){
     const fadeDuration = 0.25;
+    const idleId = 2, walkId = 4;
     if(canControlPlayer){
-        const idleAction = playerMixer.clipAction(playerAnimations[2]);
-        const walkAction = playerMixer.clipAction(playerAnimations[3]);
+        const idleAction = playerMixer.clipAction(playerAnimations[idleId]);
+        const walkAction = playerMixer.clipAction(playerAnimations[walkId]);
         if(idle){
             if(playerMixer)
             {
                 // playerMixer.clipAction(playerAnimations[3]).stop();
                 // playerMixer.clipAction(playerAnimations[2]).play();
                 //Go to Idle
-                if(animationIndex != 2){
-                    animationIndex = 2;
+                if(animationIndex != idleId){
+                    animationIndex = idleId;
 
                     //walkAction.stop();
                     idleAction.reset();
@@ -464,8 +478,8 @@ function animatePlayer(){
                 // playerMixer.clipAction(playerAnimations[2]).stop();      
                 // playerMixer.clipAction(playerAnimations[3]).play();
                 //Go to Walk
-                if(animationIndex != 3){
-                    animationIndex = 3;
+                if(animationIndex != walkId){
+                    animationIndex = walkId;
 
                     //idleAction.stop();
                     walkAction.reset();
@@ -478,11 +492,11 @@ function animatePlayer(){
         if(playerMixer)
             {
                 //Go to Idle
-                if(animationIndex != 2){
-                    animationIndex = 2;
+                if(animationIndex != idleId){
+                    animationIndex = idleId;
 
-                    const idleAction = playerMixer.clipAction(playerAnimations[2]);
-                    const walkAction = playerMixer.clipAction(playerAnimations[3]);
+                    const idleAction = playerMixer.clipAction(playerAnimations[idleId]);
+                    const walkAction = playerMixer.clipAction(playerAnimations[walkId]);
 
                     //walkAction.stop();
                     idleAction.reset();
@@ -496,15 +510,16 @@ function animatePlayer(){
 
 function animateOtherCharacter(){
     const fadeDuration = 0.25;
+    const idleId = 2, walkId = 4;
     if(canControlPlayer){
-        const idleAction = otherMixer.clipAction(otherAnimations[2]);
-        const walkAction = otherMixer.clipAction(otherAnimations[3]);
+        const idleAction = otherMixer.clipAction(otherAnimations[idleId]);
+        const walkAction = otherMixer.clipAction(otherAnimations[walkId]);
         if(otherIdle){
             if(otherMixer)
             {
                 //Go to Idle
-                if(otherAnimationIndex != 2){
-                    otherAnimationIndex = 2;
+                if(otherAnimationIndex != idleId){
+                    otherAnimationIndex = idleId;
 
                     //walkAction.stop();
                     idleAction.reset();
@@ -518,8 +533,8 @@ function animateOtherCharacter(){
             if(otherMixer)
             {
                 //Go to Walk
-                if(otherAnimationIndex != 3){
-                    otherAnimationIndex = 3;
+                if(otherAnimationIndex != walkId){
+                    otherAnimationIndex = walkId;
 
                     //idleAction.stop();
                     walkAction.reset();
@@ -532,11 +547,11 @@ function animateOtherCharacter(){
         if(otherMixer)
             {
                 //Go to Idle
-                if(otherAnimationIndex != 2){
-                    otherAnimationIndex = 2;
+                if(otherAnimationIndex != idleId){
+                    otherAnimationIndex = idleId;
 
-                    const idleAction = otherMixer.clipAction(otherAnimations[2]);
-                    const walkAction = otherMixer.clipAction(otherAnimations[3]);
+                    const idleAction = otherMixer.clipAction(otherAnimations[idleId]);
+                    const walkAction = otherMixer.clipAction(otherAnimations[walkId]);
 
                     //walkAction.stop();
                     idleAction.reset();
@@ -561,11 +576,16 @@ const tick = () =>
         Movecharacter()
     }
 
-    if(playerMixer !== null)playerMixer.update(deltatime)
-    if(otherMixer != null) otherMixer.update(deltatime)
+    if(playerMixer !== null){
+        playerMixer.update(deltatime)
+        animatePlayer()
+    }
 
-    animatePlayer()
-    animateOtherCharacter()
+    if(otherMixer != null) {
+        otherMixer.update(deltatime)
+        animateOtherCharacter()
+    }
+
     //Implement loop here
     window.requestAnimationFrame(tick)
 }

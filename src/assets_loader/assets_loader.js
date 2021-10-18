@@ -16,6 +16,12 @@ let models = {
     maldivesMap:null
 }
 
+let animations = {
+    playerCharacter:null,
+    centerCharacter:null,
+    centerEmoji:null
+}
+
 //player animations are stored here
 let playerAnimations = null
 let otherAnimations = null
@@ -116,10 +122,10 @@ const threeTone = new THREE.DataTexture(
 
 //Importing player character
 gltfloader.load(
-    'Models/AnimationTest_V11-test.gltf',
+    'Models/toonwalk_character.gltf',
     (gltf) =>
     {
-        playerAnimations = gltf.animations
+        animations['playerCharacter'] = gltf.animations
         let model = gltf.scene
         model.scale.set(.07,.07,.07)
         model.position.set(0,-.6, 2)
@@ -147,10 +153,10 @@ gltfloader.load(
 )  
 
 gltfloader.load(
-    'Models/AnimationTest_V11-test.gltf',
+    'Models/toonwalk_character.gltf',
     (gltf) =>
     {
-        otherAnimations = gltf.animations
+        animations['centerCharacter'] = gltf.animations
         let model = gltf.scene
         model.scale.set(.07,.07,.07)
         model.position.set(0,-.6, 0)
@@ -353,9 +359,9 @@ export function getModel(modelKey){
 }
 
 export function getPlayerAnimations(){
-    return playerAnimations
+    return animations['playerCharacter']
 }
 
-export function getOtherCharacterAnimations(){
-    return otherAnimations
+export function getOtherCharacterAnimations(animationKey){
+    return animations[animationKey]
 }

@@ -277,7 +277,7 @@ export function loadQuestion(questionIndex){
                     }
                     joystickScene.add(centerModel)
                     currentCenterModel = centerModel
-                    controls.setOtherCharacter(currentCenterModel)
+                    controls.setOtherCharacter(currentCenterModel, assetLoader.getOtherCharacterAnimations(currentQuestion.centerModelKey));
                 }
                 uiControl.resetJoystickSlider();
 

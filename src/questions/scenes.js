@@ -526,20 +526,29 @@ mcqScene.add(mcqPointLight)
 //      Joystick scene
 //
 export const joystickScene = new THREE.Scene() 
-export const joystickCamera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100)
+
+let aspect = window.innerWidth / window.innerHeight;
+let fov = 35;
+
+export const joystickCamera = new THREE.PerspectiveCamera(fov, window.innerWidth / window.innerHeight, 0.1, 100)
 
 joystickScene.background = new THREE.Color(0x99CCFF);
 
 const color = 0x99CCFF;  // white
-const near = 10;
-const far = 100;
-const density = 0.05;
+const minDis = 10;
+const maxDis = 100;
+const density = 0.02;
 joystickScene.fog = new THREE.FogExp2(color, density);
+//joystickScene.fog = new THREE.Fog(color, minDis, maxDis);
 
 joystickCamera.position.x = 0
-joystickCamera.position.y = 2
-joystickCamera.position.z = 4.0
+joystickCamera.position.y = 4 / aspect      //prev value is 2
+joystickCamera.position.z = 8 / aspect      //prev value is 4
+
+//setting rotation of the camera
 joystickCamera.rotation.set(Math.PI * -0.2, 0, 0)
+joystickCamera.lookAt(0, -0.5, 0);
+
 joystickScene.add(joystickCamera)
 
 //Setting up level
