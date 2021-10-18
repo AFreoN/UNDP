@@ -22,8 +22,8 @@ joystickSlider.oninput = function(){
 }
 
 export function resetJoystickSlider(){
-    joystickSlider.value = 1;
-    joystickSlideValue = 1;
+    joystickSlider.value = 4;
+    joystickSlideValue = 4;
 }
 
 //control buttons

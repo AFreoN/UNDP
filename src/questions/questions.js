@@ -292,12 +292,12 @@ export function loadQuestion(questionIndex){
                     currentCenterModel = centerModel
                     controls.setOtherCharacter(currentCenterModel, assetLoader.getOtherCharacterAnimations(currentQuestion.centerModelKey));
                 }
-                uiControl.resetJoystickSlider();
+                //uiControl.resetJoystickSlider();
 
                 //scenes.updateRingLocation(currentCenterModel)
-                currentCenterModel.position.set(2, currentCenterModel.position.y, 0);
+                //currentCenterModel.position.set(2, currentCenterModel.position.y, 0);
                 //currentCenterModel.rotation.set(0, -90,0);
-                player.position.set(-1.5, -0.6, 0);
+                //player.position.set(-1.5, -0.6, 0);
                 //player.rotation.set(0, 90,0);
 
                 updateSceneAndCamera(joystickScene, joystickCamera)

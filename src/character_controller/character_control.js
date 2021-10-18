@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { Vector3 } from 'three';
-import { joystickSlideValue } from '../ui_controller/ui_controller';
+import { joystickSlideValue, resetJoystickSlider } from '../ui_controller/ui_controller';
 
 //Character control
 
@@ -52,6 +52,8 @@ export function setPlayer(playerModel, playerAnims){
 }
 
 export function setOtherCharacter(otherModel, _otherAnimation){
+    resetJoystickSlider();
+
     otherYPos = otherModel.position.y;
     curOtherPosition.y = otherYPos;
     otherCharacter = otherModel;
@@ -64,6 +66,15 @@ export function setOtherCharacter(otherModel, _otherAnimation){
         otherAnimations = null;
         otherMixer = null;
     }
+
+    var xPos = -2 + 0.25 * joystickSlideValue;
+    player.position.set(xPos, player.position.y, 0);
+    curPlayerPosition.x = xPos;
+
+    xPos = 2 - 0.25 * joystickSlideValue;
+    otherCharacter.position.set(xPos, otherCharacter.position.y, 0);
+    curOtherPosition.x = xPos;
+    curOtherPosition.y = otherModel.position.y;
 }
 
 const up = new THREE.Vector2(0,1)
