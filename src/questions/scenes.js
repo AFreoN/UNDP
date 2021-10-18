@@ -39,6 +39,9 @@ export function updateOceanNormalOffset(delta){
 
 var currentSelectionScene = null
 
+export function resetCurrentSelectionScene(){
+    currentSelectionScene = null
+}
 //      Country selection scene
 //
 export const countryScene = new THREE.Scene()
