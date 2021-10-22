@@ -311,8 +311,8 @@ canvas.webgl{
   }
   div.pagination__dot:hover {
     transition: .3s;
-    border-color: #eeeeee;
-    background: #eeeeee;
+    border-color: #ffffff;
+    background: #ffffff;
   }
   .pagination__dot:hover:before {
     top: -48px;
@@ -326,7 +326,7 @@ canvas.webgl{
     position: absolute;
     top: -40px;
     left: -36px;
-    background: #eeeeee;
+    background: #ffffff;
     width: 160px;
     font-family: "Montserrat";
     font-size: 16px;

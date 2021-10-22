@@ -534,16 +534,6 @@ let aspect = window.innerWidth / window.innerHeight;
 let fov = 35 + 10 * aspect;  // prev 35
 
 export const joystickCamera = new THREE.PerspectiveCamera(fov, window.innerWidth / window.innerHeight, 0.1, 100)
-
-joystickScene.background = new THREE.Color(0x99CCFF);
-
-const color = 0x99CCFF;  // white
-const minDis = 10;
-const maxDis = 100;
-const density = 0.02;
-joystickScene.fog = new THREE.FogExp2(color, density);
-//joystickScene.fog = new THREE.Fog(color, minDis, maxDis);
-
 joystickCamera.position.x = 0
 joystickCamera.position.y = 0 / aspect      //prev value is 4
 joystickCamera.position.z = 3.5 /  aspect // 4 * aspect      //prev value is 6 / aspect
@@ -554,12 +544,22 @@ joystickCamera.lookAt(0, -0.5, 0);
 
 joystickScene.add(joystickCamera)
 
+const color = 0xFFC7BC;   //prev 0x99CCFF
+joystickScene.background = new THREE.Color(color);
+
+const minDis = joystickCamera.position.z;
+const maxDis = 20;
+const density = 0.1;   //prev 0.01
+joystickScene.fog = new THREE.FogExp2(color, density);
+//joystickScene.fog = new THREE.Fog(color, minDis, maxDis);
+
+
 //Setting up level
 
 //add floor
 //const floorgeo = new THREE.PlaneBufferGeometry(10000,10000);
 const floorgeo = new THREE.CylinderGeometry(1000,1000,0.05, 256);
-const floorMaterial = new THREE.MeshLambertMaterial( {color: 0xffffff});    //prev color 0xfff4db
+const floorMaterial = new THREE.MeshLambertMaterial( {color: 0xFFB08E});    //prev color 0xfff4db
 const RingMaterial = new THREE.MeshBasicMaterial({color: 0xf5eddc}) 
 
 const floor = new THREE.Mesh (floorgeo, floorMaterial);
@@ -568,7 +568,7 @@ floor.position.y = -.6
 floor.receiveShadow = true;
 joystickScene.add(floor);
 
-const ambLight = new THREE.AmbientLight(0x404040, 0.1);
+const ambLight = new THREE.AmbientLight(0xCFD1E6, 0.5);
 joystickScene.add(ambLight);
 
 const joyDirLight = new THREE.DirectionalLight(0xffffff, 1.2 );

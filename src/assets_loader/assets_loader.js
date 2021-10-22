@@ -21,6 +21,9 @@ let models = {
     Tree5:null,
     Tree6:null,
     Tree7:null,
+    Tree8:null,
+    Tree9:null,
+    Tree10:null,
     cloud1:null,
     cloud2:null,
     cloud3:null
@@ -369,6 +372,7 @@ gltfloader.load(
         model.scale.set(0.25,0.25,0.25)
 
         models['Tree1'] = model
+        SetTreeMaterial(model);
 
         loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
         loadingBar.animate(loadedPercentage)
@@ -384,6 +388,7 @@ gltfloader.load(
         model.scale.set(0.25,0.25,0.25)
 
         models['Tree2'] = model
+        SetTreeMaterial(model);
 
         loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
         loadingBar.animate(loadedPercentage)
@@ -399,6 +404,7 @@ gltfloader.load(
         model.scale.set(0.25,0.25,0.25)
 
         models['Tree3'] = model
+        SetTreeMaterial(model)
 
         loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
         loadingBar.animate(loadedPercentage)
@@ -414,6 +420,7 @@ gltfloader.load(
         model.scale.set(0.25,0.25,0.25)
 
         models['Tree4'] = model
+        SetTreeMaterial(model)
 
         loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
         loadingBar.animate(loadedPercentage)
@@ -430,6 +437,7 @@ gltfloader.load(
         model.scale.set(0.25,0.25,0.25)
 
         models['Tree5'] = model
+        SetTreeMaterial(model)
 
         loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
         loadingBar.animate(loadedPercentage)
@@ -445,6 +453,7 @@ gltfloader.load(
         model.scale.set(0.25,0.25,0.25)
 
         models['Tree6'] = model
+        SetTreeMaterial(model)
 
         loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
         loadingBar.animate(loadedPercentage)
@@ -460,6 +469,55 @@ gltfloader.load(
         model.scale.set(0.25,0.25,0.25)
 
         models['Tree7'] = model
+        SetTreeMaterial(model)
+
+        loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
+        loadingBar.animate(loadedPercentage)
+    }
+)
+
+gltfloader.load(
+    'Tree.glb',
+    (gltf) =>
+    {
+        let model = gltf.scene
+        model.position.set(0, -0.3, 0)
+        model.scale.set(0.25,0.25,0.25)
+
+        models['Tree8'] = model
+        SetTreeMaterial(model)
+
+        loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
+        loadingBar.animate(loadedPercentage)
+    }
+)
+
+gltfloader.load(
+    'Tree.glb',
+    (gltf) =>
+    {
+        let model = gltf.scene
+        model.position.set(0, -0.3, 0)
+        model.scale.set(0.25,0.25,0.25)
+
+        models['Tree9'] = model
+        SetTreeMaterial(model)
+
+        loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
+        loadingBar.animate(loadedPercentage)
+    }
+)
+
+gltfloader.load(
+    'Tree.glb',
+    (gltf) =>
+    {
+        let model = gltf.scene
+        model.position.set(0, -0.3, 0)
+        model.scale.set(0.25,0.25,0.25)
+
+        models['Tree10'] = model
+        SetTreeMaterial(model)
 
         loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
         loadingBar.animate(loadedPercentage)
@@ -492,6 +550,11 @@ gltfloader.load(
 
         models['cloud2'] = model
 
+        let mesh = model.children[0].children[0].children[0].children[0];
+        var col = mesh.material.color;
+        var newMat = new THREE.MeshLambertMaterial( {color : col });
+        mesh.material = newMat;
+
         loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
         loadingBar.animate(loadedPercentage)
     }
@@ -507,6 +570,21 @@ gltfloader.load(
 
         models['cloud3'] = model
 
+        let mesh = model.children[0].children[0].children[0].children[0];
+        var col = mesh.material.color;
+        var newMat = new THREE.MeshLambertMaterial( {color : col });
+        mesh.material = newMat;
+
+
+        model.children.forEach(child => {
+            if(child.isMesh){
+                // var col = child.material.color;
+                // var newMat = new THREE.MeshLambertMaterial( {col });
+                // child.material.color = newMat;
+                console.log(child.name);
+            }
+        });
+
         loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
         loadingBar.animate(loadedPercentage)
     }
@@ -514,7 +592,17 @@ gltfloader.load(
 
 
 
-
+function SetTreeMaterial(scene){
+    scene.traverse( function(object){
+        if(object.material){
+            var col = 0xffca60;     //prev 0xffa211
+            var mat = new THREE.MeshLambertMaterial( {color : col});
+            object.material = mat;
+            object.castShadow = true;
+            object.receiveShadow = true;
+        }
+    });
+}
 
 
 

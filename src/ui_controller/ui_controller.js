@@ -20,6 +20,7 @@ let regionPage_dot = document.getElementById('region_selection_dot');
 let question1_dot = document.getElementById('question1_dot');
 let question2_dot = document.getElementById('question2_dot');
 let question3_dot = document.getElementById('question3_dot');
+let question4_dot = document.getElementById('question4_dot');
 paginate(0);
 
 export function paginate(quesIndex){
@@ -28,6 +29,7 @@ export function paginate(quesIndex){
     question1_dot.className = 'pagination__dot';
     question2_dot.className = 'pagination__dot';
     question3_dot.className = 'pagination__dot';
+    question4_dot.className = 'pagination__dot';
     switch(quesIndex){
         case 0:
             countryPage_dot.className = 'pagination__dot pagination__dot--active';
@@ -43,6 +45,9 @@ export function paginate(quesIndex){
             break;
         case 4:
             question3_dot.className = 'pagination__dot pagination__dot--active';
+            break;
+        case 5:
+            question4_dot.className = 'pagination__dot pagination__dot--active';
             break;
     }
 }
