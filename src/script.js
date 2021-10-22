@@ -6,6 +6,9 @@ import * as uiControl from './ui_controller/ui_controller'
 import { enableBackButton, enableConfirmation, enableNextButton } from './ui_controller/ui_controller'
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { getFirestore } from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore"; 
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -24,11 +27,12 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-
+const db = getFirestore();
 
 
 //      Initializing application properties
 //
+
 let surveyStarted = false //other modules can read this value to see if the survey has started
 let showingTutorial = false;
 
@@ -118,9 +122,17 @@ export function skipCountrySelection(){
     questions.loadQuestion(questionIndex)
 }
 
-function submitAnswers(){
+async function submitAnswers(){
     console.log('answers submitted');
     console.log(confirmedAnswers);
+    try {
+        const docRef = await addDoc(collection(db, "answers"), {
+          answers: confirmedAnswers
+        });
+        console.log("Document written with ID: ", docRef.id);
+      } catch (e) {
+        console.error("Error adding document: ", e);
+      }
 }
 
 export function validateAnswers(){
@@ -136,6 +148,10 @@ export function validateAnswers(){
                 questions.loadQuestion(questionIndex)
                 console.log('not answered a compulsory question!');
                 return
+            }
+        }else{
+            if(answerIndex === undefined){
+                confirmedAnswers[i] = null
             }
         }
     }
