@@ -231,7 +231,11 @@ backButton.addEventListener('click',function(){
 
 nextButton.addEventListener('click',function(){
     if(canChangeQuestions){
-        main.loadNextQuestion()        
+        if(canConfirmAnswer){
+            console.log("answer confirmed")
+            main.saveCurrentAnswer(selectedAnswerIndex)
+        }
+        main.loadNextQuestion()   
     }
 })
 

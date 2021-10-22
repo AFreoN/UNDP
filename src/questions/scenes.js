@@ -15,15 +15,15 @@ window.addEventListener('mousemove', (event) =>
 const raycaster = new THREE.Raycaster()
 
 const oceanPlane = new THREE.PlaneGeometry(20,20)
-var oceanNormal = null
+var oceanTexture = null
 const oceanMaterial = new THREE.MeshStandardMaterial(
     {
-        color:0x4dc1ff,
-        normalMap: new THREE.TextureLoader().load( 'waternormals.jpg', function ( texture ) {
+        // color:0x4dc1ff,
+        map: new THREE.TextureLoader().load( 'ocean_texture.png', function ( texture ) {
             texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-            texture.repeat.set(4,4)
+            texture.repeat.set(10,10)
             // texture.offset.set(0.5,0)
-            oceanNormal = texture
+            oceanTexture = texture
         })
     })
 const oceanMesh = new THREE.Mesh(oceanPlane,oceanMaterial)
@@ -32,8 +32,8 @@ oceanMesh.position.set(0,-0.01 ,0)
 
 var oceanNormalOffset = 0
 export function updateOceanNormalOffset(delta){
-    if(oceanNormal){
-        oceanNormal.offset.add(new THREE.Vector2(delta, 0))
+    if(oceanTexture){
+        oceanTexture.offset.add(new THREE.Vector2(delta, 0))
     }
 }
 

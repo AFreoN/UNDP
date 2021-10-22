@@ -118,6 +118,7 @@ export function isShowingTutorial(){
 
 export function skipCountrySelection(){
     confirmedAnswers[0] = 2
+    confirmedAnswers[1] = null
     questionIndex = 2
     questions.loadQuestion(questionIndex)
 }
