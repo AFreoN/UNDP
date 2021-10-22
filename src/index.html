@@ -22,6 +22,13 @@
     </div>
     <div class="ui-container">
         <div class="question-container" id="question-container"> Question </div>
+        <div class="pagination">
+            <div data-tooltip="Country selection" class="pagination__dot pagination__dot--active" id="country_selection_dot"></div>
+            <div data-tooltip="Region selection" class="pagination__dot" id="region_selection_dot"></div>
+            <div data-tooltip="Question 1" class="pagination__dot" id="question1_dot"></div>
+            <div data-tooltip="Question 2" class="pagination__dot" id="question2_dot"></div>
+            <div data-tooltip="Question 3" class="pagination__dot" id="question3_dot"></div>
+        </div>
         <div class="country-skip-container" id="country-skip-container">
             Not from these regions?
             <button class="country-skip-button" id="country-skip-button"> skip region selection </button>
@@ -37,11 +44,8 @@
             <div class="close-button" id="joystick-tutorial-close-button">x</div>
         </div>
         <div class="control-container">
-            <div class="control-page-button-container">
-                <button class="control-button" id="control-back-button"> &#x25C0 </button>
-                <button class="control-button" id="control-next-button"> &#x25B6 </button>
-            </div>
-            <button class="control-button" id="control-ok-button"> ok &#x2713 </button>
+            <button class="control-button" id="control-back-button"> &#x25C0 </button>
+            <button class="control-button" id="control-next-button"> &#x25B6 </button>
         </div>
     </div>
     <div class="submit-container" id="submit-container">

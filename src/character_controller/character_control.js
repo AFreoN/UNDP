@@ -17,6 +17,8 @@ export function disablePlayerControl(){
     canControlPlayer = false
 }
 
+const startX = 1;   //Starting x position of the character eg. 1 for character 1 and -1 for character 2
+const stepValue = 0.125; //Distance of character movement on each change in slider value
 
 let player = null; //Holds player model
 let playerMixer = null; //Holds player animation mixer
@@ -67,11 +69,11 @@ export function setOtherCharacter(otherModel, _otherAnimation){
         otherMixer = null;
     }
 
-    var xPos = -2 + 0.25 * joystickSlideValue;
+    var xPos = -startX + stepValue * joystickSlideValue;
     player.position.set(xPos, player.position.y, 0);
     curPlayerPosition.x = xPos;
 
-    xPos = 2 - 0.25 * joystickSlideValue;
+    xPos = startX - stepValue * joystickSlideValue;
     otherCharacter.position.set(xPos, otherCharacter.position.y, 0);
     curOtherPosition.x = xPos;
     curOtherPosition.y = otherModel.position.y;
@@ -224,7 +226,7 @@ function Movecharacter(){
     idle = true;
     let lerpSpeed = 0.1;
 
-    var xPos = -2 + 0.25 * joystickSlideValue;
+    var xPos = -startX + stepValue * joystickSlideValue;
     curPlayerPosition.lerp(new Vector3(xPos, player.position.y, 0), lerpSpeed);
 
     player.position.set(curPlayerPosition.x, curPlayerPosition.y, curPlayerPosition.z);
@@ -237,7 +239,7 @@ function Movecharacter(){
         idle = false;
     }
 
-    xPos = 2 - 0.25 * joystickSlideValue;
+    xPos = startX - stepValue * joystickSlideValue;
     curOtherPosition.lerp(new Vector3(xPos, otherYPos, 0), lerpSpeed);
 
     otherCharacter.position.set(curOtherPosition.x, curOtherPosition.y, curOtherPosition.z);

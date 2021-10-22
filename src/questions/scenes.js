@@ -531,7 +531,7 @@ mcqScene.add(mcqPointLight)
 export const joystickScene = new THREE.Scene() 
 
 let aspect = window.innerWidth / window.innerHeight;
-let fov = 35;
+let fov = 35 + 10 * aspect;  // prev 35
 
 export const joystickCamera = new THREE.PerspectiveCamera(fov, window.innerWidth / window.innerHeight, 0.1, 100)
 
@@ -545,8 +545,8 @@ joystickScene.fog = new THREE.FogExp2(color, density);
 //joystickScene.fog = new THREE.Fog(color, minDis, maxDis);
 
 joystickCamera.position.x = 0
-joystickCamera.position.y = 4 / aspect      //prev value is 2
-joystickCamera.position.z = 8 / aspect      //prev value is 4
+joystickCamera.position.y = 0 / aspect      //prev value is 4
+joystickCamera.position.z = 3.5 /  aspect // 4 * aspect      //prev value is 6 / aspect
 
 //setting rotation of the camera
 joystickCamera.rotation.set(Math.PI * -0.2, 0, 0)
@@ -558,7 +558,7 @@ joystickScene.add(joystickCamera)
 
 //add floor
 //const floorgeo = new THREE.PlaneBufferGeometry(10000,10000);
-const floorgeo = new THREE.CylinderGeometry(100,100,0.05, 256);
+const floorgeo = new THREE.CylinderGeometry(1000,1000,0.05, 256);
 const floorMaterial = new THREE.MeshLambertMaterial( {color: 0xffffff});    //prev color 0xfff4db
 const RingMaterial = new THREE.MeshBasicMaterial({color: 0xf5eddc}) 
 
@@ -662,7 +662,6 @@ joystickScene.add(joystickPointLight)
 //
 //      end of Joystick scene
 */
-
 
 export function calculateDistance(currentCenterModel, answers){
     const player = assetLoader.getModel('playerCharacter')

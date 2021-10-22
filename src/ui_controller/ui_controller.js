@@ -14,6 +14,39 @@ let joystickTutorialContainer = document.getElementById('joystick-tutorial-frame
 let countrySkipContainer = document.getElementById('country-skip-container')
 let submitContainer = document.getElementById('submit-container') 
 
+//Pagination
+let countryPage_dot = document.getElementById('country_selection_dot');
+let regionPage_dot = document.getElementById('region_selection_dot');
+let question1_dot = document.getElementById('question1_dot');
+let question2_dot = document.getElementById('question2_dot');
+let question3_dot = document.getElementById('question3_dot');
+paginate(0);
+
+export function paginate(quesIndex){
+    countryPage_dot.className = 'pagination__dot';
+    regionPage_dot.className = 'pagination__dot';
+    question1_dot.className = 'pagination__dot';
+    question2_dot.className = 'pagination__dot';
+    question3_dot.className = 'pagination__dot';
+    switch(quesIndex){
+        case 0:
+            countryPage_dot.className = 'pagination__dot pagination__dot--active';
+            break;
+        case 1:
+            regionPage_dot.className = 'pagination__dot pagination__dot--active';
+            break;
+        case 2:
+            question1_dot.className = 'pagination__dot pagination__dot--active';
+            break;
+        case 3:
+            question2_dot.className = 'pagination__dot pagination__dot--active';
+            break;
+        case 4:
+            question3_dot.className = 'pagination__dot pagination__dot--active';
+            break;
+    }
+}
+
 let joystickSlider = document.getElementById('myRange');
 export var joystickSlideValue = 1;
 joystickSlider.oninput = function(){
@@ -29,7 +62,6 @@ export function resetJoystickSlider(){
 //control buttons
 let backButton = document.getElementById('control-back-button')
 let nextButton = document.getElementById('control-next-button')
-let okButton = document.getElementById('control-ok-button')
 let regionSkipButton = document.getElementById('country-skip-button')
 let submitButton = document.getElementById('submit-button')
 let joystickTutCloseButton = document.getElementById('joystick-tutorial-close-button');
@@ -49,13 +81,11 @@ export function disableQuestionControl(){
 }
 
 export function enableConfirmation(selectedAnswer){
-    okButton.disabled = false
     canConfirmAnswer = true
     selectedAnswerIndex = selectedAnswer
 }
 
 export function disableConfirmation(){
-    okButton.disabled = true
     canConfirmAnswer = false
     selectedAnswerIndex = null
 }
@@ -202,13 +232,6 @@ backButton.addEventListener('click',function(){
 nextButton.addEventListener('click',function(){
     if(canChangeQuestions){
         main.loadNextQuestion()        
-    }
-})
-
-okButton.addEventListener('click',function(){
-    if(canConfirmAnswer){
-        main.saveCurrentAnswer(selectedAnswerIndex)
-        main.loadNextQuestion()
     }
 })
 
