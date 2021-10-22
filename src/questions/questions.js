@@ -25,27 +25,42 @@ export let questionArray = [
     */
     {
         type: 'country', //Type of the question, Can be used for changing UI
-        question: 'Country Selection', //Question text, which will be displayed on UI
+        question: 'In which country do you live ?', //Question text, which will be displayed on UI
         compulsory: true
     },
     {
         type: 'province', //Type of the question, Can be used for changing UI
-        question: 'Region Selection', //Question text, which will be displayed on UI
+        question: 'In which area do you live ?', //Question text, which will be displayed on UI
         compulsory: false
     },
     {
         type: 'mcq', //Type of the question, Can be used for changing UI
-        question: 'Question 1', //Question text, which will be displayed on UI
+        question: 'How old are you ?', //Question text, which will be displayed on UI
         answers: [ //Answers should be written in a meaningful order to be easy to calculate LOC(eg- Not Close being first and Very Close being last etc...)
-            'answer1',
-            'answer2',
-            'answer3'
+            'Under 18',
+            '18-25',
+            '26-35',
+            '35+',
+            'Prefer Not to Say'
+        ],
+        compulsory: false
+    },
+    {
+        type: 'mcq', //Type of the question, Can be used for changing UI
+        question: 'What is your gender ?', //Question text, which will be displayed on UI
+        answers: [ //Answers should be written in a meaningful order to be easy to calculate LOC(eg- Not Close being first and Very Close being last etc...)
+            'Man',
+            'Woman',
+            'Intersex',
+            'Non-binary',
+            'Other',
+            'Prefer not to Say'
         ],
         compulsory: false
     },
     {
         type: 'joystick', //Type of the question, Can be used for changing UI
-        question: 'Question 2', //Question text, which will be displayed on UI
+        question: 'How close do you feel to your mother ?', //Question text, which will be displayed on UI
         answers: [ //Answers should be written in a meaningful order to be easy to calculate LOC(eg- Not Close being first and Very Close being last etc...)
             'answer1',
             'answer2',
@@ -60,7 +75,7 @@ export let questionArray = [
     },
     {
         type: 'joystick', //Type of the question, Can be used for changing UI
-        question: 'Question 3', //Question text, which will be displayed on UI
+        question: 'How close do you feel to your father ?', //Question text, which will be displayed on UI
         answers: [ //Answers should be written in a meaningful order to be easy to calculate LOC(eg- Not Close being first and Very Close being last etc...)
             'answer1',
             'answer2',
