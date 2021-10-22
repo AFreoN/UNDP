@@ -13,7 +13,17 @@ let models = {
     centerCharacter:null,
     centerEmoji:null,
     sriLankaMap:null,
-    maldivesMap:null
+    maldivesMap:null,
+    Tree1:null,
+    Tree2:null,
+    Tree3:null,
+    Tree4:null,
+    Tree5:null,
+    Tree6:null,
+    Tree7:null,
+    cloud1:null,
+    cloud2:null,
+    cloud3:null
 }
 
 let animations = {
@@ -348,6 +358,172 @@ gltfloader.load(
         // }
     }
 )
+
+
+gltfloader.load(
+    'Tree.glb',
+    (gltf) =>
+    {
+        let model = gltf.scene
+        model.position.set(0, -0.3, 0)
+        model.scale.set(0.25,0.25,0.25)
+
+        models['Tree1'] = model
+
+        loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
+        loadingBar.animate(loadedPercentage)
+    }
+)
+
+gltfloader.load(
+    'Tree.glb',
+    (gltf) =>
+    {
+        let model = gltf.scene
+        model.position.set(0, -0.3, 0)
+        model.scale.set(0.25,0.25,0.25)
+
+        models['Tree2'] = model
+
+        loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
+        loadingBar.animate(loadedPercentage)
+    }
+)
+
+gltfloader.load(
+    'Tree.glb',
+    (gltf) =>
+    {
+        let model = gltf.scene
+        model.position.set(0, -0.3, 0)
+        model.scale.set(0.25,0.25,0.25)
+
+        models['Tree3'] = model
+
+        loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
+        loadingBar.animate(loadedPercentage)
+    }
+)
+
+gltfloader.load(
+    'Tree.glb',
+    (gltf) =>
+    {
+        let model = gltf.scene
+        model.position.set(0, -0.3, 0)
+        model.scale.set(0.25,0.25,0.25)
+
+        models['Tree4'] = model
+
+        loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
+        loadingBar.animate(loadedPercentage)
+    }
+)
+
+
+gltfloader.load(
+    'Tree.glb',
+    (gltf) =>
+    {
+        let model = gltf.scene
+        model.position.set(0, -0.3, 0)
+        model.scale.set(0.25,0.25,0.25)
+
+        models['Tree5'] = model
+
+        loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
+        loadingBar.animate(loadedPercentage)
+    }
+)
+
+gltfloader.load(
+    'Tree.glb',
+    (gltf) =>
+    {
+        let model = gltf.scene
+        model.position.set(0, -0.3, 0)
+        model.scale.set(0.25,0.25,0.25)
+
+        models['Tree6'] = model
+
+        loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
+        loadingBar.animate(loadedPercentage)
+    }
+)
+
+gltfloader.load(
+    'Tree.glb',
+    (gltf) =>
+    {
+        let model = gltf.scene
+        model.position.set(0, -0.3, 0)
+        model.scale.set(0.25,0.25,0.25)
+
+        models['Tree7'] = model
+
+        loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
+        loadingBar.animate(loadedPercentage)
+    }
+)
+
+
+gltfloader.load(
+    'cloud.glb',
+    (gltf) =>
+    {
+        let model = gltf.scene
+        model.position.set(0, -0.3, 0)
+        model.scale.set(0.05,0.05,0.05)
+
+        models['cloud1'] = model
+
+        loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
+        loadingBar.animate(loadedPercentage)
+    }
+)
+
+gltfloader.load(
+    'cloud.glb',
+    (gltf) =>
+    {
+        let model = gltf.scene
+        model.position.set(0, -0.3, 0)
+        model.scale.set(0.05,0.05,0.05)
+
+        models['cloud2'] = model
+
+        loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
+        loadingBar.animate(loadedPercentage)
+    }
+)
+
+gltfloader.load(
+    'cloud.glb',
+    (gltf) =>
+    {
+        let model = gltf.scene
+        model.position.set(0, -0.3, 0)
+        model.scale.set(0.05,0.05,0.05)
+
+        models['cloud3'] = model
+
+        loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
+        loadingBar.animate(loadedPercentage)
+    }
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //

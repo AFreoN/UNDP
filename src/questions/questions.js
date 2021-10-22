@@ -304,6 +304,52 @@ export function loadQuestion(questionIndex){
                         currentCenterModel = null
                     }
                     joystickScene.add(centerModel)
+                    
+                    let tree1 = assetLoader.getModel('Tree1')
+                    tree1.position.set(2.0,-0.3,-2)
+                    
+                    let tree2 = assetLoader.getModel('Tree2')
+                    tree2.position.set(1.5,-0.3,-3)
+
+                    let tree3 = assetLoader.getModel('Tree3')
+                    tree3.position.set(-1.5,-0.3,-3)
+
+                    let tree4 = assetLoader.getModel('Tree4')
+                    tree4.position.set(-2.0,-0.3,-2)
+
+
+                    let tree5 = assetLoader.getModel('Tree5')
+                    tree5.position.set( 2.4,-0.3,-5)
+
+                    let tree6 = assetLoader.getModel('Tree6')
+                    tree6.position.set(-2.8,-0.3,-6)
+
+                    let tree7 = assetLoader.getModel('Tree7')
+                    tree7.position.set( -1.70,-0.3,-10)
+
+                    let cloud1 = assetLoader.getModel('cloud1')
+                    cloud1.position.set(2, 1.8,-12)
+
+                    let cloud2 = assetLoader.getModel('cloud2')
+                    cloud2.position.set(1.5, 2.2,-12)
+
+                    let cloud3 = assetLoader.getModel('cloud3')
+                    cloud3.position.set(-1.5, 1.8,-10)
+                
+
+                    joystickScene.add(tree1)
+                    joystickScene.add(tree2)
+                    joystickScene.add(tree3)
+                    joystickScene.add(tree4)
+                    joystickScene.add(tree5)
+                    joystickScene.add(tree6)
+                    joystickScene.add(tree7)
+                    joystickScene.add(cloud1)
+                    joystickScene.add(cloud2)
+                    joystickScene.add(cloud3)
+                    
+
+
                     currentCenterModel = centerModel
                     controls.setOtherCharacter(currentCenterModel, assetLoader.getOtherCharacterAnimations(currentQuestion.centerModelKey));
                 }
