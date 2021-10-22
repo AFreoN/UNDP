@@ -70,7 +70,7 @@ export let questionArray = [
             'answer6',
             'answer7'
         ],
-        centerModelKey:'centerEmoji',
+        centerModelKey:'centerCharacter',       //prev 'centerEmoji'
         compulsory: true
     }
 ]
