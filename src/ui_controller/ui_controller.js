@@ -11,7 +11,7 @@ let joystickAnswerContainer = document.getElementById('joystick-answer-container
 let countryAnswerContainer = document.getElementById('country-answer-container')
 let regionAnswerContainer = document.getElementById('region-answer-container')
 let joystickTutorialContainer = document.getElementById('joystick-tutorial-frame')
-let countrySkipContainer = document.getElementById('country-skip-container')
+// let countrySkipContainer = document.getElementById('country-skip-container')
 let submitContainer = document.getElementById('submit-container') 
 
 //Pagination
@@ -135,7 +135,7 @@ export function updateUI(questionType, questionText, answers){
             joystickTutorialContainer.style.display = 'none'
             joystickSlider.style.display = 'none'
             countryAnswerContainer.innerText = ''
-            countrySkipContainer.style.display = ''
+            regionSkipButton.style.display = ''
             break;
         case 'province':
             mcqAnswerContainer.style.display = 'none' 
@@ -146,7 +146,7 @@ export function updateUI(questionType, questionText, answers){
             joystickTutorialContainer.style.display = 'none'
             joystickSlider.style.display = 'none'
             regionAnswerContainer.innerText = ''
-            countrySkipContainer.style.display = 'none'
+            regionSkipButton.style.display = 'none'
             break;
         case 'mcq':
             mcqAnswerContainer.style.display = ''
@@ -156,7 +156,7 @@ export function updateUI(questionType, questionText, answers){
             regionAnswerContainer.style.display = 'none'
             joystickTutorialContainer.style.display = 'none'
             joystickSlider.style.display = 'none'
-            countrySkipContainer.style.display = 'none'
+            regionSkipButton.style.display = 'none'
             mcqAnswerContainer.innerHTML = ''
             selectedMcqAnswer = null
             if(answers){
@@ -197,7 +197,7 @@ export function updateUI(questionType, questionText, answers){
             countryAnswerContainer.style.display = 'none'
             regionAnswerContainer.style.display = 'none'
             joystickTutorialContainer.style.display = 'none'
-            countrySkipContainer.style.display = 'none'
+            regionSkipButton.style.display = 'none'
             // if(main.isJoyStickTutorialDisplayed() == false){
             //     joystickTutorialContainer.style.display = ''    //Shows tutorial if it's not displayed before
             //     main.displayTutorial();
