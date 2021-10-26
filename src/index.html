@@ -27,8 +27,13 @@
     <div class="ui-container">
         <div class="question-header-container">
             <div class="menu-container">
+                <div class="logo-container">
+
+                </div>
                 <div class="hamburger-base">
                     <div class="hamburger-line-container">
+                        <div class="hamburger-line"></div>
+                        <div class="hamburger-line"></div>
                         <div class="hamburger-line"></div>
                     </div>
                 </div>
@@ -47,14 +52,14 @@
             <div class="question-container" id="question-container"> Question </div>
         </div>
         
-        <div class="pagination">
+        <!-- <div class="pagination">
             <div data-tooltip="Country selection" class="pagination__dot pagination__dot--active" id="country_selection_dot"></div>
             <div data-tooltip="Region selection" class="pagination__dot" id="region_selection_dot"></div>
             <div data-tooltip="Question 1" class="pagination__dot" id="question1_dot"></div>
             <div data-tooltip="Question 2" class="pagination__dot" id="question2_dot"></div>
             <div data-tooltip="Question 3" class="pagination__dot" id="question3_dot"></div>
             <div data-tooltip="Question 4" class="pagination__dot" id="question4_dot"></div>
-        </div>
+        </div> -->
         
         <div class="country-skip-container">
             <button class="country-skip-button" id="country-skip-button"> Other regions </button>
@@ -64,12 +69,14 @@
         <div class="region-answer-container answer-container" id="region-answer-container"></div>
         <div class="mcq-answers-container" id="mcq-answer-container"></div>
         <div class="joystick-answer-container answer-container" id="joystick-answer-container"></div>
+        
         <div class="slidecontainer" id="slider-holder">
             <input type="range" min="-50" max="50" value="0" class="slider" id="myRange">
             <div class="slider-filler" id="Slider_Filler"></div>
             <div id="slidertext-distant"><b>Distant</b></div>
             <div id="slidertext-close"><b>Close</b></div>
         </div>
+
         <div class="joystick-tutorial-container" id="joystick-tutorial-frame"> Move yourself to where you feel you stand in closeness to an individual or group 
             <div class="close-button" id="joystick-tutorial-close-button">x</div>
         </div>

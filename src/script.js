@@ -64,7 +64,7 @@ export function loadNextQuestion(){
     if (questionIndex < (numberOfQuestions - 1)){
         questionIndex++
         questions.loadQuestion(questionIndex)
-        uiControl.paginate(questionIndex)
+        // uiControl.paginate(questionIndex)
     }
     else if(questionIndex == numberOfQuestions - 1 ){
         uiControl.enableSubmitPage()
@@ -75,7 +75,7 @@ export function loadLastQuestion(){
     if (questionIndex > 0){
         questionIndex--
         questions.loadQuestion(questionIndex)
-        uiControl.paginate(questionIndex)
+        // uiControl.paginate(questionIndex)
     }
 }
 

@@ -1,8 +1,11 @@
 import * as main from '../script'
 
+
 //Ui control
 
 //UI elements
+
+
 
 //question answer containers
 let questionContainer = document.getElementById('question-container')
@@ -13,6 +16,8 @@ let regionAnswerContainer = document.getElementById('region-answer-container')
 let joystickTutorialContainer = document.getElementById('joystick-tutorial-frame')
 let sliderFiller = document.getElementById('Slider_Filler')
 let sliderHolder = document.getElementById('slider-holder')
+
+
 
 setFillerWidth()
 function setFillerWidth(){
@@ -41,42 +46,42 @@ let countrySkipContainer = document.getElementById('country-skip-container')
 let submitContainer = document.getElementById('submit-container') 
 
 //Pagination
-let countryPage_dot = document.getElementById('country_selection_dot');
-let regionPage_dot = document.getElementById('region_selection_dot');
-let question1_dot = document.getElementById('question1_dot');
-let question2_dot = document.getElementById('question2_dot');
-let question3_dot = document.getElementById('question3_dot');
-let question4_dot = document.getElementById('question4_dot');
-paginate(0);
+// let countryPage_dot = document.getElementById('country_selection_dot');
+// let regionPage_dot = document.getElementById('region_selection_dot');
+// let question1_dot = document.getElementById('question1_dot');
+// let question2_dot = document.getElementById('question2_dot');
+// let question3_dot = document.getElementById('question3_dot');
+// let question4_dot = document.getElementById('question4_dot');
+// paginate(0);
 
-export function paginate(quesIndex){
-    countryPage_dot.className = 'pagination__dot';
-    regionPage_dot.className = 'pagination__dot';
-    question1_dot.className = 'pagination__dot';
-    question2_dot.className = 'pagination__dot';
-    question3_dot.className = 'pagination__dot';
-    question4_dot.className = 'pagination__dot';
-    switch(quesIndex){
-        case 0:
-            countryPage_dot.className = 'pagination__dot pagination__dot--active';
-            break;
-        case 1:
-            regionPage_dot.className = 'pagination__dot pagination__dot--active';
-            break;
-        case 2:
-            question1_dot.className = 'pagination__dot pagination__dot--active';
-            break;
-        case 3:
-            question2_dot.className = 'pagination__dot pagination__dot--active';
-            break;
-        case 4:
-            question3_dot.className = 'pagination__dot pagination__dot--active';
-            break;
-        case 5:
-            question4_dot.className = 'pagination__dot pagination__dot--active';
-            break;
-    }
-}
+// export function paginate(quesIndex){
+//     countryPage_dot.className = 'pagination__dot';
+//     regionPage_dot.className = 'pagination__dot';
+//     question1_dot.className = 'pagination__dot';
+//     question2_dot.className = 'pagination__dot';
+//     question3_dot.className = 'pagination__dot';
+//     question4_dot.className = 'pagination__dot';
+//     switch(quesIndex){
+//         case 0:
+//             countryPage_dot.className = 'pagination__dot pagination__dot--active';
+//             break;
+//         case 1:
+//             regionPage_dot.className = 'pagination__dot pagination__dot--active';
+//             break;
+//         case 2:
+//             question1_dot.className = 'pagination__dot pagination__dot--active';
+//             break;
+//         case 3:
+//             question2_dot.className = 'pagination__dot pagination__dot--active';
+//             break;
+//         case 4:
+//             question3_dot.className = 'pagination__dot pagination__dot--active';
+//             break;
+//         case 5:
+//             question4_dot.className = 'pagination__dot pagination__dot--active';
+//             break;
+//     }
+// }
 
 let joystickSlider = document.getElementById('myRange');
 export var joystickSlideValue = 0;
@@ -164,6 +169,7 @@ export function updateUI(questionType, questionText, answers){
             joystickSlider.style.display = 'none'
             countryAnswerContainer.innerText = ''
             regionSkipButton.style.display = ''
+            sliderHolder.hidden = true
             break;
         case 'province':
             mcqAnswerContainer.style.display = 'none' 
@@ -175,6 +181,7 @@ export function updateUI(questionType, questionText, answers){
             joystickSlider.style.display = 'none'
             regionAnswerContainer.innerText = ''
             regionSkipButton.style.display = 'none'
+            sliderHolder.hidden = true
             break;
         case 'mcq':
             mcqAnswerContainer.style.display = ''
@@ -187,6 +194,7 @@ export function updateUI(questionType, questionText, answers){
             regionSkipButton.style.display = 'none'
             mcqAnswerContainer.innerHTML = ''
             selectedMcqAnswer = null
+            sliderHolder.hidden = true
             if(answers){
                 for (let i = 0; i < answers.length; i++) {
                     // creating a new answer box with text and radio buttons for each in answer for MCQs
