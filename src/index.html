@@ -38,9 +38,12 @@
         <div class="region-answer-container answer-container" id="region-answer-container"></div>
         <div class="mcq-answers-container" id="mcq-answer-container"></div>
         <div class="joystick-answer-container answer-container" id="joystick-answer-container"></div>
-        <div class="slidecontainer">
-            <input type="range" min="1" max="7" value="1" class="slider" id="myRange">
-          </div>
+        <div class="slidecontainer" id="slider-holder">
+            <input type="range" min="-50" max="50" value="0" class="slider" id="myRange">
+            <div class="slider-filler" id="Slider_Filler"></div>
+            <div id="slidertext-distant"><b>Distant</b></div>
+            <div id="slidertext-close"><b>Close</b></div>
+        </div>
         <div class="joystick-tutorial-container" id="joystick-tutorial-frame"> Move yourself to where you feel you stand in closeness to an individual or group 
             <div class="close-button" id="joystick-tutorial-close-button">x</div>
         </div>
