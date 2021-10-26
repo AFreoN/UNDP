@@ -17,8 +17,8 @@ export function disablePlayerControl(){
     canControlPlayer = false
 }
 
-const startX = 1;   //Starting x position of the character eg. 1 for character 1 and -1 for character 2
-const stepValue = 0.125; //Distance of character movement on each change in slider value
+const startX = 0.4;   //Starting x position of the character eg. 1 for character 1 and -1 for character 2     //prev 1
+const stepValue = 0.00005; //Distance of character movement on each change in slider value    //Prev 0.125
 
 let player = null; //Holds player model
 let playerMixer = null; //Holds player animation mixer
@@ -69,11 +69,11 @@ export function setOtherCharacter(otherModel, _otherAnimation){
         otherMixer = null;
     }
 
-    var xPos = -startX + stepValue * joystickSlideValue;
+    var xPos = -startX + stepValue * (joystickSlideValue + 50);
     player.position.set(xPos, player.position.y, 0);
     curPlayerPosition.x = xPos;
 
-    xPos = startX - stepValue * joystickSlideValue;
+    xPos = startX - stepValue * (joystickSlideValue + 50);
     otherCharacter.position.set(xPos, otherCharacter.position.y, 0);
     curOtherPosition.x = xPos;
     curOtherPosition.y = otherModel.position.y;
@@ -226,26 +226,28 @@ function Movecharacter(){
     idle = true;
     let lerpSpeed = 0.1;
 
-    var xPos = -startX + stepValue * joystickSlideValue;
+    var xPos = -startX + stepValue * (joystickSlideValue + 50);
     curPlayerPosition.lerp(new Vector3(xPos, player.position.y, 0), lerpSpeed);
 
     player.position.set(curPlayerPosition.x, curPlayerPosition.y, curPlayerPosition.z);
 
+    let minDis = 0.005;
+
     var abs = Math.abs(xPos - player.position.x);
-    if((abs) < 0.05){
+    if((abs) < minDis){
         idle = true;
     }
     else{
         idle = false;
     }
 
-    xPos = startX - stepValue * joystickSlideValue;
+    xPos = startX - stepValue * (joystickSlideValue + 50);
     curOtherPosition.lerp(new Vector3(xPos, otherYPos, 0), lerpSpeed);
 
     otherCharacter.position.set(curOtherPosition.x, curOtherPosition.y, curOtherPosition.z);
 
     abs = Math.abs(xPos - otherCharacter.position.x);
-    if((abs) < 0.05){
+    if((abs) < minDis){
         otherIdle = true;
     }
     else{

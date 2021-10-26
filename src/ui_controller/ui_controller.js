@@ -11,7 +11,37 @@ let joystickAnswerContainer = document.getElementById('joystick-answer-container
 let countryAnswerContainer = document.getElementById('country-answer-container')
 let regionAnswerContainer = document.getElementById('region-answer-container')
 let joystickTutorialContainer = document.getElementById('joystick-tutorial-frame')
+<<<<<<< HEAD
 // let countrySkipContainer = document.getElementById('country-skip-container')
+=======
+let sliderFiller = document.getElementById('Slider_Filler')
+let sliderHolder = document.getElementById('slider-holder')
+
+setFillerWidth()
+function setFillerWidth(){
+    sliderHolder.hidden = true
+    sliderFiller.style.width = '0%'
+    sliderFiller.style.left = '0%'
+}
+
+export function SetFiller(sliderValue){
+    let v = sliderValue + 50;
+    if(sliderValue == 0){
+        sliderFiller.style.width = '0%';
+    }
+    else if(sliderValue < 0){
+        sliderFiller.style.width = -sliderValue + "%";
+        var leftPos = 50 + parseInt(sliderValue);
+        sliderFiller.style.left = leftPos + "%";
+    }
+    else if(sliderValue > 0){
+        sliderFiller.style.width = sliderValue + "%";
+        sliderFiller.style.left = '50%';
+    }
+}
+
+let countrySkipContainer = document.getElementById('country-skip-container')
+>>>>>>> 8bf5c1f54ac3927436d934c3edce788a13aa00d7
 let submitContainer = document.getElementById('submit-container') 
 
 //Pagination
@@ -53,15 +83,17 @@ export function paginate(quesIndex){
 }
 
 let joystickSlider = document.getElementById('myRange');
-export var joystickSlideValue = 1;
+export var joystickSlideValue = 0;
 joystickSlider.oninput = function(){
     joystickSlideValue = joystickSlider.value;
+    SetFiller(joystickSlideValue)
     enableConfirmation(parseInt(joystickSlideValue))
 }
 
 export function resetJoystickSlider(){
-    joystickSlider.value = 4;
-    joystickSlideValue = 4;
+    joystickSlider.value = 0;
+    joystickSlideValue = 0;
+    SetFiller(joystickSlideValue)
 }
 
 //control buttons
@@ -209,6 +241,7 @@ export function updateUI(questionType, questionText, answers){
             //     joystickTutorialContainer.style.display = 'none'
             // }
             joystickSlider.style.display = ''
+            sliderHolder.hidden = false
             enableConfirmation(joystickSlideValue);
             break;
     }
