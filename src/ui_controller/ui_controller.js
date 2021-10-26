@@ -11,9 +11,6 @@ let joystickAnswerContainer = document.getElementById('joystick-answer-container
 let countryAnswerContainer = document.getElementById('country-answer-container')
 let regionAnswerContainer = document.getElementById('region-answer-container')
 let joystickTutorialContainer = document.getElementById('joystick-tutorial-frame')
-<<<<<<< HEAD
-// let countrySkipContainer = document.getElementById('country-skip-container')
-=======
 let sliderFiller = document.getElementById('Slider_Filler')
 let sliderHolder = document.getElementById('slider-holder')
 
@@ -41,7 +38,6 @@ export function SetFiller(sliderValue){
 }
 
 let countrySkipContainer = document.getElementById('country-skip-container')
->>>>>>> 8bf5c1f54ac3927436d934c3edce788a13aa00d7
 let submitContainer = document.getElementById('submit-container') 
 
 //Pagination
