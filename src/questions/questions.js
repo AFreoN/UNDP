@@ -11,6 +11,169 @@ import { MathUtils } from 'three'
 
 //      Assigning questions and answers
 //
+export let langId = 'si';
+let qArray = [
+    {   //1
+        type : 'Country',
+        question : {
+            en : 'In which country do you live ?',
+            si : 'ඔබ ජීවත් වන්නේ කුමන රටේද?'
+        },
+        compulsory : true
+    },
+    {   //2
+        type : 'Province',
+        question : {
+            en : 'In which area do you live ?',
+            si : 'ඔබ ජීවත් වන්නේ කුමන ප්‍රදේශයේද?'
+        },
+        compulsory : false
+    },
+    {   //3
+        type : 'mcq',
+        question : {
+            en : 'How old are you ?',
+            si : 'ඔයාගේ වයස කීය ද ?'
+        },
+        answers : [
+            {
+                en : 'Under 18',
+                si : '18 ට අඩු'
+            },
+            {
+                en : '18-25',
+                si : '18-25'
+            },
+            {
+                en : '26-35',
+                si : '26-35'
+            },
+            {
+                en : '35+',
+                si : '35+'
+            },
+            {
+                en : 'Prefer not to Say',
+                si : 'නොකියන්න කැමති'
+            }
+        ],
+        compulsory : false
+    },
+    {   //4
+        type : 'mcq',
+        question : {
+            en : 'What is your gender ?',
+            si : 'ඔබේ ලිංගය කුමක්ද?'
+        },
+        answers : [
+            {
+                en : 'Man',
+                si : 'මිනිසා'
+            },
+            {
+                en : 'Woman',
+                si : 'කාන්තාවක්'
+            },
+            {
+                en : 'Intersex',
+                si : 'අන්තර් ලිංගික'
+            },
+            {
+                en : 'Non-binary',
+                si : 'ද්විමය නොවන'
+            },
+            {
+                en : 'Other',
+                si : 'වෙනත්'
+            },
+            {
+                en : 'Prefer Not to Say',
+                si : 'නොකියන්න කැමති'
+            }
+        ],
+        compulsory : false
+    },
+    {   //5
+        type : 'joystick',
+        question : {
+            en : 'How close do you feel to your mother ?',
+            si : 'ඔබ ඔබේ මවට කොතරම් සමීපද?'
+        },
+        answers : [
+            {
+                en : 'answer1',
+                si : 'පිළිතුර1'
+            },
+            {
+                en : 'answer2',
+                si : 'පිළිතුර2'
+            },
+            {
+                en : 'answer3',
+                si : 'පිළිතුර3'
+            },
+            {
+                en : 'answer4',
+                si : 'පිළිතුර4'
+            },
+            {
+                en : 'answer5',
+                si : 'පිළිතුර5'
+            },
+            {
+                en : 'answer6',
+                si : 'පිළිතුර6'
+            },
+            {
+                en : 'answer7',
+                si : 'පිළිතුර7'
+            }
+        ],
+        centerModelKey:'centerCharacter',
+        compulsory: true
+    },
+    {   //6
+        type : 'joystick',
+        question : {
+            en : 'How close do you feel to your father ?',
+            si : 'ඔබ ඔබේ පියාට කොතරම් සමීපද?'
+        },
+        answers : [
+            {
+                en : 'answer1',
+                si : 'පිළිතුර1'
+            },
+            {
+                en : 'answer2',
+                si : 'පිළිතුර2'
+            },
+            {
+                en : 'answer3',
+                si : 'පිළිතුර3'
+            },
+            {
+                en : 'answer4',
+                si : 'පිළිතුර4'
+            },
+            {
+                en : 'answer5',
+                si : 'පිළිතුර5'
+            },
+            {
+                en : 'answer6',
+                si : 'පිළිතුර6'
+            },
+            {
+                en : 'answer7',
+                si : 'පිළිතුර7'
+            }
+        ],
+        centerModelKey:'centerCharacter',
+        compulsory: true
+    }
+]
+uiControl.setUiText()
+
 export let questionArray = [
     /* Code snippet for question structure. Each object has a single question and a set of answers
     {
@@ -91,10 +254,10 @@ export let questionArray = [
     }
 ]
 
-export const numberOfQuestions = questionArray.length
+export const numberOfQuestions = qArray.length
 
 export function isQuestionCompulsory(questionIndex){
-    return questionArray[questionIndex].compulsory
+    return qArray[questionIndex].compulsory
 }
 
 //
@@ -244,7 +407,7 @@ var currentQuestion
 //Implement updating models/ environment in respect to the question
 export function loadQuestion(questionIndex){
     const player = assetLoader.getModel('playerCharacter')
-    currentQuestion = questionArray[questionIndex]
+    currentQuestion = qArray[questionIndex]
 
     if(currentQuestion){
         if(questionIndex <= 0 ){
@@ -260,7 +423,7 @@ export function loadQuestion(questionIndex){
         uiControl.disableConfirmation()
 
         let questionType = currentQuestion.type
-        let questionText = currentQuestion.question
+        let questionText = currentQuestion.question[langId]
         let answers = currentQuestion.answers
         
         switch(questionType.toLowerCase()){

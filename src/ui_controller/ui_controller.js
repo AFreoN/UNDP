@@ -1,10 +1,11 @@
 import * as main from '../script'
+import { langId } from '../questions/questions'
+import { doc } from '@firebase/firestore'
 
 
 //Ui control
 
 //UI elements
-
 
 
 //question answer containers
@@ -14,10 +15,10 @@ let joystickAnswerContainer = document.getElementById('joystick-answer-container
 let countryAnswerContainer = document.getElementById('country-answer-container')
 let regionAnswerContainer = document.getElementById('region-answer-container')
 let joystickTutorialContainer = document.getElementById('joystick-tutorial-frame')
+joystickTutorialContainer.hidden = true
+
 let sliderFiller = document.getElementById('Slider_Filler')
 let sliderHolder = document.getElementById('slider-holder')
-
-
 
 setFillerWidth()
 function setFillerWidth(){
@@ -103,6 +104,43 @@ let nextButton = document.getElementById('control-next-button')
 let regionSkipButton = document.getElementById('country-skip-button')
 let submitButton = document.getElementById('submit-button')
 let joystickTutCloseButton = document.getElementById('joystick-tutorial-close-button');
+
+//Text elements for language swapping
+let allTexts = {
+    paginationDisplayText : {
+        en : 'Part 1 of 4',
+        si : '4 හි 1 කොටස'
+    },
+    otherRegionText : {
+        en : 'Other regions',
+        si : 'වෙනත් කලාප'
+    },
+    submitButtonText : {
+        en : 'Submit',
+        si : 'ඉදිරිපත් කරන්න'
+    },
+    sliderDistantText : {
+        en : 'Distant',
+        si : 'දුරස්ථ'
+    },
+    sliderCloseText : {
+        en : 'Close',
+        si : 'වසන්න'
+    }
+}
+
+let paginationDisplayText = document.getElementById('pagination-part-displaytext');
+let otherRegionText = document.getElementById('country-skip-button');
+let sliderDistantText = document.getElementById('slidertext-distant');
+let sliderCloseText = document.getElementById('slidertext-close');
+
+export function setUiText(){
+    paginationDisplayText.innerText = allTexts.paginationDisplayText[langId];
+    otherRegionText.innerText = allTexts.otherRegionText[langId];
+    submitButton.innerText = allTexts.submitButtonText[langId];
+    sliderDistantText.innerText = allTexts.sliderDistantText[langId];
+    sliderCloseText.innerText = allTexts.sliderCloseText[langId];
+}
 
 //enabling/disabling control buttons
 let canChangeQuestions = true
@@ -198,7 +236,7 @@ export function updateUI(questionType, questionText, answers){
             if(answers){
                 for (let i = 0; i < answers.length; i++) {
                     // creating a new answer box with text and radio buttons for each in answer for MCQs
-                    const answer = answers[i];
+                    const answer = answers[i][langId];
                     
                     const answerRadio = document.createElement('input')
                     answerRadio.type = 'radio'
