@@ -132,12 +132,16 @@ canvas.webgl{
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+
+    z-index: 3;
 }
 
 .logo-container{
     content: url('../static/logo.png');
     width: 90px;
     margin: 16px 0 0 4vw;
+
+    z-index: inherit;
 }
 
 .hamburger-base{
@@ -482,9 +486,124 @@ div.pagination__dot:hover {
       text-align: right;
       top: -35px;
       right: 0%;
-  }
+}
 
+.language-selection{    /* base class that holds the whole language selection ui */
+    position: absolute;
+    color: #faaca8;
+    background: linear-gradient(to top , #5f27fc, #e827fc );
+    width: 100vw;
+    height: 100vh;
+    margin: auto;
+    z-index: 2;
+}
 
+.lang-container{        /*  holder for all the selectable language options */
+    position: absolute;
+    width: 50vmin;
+
+    z-index: 2;
+    top: 50%;
+    margin-bottom: -50%;    
+
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+
+.lang-text{             /* Language options text */
+    color: #ffffff;
+
+    position: relative;
+    text-align: center;
+
+    margin: 20px;
+    font-size: clamp(6vh, 7vh, 8vh);
+}
+
+#english-text{
+    color: #ffffff;
+    opacity: 0.5;
+    font-size: clamp(3vh, 3vh, 4vh);
+}
+
+#sinhala-text{
+    font-size: clamp(6vh, 7vh, 8vh);
+}
+
+#tamil-text{
+    opacity: 0.5;
+    font-size: clamp(3vh, 3vh, 4vh);
+}
+
+#lang-separation-line-top{
+    position: absolute;
+    width: 20vh;
+    height: 4px;
+    background: white;
+    opacity: 0.5;
+
+    top: 35%;
+    margin-bottom: -65%;
+
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+
+#lang-separation-line-bottom{
+    position: absolute;
+    width: 20vh;
+    height: 4px;
+    background: white;
+    opacity: 0.5;
+
+    top: 70%;
+    margin-bottom: -30%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+
+#language-selected-button{      /* Next Button in language selection UI */
+    position: absolute;
+    color: #222222;
+    background : #cbfa01;
+    width: 120px;
+    height: 45px;
+    font-size: 30px;
+
+    text-align: center;
+    padding-top: 0px;
+    justify-content: center;
+    top: 80vh;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+}
+
+#select-language-text{
+    position: absolute;
+    color: #ffffff;
+    font-size: clamp(6vmin, 8vmin, 8vmin);
+
+    text-align: center;
+    top: 15vh;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, 50%);
+}
+
+#lang-bottom-text{
+    position: absolute;
+    color: #ffffff;
+    width: 30vmin;
+    font-size: clamp(3vmin, 4vmin, 4vmin);
+
+    text-align: left;
+    bottom: 3vh;
+    left: 8%;
+}
 
 #control-ok-button{
     position: absolute;
