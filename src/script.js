@@ -41,11 +41,13 @@ let joystickTutorialShown = false;
 let questionIndex = 0 //indicates the question to be loaded
  
 let confirmedAnswers = [] //stores confirmed answers
+let uiHolder = document.getElementById('ui-holder');
 
 export function startSurvey(){//call this function when loading is complete
     document.getElementById('loading-container').classList.add('closed')
     surveyStarted = true
-    
+    uiHolder.hidden = false;
+
     questions.loadQuestion(questionIndex)
     var player = assetLoader.getModel('playerCharacter')
     var playerAnimations = assetLoader.getPlayerAnimations()

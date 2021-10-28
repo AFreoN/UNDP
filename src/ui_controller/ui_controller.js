@@ -1,9 +1,13 @@
 import * as main from '../script'
-import { langId } from '../questions/questions'
+import { langId, loadQuestion } from '../questions/questions'
 import { doc } from '@firebase/firestore'
 
 
 //Ui control
+let uiHolder = document.getElementById('ui-holder');
+let langSelectionUI = document.getElementById('language-selection-ui');
+let menuHolder = document.getElementById('menu-holder');
+menuHolder.hidden = false;
 
 //UI elements
 
@@ -109,11 +113,14 @@ export function resetJoystickSlider(){
 }
 
 //control buttons
+let languageSelectedButton = document.getElementById('language-selected-button')
 let backButton = document.getElementById('control-back-button')
 let nextButton = document.getElementById('control-next-button')
 let regionSkipButton = document.getElementById('country-skip-button')
 let submitButton = document.getElementById('submit-button')
 let joystickTutCloseButton = document.getElementById('joystick-tutorial-close-button');
+
+
 
 //Text elements for language swapping
 let allTexts = {
@@ -336,3 +343,10 @@ regionSkipButton.addEventListener('click',function(){
 // submitButton.addEventListener('click',function(){
 //     main.validateAnswers()
 // })
+
+
+languageSelectedButton.addEventListener('click', function StartSurvey(){
+    loadQuestion(0);
+    langSelectionUI.hidden = true;
+    uiHolder.hidden = false;
+})
