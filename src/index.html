@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UNDP Survey</title>
+    <title>Community Connectedness Survey</title>
+    <link rel="icon" href="../static/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
@@ -26,19 +27,19 @@
     </div>
     <div class="ui-container">
         <div class="question-header-container">
+            
             <div class="menu-container">
                 <div class="logo-container">
-
                 </div>
                 <div class="hamburger-base">
-                    <div class="hamburger-line-container">
-                        <div class="hamburger-line"></div>
-                        <div class="hamburger-line"></div>
-                        <div class="hamburger-line"></div>
-                    </div>
+                    <div class="hamburger-line line-1"></div>
+                    <div class="hamburger-line line-2"></div>
+                    <!-- <div class="hamburger-line-container">
+                        
+                    </div> -->
                 </div>
             </div>
-            <div class="pagination-container">
+            <!-- <div class="pagination-container">
                 <div class="part-display-container" id="pagination-part-displaytext">Part 1 of 4</div>
                 <div class="pagination-dot-container">
                     <div class="page-dot answered"></div>
@@ -48,7 +49,7 @@
                     <div class="page-dot"></div>
                     <div class="page-dot"></div>
                 </div>
-            </div>
+            </div> -->
             <div class="question-container" id="question-container"> Question </div>
         </div>
         
@@ -81,11 +82,17 @@
             <div class="close-button" id="joystick-tutorial-close-button">x</div>
         </div>
 
-        <div class="control-container">
-            <button class="control-button" id="control-back-button"> &#x25C0 </button>
-            <button class="submit-button" id="submit-button"> Submit</button>
-            <button class="control-button" id="control-next-button"> &#x25B6 </button>
+        <div class="question-footer-container">
+            <div class="control-container">
+                <button class="control-button" id="control-back-button"> &#x25C0 </button>
+                <!-- <button class="submit-button" id="submit-button"> Submit</button> -->
+                <button class="control-button" id="control-next-button"> Next </button>
+            </div>
+            <div class="survey-progress-container">
+                <progress class="survey-progress-bar" id="survey-progress-bar" value="0" max="10">
+            </div>
         </div>
+        
     </div>
     <div class="submit-container" id="submit-container">
         <!-- <button class="submit-button" id="submit-button"> Submit</button> -->

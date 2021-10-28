@@ -67,7 +67,7 @@ export function loadNextQuestion(){
         // uiControl.paginate(questionIndex)
     }
     else if(questionIndex == numberOfQuestions - 1 ){
-        uiControl.enableSubmitPage()
+        // uiControl.enableSubmitPage()
     }
 }
 
@@ -144,7 +144,7 @@ export function validateAnswers(){
             if(answerIndex || answerIndex === 0){
                 continue
             }else{
-                uiControl.disableSubmitPage()
+                // uiControl.disableSubmitPage()
                 questionIndex = i
                 questions.loadQuestion(questionIndex)
                 console.log('not answered a compulsory question!');

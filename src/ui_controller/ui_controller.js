@@ -17,6 +17,16 @@ let regionAnswerContainer = document.getElementById('region-answer-container')
 let joystickTutorialContainer = document.getElementById('joystick-tutorial-frame')
 joystickTutorialContainer.hidden = true
 
+let surveyProgressBar = document.getElementById("survey-progress-bar");
+
+
+export function setSurveyProgressMax(maxValue){
+    surveyProgressBar.max = maxValue
+}
+export function setSurveyProgressValue(questionIndex){
+    surveyProgressBar.value = questionIndex
+}
+
 let sliderFiller = document.getElementById('Slider_Filler')
 let sliderHolder = document.getElementById('slider-holder')
 
@@ -129,15 +139,15 @@ let allTexts = {
     }
 }
 
-let paginationDisplayText = document.getElementById('pagination-part-displaytext');
+// let paginationDisplayText = document.getElementById('pagination-part-displaytext');
 let otherRegionText = document.getElementById('country-skip-button');
 let sliderDistantText = document.getElementById('slidertext-distant');
 let sliderCloseText = document.getElementById('slidertext-close');
 
 export function setUiText(){
-    paginationDisplayText.innerText = allTexts.paginationDisplayText[langId];
+    // paginationDisplayText.innerText = allTexts.paginationDisplayText[langId];
     otherRegionText.innerText = allTexts.otherRegionText[langId];
-    submitButton.innerText = allTexts.submitButtonText[langId];
+    // submitButton.innerText = allTexts.submitButtonText[langId];
     sliderDistantText.innerText = allTexts.sliderDistantText[langId];
     sliderCloseText.innerText = allTexts.sliderCloseText[langId];
 }
@@ -289,13 +299,13 @@ export function updateUI(questionType, questionText, answers){
     }
 }
 
-export function enableSubmitPage(){
-    submitContainer.style.display = ''
-}
+// export function enableSubmitPage(){
+//     submitContainer.style.display = ''
+// }
 
-export function disableSubmitPage(){
-    submitContainer.style.display = 'none'
-}
+// export function disableSubmitPage(){
+//     submitContainer.style.display = 'none'
+// }
 
 joystickTutCloseButton.addEventListener('click', function(){
     main.joystickTutorialEnded();
@@ -323,6 +333,6 @@ regionSkipButton.addEventListener('click',function(){
     main.skipCountrySelection()
 })
 
-submitButton.addEventListener('click',function(){
-    main.validateAnswers()
-})
+// submitButton.addEventListener('click',function(){
+//     main.validateAnswers()
+// })

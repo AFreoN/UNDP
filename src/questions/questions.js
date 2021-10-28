@@ -11,7 +11,7 @@ import { MathUtils } from 'three'
 
 //      Assigning questions and answers
 //
-export let langId = 'si';
+export let langId = 'en';
 let qArray = [
     {   //1
         type : 'Country',
@@ -255,6 +255,8 @@ export let questionArray = [
 ]
 
 export const numberOfQuestions = qArray.length
+uiControl.setSurveyProgressMax(numberOfQuestions)
+
 
 export function isQuestionCompulsory(questionIndex){
     return qArray[questionIndex].compulsory
@@ -558,6 +560,7 @@ export function loadQuestion(questionIndex){
         }
         
         uiControl.updateUI(questionType, questionText, answers)
+        uiControl.setSurveyProgressValue(questionIndex)
     }
 }
 

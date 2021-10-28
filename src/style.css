@@ -125,6 +125,8 @@ canvas.webgl{
     justify-content: center;
 }
 
+
+
 .menu-container{
     width: 100%;
     height: fit-content;
@@ -136,39 +138,56 @@ canvas.webgl{
 
 .logo-container{
     content: url('../static/logo.png');
-    width: 90px;
-    margin: 16px 0 0 4vw;
+    width: 60px;
+    margin: 8px 0 0 4vw;
 }
 
 .hamburger-base{
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     background: white;
-    margin: 20px 5vw 0 0;
+    margin: 8px 5vw 0 0;
 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    
+    position: relative;
 }
 
 .hamburger-line-container{
-    display: flex;
+    /* display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    width: 50%;
-    height: fit-content;
+    justify-content: space-between; */
+    width: 100%;
+    height: 100%;
+    position: relative;
     /* margin: 15% auto; */
 }
 
 .hamburger-line{
-    background: black;
-    width: 100%;
-    height: 3px;
-    border-radius: 2px;
-    margin: 1px 0;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    /* transform: translate(40%) ; */
 
+    background: rgb(71, 71, 71);
+    width: 20px;
+    height: 4px;
+    border-radius: 2px;
+    /* margin: 1px 0; */
+    /* transform: rotate(45deg); */
+}
+
+.hamburger-line.line-1{
+    transform: rotate(45deg);
+}
+
+.hamburger-line.line-2{
+    transform: rotate(-45deg);
 }
 
 .pagination-container{
@@ -214,10 +233,12 @@ canvas.webgl{
 .question-container{
     width: fit-content;
     height: fit-content;
-    margin: 0 auto;
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    margin: 15px auto 0 auto;
+    background: rgba(0, 0, 0, 0.2);
+
+    /* border: 2px solid rgba(255, 255, 255, 0.2);
     box-sizing: border-box;
-    border-radius: 2px;
+    border-radius: 2px; */
 
     color: white;
     font-family: "Roboto",sans-serif;
@@ -246,18 +267,27 @@ canvas.webgl{
     font-family: 'Rubik',sans-serif;
 }
 
-.control-container{
+.question-footer-container{
     position: absolute;
     bottom: 0;
-    left: 10vw;
-    width: 80vw;
+    left: 0;
+    width: 100vw;
     
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 0 10px 0;
+}
+
+.control-container{
+    width: 80%;
+
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-around;
-
-    margin: 0 0 30px 0;
+    justify-content: space-between;
 }
 
 
@@ -277,7 +307,35 @@ canvas.webgl{
 }
 
 #control-next-button{
-    
+    background: #CBFA01;
+    color: black;
+    font-family: 'Rubik',sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 5px 30px
+}
+
+.survey-progress-container{
+    width: 100%;
+    height: fit-content;
+    position: relative;
+}
+
+.survey-progress-bar{
+    width: 100%;
+    height: 1em ;
+    position: relative;
+    transform: translateY(100%);
+    -webkit-appearance: none;
+}
+
+.survey-progress-bar::-webkit-progress-bar{
+    background-color: #ffffff;
+}
+
+.survey-progress-bar::-webkit-progress-value{
+    background-color: #CBFA01;
+    transition: width 200ms linear ;
 }
 
 .joystick-tutorial-container{
@@ -396,7 +454,7 @@ div.pagination__dot:hover {
 } */
 
 .slidecontainer {
-    width: 60vw; /* Width of the outside container */
+    width: 80vw; /* Width of the outside container */
     height: fit-content;
 
     position: absolute;
@@ -405,8 +463,8 @@ div.pagination__dot:hover {
 
 
     /* Slider position control */
-    bottom: 25%;
-    left: 20vw;
+    bottom: 15%;
+    left: 10vw;
 
     font-family:  'Rubik', sans-serif;
     /* padding-left: 20vw;
@@ -420,9 +478,9 @@ div.pagination__dot:hover {
     -webkit-appearance: none;
     position: absolute;
     width: 100%;
-    height: 10px;
+    height: 6px;
     border-radius: 5px;  
-    background: #6453ac;
+    background: rgba(0, 0, 0, 0.493);
     outline: none;
     opacity: 0.8;
     -webkit-transition: .2s;
@@ -433,7 +491,7 @@ div.pagination__dot:hover {
     position: absolute;
     top : 1px;
     width: 50%;
-    height: 12px;
+    height: 7px;
     border-radius: 6px;  
     background: #cbfa01;
     outline: none;
@@ -447,8 +505,8 @@ div.pagination__dot:hover {
     -webkit-appearance: none; /* Override default look */
     appearance: none;
     position: relative;
-    width: 30px; /* Set a specific slider handle width */
-    height: 30px; /* Slider handle height */
+    width: 15px; /* Set a specific slider handle width */
+    height: 15px; /* Slider handle height */
     border-radius: 15px;
     background: #cbfa01; /* Green background */
     cursor: pointer; /* Cursor on hover */
@@ -456,8 +514,8 @@ div.pagination__dot:hover {
   }
   
   .slider::-moz-range-thumb {
-    width: 30px; /* Set a specific slider handle width */
-    height: 30px; /* Slider handle height */
+    width: 15px; /* Set a specific slider handle width */
+    height: 15px; /* Slider handle height */
     position: relative;
     background: #cbfa01; /* Green background */
     border-radius: 15px;
@@ -468,20 +526,27 @@ div.pagination__dot:hover {
   #slidertext-distant{
       position: absolute;
       color: #ffffff;
-      width: 100px;
-      height: 30px;
-      top: -35px;
+      width: fit-content;
+      height: fit-content;
+      top: -30px;
       left: 0px;
+
+      font-family: 'Rubik',sans-serif ;
+      font-size: 0.75em;
   }
 
   #slidertext-close{
       position: absolute;
       color: #ffffff;
-      width: 100px;
-      height: 30px;
+      width: fit-content;
+      height: fit-content;
       text-align: right;
-      top: -35px;
+      top: -30px;
       right: 0%;
+   
+      font-family: 'Rubik',sans-serif ;
+      font-size: 0.75em;
+
   }
 
 
