@@ -3,6 +3,7 @@ import * as THREE from 'three'
 import * as assetLoader from '../assets_loader/assets_loader'
 import * as uiControl from '../ui_controller/ui_controller'
 import * as mainScipt from '../script'
+import { clamp } from 'three/src/math/mathutils'
 
 const mouse = new THREE.Vector2() 
 
@@ -531,39 +532,87 @@ mcqScene.add(mcqPointLight)
 export const joystickScene = new THREE.Scene() 
 
 let aspect = window.innerWidth / window.innerHeight;
+aspect = clamp(aspect, 0.8, 2);
 let fov = 35 + 10 * aspect;  // prev 35
 
-export const joystickCamera = new THREE.PerspectiveCamera(fov, window.innerWidth / window.innerHeight, 0.1, 100)
+export const joystickCamera = new THREE.PerspectiveCamera(fov, window.innerWidth / window.innerHeight, 0.1, 1001)
 joystickCamera.position.x = 0
 joystickCamera.position.y = 0 / aspect      //prev value is 4
 joystickCamera.position.z = 3.5 /  aspect // 4 * aspect      //prev value is 6 / aspect
 
 //setting rotation of the camera
 joystickCamera.rotation.set(Math.PI * -0.2, 0, 0)
-joystickCamera.lookAt(0, -0.5, 0);
+joystickCamera.lookAt(0, -0.3, 0);
 
 joystickScene.add(joystickCamera)
 
-const color = 0xFFC7BC;   //prev 0x99CCFF
-joystickScene.background = new THREE.Color(color);
+const color = 0xea7ff9;   //prev 0x99CCFF
+//joystickScene.background = new THREE.Color(color);
 
 const minDis = joystickCamera.position.z;
 const maxDis = 20;
-const density = 0.1;   //prev 0.01
+const density = 0.1;   //prev 0.1
 joystickScene.fog = new THREE.FogExp2(color, density);
 //joystickScene.fog = new THREE.Fog(color, minDis, maxDis);
 
+const mainBG = "linear-gradient(to top , #5f27fc, #e827fc )";
+const sliderBG = "linear-gradient(to bottom, #bb56ff 0%,#ed81f9 35%)";
+//document.body.style.background = sliderBG;
 
 //Setting up level
 
 //add floor
-//const floorgeo = new THREE.PlaneBufferGeometry(10000,10000);
-const floorgeo = new THREE.CylinderGeometry(1000,1000,0.05, 256);
-const floorMaterial = new THREE.MeshLambertMaterial( {color: 0xFFB08E});    //prev color 0xfff4db
+console.log("C");
+const floorSize = 100;
+var floorgeo = new THREE.PlaneGeometry(floorSize,floorSize);
+floorgeo.computeBoundingBox();
+console.log("BBox = " + floorgeo.boundingBox.min.y);
+//const floorgeo = new THREE.CylinderGeometry(1000,1000,0.05, 256);
+const floorMaterial = new THREE.MeshToonMaterial( {color: 0x725FB3});    //prev color 0xfff4db
+var gradFloorMaterial = new THREE.ShaderMaterial({
+    uniforms: {
+      color1: {
+        value: new THREE.Color("#7d71cf")
+      },
+      color2: {
+        value: new THREE.Color("#ea8bea")
+      },
+      bboxMin: {
+        value: floorgeo.boundingBox.min
+      },
+      bboxMax: {
+        value: floorgeo.boundingBox.max
+      }
+    },
+    vertexShader: `
+      uniform vec3 bboxMin;
+      uniform vec3 bboxMax;
+    
+      varying vec2 vUv;
+  
+      void main() {
+        vUv.y = (position.y - bboxMin.y) / (bboxMax.y - bboxMin.y);
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
+      }
+    `,
+    fragmentShader: `
+      uniform vec3 color1;
+      uniform vec3 color2;
+    
+      varying vec2 vUv;
+      
+      void main() {
+        
+        gl_FragColor = vec4(mix(color1, color2, vUv.y), 1.0);
+      }
+    `,
+    wireframe: false
+  });
 const RingMaterial = new THREE.MeshBasicMaterial({color: 0xf5eddc}) 
 
-const floor = new THREE.Mesh (floorgeo, floorMaterial);
-//floor.rotation.set(Math.PI / -2, 0, 0)
+const floor = new THREE.Mesh (floorgeo, floorMaterial); 
+floor.rotation.set(Math.PI / -2, 0, 0)
+floor.position.z = - floorSize / 4
 floor.position.y = -.6
 floor.receiveShadow = true;
 joystickScene.add(floor);
@@ -571,12 +620,17 @@ joystickScene.add(floor);
 const ambLight = new THREE.AmbientLight(0xCFD1E6, 0.5);
 joystickScene.add(ambLight);
 
-const joyDirLight = new THREE.DirectionalLight(0xffffff, 1.2 );
+const joyDirLight = new THREE.DirectionalLight(0xffffff, 1 );
 joyDirLight.position.set(4,8,5);
 joyDirLight.castShadow = true;
 joyDirLight.shadow.camera.near = 0.1;
 joyDirLight.shadow.camera.far = 100;
 joystickScene.add(joyDirLight);
+
+const pointLight = new THREE.PointLight(0xA7C0FF, 1, 3);      //0.7,3
+pointLight.position.y = -1;
+pointLight.position.z = 3.5/ aspect;
+joystickScene.add(pointLight);
 
 
 //Adding rings

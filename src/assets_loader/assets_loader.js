@@ -133,6 +133,10 @@ const threeTone = new THREE.DataTexture(
           ,3,1,THREE.RGBAFormat
 );
 
+const tex = new THREE.TextureLoader().load('Textures/grad.png');
+tex.minFilter = THREE.NearestFilter;
+tex.magFilter = THREE.NearestFilter;
+
 //Importing player character
 gltfloader.load(
     'Models/toonwalk_character.gltf',
@@ -145,10 +149,7 @@ gltfloader.load(
 
         model.traverse((child) => {
             if (child.isMesh){
-                var tex = new THREE.TextureLoader().load('Textures/grad.png');
-                tex.minFilter = THREE.NearestFilter;
-                tex.magFilter = THREE.NearestFilter;
-                let toonMaterial = new THREE.MeshToonMaterial({ color : 0x717DFF, gradientMap : tex});
+                let toonMaterial = new THREE.MeshToonMaterial({ color : 0xFFC332, gradientMap : tex});
                 child.material = toonMaterial; // a material i created in the code earlier
                 child.castShadow = true;
             }
@@ -176,10 +177,7 @@ gltfloader.load(
 
         model.traverse((child) => {
             if (child.isMesh){
-                var tex = new THREE.TextureLoader().load('Textures/grad.png');
-                tex.minFilter = THREE.NearestFilter;
-                tex.magFilter = THREE.NearestFilter;
-                let toonMaterial = new THREE.MeshToonMaterial({ color : 0x717DFF, gradientMap : tex});
+                let toonMaterial = new THREE.MeshToonMaterial({ color : 0xFFC332, gradientMap : tex});
                 child.material = toonMaterial; // a material i created in the code earlier
                 child.castShadow = true;
             }
@@ -215,6 +213,7 @@ gltfloader.load(
     }
 )
 
+//#region Loading province models
 gltfloader.load(
     'New Sri Lankan Provinces.glb',
     (gltf) =>
@@ -361,8 +360,9 @@ gltfloader.load(
         // }
     }
 )
+//#endregion
 
-
+//#region Loading tree models
 gltfloader.load(
     'Tree.glb',
     (gltf) =>
@@ -523,8 +523,9 @@ gltfloader.load(
         loadingBar.animate(loadedPercentage)
     }
 )
+//#endregion
 
-
+//#region Loading Cloud models
 gltfloader.load(
     'cloud.glb',
     (gltf) =>
@@ -589,14 +590,14 @@ gltfloader.load(
         loadingBar.animate(loadedPercentage)
     }
 )
-
+//#endregion
 
 
 function SetTreeMaterial(scene){
     scene.traverse( function(object){
         if(object.material){
-            var col = 0xffca60;     //prev 0xffa211
-            var mat = new THREE.MeshLambertMaterial( {color : col});
+            var col = 0x178BD4;     //prev 0xffa211
+            var mat = new THREE.MeshToonMaterial( {color : col, gradientMap : tex});
             object.material = mat;
             object.castShadow = true;
             object.receiveShadow = true;

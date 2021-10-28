@@ -211,6 +211,14 @@ var selectedMcqAnswer = null
 
 //Changes UI in respect to question type, sets the question text, and answers
 export function updateUI(questionType, questionText, answers){
+
+    if(questionType != 'joystick'){
+        document.body.style.background = "linear-gradient(to top , #5f27fc, #e827fc )";
+    }
+    else{
+        document.body.style.background = "linear-gradient(to bottom, #bb56ff 0%,#ed81f9 35%)";
+    }
+
     questionContainer.style.display = ''
     questionContainer.innerText= questionText
     switch(questionType){
