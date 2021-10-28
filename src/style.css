@@ -140,8 +140,8 @@ canvas.webgl{
 
 .logo-container{
     content: url('../static/logo.png');
-    width: 90px;
-    margin: 16px 0 0 4vw;
+    width: 70px;
+    margin: 8px 0 0 4vw;
 
     z-index: inherit;
 }
