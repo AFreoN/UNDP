@@ -1,6 +1,7 @@
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader'
 import * as main from '../script'
 import * as scenes from '../questions/scenes'
+import * as uiControl from '../ui_controller/ui_controller'
 import * as THREE from 'three'
 
 
@@ -58,7 +59,7 @@ let loadingBar = new progressBar.Circle('#progress-bar-container' /* Element tha
     trailColor:"#cfcfcf",
     trailWidth:"7",
     strokeWidth:"7",
-    color:'#91ABE8',
+    color:'url(#loading-bar-gradient)',
     text:{
         className:"progress-bar-text",
         autoStyleContainer:"false",
@@ -67,19 +68,23 @@ let loadingBar = new progressBar.Circle('#progress-bar-container' /* Element tha
             top:"0px",
             width:"100%",
             height:"100%",
-            color:"#fff",
+            color:"white",
             display:"flex",
             justifyContent:"center",
             alignItems:"center",
-            fontWeight:"1000",
+            fontWeight:"600",
             zIndex:"3",
+            fontFamily: '"Rubik",sans-serif',
+            fontSize: '1em',
+            opacity:'0.8'
         }
     },
     step: function(state, circle) {
         var value = Math.round(circle.value() * 100);
         circle.setText(value);
         if(value >= 100){
-            main.startSurvey()
+            // main.startSurvey()
+            uiControl.enableStartSurvey()
         }
     },
     svgStyle:{
@@ -88,6 +93,17 @@ let loadingBar = new progressBar.Circle('#progress-bar-container' /* Element tha
         zIndex:"3"
     }
 })
+
+const loadingBarGradient = `
+    <defs>
+        <linearGradient id="loading-bar-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#FF9494;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#DAFD04;stop-opacity:1" />
+        </linearGradient>
+    </defs>
+`
+
+loadingBar.svg.insertAdjacentHTML('afterbegin',loadingBarGradient)
 
 //set the progress bar value to 0
 loadingBar.animate(loadedPercentage)
