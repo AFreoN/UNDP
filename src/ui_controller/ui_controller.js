@@ -198,7 +198,16 @@ let regionSkipButton = document.getElementById('country-skip-button')
 let submitButton = document.getElementById('submit-button')
 let joystickTutCloseButton = document.getElementById('joystick-tutorial-close-button');
 
+let surveyStartButton = document.getElementById('survey-start-button')
+surveyStartButton.disabled = true
 
+surveyStartButton.addEventListener('click',function(){
+    main.startSurvey()
+})
+
+export function enableStartSurvey(){
+    surveyStartButton.disabled = false
+}
 
 //Text elements for language swapping
 let allTexts = {
