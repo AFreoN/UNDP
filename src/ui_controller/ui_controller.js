@@ -1,13 +1,91 @@
 import * as main from '../script'
-import { langId, loadQuestion } from '../questions/questions'
+import { langId, setLangId, loadQuestion } from '../questions/questions'
 import { doc } from '@firebase/firestore'
 
 
 //Ui control
 let uiHolder = document.getElementById('ui-holder');
-let langSelectionUI = document.getElementById('language-selection-ui');
 let menuHolder = document.getElementById('menu-holder');
 menuHolder.hidden = false;
+
+//For language selection ui
+let langSelectionUI = document.getElementById('language-selection-ui');
+let englishText = document.getElementById('english-text');
+let sinhalaText = document.getElementById('sinhala-text');
+let tamilText = document.getElementById('tamil-text');
+let divehiText = document.getElementById('divehi-text');
+
+englishText.addEventListener('click', function() { 
+    languageSelected('en');
+});
+sinhalaText.addEventListener('click', function() { 
+    languageSelected('si');
+});
+tamilText.addEventListener('click', function() { 
+    languageSelected('ta');
+});
+divehiText.addEventListener('click', function(){
+    languageSelected('dv');
+});
+
+export function addLangugageButtonEvents(){
+    // englishText.addEventListener('click', languageSelected('en'));
+    // sinhalaText.addEventListener('click', languageSelected('si'));
+    // tamilText.addEventListener('click', languageSelected('ta'));
+
+
+}
+
+function languageSelected(selectedLang){
+    const minFontSize = "clamp(3vh, 3vh, 4vh)";
+    const maxFontSize = "clamp(4vh, 4vh, 5vh)";
+
+    switch(selectedLang){
+        case 'en' :
+            setLangId(selectedLang);
+            englishText.style.opacity = 1;
+            englishText.style.fontSize = maxFontSize;
+            sinhalaText.style.opacity = 0.5;
+            sinhalaText.style.fontSize = minFontSize;
+            tamilText.style.opacity  = 0.5;
+            tamilText.style.fontSize = minFontSize;
+            divehiText.style.opacity  = 0.5;
+            divehiText.style.fontSize = minFontSize;
+            break;
+        case 'si':
+            setLangId(selectedLang);
+            sinhalaText.style.opacity = 1;
+            sinhalaText.style.fontSize = maxFontSize;
+            englishText.style.opacity = 0.5;
+            englishText.style.fontSize = minFontSize;
+            tamilText.style.opacity  = 0.5;
+            tamilText.style.fontSize = minFontSize;
+            divehiText.style.opacity  = 0.5;
+            divehiText.style.fontSize = minFontSize;
+            break;
+        case 'ta':
+            setLangId(selectedLang);
+            tamilText.style.opacity = 1;
+            tamilText.style.fontSize = maxFontSize;
+            englishText.style.opacity  = 0.5;
+            englishText.style.fontSize = minFontSize;
+            sinhalaText.style.opacity = 0.5;
+            sinhalaText.style.fontSize = minFontSize;
+            divehiText.style.opacity  = 0.5;
+            divehiText.style.fontSize = minFontSize;
+            break;
+        case 'dv':
+            divehiText.style.opacity = 1;
+            divehiText.style.fontSize = maxFontSize;
+            englishText.style.opacity  = 0.5;
+            englishText.style.fontSize = minFontSize;
+            sinhalaText.style.opacity = 0.5;
+            sinhalaText.style.fontSize = minFontSize;
+            tamilText.style.opacity  = 0.5;
+            tamilText.style.fontSize = minFontSize;
+            break;
+    }
+}
 
 //UI elements
 
@@ -126,23 +204,33 @@ let joystickTutCloseButton = document.getElementById('joystick-tutorial-close-bu
 let allTexts = {
     paginationDisplayText : {
         en : 'Part 1 of 4',
-        si : '4 හි 1 කොටස'
+        si : '4 හි 1 කොටස',
+        ta : 'பகுதி 1 இன் 4',
+        dv : 'Part 1 of 4'
     },
     otherRegionText : {
         en : 'Other regions',
-        si : 'වෙනත් කලාප'
+        si : 'වෙනත් කලාප',
+        ta : 'பிற பகுதி',
+        dv : 'Other regions'
     },
     submitButtonText : {
         en : 'Submit',
-        si : 'ඉදිරිපත් කරන්න'
+        si : 'ඉදිරිපත් කරන්න',
+        ta : 'சமர்ப்பிக்கவும்',
+        dv : 'Submit'
     },
     sliderDistantText : {
         en : 'Distant',
-        si : 'දුරස්ථ'
+        si : 'දුරස්ථ',
+        ta : 'தொலைவில்',
+        dv : 'Distant'
     },
     sliderCloseText : {
         en : 'Close',
-        si : 'වසන්න'
+        si : 'වසන්න',
+        ta : 'அருகில்',
+        dv : 'Close'
     }
 }
 

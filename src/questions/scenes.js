@@ -632,6 +632,19 @@ pointLight.position.y = -1;
 pointLight.position.z = 3.5/ aspect;
 joystickScene.add(pointLight);
 
+const rimLightDistance = 40;
+const bgPointLight = new THREE.PointLight(0xea7ff9, 10, rimLightDistance - 2);
+bgPointLight.castShadow = false;
+bgPointLight.position.y = 5;
+bgPointLight.position.z = -rimLightDistance + 2;
+joystickScene.add(bgPointLight);
+
+const bgPointLight2 = new THREE.PointLight(0xea7ff9, 2, rimLightDistance - 2);
+bgPointLight2.position.y = -1;
+bgPointLight2.position.z = -rimLightDistance + 7;
+bgPointLight2.position.x = (rimLightDistance - 2) * 1.3;
+//joystickScene.add(bgPointLight2);
+
 
 //Adding rings
 //Highlight material

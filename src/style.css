@@ -559,13 +559,26 @@ div.pagination__dot:hover {
     z-index: 2;
 }
 
+#select-language-text{
+    position: absolute;
+    color: #ffffff;
+    font-size: clamp(6vmin, 8vmin, 8vmin);
+
+    text-align: center;
+    top: 15vh;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, 50%);
+}
+
 .lang-container{        /*  holder for all the selectable language options */
     position: absolute;
     width: 50vmin;
+    height: 36vh;
 
     z-index: 2;
-    top: 50%;
-    margin-bottom: -50%;    
+    top: 55vh;
+    margin-bottom: -45%;    
 
     left: 50%;
     margin-right: -50%;
@@ -578,18 +591,29 @@ div.pagination__dot:hover {
     position: relative;
     text-align: center;
 
-    margin: 20px;
-    font-size: clamp(6vh, 7vh, 8vh);
+    width: fit-content;
+    height: 8vh;
+    line-height: 8vh;
+    cursor: pointer;
+    top: 4vh;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    transition: 0.3s;
+}
+
+.lang-text:hover{
+    color: #f3ff4f;
+    opacity: 1;
 }
 
 #english-text{
-    color: #ffffff;
-    opacity: 0.5;
-    font-size: clamp(3vh, 3vh, 4vh);
+    font-size: clamp(4vh, 5vh, 5vh);
 }
 
 #sinhala-text{
-    font-size: clamp(6vh, 7vh, 8vh);
+    opacity: 0.5;
+    font-size: clamp(3vh, 3vh, 4vh);
 }
 
 #tamil-text{
@@ -597,14 +621,22 @@ div.pagination__dot:hover {
     font-size: clamp(3vh, 3vh, 4vh);
 }
 
-#lang-separation-line-top{
-    position: absolute;
-    width: 20vh;
-    height: 4px;
-    background: white;
+#divehi-text{
     opacity: 0.5;
+    font-size: clamp(3vh, 3vh, 4vh);
+}
 
-    top: 35%;
+.lang-separation-line{
+    content: url('../static/separation_Line.png');
+    position: absolute;
+    width: 25vh;
+    height: 4px;
+    
+    opacity: 0.2;   /* prev 0.5 */
+}
+
+.lang-separation-line1{
+    top: 9vh;
     margin-bottom: -65%;
 
     left: 50%;
@@ -612,27 +644,32 @@ div.pagination__dot:hover {
     transform: translate(-50%, -50%);
 }
 
-#lang-separation-line-bottom{
-    position: absolute;
-    width: 20vh;
-    height: 4px;
-    background: white;
-    opacity: 0.5;
+.lang-separation-line2{
+    top: 16vh;
+    margin-bottom: -65%;
 
-    top: 70%;
-    margin-bottom: -30%;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
 }
 
-#language-selected-button{      /* Next Button in language selection UI */
+.lang-separation-line3{
+    top: 24vh;
+    margin-bottom: -65%;
+
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+
+.lang-selection-button{      /* Next Button in language selection UI */
     position: absolute;
     color: #222222;
     background : #cbfa01;
     width: 120px;
     height: 45px;
     font-size: 30px;
+    cursor: pointer;
 
     text-align: center;
     padding-top: 0px;
@@ -640,19 +677,13 @@ div.pagination__dot:hover {
     top: 80vh;
     left: 50%;
     margin-right: -50%;
-    transform: translate(-50%, -50%)
+    transform: translate(-50%, -50%);
+    transition : 0.3s;
 }
 
-#select-language-text{
-    position: absolute;
+.lang-selection-button:hover{
+    background: #ffee06;
     color: #ffffff;
-    font-size: clamp(6vmin, 8vmin, 8vmin);
-
-    text-align: center;
-    top: 15vh;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, 50%);
 }
 
 #lang-bottom-text{

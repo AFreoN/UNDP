@@ -33,7 +33,7 @@ const db = getFirestore();
 //      Initializing application properties
 //
 
-let surveyStarted = false //other modules can read this value to see if the survey has started
+export let surveyStarted = false //other modules can read this value to see if the survey has started
 let showingTutorial = false;
 
 let joystickTutorialShown = false;
@@ -53,6 +53,7 @@ export function startSurvey(){//call this function when loading is complete
     var playerAnimations = assetLoader.getPlayerAnimations()
 
     controls.setPlayer(player, playerAnimations)
+    uiControl.addLangugageButtonEvents();
     //Call any functions related to starting the survey (setting up the first scene etc..)
 }
 

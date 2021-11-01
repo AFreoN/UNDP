@@ -12,12 +12,18 @@ import { MathUtils } from 'three'
 //      Assigning questions and answers
 //
 export let langId = 'en';
+export function setLangId(id){
+    if(id == null) return;  
+    langId = id;
+}
 let qArray = [
     {   //1
         type : 'Country',
         question : {
             en : 'In which country do you live ?',
-            si : 'ඔබ ජීවත් වන්නේ කුමන රටේද?'
+            si : 'ඔබ ජීවත් වන්නේ කුමන රටේද?',
+            ta : 'நீங்கள் எந்த நாட்டில் வாழ்கிறீர்கள் ?',
+            dv : 'In which country do you live ?'
         },
         compulsory : true
     },
@@ -25,7 +31,9 @@ let qArray = [
         type : 'Province',
         question : {
             en : 'In which area do you live ?',
-            si : 'ඔබ ජීවත් වන්නේ කුමන ප්‍රදේශයේද?'
+            si : 'ඔබ ජීවත් වන්නේ කුමන ප්‍රදේශයේද?',
+            ta : 'நீங்கள் எந்த பகுதியில் வசிக்கிறீர்கள் ?',
+            dv : 'In which area do you live ?'
         },
         compulsory : false
     },
@@ -33,28 +41,40 @@ let qArray = [
         type : 'mcq',
         question : {
             en : 'How old are you ?',
-            si : 'ඔයාගේ වයස කීය ද ?'
+            si : 'ඔයාගේ වයස කීය ද ?',
+            ta : 'உங்களுக்கு எவ்வளவு வயது ?',
+            dv : 'How old are you ?'
         },
         answers : [
             {
                 en : 'Under 18',
-                si : '18 ට අඩු'
+                si : '18 ට අඩු',
+                ta : '18 வயதுக்குட்பட்டவர்',
+                dv : 'Under 18'
             },
             {
                 en : '18-25',
-                si : '18-25'
+                si : '18-25',
+                ta : '18-25',
+                dv : '18-25'
             },
             {
                 en : '26-35',
-                si : '26-35'
+                si : '26-35',
+                ta : '26-35',
+                dv : '26-35'
             },
             {
                 en : '35+',
-                si : '35+'
+                si : '35+',
+                ta : '35+',
+                dv : '35'
             },
             {
                 en : 'Prefer not to Say',
-                si : 'නොකියන්න කැමති'
+                si : 'නොකියන්න කැමති',
+                ta : 'சொல்ல விரும்பவில்லை',
+                dv : 'Prefer not to Say'
             }
         ],
         compulsory : false
@@ -63,32 +83,46 @@ let qArray = [
         type : 'mcq',
         question : {
             en : 'What is your gender ?',
-            si : 'ඔබේ ලිංගය කුමක්ද?'
+            si : 'ඔබේ ලිංගය කුමක්ද?',
+            ta : 'உங்கள் பாலினம் என்ன ?',
+            dv : 'What is your gender ?'
         },
         answers : [
             {
                 en : 'Man',
-                si : 'මිනිසා'
+                si : 'මිනිසා',
+                ta : 'ஆண்',
+                dv : 'Man'
             },
             {
                 en : 'Woman',
-                si : 'කාන්තාවක්'
+                si : 'කාන්තාවක්',
+                ta : 'பெண்',
+                dv : 'Woman'
             },
             {
                 en : 'Intersex',
-                si : 'අන්තර් ලිංගික'
+                si : 'අන්තර් ලිංගික',
+                ta : 'இருபால்',
+                dv : 'Intersex'
             },
             {
                 en : 'Non-binary',
-                si : 'ද්විමය නොවන'
+                si : 'ද්විමය නොවන',
+                ta : 'ஒரு பாலினம் அல்ல',
+                dv : 'Non-binary'
             },
             {
                 en : 'Other',
-                si : 'වෙනත්'
+                si : 'වෙනත්',
+                ta : 'மற்றவை',
+                dv : 'Other'
             },
             {
                 en : 'Prefer Not to Say',
-                si : 'නොකියන්න කැමති'
+                si : 'නොකියන්න කැමති',
+                ta : 'சொல்ல விரும்பவில்லை',
+                dv : 'Prefer Not to Say'
             }
         ],
         compulsory : false
@@ -97,36 +131,52 @@ let qArray = [
         type : 'joystick',
         question : {
             en : 'How close do you feel to your mother ?',
-            si : 'ඔබ ඔබේ මවට කොතරම් සමීපද?'
+            si : 'ඔබ ඔබේ මවට කොතරම් සමීපද?',
+            ta : 'உங்கள் தாயிடம் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
+            dv : 'How close do you feel to your mother ?'
         },
         answers : [
             {
                 en : 'answer1',
-                si : 'පිළිතුර1'
+                si : 'පිළිතුර1',
+                ta : 'பதில்1',
+                dv : 'answer1'
             },
             {
                 en : 'answer2',
-                si : 'පිළිතුර2'
+                si : 'පිළිතුර2',
+                ta : 'பதில்2',
+                dv : 'answer2'
             },
             {
                 en : 'answer3',
-                si : 'පිළිතුර3'
+                si : 'පිළිතුර3',
+                ta : 'பதில்3',
+                dv : 'answer3'
             },
             {
                 en : 'answer4',
-                si : 'පිළිතුර4'
+                si : 'පිළිතුර4',
+                ta : 'பதில்4',
+                dv : 'answer4'
             },
             {
                 en : 'answer5',
-                si : 'පිළිතුර5'
+                si : 'පිළිතුර5',
+                ta : 'பதில்5',
+                dv : 'answer5'
             },
             {
                 en : 'answer6',
-                si : 'පිළිතුර6'
+                si : 'පිළිතුර6',
+                ta : 'பதில்6',
+                dv : 'answer6'
             },
             {
                 en : 'answer7',
-                si : 'පිළිතුර7'
+                si : 'පිළිතුර7',
+                ta : 'பதில்7',
+                dv : 'answer7'
             }
         ],
         centerModelKey:'centerCharacter',
@@ -136,36 +186,52 @@ let qArray = [
         type : 'joystick',
         question : {
             en : 'How close do you feel to your father ?',
-            si : 'ඔබ ඔබේ පියාට කොතරම් සමීපද?'
+            si : 'ඔබ ඔබේ පියාට කොතරම් සමීපද?',
+            ta : 'உங்கள் தந்தையிடம் நீங்கள் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
+            dv : 'How close do you feel to your father ?'
         },
         answers : [
             {
                 en : 'answer1',
-                si : 'පිළිතුර1'
+                si : 'පිළිතුර1',
+                ta : 'பதில்1',
+                dv : 'answer1'
             },
             {
                 en : 'answer2',
-                si : 'පිළිතුර2'
+                si : 'පිළිතුර2',
+                ta : 'பதில்2',
+                dv : 'answer2'
             },
             {
                 en : 'answer3',
-                si : 'පිළිතුර3'
+                si : 'පිළිතුර3',
+                ta : 'பதில்3',
+                dv : 'answer3'
             },
             {
                 en : 'answer4',
-                si : 'පිළිතුර4'
+                si : 'පිළිතුර4',
+                ta : 'பதில்4',
+                dv : 'answer4'
             },
             {
                 en : 'answer5',
-                si : 'පිළිතුර5'
+                si : 'පිළිතුර5',
+                ta : 'பதில்5',
+                dv : 'answer5'
             },
             {
                 en : 'answer6',
-                si : 'පිළිතුර6'
+                si : 'පිළිතුර6',
+                ta : 'பதில்6',
+                dv : 'answer6'
             },
             {
                 en : 'answer7',
-                si : 'පිළිතුර7'
+                si : 'පිළිතුර7',
+                ta : 'பதில்7',
+                dv : 'answer7'
             }
         ],
         centerModelKey:'centerCharacter',

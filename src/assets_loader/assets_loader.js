@@ -2,6 +2,8 @@ import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader'
 import * as main from '../script'
 import * as scenes from '../questions/scenes'
 import * as THREE from 'three'
+import { fresnel } from '../shader'
+import { shaderMaterial } from '../fresnel'
 
 
 //      Initializing loader module properties
@@ -149,9 +151,20 @@ gltfloader.load(
 
         model.traverse((child) => {
             if (child.isMesh){
-                let toonMaterial = new THREE.MeshToonMaterial({ color : 0xFFC332, gradientMap : tex});
-                child.material = toonMaterial; // a material i created in the code earlier
+                var toonMaterial = new THREE.MeshToonMaterial({ color : 0xFFC332, gradientMap : tex});
+                //toonMaterial = new THREE.MeshStandardMaterial({color : 0xFFC332, roughness : 0.8, metalness : 0.2});
+
+                const c_mat = new THREE.ShaderMaterial({
+                    uniforms: {
+                      u_opacity: { value: 1 } // TODO animate it by time by sphears
+                    },
+                    vertexShader: fresnel.vertexShader,
+                    fragmentShader: fresnel.fragmentShader
+                  });
+                
+                child.material = shaderMaterial;// a material i created in the code earlier
                 child.castShadow = true;
+                child.rotation.set(3.5, 0, 0);
             }
         });
 
