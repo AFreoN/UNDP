@@ -51,13 +51,9 @@ export function startSurvey(){//call this function when loading is complete
     var player = assetLoader.getModel('playerCharacter')
     var playerAnimations = assetLoader.getPlayerAnimations()
     controls.setPlayer(player, playerAnimations)
-<<<<<<< HEAD
     
     questions.loadQuestion(questionIndex)
-    uiControl.addLangugageButtonEvents();
-=======
-    // uiControl.addLangugageButtonEvents();
->>>>>>> 9e7a4a495e98aea27ae58daf13ce7ddbe3bb8d45
+    //uiControl.addLangugageButtonEvents();
     //Call any functions related to starting the survey (setting up the first scene etc..)
 }
 

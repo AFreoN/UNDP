@@ -672,8 +672,8 @@ function setupJoystickScene(currentQuestion, player, questionIndex){
     
     controls.setCamera(joystickCamera);
 
-    //uiControl.updateUI(currentQuestion.questionType, currentQuestion.question[langId], currentQuestion.answers);
-    //uiControl.setSurveyProgressValue(questionIndex);
+    uiControl.updateUI(currentQuestion.questionType, currentQuestion.question[langId], currentQuestion.answers);
+    uiControl.setSurveyProgressValue(questionIndex);
 }
 
 const addModelToScene = function(_scene, _model){
