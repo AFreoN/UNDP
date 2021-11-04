@@ -609,6 +609,7 @@ div.pagination__dot:hover {
       height: fit-content;
       top: -30px;
       left: 0px;
+      opacity: 0;
 
       font-family: 'Rubik',sans-serif ;
       font-size: 0.75em;
@@ -622,6 +623,7 @@ div.pagination__dot:hover {
       text-align: right;
       top: -30px;
       right: 0%;
+      opacity: 0;
 }
 
 .language-selection{    /* base class that holds the whole language selection ui */

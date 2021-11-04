@@ -5,6 +5,8 @@ import * as uiControl from '../ui_controller/ui_controller'
 import * as scenes from './scenes'
 import {getSelectedCountry} from '../script'
 import { MathUtils } from 'three'
+import * as sceneTransition from '../SceneTransition'
+
 //import main from 'progressbar.js'
 //import * as mainScript from '../script.js'
 //import { render } from 'progressbar.js/utils'
@@ -471,10 +473,20 @@ tick()
 //References current loaded center model
 var currentCenterModel
 var currentQuestion
+var qId = 0;
+var prevQues = '';
+var prevPlayerModel, prevOtherModel, prevCamera;
+let player = null;
 //Takes a question object from the array above and updates UI with the info.
 //Implement updating models/ environment in respect to the question
 export function loadQuestion(questionIndex){
-    const player = assetLoader.getModel('playerCharacter')
+    if(player == null){
+        player = assetLoader.getModel('playerCharacter');
+    }
+    sceneTransition.initializeData(player, joystickCamera, controls.getPlayerInitialPosition());
+    controls.disablePlayerControl();
+
+    var UIUpdateNeeded = true;
     currentQuestion = qArray[questionIndex]
 
     if(currentQuestion){
@@ -528,110 +540,151 @@ export function loadQuestion(questionIndex){
                 mcqScene.add(player)
                 break;
             case 'joystick':
-                scenes.resetCurrentSelectionScene()
-                if(currentQuestion.centerModelKey){
-                    const centerModel = assetLoader.getModel(currentQuestion.centerModelKey)
-                    if(currentCenterModel){
-                        joystickScene.remove(currentCenterModel)
-                        currentCenterModel = null
-                    }
-                    joystickScene.add(centerModel)
-                    
-                    let treeYPos = -0.6; 
-                    let r = 0.1;
+                scenes.resetCurrentSelectionScene();
+                uiControl.sliderHolder.hidden = true;
+                //setupJoystickScene(currentQuestion);  //Function to setup joystick scene, objects and environments
 
-                    let tree1 = assetLoader.getModel('Tree1')
-                    tree1.position.set(2.0 + MathUtils.randFloat(-r,r),treeYPos,-2 + MathUtils.randFloat(-r,r))     //prev (2.0,-0.3,-2)
-                    tree1.rotation.y = MathUtils.randFloat(0.1, 359)
-                    
-                    let tree2 = assetLoader.getModel('Tree2')
-                    tree2.position.set(1.5 + MathUtils.randFloat(-r,r),treeYPos,-3 + MathUtils.randFloat(-r,r))
-                    tree2.rotation.y = MathUtils.randFloat(0.1, 359)
-
-                    let tree3 = assetLoader.getModel('Tree3')
-                    tree3.position.set(-1.5 + MathUtils.randFloat(-r,r),treeYPos,-3 + MathUtils.randFloat(-r,r))
-                    tree3.rotation.y = MathUtils.randFloat(0.1, 359)
-
-                    let tree4 = assetLoader.getModel('Tree4')
-                    tree4.position.set(-2.0 + MathUtils.randFloat(-r,r),treeYPos,-2 + MathUtils.randFloat(-r,r))
-                    tree4.rotation.y = MathUtils.randFloat(0.1, 359)
-
-                    let tree5 = assetLoader.getModel('Tree5')
-                    tree5.position.set( 2.4 + MathUtils.randFloat(-r,r),treeYPos,-5 + MathUtils.randFloat(-r,r))
-                    tree5.rotation.y = MathUtils.randFloat(0.1, 359)
-
-                    let tree6 = assetLoader.getModel('Tree6')
-                    tree6.position.set(-2.8 + MathUtils.randFloat(-r,r),treeYPos,-6 + MathUtils.randFloat(-r,r))
-                    tree6.rotation.y = MathUtils.randFloat(0.1, 359)
-
-                    let tree7 = assetLoader.getModel('Tree7')
-                    tree7.position.set( -2.20 + MathUtils.randFloat(-r,r),treeYPos,-10 + MathUtils.randFloat(-r,r))
-                    tree7.rotation.y = MathUtils.randFloat(0.1, 359)
-
-                    let tree8 = assetLoader.getModel('Tree8')
-                    tree8.position.set(0.1 + MathUtils.randFloat(-r,r), treeYPos, -6 + MathUtils.randFloat(-r,r))
-                    tree8.rotation.y = MathUtils.randFloat(0.1, 359)
-
-                    let tree9 = assetLoader.getModel('Tree9')
-                    tree9.position.set(-1.3 + MathUtils.randFloat(-r,r), treeYPos, -8 + MathUtils.randFloat(-r,r))
-                    tree9.rotation.y = MathUtils.randFloat(0.1, 359)
-
-                    let tree10 = assetLoader.getModel('Tree10')
-                    tree10.position.set(1.1 + MathUtils.randFloat(-r,r), treeYPos, -5 + MathUtils.randFloat(-r,r))
-                    tree10.rotation.y = MathUtils.randFloat(0.1, 359)
-
-                    let cloud1 = assetLoader.getModel('cloud1')
-                    cloud1.position.set(2, 1.8,-12)
-
-                    let cloud2 = assetLoader.getModel('cloud2')
-                    cloud2.position.set(1.5, 2.2,-12)
-
-                    let cloud3 = assetLoader.getModel('cloud3')
-                    cloud3.position.set(-1.5, 1.8,-10)
-                
-
-                    joystickScene.add(tree1)
-                    joystickScene.add(tree2)
-                    joystickScene.add(tree3)
-                    joystickScene.add(tree4)
-                    joystickScene.add(tree5)
-                    joystickScene.add(tree6)
-                    joystickScene.add(tree7)
-                    joystickScene.add(tree8)
-                    joystickScene.add(tree9)
-                    joystickScene.add(tree10)
-
-                    joystickScene.add(cloud1)
-                    joystickScene.add(cloud2)
-                    joystickScene.add(cloud3)
-                    
-
-
-                    currentCenterModel = centerModel
-                    controls.setOtherCharacter(currentCenterModel, assetLoader.getOtherCharacterAnimations(currentQuestion.centerModelKey));
-                }
                 //uiControl.resetJoystickSlider();
-
                 //scenes.updateRingLocation(currentCenterModel)
                 //currentCenterModel.position.set(2, currentCenterModel.position.y, 0);
                 //currentCenterModel.rotation.set(0, -90,0);
                 //player.position.set(-1.5, -0.6, 0);
                 //player.rotation.set(0, 90,0);
 
-                updateSceneAndCamera(joystickScene, joystickCamera)
-                joystickScene.add(player)
+                var slideDirection = questionIndex - qId;
+                var dir = slideDirection > 0 ? 'right' : 'left';
+                if(prevQues == 'joystick'){
+                    UIUpdateNeeded = false;
+                    sceneTransition.fadeOut(prevOtherModel, dir, function(){
+                        setupJoystickScene(currentQuestion, player, questionIndex);
+                        //updateSceneAndCamera(joystickScene, joystickCamera, true);
+                        sceneTransition.fadeIn(prevOtherModel, dir, null);
+                    });
+                }
+                else{
+                    setupJoystickScene(currentQuestion, player, questionIndex);
+                    updateSceneAndCamera(joystickScene, joystickCamera);
+                    sceneTransition.fadeIn(prevOtherModel, dir, null);
+                }
+
+                
+                //updateSceneAndCamera(joystickScene, joystickCamera)
                 //if(mainScript.isJoyStickTutorialDisplayed())
-                controls.enablePlayerControl()
+                //controls.enablePlayerControl()
                 break;
         }
         
-        uiControl.updateUI(questionType, questionText, answers)
-        uiControl.setSurveyProgressValue(questionIndex)
+        prevQues = questionType.toLowerCase();
+        qId = questionIndex;
+        if(UIUpdateNeeded){
+            uiControl.updateUI(questionType, questionText, answers)
+            uiControl.setSurveyProgressValue(questionIndex)
+        }
+    }
+}
+
+function setupJoystickScene(currentQuestion, player, questionIndex){
+
+    if(currentQuestion.centerModelKey){
+        const centerModel = assetLoader.getModel(currentQuestion.centerModelKey)
+        if(currentCenterModel){
+            joystickScene.remove(currentCenterModel)
+            currentCenterModel = null
+        }
+        joystickScene.add(centerModel)
+        
+        let treeYPos = -0.6; 
+        let r = 0.1;
+
+        let tree1 = assetLoader.getModel('Tree1')
+        tree1.position.set(2.0 + MathUtils.randFloat(-r,r),treeYPos,-2 + MathUtils.randFloat(-r,r))     //prev (2.0,-0.3,-2)
+        tree1.rotation.y = MathUtils.randFloat(0.1, 359)
+        
+        let tree2 = assetLoader.getModel('Tree2')
+        tree2.position.set(1.5 + MathUtils.randFloat(-r,r),treeYPos,-3 + MathUtils.randFloat(-r,r))
+        tree2.rotation.y = MathUtils.randFloat(0.1, 359)
+
+        let tree3 = assetLoader.getModel('Tree3')
+        tree3.position.set(-1.5 + MathUtils.randFloat(-r,r),treeYPos,-3 + MathUtils.randFloat(-r,r))
+        tree3.rotation.y = MathUtils.randFloat(0.1, 359)
+
+        let tree4 = assetLoader.getModel('Tree4')
+        tree4.position.set(-2.0 + MathUtils.randFloat(-r,r),treeYPos,-2 + MathUtils.randFloat(-r,r))
+        tree4.rotation.y = MathUtils.randFloat(0.1, 359)
+
+        let tree5 = assetLoader.getModel('Tree5')
+        tree5.position.set( 2.4 + MathUtils.randFloat(-r,r),treeYPos,-5 + MathUtils.randFloat(-r,r))
+        tree5.rotation.y = MathUtils.randFloat(0.1, 359)
+
+        let tree6 = assetLoader.getModel('Tree6')
+        tree6.position.set(-2.8 + MathUtils.randFloat(-r,r),treeYPos,-6 + MathUtils.randFloat(-r,r))
+        tree6.rotation.y = MathUtils.randFloat(0.1, 359)
+
+        let tree7 = assetLoader.getModel('Tree7')
+        tree7.position.set( -2.20 + MathUtils.randFloat(-r,r),treeYPos,-10 + MathUtils.randFloat(-r,r))
+        tree7.rotation.y = MathUtils.randFloat(0.1, 359)
+
+        let tree8 = assetLoader.getModel('Tree8')
+        tree8.position.set(0.1 + MathUtils.randFloat(-r,r), treeYPos, -6 + MathUtils.randFloat(-r,r))
+        tree8.rotation.y = MathUtils.randFloat(0.1, 359)
+
+        let tree9 = assetLoader.getModel('Tree9')
+        tree9.position.set(-1.3 + MathUtils.randFloat(-r,r), treeYPos, -8 + MathUtils.randFloat(-r,r))
+        tree9.rotation.y = MathUtils.randFloat(0.1, 359)
+
+        let tree10 = assetLoader.getModel('Tree10')
+        tree10.position.set(1.1 + MathUtils.randFloat(-r,r), treeYPos, -5 + MathUtils.randFloat(-r,r))
+        tree10.rotation.y = MathUtils.randFloat(0.1, 359)
+
+        let cloud1 = assetLoader.getModel('cloud1')
+        cloud1.position.set(2, 1.8,-12)
+
+        let cloud2 = assetLoader.getModel('cloud2')
+        cloud2.position.set(1.5, 2.2,-12)
+
+        let cloud3 = assetLoader.getModel('cloud3')
+        cloud3.position.set(-1.5, 1.8,-10)
+    
+        addModelToScene(joystickScene, tree1);
+        addModelToScene(joystickScene, tree2);
+        addModelToScene(joystickScene, tree3);
+        addModelToScene(joystickScene, tree4);
+        addModelToScene(joystickScene, tree5);
+        addModelToScene(joystickScene, tree6);
+        addModelToScene(joystickScene, tree7);
+        addModelToScene(joystickScene, tree8);
+        addModelToScene(joystickScene, tree9);
+        addModelToScene(joystickScene, tree10);
+
+        addModelToScene(joystickScene, cloud1);
+        addModelToScene(joystickScene, cloud2);
+        addModelToScene(joystickScene, cloud3);
+        
+        currentCenterModel = centerModel;
+        prevOtherModel = currentCenterModel;
+        
+        controls.setOtherCharacter(currentCenterModel, assetLoader.getOtherCharacterAnimations(currentQuestion.centerModelKey));
+        // if(!joystickScene.getObjectByName('player')){
+        //     joystickScene.add(player)
+        // }
+        addModelToScene(joystickScene, player);
+    }
+    
+    controls.setCamera(joystickCamera);
+
+    //uiControl.updateUI(currentQuestion.questionType, currentQuestion.question[langId], currentQuestion.answers);
+    //uiControl.setSurveyProgressValue(questionIndex);
+}
+
+const addModelToScene = function(_scene, _model){
+    if(_scene.getObjectById(_model.id) == null){
+        _scene.add(_model);
     }
 }
 
 //Used to change the scene and camera
-function updateSceneAndCamera(sceneObject, cameraObject){
+function updateSceneAndCamera(sceneObject, cameraObject, dontUpdate){
+    if(dontUpdate) return;
     mainScene = sceneObject
     mainCamera = cameraObject
 

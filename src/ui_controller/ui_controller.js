@@ -110,7 +110,7 @@ export function setSurveyProgressValue(questionIndex){
 }
 
 let sliderFiller = document.getElementById('Slider_Filler')
-let sliderHolder = document.getElementById('slider-holder')
+export const sliderHolder = document.getElementById('slider-holder')
 
 setFillerWidth()
 function setFillerWidth(){
@@ -199,11 +199,11 @@ let submitButton = document.getElementById('submit-button')
 let joystickTutCloseButton = document.getElementById('joystick-tutorial-close-button');
 
 let surveyStartButton = document.getElementById('survey-start-button')
-surveyStartButton.disabled = true
+surveyStartButton.disabled = true;
 
 surveyStartButton.addEventListener('click',function(){
-    main.startSurvey()
-})
+    main.startSurvey();
+});
 
 export function enableStartSurvey(){
     surveyStartButton.disabled = false
@@ -434,7 +434,7 @@ backButton.addEventListener('click',function(){
 nextButton.addEventListener('click',function(){
     if(canChangeQuestions){
         if(canConfirmAnswer){
-            console.log("answer confirmed")
+            //console.log("answer confirmed")
             main.saveCurrentAnswer(selectedAnswerIndex)
         }
         main.loadNextQuestion()   
@@ -450,7 +450,7 @@ regionSkipButton.addEventListener('click',function(){
 // })
 
 
-languageSelectedButton.addEventListener('click', function StartSurvey(){
+languageSelectedButton.addEventListener('click', function(){
     loadQuestion(0);
     langSelectionUI.hidden = true;
     uiHolder.hidden = false;

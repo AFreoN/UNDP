@@ -10,7 +10,11 @@ import { joystickSlideValue, resetJoystickSlider } from '../ui_controller/ui_con
 let canControlPlayer = false
 
 export function enablePlayerControl(){
-    canControlPlayer = true
+    canControlPlayer = true;
+    var xPos = -startX + stepValue * (joystickSlideValue + 50);
+    player.position.set(xPos, PlayerYPos, 0);
+    curPlayerPosition = player.position.clone();
+    console.log("player control enabled");
 }
 
 export function disablePlayerControl(){
@@ -31,6 +35,8 @@ let otherMixer = null;
 let otherAnimations = null;
 var otherIdle = true;
 var otherAnimationIndex = 0;    // 2- idle, 3-walk
+
+var camera = null;
 
 const playerSpeed = 0.15
 var moveDirection = new THREE.Vector2(0,0)
@@ -53,16 +59,19 @@ export function setPlayer(playerModel, playerAnims){
     playerAnimations = playerAnims
 }
 
+const PlayerYPos = -0.6;
 export function setOtherCharacter(otherModel, _otherAnimation){
     resetJoystickSlider();
 
-    otherYPos = otherModel.position.y;
+    otherYPos = otherModel.position.clone().y;
     curOtherPosition.y = otherYPos;
     otherCharacter = otherModel;
     //curOtherPosition = otherCharacter.position;
     if(_otherAnimation != null){
         otherMixer = new THREE.AnimationMixer(otherCharacter);
         otherAnimations = _otherAnimation;
+        otherMixer.clipAction(otherAnimations[2]).reset();
+        otherMixer.clipAction(otherAnimations[4]).reset();
     }
     else{
         otherAnimations = null;
@@ -70,13 +79,34 @@ export function setOtherCharacter(otherModel, _otherAnimation){
     }
 
     var xPos = -startX + stepValue * (joystickSlideValue + 50);
-    player.position.set(xPos, player.position.y, 0);
-    curPlayerPosition.x = xPos;
+    //player.position.set(xPos, PlayerYPos, 0);
+    curPlayerPosition = player.position.clone();
 
     xPos = startX - stepValue * (joystickSlideValue + 50);
     otherCharacter.position.set(xPos, otherCharacter.position.y, 0);
     curOtherPosition.x = xPos;
     curOtherPosition.y = otherModel.position.y;
+}
+
+const cameraZoomDis = window.innerHeight / window.innerWidth;
+var cameraPos = null;
+export function setCamera(_camera){
+    camera = _camera;
+    if(camera && cameraPos == null){
+        cameraPos = camera.position.clone();
+    }
+};
+
+export function getPlayerInitialPosition(){
+    var x = -startX + stepValue * 50;
+    var vec = new THREE.Vector3(x, player.position.clone().y, 0);
+    return vec;
+}
+
+export function getOtherCharacterInitialPosition(){
+    var x = startX - stepValue * 50;
+    var vec = new THREE.Vector3(x, otherCharacter.position.y, 0);
+    return vec;
 }
 
 const up = new THREE.Vector2(0,1)
@@ -221,13 +251,18 @@ var moveforward, movebackwards, moveleft, moveright
 var idle = true;
 var curPlayerPosition = new THREE.Vector3(-2, -0.6, 0);
 var curOtherPosition = new THREE.Vector3(2, -0.6, 0);
+var curCameraPosition = new THREE.Vector3();
 
 function Movecharacter(){
     idle = true;
     let lerpSpeed = 0.1;
 
     var xPos = -startX + stepValue * (joystickSlideValue + 50);
-    curPlayerPosition.lerp(new Vector3(xPos, player.position.y, 0), lerpSpeed);
+    curPlayerPosition.lerp(new Vector3(xPos, PlayerYPos, 0), lerpSpeed);
+
+    if(player.position.x != curPlayerPosition.x){
+        //console.log("Player position is = ", player.position.x);
+    }
 
     player.position.set(curPlayerPosition.x, curPlayerPosition.y, curPlayerPosition.z);
 
@@ -254,8 +289,27 @@ function Movecharacter(){
         otherIdle = false;
     }
 
+    var curZoomDis = joystickSlideValue / 50 * cameraZoomDis;
+    camera.getWorldDirection(curCameraPosition);
+    curCameraPosition.normalize();
+
+    curCameraPosition.multiplyScalar(curZoomDis);
+
+    curCameraPosition.add(cameraPos);
+    camera.position.lerp(curCameraPosition, lerpSpeed);
+    //camera.position.set(curCameraPosition.x, curCameraPosition.y, curCameraPosition.z);
+
     //newPlayerMovement()
     //limitArea()
+}
+
+const debugVector3 = function(vector, msg){
+    if(msg){
+        console.log(msg + " --> x = " + vector.x + ", y = " + vector.y + ", z = " + vector.z);
+    }
+    else{
+        console.log("x = " + vector.x + ", y = " + vector.y + ", z = " + vector.z);
+    }
 }
 
 //#region JoystickControls
@@ -580,6 +634,7 @@ function animateOtherCharacter(){
 
 const clock = new THREE.Clock()
 let previousTime = 0
+let prevPos = new THREE.Vector3();
 
 const tick = () =>
 {
@@ -587,6 +642,10 @@ const tick = () =>
     const deltatime = elapsedTime - previousTime //delta time can be retrieved from here
     previousTime = elapsedTime
 
+    if(player != null && !prevPos.equals(player.position)){
+        prevPos = player.position.clone();
+        console.log("PP = ", player.position.y);
+    }
     if(canControlPlayer){
         Movecharacter()
     }
