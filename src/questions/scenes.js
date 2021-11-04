@@ -532,13 +532,14 @@ mcqScene.add(mcqPointLight)
 export const joystickScene = new THREE.Scene() 
 
 let aspect = window.innerWidth / window.innerHeight;
-aspect = clamp(aspect, 0.8, 2);
-let fov = 35 + 10 * aspect;  // prev 35
+aspect = clamp(aspect, 1, 2);
+let fov = 35 + 8 * aspect;  // prev 35
 
 export const joystickCamera = new THREE.PerspectiveCamera(fov, window.innerWidth / window.innerHeight, 0.1, 1001)
 joystickCamera.position.x = 0
 joystickCamera.position.y = 0 / aspect      //prev value is 4
 joystickCamera.position.z = 3.5 /  aspect // 4 * aspect      //prev value is 6 / aspect
+console.log("Camera position = " , joystickCamera.position);
 
 //setting rotation of the camera
 joystickCamera.rotation.set(Math.PI * -0.2, 0, 0)
@@ -566,7 +567,7 @@ console.log("C");
 const floorSize = 100;
 var floorgeo = new THREE.PlaneGeometry(floorSize,floorSize);
 floorgeo.computeBoundingBox();
-console.log("BBox = " + floorgeo.boundingBox.min.y);
+
 //const floorgeo = new THREE.CylinderGeometry(1000,1000,0.05, 256);
 const floorMaterial = new THREE.MeshToonMaterial( {color: 0x725FB3});    //prev color 0xfff4db
 var gradFloorMaterial = new THREE.ShaderMaterial({
@@ -620,14 +621,15 @@ joystickScene.add(floor);
 const ambLight = new THREE.AmbientLight(0xCFD1E6, 0.5);
 joystickScene.add(ambLight);
 
-const joyDirLight = new THREE.DirectionalLight(0xffffff, 1 );
-joyDirLight.position.set(4,8,5);
+export const joyDirLight = new THREE.DirectionalLight(0xffffff, 1 );
+const lightScale = 1;
+joyDirLight.position.set(4 * lightScale,8 * lightScale,5 * lightScale);
 joyDirLight.castShadow = true;
 joyDirLight.shadow.camera.near = 0.1;
-joyDirLight.shadow.camera.far = 100;
+joyDirLight.shadow.camera.far = 500;
 joystickScene.add(joyDirLight);
 
-const pointLight = new THREE.PointLight(0xA7C0FF, 1, 3);      //0.7,3
+export const pointLight = new THREE.PointLight(0xA7C0FF, 1, 3);      //0.7,3
 pointLight.position.y = -1;
 pointLight.position.z = 3.5/ aspect;
 joystickScene.add(pointLight);

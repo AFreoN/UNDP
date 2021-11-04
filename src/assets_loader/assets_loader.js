@@ -4,7 +4,7 @@ import * as scenes from '../questions/scenes'
 import * as uiControl from '../ui_controller/ui_controller'
 import * as THREE from 'three'
 import { fresnel } from '../shader'
-import { shaderMaterial } from '../fresnel'
+import { shaderMaterial, shaderUnlit } from '../fresnel'
 
 
 //      Initializing loader module properties
@@ -32,15 +32,12 @@ let models = {
     cloud3:null
 }
 
+//player animations are stored here
 let animations = {
     playerCharacter:null,
     centerCharacter:null,
     centerEmoji:null
 }
-
-//player animations are stored here
-let playerAnimations = null
-let otherAnimations = null
 
 //assign the number assets imported in this module
 const numberOfAssets = Object.keys(models).length
@@ -162,6 +159,7 @@ gltfloader.load(
     {
         animations['playerCharacter'] = gltf.animations
         let model = gltf.scene
+        model.name = 'player';
         model.scale.set(.07,.07,.07)
         model.position.set(0,-.6, 2)
 
@@ -169,16 +167,8 @@ gltfloader.load(
             if (child.isMesh){
                 var toonMaterial = new THREE.MeshToonMaterial({ color : 0xFFC332, gradientMap : tex});
                 //toonMaterial = new THREE.MeshStandardMaterial({color : 0xFFC332, roughness : 0.8, metalness : 0.2});
-
-                const c_mat = new THREE.ShaderMaterial({
-                    uniforms: {
-                      u_opacity: { value: 1 } // TODO animate it by time by sphears
-                    },
-                    vertexShader: fresnel.vertexShader,
-                    fragmentShader: fresnel.fragmentShader
-                  });
-                
-                child.material = shaderMaterial;// a material i created in the code earlier
+                //new THREE.MeshBasicMaterial({color : 0xFFC332});
+                child.material = toonMaterial;// a material i created in the code earlier
                 child.castShadow = true;
                 child.rotation.set(3.5, 0, 0);
             }
@@ -201,6 +191,7 @@ gltfloader.load(
     {
         animations['centerCharacter'] = gltf.animations
         let model = gltf.scene
+        model.name = 'centerCharacter'
         model.scale.set(.07,.07,.07)
         model.position.set(0,-.6, 0)
 
@@ -397,6 +388,7 @@ gltfloader.load(
     (gltf) =>
     {
         let model = gltf.scene
+        model.name = 'Tree'
         model.position.set(0, -0.3, 0)
         model.scale.set(0.25,0.25,0.25)
 
@@ -413,6 +405,7 @@ gltfloader.load(
     (gltf) =>
     {
         let model = gltf.scene
+        model.name = 'Tree2'
         model.position.set(0, -0.3, 0)
         model.scale.set(0.25,0.25,0.25)
 
@@ -429,6 +422,7 @@ gltfloader.load(
     (gltf) =>
     {
         let model = gltf.scene
+        model.name = 'Tree3'
         model.position.set(0, -0.3, 0)
         model.scale.set(0.25,0.25,0.25)
 
@@ -445,6 +439,7 @@ gltfloader.load(
     (gltf) =>
     {
         let model = gltf.scene
+        model.name = 'Tree4'
         model.position.set(0, -0.3, 0)
         model.scale.set(0.25,0.25,0.25)
 
@@ -462,6 +457,7 @@ gltfloader.load(
     (gltf) =>
     {
         let model = gltf.scene
+        model.name = 'Tree5'
         model.position.set(0, -0.3, 0)
         model.scale.set(0.25,0.25,0.25)
 
@@ -478,6 +474,7 @@ gltfloader.load(
     (gltf) =>
     {
         let model = gltf.scene
+        model.name = 'Tree6'
         model.position.set(0, -0.3, 0)
         model.scale.set(0.25,0.25,0.25)
 
@@ -494,6 +491,7 @@ gltfloader.load(
     (gltf) =>
     {
         let model = gltf.scene
+        model.name = 'Tree7'
         model.position.set(0, -0.3, 0)
         model.scale.set(0.25,0.25,0.25)
 
@@ -510,6 +508,7 @@ gltfloader.load(
     (gltf) =>
     {
         let model = gltf.scene
+        model.name = 'Tree8'
         model.position.set(0, -0.3, 0)
         model.scale.set(0.25,0.25,0.25)
 
@@ -526,6 +525,7 @@ gltfloader.load(
     (gltf) =>
     {
         let model = gltf.scene
+        model.name = 'Tree9'
         model.position.set(0, -0.3, 0)
         model.scale.set(0.25,0.25,0.25)
 
@@ -542,6 +542,7 @@ gltfloader.load(
     (gltf) =>
     {
         let model = gltf.scene
+        model.name = 'Tree10'
         model.position.set(0, -0.3, 0)
         model.scale.set(0.25,0.25,0.25)
 
@@ -560,6 +561,7 @@ gltfloader.load(
     (gltf) =>
     {
         let model = gltf.scene
+        model.name = 'Cloud'
         model.position.set(0, -0.3, 0)
         model.scale.set(0.05,0.05,0.05)
 
@@ -575,6 +577,7 @@ gltfloader.load(
     (gltf) =>
     {
         let model = gltf.scene
+        model.name = 'Cloud2'
         model.position.set(0, -0.3, 0)
         model.scale.set(0.05,0.05,0.05)
 
@@ -595,6 +598,7 @@ gltfloader.load(
     (gltf) =>
     {
         let model = gltf.scene
+        model.name = 'Cloud3'
         model.position.set(0, -0.3, 0)
         model.scale.set(0.05,0.05,0.05)
 

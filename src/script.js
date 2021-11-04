@@ -45,15 +45,15 @@ let uiHolder = document.getElementById('ui-holder');
 
 export function startSurvey(){//call this function when loading is complete
     document.getElementById('loading-container').classList.add('closed')
-    surveyStarted = true
+    surveyStarted = true;
     uiHolder.hidden = false;
 
-    questions.loadQuestion(questionIndex)
     var player = assetLoader.getModel('playerCharacter')
     var playerAnimations = assetLoader.getPlayerAnimations()
-
     controls.setPlayer(player, playerAnimations)
-    // uiControl.addLangugageButtonEvents();
+    
+    questions.loadQuestion(questionIndex)
+    //uiControl.addLangugageButtonEvents();
     //Call any functions related to starting the survey (setting up the first scene etc..)
 }
 
@@ -84,7 +84,7 @@ export function loadLastQuestion(){
 
 export function saveCurrentAnswer(answer){
     confirmedAnswers[questionIndex] = answer
-    console.log(confirmedAnswers)
+    //console.log(confirmedAnswers)
 }
 //
 //      end of Initializing application properties
