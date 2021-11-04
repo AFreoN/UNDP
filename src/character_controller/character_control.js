@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { Vector3 } from 'three';
-import { joystickSlideValue, resetJoystickSlider } from '../ui_controller/ui_controller';
+import { joystickSlideValue, resetJoystickSlider, sliderHolder } from '../ui_controller/ui_controller';
 
 //Character control
 
@@ -14,11 +14,14 @@ export function enablePlayerControl(){
     var xPos = -startX + stepValue * (joystickSlideValue + 50);
     player.position.set(xPos, PlayerYPos, 0);
     curPlayerPosition = player.position.clone();
+
+    sliderHolder.hidden = false;
     console.log("player control enabled");
 }
 
 export function disablePlayerControl(){
-    canControlPlayer = false
+    canControlPlayer = false;
+    sliderHolder.hidden = true;
 }
 
 const startX = 0.4;   //Starting x position of the character eg. 1 for character 1 and -1 for character 2     //prev 1
@@ -642,10 +645,6 @@ const tick = () =>
     const deltatime = elapsedTime - previousTime //delta time can be retrieved from here
     previousTime = elapsedTime
 
-    if(player != null && !prevPos.equals(player.position)){
-        prevPos = player.position.clone();
-        console.log("PP = ", player.position.y);
-    }
     if(canControlPlayer){
         Movecharacter()
     }
