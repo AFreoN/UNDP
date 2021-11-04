@@ -648,7 +648,7 @@ div.pagination__dot:hover {
 
 .selector-container{
     position: absolute;
-    width: 124px;
+    width: 120px;
 }
 
 .scroll-container{
@@ -656,16 +656,9 @@ div.pagination__dot:hover {
     width: fit-content;
     box-sizing: border-box;
     overflow-y: auto;
-
-    position: absolute;
-
-
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 
-    
-
-    /* border: 1px solid black; */
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -678,8 +671,8 @@ div.pagination__dot:hover {
     width: 120px ;
     min-height: 32px;
     min-width: 120px;
-    box-sizing: border-box;
-    font-size: 1em ;
+    /* box-sizing: border-box; */
+    /* font-size: 1em ; */
 
     color: white;
 
@@ -713,11 +706,6 @@ div.pagination__dot:hover {
 .selected-item-indicator{
     height: 2em;
     width: 120px;
-    /* border: 1px solid red; */
-    /* box-sizing: border-box; */
-    /* border-width: 3px;
-    border-style: solid;         */
-    
     border-top:  2px solid transparent  ;
     border-bottom:  2px solid transparent  ;
     border-image: linear-gradient(to right, 
@@ -727,11 +715,15 @@ div.pagination__dot:hover {
                         rgba(255,255,255,0.3),
                         rgba(255,255,255,0) );
     border-image-slice: 1;
+
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 
 #selector-container-language{
-    top: 25vh;
+    top: 20vh;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, 50%);

@@ -28,7 +28,8 @@ let langSelectionUI = document.getElementById('language-selection-ui');
 //     languageSelected('dv');
 // });
 
-let languageSelectContainer = document.getElementById('scroll-container-language')
+let languageSelectorContainer = document.getElementById('selector-container-language')
+let languageScrollContainer = document.getElementById('scroll-container-language')
 let languageSelectionIndicator = document.getElementById('selected-item-indicator-language')
 
 let languageItems = document.getElementsByClassName('scroll-item')
@@ -37,8 +38,9 @@ let languageFirstChildItem = languageItems[0]
 let languageLastChildItem = languageItems[languageItems.length - 1]
 
 
-let languageMiddleChildrenMargin = (languageSelectContainer.offsetHeight/2) - languageFirstChildItem.offsetHeight * 1.5
-
+let languageMiddleChildrenMargin = (languageScrollContainer.offsetHeight/2) - languageFirstChildItem.offsetHeight * 1.5
+console.log(languageMiddleChildrenMargin);
+// languageSelectorContainer.style.height = languageScrollContainer.clientHeight + 'px'
 
 for (let i = 0; i < languageItems.length; i++) {
     const item = languageItems[i];
@@ -46,29 +48,33 @@ for (let i = 0; i < languageItems.length; i++) {
     resetLanguageItemStyle(item)
 }
 
-let languageEndChildrenMargin = (languageSelectContainer.clientHeight/2) - (languageFirstChildItem.offsetHeight/2)
+let languageEndChildrenMargin = (languageScrollContainer.clientHeight/2) - (languageFirstChildItem.offsetHeight/2)
+console.log(`${languageScrollContainer.offsetHeight} /2 = ${languageScrollContainer.clientHeight/2}` );
+console.log( `${languageFirstChildItem.offsetHeight} /2 = ${languageFirstChildItem.offsetHeight/2}` );
+console.log(languageEndChildrenMargin);
+
 
 languageFirstChildItem.style.marginTop = languageEndChildrenMargin + "px"
 languageLastChildItem.style.marginBottom = languageEndChildrenMargin + "px"
 
-let languageSelectionIndicatorMargin = (languageSelectContainer.clientHeight/2) - (languageSelectionIndicator.offsetHeight/2)
-languageSelectionIndicator.style.marginTop = languageSelectionIndicatorMargin + "px"
-console.log(languageSelectContainer.clientHeight/2);
-console.log(languageSelectionIndicator.offsetHeight/2);
-console.log(languageSelectionIndicatorMargin);
+let languageSelectionIndicatorMargin = (languageScrollContainer.clientHeight/2) - (languageSelectionIndicator.offsetHeight/2)
+// languageSelectionIndicator.style.marginTop = languageSelectionIndicatorMargin + "px"
+// console.log(`${languageScrollContainer.clientHeight} /2 = ${languageScrollContainer.clientHeight/2}` );
+// console.log( `${languageSelectionIndicator.offsetHeight} /2 = ${languageSelectionIndicator.offsetHeight/2}` );
+// console.log(languageSelectionIndicatorMargin);
 
-const languageItemOffset = ((languageSelectContainer.clientHeight/2) - (languageFirstChildItem.clientHeight/2))
+const languageItemOffset = ((languageScrollContainer.clientHeight/2) - (languageFirstChildItem.clientHeight/2))
 
 let languageCurrentItemIndex = 0
 let languageSelectedItem = languageItems[languageCurrentItemIndex]
-languageSelectContainer.scrollTop = 0
+languageScrollContainer.scrollTop = 0
 setLanguageSelectedStyle(languageSelectedItem)
 setLanguageNearestStyle(languageItems[languageCurrentItemIndex + 1])
 
 
 var languageSelectionTimeout = null;
 function onScrollLanguage(){
-    languageCurrentItemIndex = Math.round(languageSelectContainer.scrollTop /languageItemOffset)  
+    languageCurrentItemIndex = Math.round(languageScrollContainer.scrollTop /languageItemOffset)  
     languageSelectedItem = languageItems[languageCurrentItemIndex]
 
     for (let i = 0; i < languageItems.length; i++) {
@@ -96,14 +102,14 @@ function onScrollLanguage(){
         let scrollValue = languageSelectedItem.offsetTop - languageFirstChildItem.offsetTop
         console.log(languageSelectedItem.getAttribute('data-value'))
         languageSelected(languageSelectedItem.getAttribute('data-value'))
-        languageSelectContainer.scroll({
+        languageScrollContainer.scroll({
             top:scrollValue,
             behavior:'smooth'
         })
     }, 250);
 }
 
-languageSelectContainer.addEventListener('scroll',onScrollLanguage)
+languageScrollContainer.addEventListener('scroll',onScrollLanguage)
 
 function resetLanguageItemStyle(langItem){
     if(langItem){
