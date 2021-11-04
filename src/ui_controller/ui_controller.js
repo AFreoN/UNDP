@@ -10,31 +10,130 @@ menuHolder.hidden = false;
 
 //For language selection ui
 let langSelectionUI = document.getElementById('language-selection-ui');
-let englishText = document.getElementById('english-text');
-let sinhalaText = document.getElementById('sinhala-text');
-let tamilText = document.getElementById('tamil-text');
-let divehiText = document.getElementById('divehi-text');
+// let englishText = document.getElementById('english-text');
+// let sinhalaText = document.getElementById('sinhala-text');
+// let tamilText = document.getElementById('tamil-text');
+// let divehiText = document.getElementById('divehi-text');
 
-englishText.addEventListener('click', function() { 
-    languageSelected('en');
-});
-sinhalaText.addEventListener('click', function() { 
-    languageSelected('si');
-});
-tamilText.addEventListener('click', function() { 
-    languageSelected('ta');
-});
-divehiText.addEventListener('click', function(){
-    languageSelected('dv');
-});
+// englishText.addEventListener('click', function() { 
+//     languageSelected('en');
+// });
+// sinhalaText.addEventListener('click', function() { 
+//     languageSelected('si');
+// });
+// tamilText.addEventListener('click', function() { 
+//     languageSelected('ta');
+// });
+// divehiText.addEventListener('click', function(){
+//     languageSelected('dv');
+// });
 
-export function addLangugageButtonEvents(){
-    // englishText.addEventListener('click', languageSelected('en'));
-    // sinhalaText.addEventListener('click', languageSelected('si'));
-    // tamilText.addEventListener('click', languageSelected('ta'));
+let languageSelectContainer = document.getElementById('scroll-container-language')
+let languageSelectionIndicator = document.getElementById('selected-item-indicator-language')
+
+let languageItems = document.getElementsByClassName('scroll-item')
+
+let languageFirstChildItem = languageItems[0]
+let languageLastChildItem = languageItems[languageItems.length - 1]
 
 
+let languageMiddleChildrenMargin = (languageSelectContainer.offsetHeight/2) - languageFirstChildItem.offsetHeight * 1.5
+
+
+for (let i = 0; i < languageItems.length; i++) {
+    const item = languageItems[i];
+    item.style.marginTop = languageMiddleChildrenMargin + "px"
+    resetLanguageItemStyle(item)
 }
+
+let languageEndChildrenMargin = (languageSelectContainer.clientHeight/2) - (languageFirstChildItem.offsetHeight/2)
+
+languageFirstChildItem.style.marginTop = languageEndChildrenMargin + "px"
+languageLastChildItem.style.marginBottom = languageEndChildrenMargin + "px"
+
+let languageSelectionIndicatorMargin = (languageSelectContainer.clientHeight/2) - (languageSelectionIndicator.offsetHeight/2)
+languageSelectionIndicator.style.marginTop = languageSelectionIndicatorMargin + "px"
+console.log(languageSelectContainer.clientHeight/2);
+console.log(languageSelectionIndicator.offsetHeight/2);
+console.log(languageSelectionIndicatorMargin);
+
+const languageItemOffset = ((languageSelectContainer.clientHeight/2) - (languageFirstChildItem.clientHeight/2))
+
+let languageCurrentItemIndex = 0
+let languageSelectedItem = languageItems[languageCurrentItemIndex]
+languageSelectContainer.scrollTop = 0
+setLanguageSelectedStyle(languageSelectedItem)
+setLanguageNearestStyle(languageItems[languageCurrentItemIndex + 1])
+
+
+var languageSelectionTimeout = null;
+function onScrollLanguage(){
+    languageCurrentItemIndex = Math.round(languageSelectContainer.scrollTop /languageItemOffset)  
+    languageSelectedItem = languageItems[languageCurrentItemIndex]
+
+    for (let i = 0; i < languageItems.length; i++) {
+        const item = languageItems[i];
+        resetLanguageItemStyle(item)
+    }
+    setLanguageSelectedStyle(languageSelectedItem)
+
+    if(languageCurrentItemIndex === 0){
+        setLanguageNearestStyle(languageItems[languageCurrentItemIndex + 1])
+    }
+    else if(languageCurrentItemIndex === (languageItems.length - 1) ){
+        setLanguageNearestStyle(languageItems[languageCurrentItemIndex - 1])
+    }
+    else{
+        setLanguageNearestStyle(languageItems[languageCurrentItemIndex + 1])
+        setLanguageNearestStyle(languageItems[languageCurrentItemIndex - 1])
+    }
+
+
+    if(languageSelectionTimeout !== null) {
+        clearTimeout(languageSelectionTimeout);        
+    }
+    languageSelectionTimeout = setTimeout(function() {
+        let scrollValue = languageSelectedItem.offsetTop - languageFirstChildItem.offsetTop
+        console.log(languageSelectedItem.getAttribute('data-value'))
+        languageSelected(languageSelectedItem.getAttribute('data-value'))
+        languageSelectContainer.scroll({
+            top:scrollValue,
+            behavior:'smooth'
+        })
+    }, 250);
+}
+
+languageSelectContainer.addEventListener('scroll',onScrollLanguage)
+
+function resetLanguageItemStyle(langItem){
+    if(langItem){
+        const itemClassList = langItem.classList
+        itemClassList.remove('selected','nearest')
+        itemClassList.add('farthest')
+    }
+}
+
+function setLanguageSelectedStyle(selectedLangItem){
+    if(selectedLangItem){
+        const itemClassList = selectedLangItem.classList
+        itemClassList.remove('nearest','farthest')
+        itemClassList.add('selected')
+    }
+}
+
+function setLanguageNearestStyle(nearestLangItem){
+    if(nearestLangItem){
+        const itemClassList = nearestLangItem.classList
+        itemClassList.remove('selected','farthest')
+        itemClassList.add('nearest')
+    }
+}
+
+// export function addLangugageButtonEvents(){
+//     // englishText.addEventListener('click', languageSelected('en'));
+//     // sinhalaText.addEventListener('click', languageSelected('si'));
+//     // tamilText.addEventListener('click', languageSelected('ta'));
+// }
 
 function languageSelected(selectedLang){
     const minFontSize = "clamp(3vh, 3vh, 4vh)";
@@ -43,46 +142,46 @@ function languageSelected(selectedLang){
     switch(selectedLang){
         case 'en' :
             setLangId(selectedLang);
-            englishText.style.opacity = 1;
-            englishText.style.fontSize = maxFontSize;
-            sinhalaText.style.opacity = 0.5;
-            sinhalaText.style.fontSize = minFontSize;
-            tamilText.style.opacity  = 0.5;
-            tamilText.style.fontSize = minFontSize;
-            divehiText.style.opacity  = 0.5;
-            divehiText.style.fontSize = minFontSize;
+            // englishText.style.opacity = 1;
+            // englishText.style.fontSize = maxFontSize;
+            // sinhalaText.style.opacity = 0.5;
+            // sinhalaText.style.fontSize = minFontSize;
+            // tamilText.style.opacity  = 0.5;
+            // tamilText.style.fontSize = minFontSize;
+            // divehiText.style.opacity  = 0.5;
+            // divehiText.style.fontSize = minFontSize;
             break;
         case 'si':
             setLangId(selectedLang);
-            sinhalaText.style.opacity = 1;
-            sinhalaText.style.fontSize = maxFontSize;
-            englishText.style.opacity = 0.5;
-            englishText.style.fontSize = minFontSize;
-            tamilText.style.opacity  = 0.5;
-            tamilText.style.fontSize = minFontSize;
-            divehiText.style.opacity  = 0.5;
-            divehiText.style.fontSize = minFontSize;
+            // sinhalaText.style.opacity = 1;
+            // sinhalaText.style.fontSize = maxFontSize;
+            // englishText.style.opacity = 0.5;
+            // englishText.style.fontSize = minFontSize;
+            // tamilText.style.opacity  = 0.5;
+            // tamilText.style.fontSize = minFontSize;
+            // divehiText.style.opacity  = 0.5;
+            // divehiText.style.fontSize = minFontSize;
             break;
         case 'ta':
             setLangId(selectedLang);
-            tamilText.style.opacity = 1;
-            tamilText.style.fontSize = maxFontSize;
-            englishText.style.opacity  = 0.5;
-            englishText.style.fontSize = minFontSize;
-            sinhalaText.style.opacity = 0.5;
-            sinhalaText.style.fontSize = minFontSize;
-            divehiText.style.opacity  = 0.5;
-            divehiText.style.fontSize = minFontSize;
+            // tamilText.style.opacity = 1;
+            // tamilText.style.fontSize = maxFontSize;
+            // englishText.style.opacity  = 0.5;
+            // englishText.style.fontSize = minFontSize;
+            // sinhalaText.style.opacity = 0.5;
+            // sinhalaText.style.fontSize = minFontSize;
+            // divehiText.style.opacity  = 0.5;
+            // divehiText.style.fontSize = minFontSize;
             break;
         case 'dv':
-            divehiText.style.opacity = 1;
-            divehiText.style.fontSize = maxFontSize;
-            englishText.style.opacity  = 0.5;
-            englishText.style.fontSize = minFontSize;
-            sinhalaText.style.opacity = 0.5;
-            sinhalaText.style.fontSize = minFontSize;
-            tamilText.style.opacity  = 0.5;
-            tamilText.style.fontSize = minFontSize;
+            // divehiText.style.opacity = 1;
+            // divehiText.style.fontSize = maxFontSize;
+            // englishText.style.opacity  = 0.5;
+            // englishText.style.fontSize = minFontSize;
+            // sinhalaText.style.opacity = 0.5;
+            // sinhalaText.style.fontSize = minFontSize;
+            // tamilText.style.opacity  = 0.5;
+            // tamilText.style.fontSize = minFontSize;
             break;
     }
 }

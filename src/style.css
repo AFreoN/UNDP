@@ -648,7 +648,100 @@ div.pagination__dot:hover {
     transform: translate(-50%, 50%);
 }
 
-.lang-container{        /*  holder for all the selectable language options */
+.selector-container{
+    position: absolute;
+    width: 124px;
+}
+
+.scroll-container{
+    height: 128px;
+    width: fit-content;
+    box-sizing: border-box;
+    overflow-y: auto;
+
+    position: absolute;
+
+
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+
+    
+
+    /* border: 1px solid black; */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scroll-container::-webkit-scrollbar {
+    display: none;
+}
+  
+.scroll-item{
+    height: 32px ;
+    width: 120px ;
+    min-height: 32px;
+    min-width: 120px;
+    box-sizing: border-box;
+    font-size: 1em ;
+
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scroll-item.selected{
+    transition: font-size 0.1s, opacity 0.1s, filter 0.1s ;
+    font-size: 1.5em;
+    opacity: 100%;
+    filter: blur(0);
+}
+
+.scroll-item.nearest{
+    transition: font-size 0.1s, opacity 0.1s, filter 0.1s  ;
+    font-size: 1em;
+    opacity: 80%;
+    filter: blur(1px);
+}
+
+.scroll-item.farthest{
+    transition: font-size 0.1s, opacity 0.1s, filter 0.1s  ;
+    font-size: 0.5em;
+    opacity: 50%;
+    filter: blur(2px);
+}
+
+
+.selected-item-indicator{
+    height: 2em;
+    width: 120px;
+    /* border: 1px solid red; */
+    /* box-sizing: border-box; */
+    /* border-width: 3px;
+    border-style: solid;         */
+    
+    border-top:  2px solid transparent  ;
+    border-bottom:  2px solid transparent  ;
+    border-image: linear-gradient(to right, 
+                        rgba(255,255,255,0), 
+                        rgba(255,255,255,0.3), 
+                        rgba(255,255,255,0.5), 
+                        rgba(255,255,255,0.3),
+                        rgba(255,255,255,0) );
+    border-image-slice: 1;
+}
+
+
+#selector-container-language{
+    top: 25vh;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, 50%);
+}
+
+
+/* holder for all the selectable language options */
+/* .lang-container{         
     position: absolute;
     width: 50vmin;
     height: 36vh;
@@ -660,9 +753,10 @@ div.pagination__dot:hover {
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
-}
+} */
 
-.lang-text{             /* Language options text */
+/* Language options text */
+/* .lang-text{             
     color: #ffffff;
 
     position: relative;
@@ -677,67 +771,67 @@ div.pagination__dot:hover {
     margin-right: -50%;
     transform: translate(-50%, -50%);
     transition: 0.3s;
-}
+} */
 
-.lang-text:hover{
+/* .lang-text:hover{
     color: #f3ff4f;
     opacity: 1;
-}
+} */
 
-#english-text{
+/* #english-text{
     font-size: clamp(4vh, 5vh, 5vh);
-}
+} */
 
-#sinhala-text{
+/* #sinhala-text{
     opacity: 0.5;
     font-size: clamp(3vh, 3vh, 4vh);
-}
+} */
 
-#tamil-text{
+/* #tamil-text{
     opacity: 0.5;
     font-size: clamp(3vh, 3vh, 4vh);
-}
+} */
 
-#divehi-text{
+/* #divehi-text{
     opacity: 0.5;
     font-size: clamp(3vh, 3vh, 4vh);
-}
+} */
 
-.lang-separation-line{
+/* .lang-separation-line{
     content: url('../static/separation_Line.png');
     position: absolute;
     width: 25vh;
     height: 4px;
     
-    opacity: 0.2;   /* prev 0.5 */
-}
+    opacity: 0.2;   
+} */
 
-.lang-separation-line1{
+/* .lang-separation-line1{
     top: 9vh;
     margin-bottom: -65%;
 
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
-}
+} */
 
-.lang-separation-line2{
+/* .lang-separation-line2{
     top: 16vh;
     margin-bottom: -65%;
 
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
-}
+} */
 
-.lang-separation-line3{
+/* .lang-separation-line3{
     top: 24vh;
     margin-bottom: -65%;
 
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
-}
+} */
 
 .lang-selection-button{      /* Next Button in language selection UI */
     position: absolute;

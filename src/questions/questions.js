@@ -20,7 +20,7 @@ export function setLangId(id){
 }
 let qArray = [
     {   //1
-        type : 'Country',
+        type : 'country',
         question : {
             en : 'In which country do you live ?',
             si : 'ඔබ ජීවත් වන්නේ කුමන රටේද?',
@@ -30,7 +30,7 @@ let qArray = [
         compulsory : true
     },
     {   //2
-        type : 'Province',
+        type : 'province',
         question : {
             en : 'In which area do you live ?',
             si : 'ඔබ ජීවත් වන්නේ කුමන ප්‍රදේශයේද?',
