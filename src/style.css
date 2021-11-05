@@ -332,6 +332,8 @@ canvas.webgl{
     
     inline-size: 200px;
     word-wrap: break-word;
+
+    text-align: center;
     
     
 }
@@ -582,12 +584,13 @@ div.pagination__dot:hover {
     width: 50%;
     height: 7px;
     border-radius: 6px;  
-    background: #edf200;    /* Old color = #cbfa01 */
+    background: #CBFA01;    /* Old color = #cbfa01 */
     outline: none;
     opacity: 1;
     -webkit-transition: .2s;
     transition: opacity .2s;
     pointer-events: none;
+
   }
 
   .slider::-webkit-slider-thumb {
@@ -597,9 +600,13 @@ div.pagination__dot:hover {
     width: 25px; /* Set a specific slider handle width */
     height: 25px; /* Slider handle height */
     border-radius: 25px;
-    background: #edf200; /* Green background */
+    background: #CBFA01; /* Green background */
     cursor: pointer; /* Cursor on hover */
     z-index: 3;
+
+    outline: solid;
+    outline-color: white;
+    outline-width: 5px;
     
   }
   
@@ -607,10 +614,14 @@ div.pagination__dot:hover {
     width: 25px; /* Set a specific slider handle width */
     height: 25px; /* Slider handle height */
     position: relative;
-    background: #edf200; /* Green background */
+    background: #CBFA01; /* Green background */
     border-radius: 5px;
     cursor: pointer; /* Cursor on hover */
     z-index: 3;
+
+    outline: solid;
+    outline-color: white;
+    outline-width: 5px;
   }
 
   #slidertext-distant{
