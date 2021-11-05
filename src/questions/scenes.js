@@ -535,7 +535,7 @@ let aspect = window.innerWidth / window.innerHeight;
 aspect = clamp(aspect, 1, 2);
 let fov = 35 + 8 * aspect;  // prev 35
 
-export const joystickCamera = new THREE.PerspectiveCamera(fov, window.innerWidth / window.innerHeight, 0.1, 100)
+export const joystickCamera = new THREE.PerspectiveCamera(fov, window.innerWidth / window.innerHeight, 0.1, 50)
 joystickCamera.position.x = 0
 joystickCamera.position.y = 0 / aspect      //prev value is 4
 joystickCamera.position.z = 3.5 /  aspect // 4 * aspect      //prev value is 6 / aspect
@@ -551,7 +551,7 @@ const color = 0xea7ff9;   //prev 0x99CCFF
 
 const minDis = joystickCamera.position.z;
 const maxDis = 20;
-const density = 0.1;   //prev 0.1
+const density = 0.13;   //prev 0.1
 joystickScene.fog = new THREE.FogExp2(color, density);
 //joystickScene.fog = new THREE.Fog(color, minDis, maxDis);
 

@@ -672,7 +672,7 @@ function setupJoystickScene(currentQuestion, player, questionIndex){
     
     controls.setCamera(joystickCamera);
 
-    uiControl.updateUI(currentQuestion.questionType, currentQuestion.question[langId], currentQuestion.answers);
+    uiControl.updateUI(currentQuestion.type, currentQuestion.question[langId], currentQuestion.answers);
     uiControl.setSurveyProgressValue(questionIndex);
 }
 
