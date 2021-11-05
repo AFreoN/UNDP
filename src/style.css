@@ -849,10 +849,12 @@ div.pagination__dot:hover {
     transition : 0.3s;
 }
 
+/*
 .lang-selection-button:hover{
     background: #ffee06;
     color: #ffffff;
 }
+*/
 
 #lang-bottom-text{
     position: absolute;
