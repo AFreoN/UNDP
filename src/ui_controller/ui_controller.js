@@ -10,25 +10,44 @@ menuHolder.hidden = false;
 
 //For language selection ui
 let langSelectionUI = document.getElementById('language-selection-ui');
-// let englishText = document.getElementById('english-text');
-// let sinhalaText = document.getElementById('sinhala-text');
-// let tamilText = document.getElementById('tamil-text');
-// let divehiText = document.getElementById('divehi-text');
 
-// englishText.addEventListener('click', function() { 
-//     languageSelected('en');
-// });
-// sinhalaText.addEventListener('click', function() { 
-//     languageSelected('si');
-// });
-// tamilText.addEventListener('click', function() { 
-//     languageSelected('ta');
-// });
-// divehiText.addEventListener('click', function(){
-//     languageSelected('dv');
-// });
+let englishText = document.getElementById('english-text');
+let sinhalaText = document.getElementById('sinhala-text');
+let tamilText = document.getElementById('tamil-text');
+let divehiText = document.getElementById('divehi-text');
 
-let languageSelectorContainer = document.getElementById('selector-container-language')
+let clickedLanguage
+// clickedLanguage.classList.add('selected')
+// languageSelected('en');
+
+englishText.addEventListener('click', function() {
+    if(clickedLanguage) clickedLanguage.classList.remove('selected')
+    clickedLanguage = englishText
+    clickedLanguage.classList.add('selected')
+
+    languageSelected('en');
+});
+sinhalaText.addEventListener('click', function() { 
+    if(clickedLanguage) clickedLanguage.classList.remove('selected')
+    clickedLanguage = sinhalaText
+    clickedLanguage.classList.add('selected')
+    languageSelected('si');
+});
+tamilText.addEventListener('click', function() { 
+    if(clickedLanguage) clickedLanguage.classList.remove('selected')
+    clickedLanguage = tamilText
+    clickedLanguage.classList.add('selected')
+    languageSelected('ta');
+});
+divehiText.addEventListener('click', function(){
+    if(clickedLanguage) clickedLanguage.classList.remove('selected')
+    clickedLanguage = divehiText
+    clickedLanguage.classList.add('selected')
+    languageSelected('dv');
+});
+
+
+
 let languageScrollContainer = document.getElementById('scroll-container-language')
 let languageSelectionIndicator = document.getElementById('selected-item-indicator-language')
 
@@ -137,6 +156,23 @@ function setLanguageNearestStyle(nearestLangItem){
     }
 }
 
+let langClickContainer = document.getElementById('lang-container');
+let languageSelectorContainer = document.getElementById('selector-container-language')
+
+function updateAspectLanguageUI(){
+    if(window.innerWidth > 480  ){
+        langClickContainer.style.display = ''
+        languageSelectorContainer.hidden = true 
+    }else{
+        langClickContainer.style.display = 'none'
+        languageSelectorContainer.hidden = false 
+    }
+}
+
+updateAspectLanguageUI()
+
+window.addEventListener('resize',updateAspectLanguageUI)
+
 // export function addLangugageButtonEvents(){
 //     // englishText.addEventListener('click', languageSelected('en'));
 //     // sinhalaText.addEventListener('click', languageSelected('si'));
@@ -182,6 +218,7 @@ function languageSelected(selectedLang){
             // divehiText.style.fontSize = minFontSize;
             break;
         case 'dv':
+            setLangId(selectedLang);
             // divehiText.style.opacity = 1;
             // divehiText.style.fontSize = maxFontSize;
             // englishText.style.opacity  = 0.5;
