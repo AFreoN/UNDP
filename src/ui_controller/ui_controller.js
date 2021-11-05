@@ -169,7 +169,7 @@ function updateAspectLanguageUI(){
     }
 }
 
-updateAspectLanguageUI()
+window.addEventListener('load',updateAspectLanguageUI)
 
 window.addEventListener('resize',updateAspectLanguageUI)
 
