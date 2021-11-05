@@ -412,16 +412,19 @@ export function setRegionName(name){
     regionAnswerContainer.innerText = name
 }
 
-var selectedMcqAnswer = null
+var selectedMcqAnswer = null;
+
+const defaultBackground = "linear-gradient(to top , #5f27fc, #e827fc )";
+const sliderSceneBackground = "linear-gradient(to bottom, #bb56ff 0%,#ed81f9 35%)";
 
 //Changes UI in respect to question type, sets the question text, and answers
 export function updateUI(questionType, questionText, answers){
 
     if(questionType != 'joystick'){
-        document.body.style.background = "linear-gradient(to top , #5f27fc, #e827fc )";
+        document.body.style.background = defaultBackground;
     }
     else{
-        document.body.style.background = "linear-gradient(to bottom, #bb56ff 0%,#ed81f9 35%)";
+        document.body.style.background = sliderSceneBackground;
     }
 
     questionContainer.style.display = ''
