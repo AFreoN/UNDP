@@ -50,7 +50,7 @@ export function initializeData(_player, _camera, _playerInitPos)
 
     playerPos = _playerInitPos.clone();
     minPlayerYpos = _playerInitPos.y;
-    console.log('min playerpos = ', minPlayerYpos);
+
     cameraPos = mainCamera.position.clone();
     //debugVector3(cameraPos, "Cam pos on initialize");
 
@@ -306,7 +306,6 @@ const transition = function(deltatime){
         //debugVector3(curPlayerPosition, "Cur position after transition");
         //debugVector3(playerCharacter.position, "Player after transition");
 
-        console.log(transitionStyle);
 
         if(callBackFunction && transitionStyle == 'fadeout'){
             callBackFunction();

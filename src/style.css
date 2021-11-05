@@ -313,7 +313,7 @@ canvas.webgl{
 .question-container{
     width: fit-content;
     height: fit-content;
-    margin: 15px auto 0 auto;
+    margin: 10vh auto 0 auto;
     background: rgba(0, 0, 0, 0.2);
 
     /* border: 2px solid rgba(255, 255, 255, 0.2);
@@ -326,6 +326,13 @@ canvas.webgl{
     font-weight: 700;
     font-size: 36px;
     padding: 5px 10px;
+
+    border-style: solid;
+    border-width: 2px;
+    
+    inline-size: 200px;
+    word-wrap: break-word;
+    
     
 }
 
@@ -835,14 +842,14 @@ div.pagination__dot:hover {
     color: #222222;
     background : #cbfa01;
     width: 120px;
-    height: 42px;
-    font-size: 30px;
+    height: 28px;
+    font-size: 25px;
     cursor: pointer;
     box-shadow: 5px 5px 10px #222222;
 
     text-align: center;
     justify-content: center;
-    top: 80vh;
+    top: 75vh;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
@@ -851,7 +858,7 @@ div.pagination__dot:hover {
     background: #CBFA01;
     color: black;
     font-family: 'Rubik',sans-serif;
-    font-size: 15px;
+    font-size: 25px;
     font-weight: bold;
     padding: 5px 0;
     border: 0;
@@ -979,7 +986,9 @@ div.pagination__dot:hover {
 
 .survey-start-button:disabled{
     opacity: 50%;
+    
 }
+
 
 
 @media screen and (max-width: 600px) {
@@ -1023,6 +1032,10 @@ div.pagination__dot:hover {
     .answer-box{
         font-size: 4.5vw;
     }
+
+    .question-container{
+        inline-size: 250px;
+        }
 
     
 }
@@ -1068,6 +1081,9 @@ div.pagination__dot:hover {
     .answer-box{
         font-size: 3.5vw;
     }
+    .question-container{
+        inline-size: 450px;
+        }
 }
 
 @media screen and (min-width: 768px) {
@@ -1107,6 +1123,10 @@ div.pagination__dot:hover {
     .answer-box{
         font-size: 3vw;
     }
+
+    .question-container{
+        inline-size: 550px;
+        }
 }
 
 @media screen and (min-width: 992px) {
@@ -1146,6 +1166,10 @@ div.pagination__dot:hover {
     .answer-box{
         font-size: 2.5vw;
     }
+
+    .question-container{
+        inline-size: 650px;
+        }
 }
 
 @media screen and (min-width: 1200px) {
@@ -1184,5 +1208,9 @@ div.pagination__dot:hover {
 
     .answer-box{
         font-size: 2vw;
+    }
+
+    .question-container{
+    inline-size: 750px;
     }
 }

@@ -283,13 +283,14 @@ let submitContainer = document.getElementById('submit-container')
 //     }
 // }
 
-let joystickSlider = document.getElementById('myRange');
+export const joystickSlider = document.getElementById('myRange');
 export var joystickSlideValue = 0;
 joystickSlider.oninput = function(){
     joystickSlideValue = joystickSlider.value;
     SetFiller(joystickSlideValue)
     enableConfirmation(parseInt(joystickSlideValue))
 }
+
 
 export function resetJoystickSlider(){
     joystickSlider.value = 0;
@@ -562,3 +563,7 @@ languageSelectedButton.addEventListener('click', function(){
     langSelectionUI.hidden = true;
     uiHolder.hidden = false;
 })
+
+languageSelectedButton.addEventListener('onmousedown', function(){
+    console.log("Button pressed");
+});

@@ -1,27 +1,53 @@
 import * as THREE from 'three'
 import { Vector3 } from 'three';
-import { joystickSlideValue, resetJoystickSlider, sliderHolder } from '../ui_controller/ui_controller';
+import { joystickSlider,joystickSlideValue, resetJoystickSlider, sliderHolder } from '../ui_controller/ui_controller';
 
 //Character control
 
 
 
 //can enable/disable player control using canControlPlayer
-let canControlPlayer = false
+let canControlPlayer = false;
+let canControlOtherPlayer = false;
+const controlDelay = 0.3;
+var onInputDelay = false;
+var targetTime = 0;
 
 export function enablePlayerControl(){
     canControlPlayer = true;
+
     var xPos = -startX + stepValue * (joystickSlideValue + 50);
     player.position.set(xPos, PlayerYPos, 0);
     curPlayerPosition = player.position.clone();
 
     sliderHolder.hidden = false;
-    console.log("player control enabled");
 }
 
 export function disablePlayerControl(){
     canControlPlayer = false;
     sliderHolder.hidden = true;
+}
+
+sliderHolder.addEventListener('change', function(){
+    onSliderInputEnd();
+})
+
+sliderHolder.addEventListener('input', function(){
+    if(onInputDelay == false){
+        targetTime = clock.getElapsedTime();
+        canControlOtherPlayer = false;
+        onInputDelay = true;
+    }
+});
+
+const onSliderInputEnd = function(){
+    // console.log("Input delay = ", onInputDelay);
+    // console.log("canControl = ", canControlOtherPlayer);
+    //onInputDelay = false;
+    canControlOtherPlayer = false;
+    // setTimeout(() => {
+    //     canControlOtherPlayer = false;
+    // }, 100);
 }
 
 const startX = 0.4;   //Starting x position of the character eg. 1 for character 1 and -1 for character 2     //prev 1
@@ -85,9 +111,9 @@ export function setOtherCharacter(otherModel, _otherAnimation){
     //player.position.set(xPos, PlayerYPos, 0);
     curPlayerPosition = player.position.clone();
 
-    xPos = startX - stepValue * (joystickSlideValue + 50);
-    otherCharacter.position.set(xPos, otherCharacter.position.y, 0);
-    curOtherPosition.x = xPos;
+    otherXpos = startX - stepValue * (joystickSlideValue + 50);
+    otherCharacter.position.set(otherXpos, otherCharacter.position.y, 0);
+    curOtherPosition.x = otherXpos;
     curOtherPosition.y = otherModel.position.y;
 }
 
@@ -256,9 +282,11 @@ var curPlayerPosition = new THREE.Vector3(-2, -0.6, 0);
 var curOtherPosition = new THREE.Vector3(2, -0.6, 0);
 var curCameraPosition = new THREE.Vector3();
 
+var otherXpos;
+const lerpSpeed = 0.1;
+
 function Movecharacter(){
     idle = true;
-    let lerpSpeed = 0.1;
 
     var xPos = -startX + stepValue * (joystickSlideValue + 50);
     curPlayerPosition.lerp(new Vector3(xPos, PlayerYPos, 0), lerpSpeed);
@@ -279,12 +307,22 @@ function Movecharacter(){
         idle = false;
     }
 
-    xPos = startX - stepValue * (joystickSlideValue + 50);
-    curOtherPosition.lerp(new Vector3(xPos, otherYPos, 0), lerpSpeed);
+    if(!otherXpos) otherXpos = otherCharacter.position.clone().x;
+
+    if(canControlOtherPlayer)
+        otherXpos = startX - stepValue * (joystickSlideValue + 50);
+    // else if(prevSlideValue != joystickSlideValue && onInputDelay == false){
+
+    //     prevSlideValue = joystickSlideValue;
+    //     targetTime = clock.getElapsedTime();
+    //     onInputDelay = true;
+    // }
+
+    curOtherPosition.lerp(new Vector3(otherXpos, otherYPos, 0), lerpSpeed);
 
     otherCharacter.position.set(curOtherPosition.x, curOtherPosition.y, curOtherPosition.z);
 
-    abs = Math.abs(xPos - otherCharacter.position.x);
+    abs = Math.abs(otherXpos - otherCharacter.position.x);
     if((abs) < minDis){
         otherIdle = true;
     }
@@ -299,20 +337,11 @@ function Movecharacter(){
     curCameraPosition.multiplyScalar(curZoomDis);
 
     curCameraPosition.add(cameraPos);
-    camera.position.lerp(curCameraPosition, lerpSpeed);
+    camera.position.lerp(curCameraPosition, lerpSpeed * 0.3);
     //camera.position.set(curCameraPosition.x, curCameraPosition.y, curCameraPosition.z);
 
     //newPlayerMovement()
     //limitArea()
-}
-
-const debugVector3 = function(vector, msg){
-    if(msg){
-        console.log(msg + " --> x = " + vector.x + ", y = " + vector.y + ", z = " + vector.z);
-    }
-    else{
-        console.log("x = " + vector.x + ", y = " + vector.y + ", z = " + vector.z);
-    }
 }
 
 //#region JoystickControls
@@ -657,6 +686,14 @@ const tick = () =>
     if(otherMixer != null) {
         otherMixer.update(deltatime)
         animateOtherCharacter()
+    }
+
+    if(onInputDelay){
+        var timeDif = elapsedTime - targetTime;
+        if(timeDif >= controlDelay){
+            canControlOtherPlayer = true;
+            onInputDelay = false;
+        }
     }
 
     //Implement loop here
