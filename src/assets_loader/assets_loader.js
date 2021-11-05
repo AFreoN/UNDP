@@ -168,7 +168,7 @@ gltfloader.load(
                 var toonMaterial = new THREE.MeshToonMaterial({ color : 0xFFC332, gradientMap : tex});
                 //toonMaterial = new THREE.MeshStandardMaterial({color : 0xFFC332, roughness : 0.8, metalness : 0.2});
                 //new THREE.MeshBasicMaterial({color : 0xFFC332});
-                child.material = toonMaterial;// a material i created in the code earlier
+                child.material = shaderMaterial; // material of the player character
                 child.castShadow = true;
                 child.rotation.set(3.5, 0, 0);
             }
@@ -198,7 +198,7 @@ gltfloader.load(
         model.traverse((child) => {
             if (child.isMesh){
                 let toonMaterial = new THREE.MeshToonMaterial({ color : 0xFFC332, gradientMap : tex});
-                child.material = toonMaterial; // a material i created in the code earlier
+                child.material = shaderMaterial; // a material i created in the code earlier
                 child.castShadow = true;
             }
         });
