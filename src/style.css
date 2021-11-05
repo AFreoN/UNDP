@@ -639,7 +639,7 @@ div.pagination__dot:hover {
 #select-language-text{
     position: absolute;
     color: #ffffff;
-    font-size: clamp(6vmin, 8vmin, 8vmin);
+    font-size: 24px;
 
     text-align: center;
     top: 15vh;
@@ -654,7 +654,7 @@ div.pagination__dot:hover {
 }
 
 .scroll-container{
-    height: 128px;
+    /* height: 128px; */
     width: fit-content;
     box-sizing: border-box;
     overflow-y: auto;
@@ -669,10 +669,10 @@ div.pagination__dot:hover {
 }
   
 .scroll-item{
-    height: 32px ;
-    width: 120px ;
-    min-height: 32px;
-    min-width: 120px;
+    /* height: 32px ;
+    width: 120px ; */
+    /* min-height: 32px;
+    min-width: 120px; */
     /* box-sizing: border-box; */
     /* font-size: 1em ; */
 
@@ -685,28 +685,28 @@ div.pagination__dot:hover {
 
 .scroll-item.selected{
     transition: font-size 0.1s, opacity 0.1s, filter 0.1s ;
-    font-size: 1.5em;
+    font-size: 1em;
     opacity: 100%;
     filter: blur(0);
 }
 
 .scroll-item.nearest{
     transition: font-size 0.1s, opacity 0.1s, filter 0.1s  ;
-    font-size: 1em;
+    font-size: 0.8em;
     opacity: 80%;
-    filter: blur(1px);
+    /* filter: blur(1px); */
 }
 
 .scroll-item.farthest{
     transition: font-size 0.1s, opacity 0.1s, filter 0.1s  ;
-    font-size: 0.5em;
+    font-size: 0.7em;
     opacity: 50%;
-    filter: blur(2px);
+    /* filter: blur(2px); */
 }
 
 
 .selected-item-indicator{
-    height: 2em;
+    height: 18px;
     width: 120px;
     border-top:  2px solid transparent  ;
     border-bottom:  2px solid transparent  ;
@@ -725,10 +725,10 @@ div.pagination__dot:hover {
 
 
 #selector-container-language{
-    top: 20vh;
+    top: 50%;
     left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, 50%);
+    /* margin-right: -50%; */
+    transform: translate(-50%, -50%);
 }
 
 
@@ -827,27 +827,31 @@ div.pagination__dot:hover {
 
 .lang-selection-button{      /* Next Button in language selection UI */
     position: absolute;
-    color: #222222;
-    background : #cbfa01;
-    width: 120px;
-    height: 45px;
-    font-size: 30px;
+    
+    width: 100px;
     cursor: pointer;
 
     text-align: center;
-    padding-top: 0px;
     justify-content: center;
     top: 80vh;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
     transition : 0.3s;
+
+    background: #CBFA01;
+    color: black;
+    font-family: 'Rubik',sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 5px 0;
+    border: 0;
 }
 
-.lang-selection-button:hover{
+/* .lang-selection-button:hover{
     background: #ffee06;
     color: #ffffff;
-}
+} */
 
 #lang-bottom-text{
     position: absolute;

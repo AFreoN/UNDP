@@ -38,8 +38,8 @@ let languageFirstChildItem = languageItems[0]
 let languageLastChildItem = languageItems[languageItems.length - 1]
 
 
-let languageMiddleChildrenMargin = (languageScrollContainer.offsetHeight/2) - languageFirstChildItem.offsetHeight * 1.5
-console.log(languageMiddleChildrenMargin);
+let languageMiddleChildrenMargin = (languageScrollContainer.offsetHeight/2) - languageFirstChildItem.offsetHeight * 6
+
 // languageSelectorContainer.style.height = languageScrollContainer.clientHeight + 'px'
 
 for (let i = 0; i < languageItems.length; i++) {
@@ -49,9 +49,9 @@ for (let i = 0; i < languageItems.length; i++) {
 }
 
 let languageEndChildrenMargin = (languageScrollContainer.clientHeight/2) - (languageFirstChildItem.offsetHeight/2)
-console.log(`${languageScrollContainer.offsetHeight} /2 = ${languageScrollContainer.clientHeight/2}` );
-console.log( `${languageFirstChildItem.offsetHeight} /2 = ${languageFirstChildItem.offsetHeight/2}` );
-console.log(languageEndChildrenMargin);
+console.log(`${languageScrollContainer.offsetHeight} /2 = ${languageScrollContainer.offsetHeight/2}` );
+console.log( `${languageFirstChildItem.offsetHeight} *4 = ${languageFirstChildItem.offsetHeight*4}` );
+console.log(languageMiddleChildrenMargin);
 
 
 languageFirstChildItem.style.marginTop = languageEndChildrenMargin + "px"
@@ -63,7 +63,7 @@ let languageSelectionIndicatorMargin = (languageScrollContainer.clientHeight/2) 
 // console.log( `${languageSelectionIndicator.offsetHeight} /2 = ${languageSelectionIndicator.offsetHeight/2}` );
 // console.log(languageSelectionIndicatorMargin);
 
-const languageItemOffset = ((languageScrollContainer.clientHeight/2) - (languageFirstChildItem.clientHeight/2))
+const languageItemOffset = languageMiddleChildrenMargin + languageFirstChildItem.offsetHeight 
 
 let languageCurrentItemIndex = 0
 let languageSelectedItem = languageItems[languageCurrentItemIndex]
@@ -76,6 +76,8 @@ var languageSelectionTimeout = null;
 function onScrollLanguage(){
     languageCurrentItemIndex = Math.round(languageScrollContainer.scrollTop /languageItemOffset)  
     languageSelectedItem = languageItems[languageCurrentItemIndex]
+    console.log(languageCurrentItemIndex);
+
 
     for (let i = 0; i < languageItems.length; i++) {
         const item = languageItems[i];
