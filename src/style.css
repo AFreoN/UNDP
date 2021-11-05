@@ -95,6 +95,7 @@ canvas.webgl{
     font-weight: bold;
     padding: 5px 20px;
     border: 0;
+    box-shadow: 5px 5px 10px #222222;
 }
 
 .loading-footer{
@@ -379,6 +380,7 @@ canvas.webgl{
     color: white;
     font-size: 25px;
     padding: 0;
+    
 }
 
 #control-back-button{
@@ -389,9 +391,10 @@ canvas.webgl{
     background: #CBFA01;
     color: black;
     font-family: 'Rubik',sans-serif;
-    font-size: 15px;
+    font-size: 20px;
     font-weight: bold;
-    padding: 5px 30px
+    padding: 5px 30px;
+    box-shadow: 5px 5px 10px #222222;
 }
 
 .survey-progress-container{
@@ -409,7 +412,7 @@ canvas.webgl{
 }
 
 .survey-progress-bar::-webkit-progress-bar{
-    background-color: #ffffff;
+    background-color: #1d1818;
 }
 
 .survey-progress-bar::-webkit-progress-value{
@@ -584,20 +587,21 @@ div.pagination__dot:hover {
     -webkit-appearance: none; /* Override default look */
     appearance: none;
     position: relative;
-    width: 15px; /* Set a specific slider handle width */
-    height: 15px; /* Slider handle height */
-    border-radius: 15px;
+    width: 25px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
+    border-radius: 25px;
     background: #edf200; /* Green background */
     cursor: pointer; /* Cursor on hover */
     z-index: 3;
+    
   }
   
   .slider::-moz-range-thumb {
-    width: 15px; /* Set a specific slider handle width */
-    height: 15px; /* Slider handle height */
+    width: 25px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
     position: relative;
     background: #edf200; /* Green background */
-    border-radius: 15px;
+    border-radius: 5px;
     cursor: pointer; /* Cursor on hover */
     z-index: 3;
   }
@@ -827,9 +831,13 @@ div.pagination__dot:hover {
 
 .lang-selection-button{      /* Next Button in language selection UI */
     position: absolute;
-    
-    width: 100px;
+    color: #222222;
+    background : #cbfa01;
+    width: 120px;
+    height: 42px;
+    font-size: 30px;
     cursor: pointer;
+    box-shadow: 5px 5px 10px #222222;
 
     text-align: center;
     justify-content: center;
@@ -848,10 +856,12 @@ div.pagination__dot:hover {
     border: 0;
 }
 
-/* .lang-selection-button:hover{
+/*
+.lang-selection-button:hover{
     background: #ffee06;
     color: #ffffff;
-} */
+}
+*/
 
 #lang-bottom-text{
     position: absolute;
