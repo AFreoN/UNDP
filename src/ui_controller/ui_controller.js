@@ -38,7 +38,7 @@ let languageFirstChildItem = languageItems[0]
 let languageLastChildItem = languageItems[languageItems.length - 1]
 
 
-let languageMiddleChildrenMargin = (languageScrollContainer.offsetHeight/2) - languageFirstChildItem.offsetHeight * 6
+let languageMiddleChildrenMargin = ((languageScrollContainer.offsetHeight/2) - languageFirstChildItem.offsetHeight * 4)/3
 
 // languageSelectorContainer.style.height = languageScrollContainer.clientHeight + 'px'
 
