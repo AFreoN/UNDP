@@ -625,6 +625,18 @@ div.pagination__dot:hover {
     outline-width: 5px;
   }
 
+  #Character_name{
+      position: absolute;
+      justify-content: center;
+      align-items: center;
+
+      color: black;
+      
+      background: rgba(255, 255, 255, 0.637);
+      padding: 8px;
+      border-radius: 20px;
+  }
+
   #slidertext-distant{
       position: absolute;
       color: #ffffff;

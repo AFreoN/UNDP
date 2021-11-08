@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import { Vector3 } from 'three';
 import { joystickSlider,joystickSlideValue, resetJoystickSlider, sliderHolder } from '../ui_controller/ui_controller';
-
+import {uiTextCheck, EnableCharacterText} from '../questions/questions'
 //Character control
 
 
@@ -321,6 +321,8 @@ function Movecharacter(){
     curOtherPosition.lerp(new Vector3(otherXpos, otherYPos, 0), lerpSpeed);
 
     otherCharacter.position.set(curOtherPosition.x, curOtherPosition.y, curOtherPosition.z);
+    uiTextCheck(otherCharacter);
+    EnableCharacterText();
 
     abs = Math.abs(otherXpos - otherCharacter.position.x);
     if((abs) < minDis){

@@ -1,7 +1,8 @@
 import * as THREE from 'three'
 import { getOtherCharacterInitialPosition, enablePlayerControl } from './character_controller/character_control';
-import { sliderHolder } from './ui_controller/ui_controller';
+import { setUiText, sliderHolder } from './ui_controller/ui_controller';
 import { pointLight, joyDirLight } from './questions/scenes';
+import { EnableCharacterText, uiTextCheck } from './questions/questions';
 
 var dataInitialized = false;
 var animate = false;
@@ -195,6 +196,11 @@ const playerMovement = function(deltatime){
         if(transitionStyle == 'fadein'){
             animate = false;
             enablePlayerControl();
+            // if(otherCharacter)
+            // {
+            //     EnableCharacterText();  
+            // }
+
         }
 
         lerpFactor = 0;
