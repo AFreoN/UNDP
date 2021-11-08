@@ -95,7 +95,8 @@ canvas.webgl{
     font-weight: bold;
     padding: 5px 20px;
     border: 0;
-    box-shadow: 5px 5px 10px #222222;
+    box-shadow: 3px 3px 10px #444444;
+    
 }
 
 .loading-footer{
@@ -403,7 +404,7 @@ canvas.webgl{
     font-size: 20px;
     font-weight: bold;
     padding: 5px 30px;
-    box-shadow: 5px 5px 10px #222222;
+    box-shadow: 3px 3px 10px #444444;;
 }
 
 .survey-progress-container{
