@@ -504,25 +504,25 @@ function onSriLankaRegionTouch(event){
 //      end of Sri Lanka region selection scene
 
 
-//      MCQ scene
+//      About scene
 //
-export const mcqScene = new THREE.Scene() 
-export const mcqCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100)
-mcqScene.add(mcqCamera)
+export const aboutScene = new THREE.Scene() 
+export const aboutCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100)
+aboutScene.add(aboutCamera)
 
-mcqCamera.position.x = -.1
-mcqCamera.position.y = -.4
-mcqCamera.position.z = 2.6
-mcqCamera.rotation.set(Math.PI * 0, 0, 0)
+aboutCamera.position.x = 0
+aboutCamera.position.y = -.6
+aboutCamera.position.z = 3.5
+aboutCamera.rotation.set(Math.PI * 0, 0, 0)
 
-const mcqPointLight = new THREE.PointLight(0xffffff, 3)
+const aboutPointLight = new THREE.PointLight(0xffffff, 3)
 
-mcqPointLight.position.x = 2
-mcqPointLight.position.y = 3
-mcqPointLight.position.z = 4
-mcqPointLight.intensity = 1.3
+aboutPointLight.position.x = 2
+aboutPointLight.position.y = 3
+aboutPointLight.position.z = 4
+aboutPointLight.intensity = 1.3
 
-mcqScene.add(mcqPointLight)
+aboutScene.add(aboutPointLight)
 
 //
 //      end of MCQ scene

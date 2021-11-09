@@ -40,96 +40,102 @@ let qArray = [
         compulsory : false
     },
     {   //3
-        type : 'mcq',
+        type : 'about',
         question : {
-            en : 'How old are you ?',
-            si : 'ඔයාගේ වයස කීය ද ?',
-            ta : 'உங்களுக்கு எவ்வளவு வயது ?',
-            dv : 'How old are you ?'
-        },
-        answers : [
-            {
-                en : 'Under 18',
-                si : '18 ට අඩු',
-                ta : '18 வயதுக்குட்பட்டவர்',
-                dv : 'Under 18'
+            main:{
+                en : 'About you',
+                si : 'ඔයාගේ වයස කීය ද ?',
+                ta : 'உங்களுக்கு எவ்வளவு வயது ?',
+                dv : 'How old are you ?'
             },
-            {
-                en : '18-25',
-                si : '18-25',
-                ta : '18-25',
-                dv : '18-25'
+            age:{
+                en : 'How old are you ?',
+                si : 'ඔයාගේ වයස කීය ද ?',
+                ta : 'உங்களுக்கு எவ்வளவு வயது ?',
+                dv : 'How old are you ?'
             },
-            {
-                en : '26-35',
-                si : '26-35',
-                ta : '26-35',
-                dv : '26-35'
-            },
-            {
-                en : '35+',
-                si : '35+',
-                ta : '35+',
-                dv : '35'
-            },
-            {
-                en : 'Prefer not to Say',
-                si : 'නොකියන්න කැමති',
-                ta : 'சொல்ல விரும்பவில்லை',
-                dv : 'Prefer not to Say'
+            gender:{
+                en : 'What is your gender ?',
+                si : 'ඔබේ ලිංගය කුමක්ද?',
+                ta : 'உங்கள் பாலினம் என்ன ?',
+                dv : 'What is your gender ?'
             }
-        ],
+        },
+        answers :{
+            age:[
+                {
+                    en : 'Under 18',
+                    si : '18 ට අඩු',
+                    ta : '18 வயதுக்குட்பட்டவர்',
+                    dv : 'Under 18'
+                },
+                {
+                    en : '18-25',
+                    si : '18-25',
+                    ta : '18-25',
+                    dv : '18-25'
+                },
+                {
+                    en : '26-35',
+                    si : '26-35',
+                    ta : '26-35',
+                    dv : '26-35'
+                },
+                {
+                    en : '35+',
+                    si : '35+',
+                    ta : '35+',
+                    dv : '35'
+                },
+                {
+                    en : 'Prefer not to Say',
+                    si : 'නොකියන්න කැමති',
+                    ta : 'சொல்ல விரும்பவில்லை',
+                    dv : 'Prefer not to Say'
+                }
+            ], 
+            gender:[
+                {
+                    en : 'Man',
+                    si : 'මිනිසා',
+                    ta : 'ஆண்',
+                    dv : 'Man'
+                },
+                {
+                    en : 'Woman',
+                    si : 'කාන්තාවක්',
+                    ta : 'பெண்',
+                    dv : 'Woman'
+                },
+                {
+                    en : 'Intersex',
+                    si : 'අන්තර් ලිංගික',
+                    ta : 'இருபால்',
+                    dv : 'Intersex'
+                },
+                {
+                    en : 'Non-binary',
+                    si : 'ද්විමය නොවන',
+                    ta : 'ஒரு பாலினம் அல்ல',
+                    dv : 'Non-binary'
+                },
+                {
+                    en : 'Other',
+                    si : 'වෙනත්',
+                    ta : 'மற்றவை',
+                    dv : 'Other'
+                },
+                {
+                    en : 'Prefer Not to Say',
+                    si : 'නොකියන්න කැමති',
+                    ta : 'சொல்ல விரும்பவில்லை',
+                    dv : 'Prefer Not to Say'
+                }
+            ]
+        },
         compulsory : false
     },
     {   //4
-        type : 'mcq',
-        question : {
-            en : 'What is your gender ?',
-            si : 'ඔබේ ලිංගය කුමක්ද?',
-            ta : 'உங்கள் பாலினம் என்ன ?',
-            dv : 'What is your gender ?'
-        },
-        answers : [
-            {
-                en : 'Man',
-                si : 'මිනිසා',
-                ta : 'ஆண்',
-                dv : 'Man'
-            },
-            {
-                en : 'Woman',
-                si : 'කාන්තාවක්',
-                ta : 'பெண்',
-                dv : 'Woman'
-            },
-            {
-                en : 'Intersex',
-                si : 'අන්තර් ලිංගික',
-                ta : 'இருபால்',
-                dv : 'Intersex'
-            },
-            {
-                en : 'Non-binary',
-                si : 'ද්විමය නොවන',
-                ta : 'ஒரு பாலினம் அல்ல',
-                dv : 'Non-binary'
-            },
-            {
-                en : 'Other',
-                si : 'වෙනත්',
-                ta : 'மற்றவை',
-                dv : 'Other'
-            },
-            {
-                en : 'Prefer Not to Say',
-                si : 'නොකියන්න කැමති',
-                ta : 'சொல்ல விரும்பவில்லை',
-                dv : 'Prefer Not to Say'
-            }
-        ],
-        compulsory : false
-    },
-    {   //5
         type : 'joystick',
         question : {
             en : 'How close do you feel to your mother ?',
@@ -184,7 +190,7 @@ let qArray = [
         centerModelKey:'centerCharacter',
         compulsory: true
     },
-    {   //6
+    {   //5
         type : 'joystick',
         question : {
             en : 'How close do you feel to your father ?',
@@ -370,9 +376,9 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 const countryScene = scenes.countryScene 
 const countryCamera = scenes.countryCamera
 
-const mcqScene = scenes.mcqScene
-const mcqCamera = scenes.mcqCamera
-mcqScene.add(ambLight);
+const aboutScene = scenes.aboutScene
+const aboutCamera = scenes.aboutCamera
+aboutScene.add(ambLight);
 
 const joystickScene = scenes.joystickScene
 const joystickCamera = scenes.joystickCamera
@@ -503,7 +509,12 @@ export function loadQuestion(questionIndex){
         uiControl.disableConfirmation()
 
         let questionType = currentQuestion.type
-        let questionText = currentQuestion.question[langId]
+        let questionText
+        if(questionType === 'about'){
+            questionText = currentQuestion.question.main[langId]
+        }else{
+            questionText = currentQuestion.question[langId]
+        }
         let answers = currentQuestion.answers
         
         switch(questionType.toLowerCase()){
@@ -530,14 +541,14 @@ export function loadQuestion(questionIndex){
                 }
                 
                 break;
-            case 'mcq':
+            case 'about':
                 scenes.resetCurrentSelectionScene()
-                updateSceneAndCamera(mcqScene, mcqCamera)
+                updateSceneAndCamera(aboutScene, aboutCamera)
                 currentCenterModel = null
                 player.position.set(0,-.6, 2)
                 player.rotation.set(0,0,0)
                 controls.disablePlayerControl()
-                mcqScene.add(player)
+                aboutScene.add(player)
                 break;
             case 'joystick':
                 scenes.resetCurrentSelectionScene();

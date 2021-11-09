@@ -63,10 +63,11 @@ export function isSurveyStarted(){
 
 export function loadNextQuestion(){
     const numberOfQuestions = questions.numberOfQuestions
-    console.log(questionIndex+'/'+numberOfQuestions);
     if (questionIndex < (numberOfQuestions - 1)){
         questionIndex++
         questions.loadQuestion(questionIndex)
+        console.log((questionIndex+1)+'/'+(numberOfQuestions));
+        console.log(confirmedAnswers);
         // uiControl.paginate(questionIndex)
     }
     else if(questionIndex == numberOfQuestions - 1 ){
@@ -75,9 +76,12 @@ export function loadNextQuestion(){
 }
 
 export function loadLastQuestion(){
+    const numberOfQuestions = questions.numberOfQuestions
+
     if (questionIndex > 0){
         questionIndex--
         questions.loadQuestion(questionIndex)
+        console.log((questionIndex+1)+'/'+(numberOfQuestions));
         // uiControl.paginate(questionIndex)
     }
 }
