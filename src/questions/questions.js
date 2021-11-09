@@ -4,8 +4,9 @@ import * as controls from '../character_controller/character_control'
 import * as uiControl from '../ui_controller/ui_controller'
 import * as scenes from './scenes'
 import {getSelectedCountry} from '../script'
-import { MathUtils } from 'three'
+import { Camera, MathUtils } from 'three'
 import * as sceneTransition from '../SceneTransition'
+import { clamp } from 'three/src/math/mathutils'
 
 //import main from 'progressbar.js'
 //import * as mainScript from '../script.js'
@@ -188,6 +189,12 @@ let qArray = [
             }
         ],
         centerModelKey:'centerCharacter',
+        characterName: {
+            en : 'Mother',
+            si : 'මව',
+            ta : 'அம்மா',
+            dv : 'Mother'
+        },
         compulsory: true
     },
     {   //5
@@ -243,6 +250,12 @@ let qArray = [
             }
         ],
         centerModelKey:'centerCharacter',
+        characterName:{
+            en : 'Father',
+            si : 'පියා',
+            ta : 'தந்தை',
+            dv : 'Father'
+        },
         compulsory: true
     }
 ]
@@ -483,6 +496,8 @@ var qId = 0;
 var prevQues = '';
 var prevPlayerModel, prevOtherModel, prevCamera;
 let player = null;
+const characterText = document.getElementById('Character_name');
+
 //Takes a question object from the array above and updates UI with the info.
 //Implement updating models/ environment in respect to the question
 export function loadQuestion(questionIndex){
@@ -491,6 +506,7 @@ export function loadQuestion(questionIndex){
     }
     sceneTransition.initializeData(player, joystickCamera, controls.getPlayerInitialPosition());
     controls.disablePlayerControl();
+    characterText.hidden = true;
 
     var UIUpdateNeeded = true;
     currentQuestion = qArray[questionIndex]
@@ -679,12 +695,46 @@ function setupJoystickScene(currentQuestion, player, questionIndex){
         //     joystickScene.add(player)
         // }
         addModelToScene(joystickScene, player);
+
+        if(currentQuestion.characterName){
+            characterText.innerText = currentQuestion.characterName[langId];
+        }
+
+        //uiTextCheck(centerModel);
     }
     
     controls.setCamera(joystickCamera);
 
     uiControl.updateUI(currentQuestion.type, currentQuestion.question[langId], currentQuestion.answers);
     uiControl.setSurveyProgressValue(questionIndex);
+}
+
+export const EnableCharacterText = function(){
+    characterText.hidden = false;
+}
+
+const objPos = new THREE.Vector3();
+export const uiTextCheck = function(obj){
+    let pos = new THREE.Vector3();
+    obj.getWorldPosition(objPos);
+    //emptyObject.position.y += 0.3;
+
+    pos.x = objPos.x;
+    pos.y = objPos.y + 0.5 ;
+    pos.z = objPos.z;
+
+    pos.project(joystickCamera);
+
+    let widthHalf = window.innerWidth / 2;
+    let heightHalf = window.innerHeight / 2;
+
+    pos.x = (pos.x * widthHalf) + widthHalf;
+    pos.y = - (pos.y * heightHalf) + heightHalf;
+    pos.z = 0;
+    
+    characterText.style.position = "absolute";
+    characterText.style.top = (pos.y - characterText.clientHeight * 0.5) + "px";
+    characterText.style.left = (pos.x - characterText.clientWidth * 0.5) + "px";
 }
 
 const addModelToScene = function(_scene, _model){
