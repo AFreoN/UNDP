@@ -95,7 +95,7 @@ canvas.webgl{
     font-weight: bold;
     padding: 5px 20px;
     border: 0;
-    box-shadow: 3px 3px 10px #444444;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.25);
     
 }
 
@@ -404,7 +404,7 @@ canvas.webgl{
     font-size: 20px;
     font-weight: bold;
     padding: 5px 30px;
-    box-shadow: 3px 3px 10px #444444;;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.25);;
 }
 
 .survey-progress-container{
@@ -528,16 +528,24 @@ canvas.webgl{
     width: 25px; /* Set a specific slider handle width */
     height: 25px; /* Slider handle height */
     border-radius: 25px;
-    background: #CBFA01; /* Green background */
+    background: rgba(203, 250, 1, 1); /* Green background */
     cursor: pointer; /* Cursor on hover */
     z-index: 3;
 
+    user-select: none;
     outline: solid;
-    outline-color: white;
+    outline-color: rgba(255, 255, 255, 0.0);
+    transition: outline-color .2s;
     outline-width: 5px;
+
     
   }
   
+.slider::-webkit-slider-thumb:active{
+    outline-color: rgba(255, 255, 255, 1);
+    transition: outline-color .2s;
+}
+
   .slider::-moz-range-thumb {
     width: 25px; /* Set a specific slider handle width */
     height: 25px; /* Slider handle height */
@@ -547,8 +555,9 @@ canvas.webgl{
     cursor: pointer; /* Cursor on hover */
     z-index: 3;
 
+    user-select: none;
     outline: solid;
-    outline-color: white;
+    outline-color: rgba(255, 255, 255, 0.1);
     outline-width: 5px;
   }
 
@@ -810,7 +819,7 @@ canvas.webgl{
     height: 28px;
     font-size: 25px;
     cursor: pointer;
-    box-shadow: 5px 5px 10px #222222;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
 
     text-align: center;
     justify-content: center;
