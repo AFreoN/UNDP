@@ -726,13 +726,13 @@ canvas.webgl{
     top: 20%;
     transition: opacity 100ms, transform 120ms, top 120ms;
     opacity: 100%;
-    transform: translateY(0);
+    /* transform: translateY(0); */
 }
 
 .selector-header.hidden{
-    opacity: 100%;
-    transform: translateY(-150%);
-    top: 0%;
+    opacity: 0%;
+    /* transform: translateY(-150%); */
+    /* top: 0%; */
 
 }
 
