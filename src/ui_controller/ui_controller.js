@@ -16,9 +16,14 @@ let sinhalaText = document.getElementById('sinhala-text');
 let tamilText = document.getElementById('tamil-text');
 let divehiText = document.getElementById('divehi-text');
 
-let clickedLanguage
-// clickedLanguage.classList.add('selected')
-// languageSelected('en');
+let clickedLanguage = englishText
+window.addEventListener('load',initLanguage)
+
+function initLanguage(){
+    clickedLanguage.classList.add('selected')
+    languageSelected('en');
+    window.removeEventListener('load',initLanguage)
+}
 
 englishText.addEventListener('click', function() {
     if(clickedLanguage) clickedLanguage.classList.remove('selected')
