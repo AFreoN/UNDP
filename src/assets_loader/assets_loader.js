@@ -248,6 +248,10 @@ gltfloader.load(
         let countrySelectionModel = models['sriLankaMap'].clone(true)
         countrySelectionModel.scale.set(0.2,0.2,0.2)
         countrySelectionModel.position.set(-.25,0,0.1)
+        countrySelectionModel.children[10].castShadow = true
+        console.log(countrySelectionModel);
+
+
         scenes.sriLankaCube.add(countrySelectionModel)
 
         //Storing state colors as new properties
@@ -260,6 +264,11 @@ gltfloader.load(
 
         //Setting up model for region selection
         let regionSelectionModel = models['sriLankaMap'].clone(true) 
+        regionSelectionModel.scale.set(0.5,0.5,0.5)
+        regionSelectionModel.position.set(-0.5, 0, 0.5)
+
+        regionSelectionModel.children[10].castShadow = true
+        console.log(regionSelectionModel);
         scenes.sriLankaScene.add(regionSelectionModel)
 
         //Setting up and filtering regions and setting up region state colors
@@ -308,7 +317,9 @@ gltfloader.load(
         let countrySelectionModel = models['maldivesMap'].clone(true)
         countrySelectionModel.scale.set(0.2,0.2,0.2)
         countrySelectionModel.position.set(0,0,0)
+        countrySelectionModel.children[4].castShadow = true
         scenes.maldivesCube.add(countrySelectionModel)
+        
 
         scenes.maldivesCube.regionMaterial = countrySelectionModel.children[0].material//Material for all regions
 
@@ -318,12 +329,13 @@ gltfloader.load(
 
         //Setting up model for region selection
         let regionSelectionModel = models['maldivesMap'].clone(true) 
+        regionSelectionModel.children[4].castShadow = true
         scenes.maldivesScene.add(regionSelectionModel)
 
         //Setting up and filtering regions and setting up region state colors
         let maldivesRegions = regionSelectionModel.children.slice() //Region references
         maldivesRegions.splice(4,1)//Removes sealine from regions references
-        console.log(maldivesRegions)
+        
 
         for (let i = 0; i < maldivesRegions.length; i++) {
             const region = maldivesRegions[i];

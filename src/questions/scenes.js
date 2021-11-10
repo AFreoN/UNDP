@@ -15,26 +15,30 @@ window.addEventListener('mousemove', (event) =>
 
 const raycaster = new THREE.Raycaster()
 
-const oceanPlane = new THREE.PlaneGeometry(20,20)
-var oceanTexture = null
-const oceanMaterial = new THREE.MeshStandardMaterial(
-    {
-        // color:0x4dc1ff,
-        map: new THREE.TextureLoader().load( 'ocean_texture.png', function ( texture ) {
-            texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-            texture.repeat.set(10,10)
-            // texture.offset.set(0.5,0)
-            oceanTexture = texture
-        })
-    })
-const oceanMesh = new THREE.Mesh(oceanPlane,oceanMaterial)
-oceanMesh.rotation.set(Math.PI / -2, 0 ,0)
-oceanMesh.position.set(0,-0.01 ,0)
+const shadowPlane = new THREE.PlaneGeometry(20,20)
+var shadowTexture = null
+// const shadowMaterial = new THREE.MeshStandardMaterial(
+//     {
+//         // color:0x4dc1ff,
+//         map: new THREE.TextureLoader().load( 'shadow_texture.png', function ( texture ) {
+//             texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+//             texture.repeat.set(10,10)
+//             // texture.offset.set(0.5,0)
+//             shadowTexture = texture
+//         })
+//     })
 
-var oceanNormalOffset = 0
-export function updateOceanNormalOffset(delta){
-    if(oceanTexture){
-        oceanTexture.offset.add(new THREE.Vector2(delta, 0))
+const shadowMaterial = new THREE.ShadowMaterial()
+shadowMaterial.opacity = 0.5
+const shadowMesh = new THREE.Mesh(shadowPlane,shadowMaterial)
+shadowMesh.receiveShadow = true
+shadowMesh.rotation.set(Math.PI / -2, 0 ,0)
+shadowMesh.position.set(0,-0.06 ,0)
+
+var shadowNormalOffset = 0
+export function updateShadowNormalOffset(delta){
+    if(shadowTexture){
+        shadowTexture.offset.add(new THREE.Vector2(delta, 0))
     }
 }
 
@@ -48,25 +52,37 @@ export function resetCurrentSelectionScene(){
 export const countryScene = new THREE.Scene()
 export const countryCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100)
 countryScene.add(countryCamera)
-countryScene.add(oceanMesh.clone())
+countryScene.add(shadowMesh.clone())
 
-countryCamera.position.set(0,4,2)
+countryCamera.position.set(0,4,1.5)
 countryCamera.rotation.set(Math.PI * -0.4,0,0)
 
 export const maldivesCube = new THREE.Mesh(new THREE.BoxGeometry(0.75,0.1,2.8), new THREE.MeshLambertMaterial({color: 0xee2b2b,wireframe:true}))
 countryScene.add(maldivesCube)
 maldivesCube.position.set(-1,0,0)
 maldivesCube.material.visible = false
+// console.log(maldivesCube.children[0]);
+// maldivesCube.children[0].castShadow = true
 
 export const sriLankaCube = new THREE.Mesh(new THREE.BoxGeometry(0.9,0.1,1.5), new THREE.MeshLambertMaterial({color: 0x2b2bee,wireframe:true}))
 countryScene.add(sriLankaCube)
 sriLankaCube.position.set(1,0,0)
 sriLankaCube.material.visible = false
+// sriLankaCube.children[0].castShadow = true
 
 const countryDirectionalLight = new THREE.DirectionalLight(0xffffff,0.75)
 countryScene.add(countryDirectionalLight)
-countryDirectionalLight.position.set(2,10,2)
+countryDirectionalLight.position.set(0,1,0)
+countryDirectionalLight.castShadow = true
 
+countryDirectionalLight.shadow.camera.left = -10
+countryDirectionalLight.shadow.camera.right = 10
+countryDirectionalLight.shadow.camera.bottom = -10
+countryDirectionalLight.shadow.camera.top = 10
+
+
+// const cameraHelper = new THREE.CameraHelper(countryDirectionalLight.shadow.camera);
+// countryScene.add(cameraHelper);
 
 export function resetCountrySelection(){
     currentSelectionScene = 'country'
@@ -199,7 +215,7 @@ export const maldivesScene = new THREE.Scene()
 export const maldivesCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100)
 maldivesScene.add(maldivesCamera)
 
-maldivesScene.add(oceanMesh.clone())
+maldivesScene.add(shadowMesh.clone())
 
 maldivesCamera.position.set(0,4,2)
 maldivesCamera.rotation.set(Math.PI * -0.4,0,0)
@@ -255,6 +271,13 @@ export var maldivesRegionBoxes = [//Storing region objects in an array for easy 
 const maldivesDirectionalLight = new THREE.DirectionalLight(0xffffff,0.75)
 maldivesScene.add(maldivesDirectionalLight)
 maldivesDirectionalLight.position.set(2,10,2)
+maldivesDirectionalLight.castShadow = true
+
+maldivesDirectionalLight.shadow.camera.left = -20
+maldivesDirectionalLight.shadow.camera.right = 20
+maldivesDirectionalLight.shadow.camera.bottom = -20
+maldivesDirectionalLight.shadow.camera.top = 20
+
 
 
 export function resetMaldivesSelection(){
@@ -376,9 +399,12 @@ export const sriLankaScene = new THREE.Scene()
 export const sriLankaCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100)
 sriLankaScene.add(sriLankaCamera)
 
-sriLankaScene.add(oceanMesh.clone())
+const sriLankaShadowMesh = shadowMesh.clone()
+sriLankaShadowMesh.position.set(0,-0.25,0)
 
-sriLankaCamera.position.set(0,4,2)
+sriLankaScene.add(sriLankaShadowMesh)
+
+sriLankaCamera.position.set(0,4,1.5)
 sriLankaCamera.rotation.set(Math.PI * -0.4,0,0)
 
 var sriLankaRegions = []
@@ -389,8 +415,15 @@ export function setSriLankaRegions(regions){
 
 const sriLankaDirectionalLight = new THREE.DirectionalLight(0xffffff,0.75)
 sriLankaScene.add(sriLankaDirectionalLight)
-sriLankaDirectionalLight.position.set(2,10,2)
+sriLankaDirectionalLight.position.set(0,5,0)
+sriLankaDirectionalLight.castShadow = true
 
+sriLankaDirectionalLight.shadow.camera.left = -20
+sriLankaDirectionalLight.shadow.camera.right = 20
+sriLankaDirectionalLight.shadow.camera.bottom = -20
+sriLankaDirectionalLight.shadow.camera.top = 20
+
+// sriLankaDirectionalLight.shadow.camera.zoom = 0.5
 
 export function resetSriLankaSelection(){
     currentSelectionScene = 'srilanka'
