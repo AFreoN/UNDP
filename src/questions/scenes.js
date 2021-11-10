@@ -416,8 +416,6 @@ export function setSriLankaRegions(regions){
 const sriLankaDirectionalLight = new THREE.DirectionalLight(0xffffff,0.75)
 sriLankaScene.add(sriLankaDirectionalLight)
 sriLankaDirectionalLight.position.set(0,5,0)
-sriLankaDirectionalLight.rotateZ(Math.PI * 0.25)
-sriLankaDirectionalLight.rotateX(Math.PI * 0.25)
 sriLankaDirectionalLight.castShadow = true
 
 sriLankaDirectionalLight.shadow.camera.left = -20
