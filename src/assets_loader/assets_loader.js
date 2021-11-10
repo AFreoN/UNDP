@@ -154,13 +154,13 @@ tex.magFilter = THREE.NearestFilter;
 
 //Importing player character
 gltfloader.load(
-    'Models/toonwalk_character.gltf',
+    'Models/Animation_V04.gltf',       //'Models/toonwalk_character.gltf'
     (gltf) =>
     {
         animations['playerCharacter'] = gltf.animations
         let model = gltf.scene
         model.name = 'player';
-        model.scale.set(.07,.07,.07)
+        model.scale.set(.3,.3,.3)        //0.07 prev
         model.position.set(0,-.6, 2)
 
         model.traverse((child) => {
@@ -186,13 +186,13 @@ gltfloader.load(
 )  
 
 gltfloader.load(
-    'Models/toonwalk_character.gltf',
+    'Models/Animation_V04.gltf',
     (gltf) =>
     {
         animations['centerCharacter'] = gltf.animations
         let model = gltf.scene
         model.name = 'centerCharacter'
-        model.scale.set(.07,.07,.07)
+        model.scale.set(.3,.3,.3)
         model.position.set(0,-.6, 0)
 
         model.traverse((child) => {

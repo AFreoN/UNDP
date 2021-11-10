@@ -703,7 +703,7 @@ export const EnableCharacterText = function(){
 }
 
 const objPos = new THREE.Vector3();
-export const uiTextCheck = function(obj){
+export const updateNameIndicator = function(obj){
     let pos = new THREE.Vector3();
     obj.getWorldPosition(objPos);
     //emptyObject.position.y += 0.3;

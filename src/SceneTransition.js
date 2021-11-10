@@ -2,7 +2,6 @@ import * as THREE from 'three'
 import { getOtherCharacterInitialPosition, enablePlayerControl } from './character_controller/character_control';
 import { setUiText, sliderHolder } from './ui_controller/ui_controller';
 import { pointLight, joyDirLight } from './questions/scenes';
-import { EnableCharacterText, uiTextCheck } from './questions/questions';
 
 var dataInitialized = false;
 var animate = false;
@@ -10,10 +9,8 @@ var playerMoved = false;
 
 var transitionStyle;
 
-const takeOnTransitionTime = 1;
-const takeOnFactor = 0.4; //prev 1
-const takeOffTransitionTime = 0.5;
-const takeOffFactor = 0.2;   //prev 0.3
+const takeOnFactor = 0.4; //prev 0.4
+const takeOffFactor = 0.2;   //prev 0.2
 const takeSeparationFactor = 0.35;
 const playerTransitionDistance = 0.05;   //Prev 0.05
 const playerTransitionTime = 0.15;
@@ -224,7 +221,7 @@ const transition = function(deltatime){
             lerpFactor += deltatime / takeOffFactor;
         }
         else{
-            lerpFactor += deltatime / takeOnFactor;
+            lerpFactor += deltatime / takeOnFactor / 5;
         }
     }
 

@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import { Vector3 } from 'three';
 import { joystickSlider,joystickSlideValue, resetJoystickSlider, sliderHolder } from '../ui_controller/ui_controller';
-import {uiTextCheck, EnableCharacterText} from '../questions/questions'
+import {updateNameIndicator, EnableCharacterText} from '../questions/questions'
 //Character control
 
 
@@ -28,26 +28,20 @@ export function disablePlayerControl(){
     sliderHolder.hidden = true;
 }
 
-sliderHolder.addEventListener('change', function(){
+sliderHolder.addEventListener('change', function(){     //On value changed and input ended
     onSliderInputEnd();
 })
 
-sliderHolder.addEventListener('input', function(){
-    if(onInputDelay == false){
+sliderHolder.addEventListener('input', function(){      //Called while giving input
+    if(onInputDelay == false && canControlOtherPlayer == false){
         targetTime = clock.getElapsedTime();
         canControlOtherPlayer = false;
         onInputDelay = true;
     }
 });
 
-const onSliderInputEnd = function(){
-    // console.log("Input delay = ", onInputDelay);
-    // console.log("canControl = ", canControlOtherPlayer);
-    //onInputDelay = false;
+const onSliderInputEnd = function(){    //On Input end on the slider
     canControlOtherPlayer = false;
-    // setTimeout(() => {
-    //     canControlOtherPlayer = false;
-    // }, 100);
 }
 
 const startX = 0.4;   //Starting x position of the character eg. 1 for character 1 and -1 for character 2     //prev 1
@@ -56,14 +50,14 @@ const stepValue = 0.00005; //Distance of character movement on each change in sl
 let player = null; //Holds player model
 let playerMixer = null; //Holds player animation mixer
 let playerAnimations = null //Holds player animation array
-var animationIndex = 0;     //Id for current playing animation  2-Idle, 3-Walk
+var animationIndex = -1;     //Id for current playing animation  2-Idle, 3-Walk
 
 let otherCharacter = null;
 var otherYPos = 0;
 let otherMixer = null;
 let otherAnimations = null;
 var otherIdle = true;
-var otherAnimationIndex = 0;    // 2- idle, 3-walk
+var otherAnimationIndex = -1;    // 2- idle, 3-walk
 
 var camera = null;
 
@@ -91,16 +85,23 @@ export function setPlayer(playerModel, playerAnims){
 const PlayerYPos = -0.6;
 export function setOtherCharacter(otherModel, _otherAnimation){
     resetJoystickSlider();
+    canControlOtherPlayer = false;
+    otherIdle = 0;
+    otherAnimationIndex = -1;
+    otherMovingTime = 0;
+    otherStoppingTime = 0;
 
     otherYPos = otherModel.position.clone().y;
     curOtherPosition.y = otherYPos;
     otherCharacter = otherModel;
     //curOtherPosition = otherCharacter.position;
+    const idleId = 1, walkId = 2, startId = 0, endId = 1;
     if(_otherAnimation != null){
         otherMixer = new THREE.AnimationMixer(otherCharacter);
         otherAnimations = _otherAnimation;
-        otherMixer.clipAction(otherAnimations[2]).reset();
-        otherMixer.clipAction(otherAnimations[4]).reset();
+
+        otherMixer.clipAction(otherAnimations[idleId]).reset();
+        otherMixer.clipAction(otherAnimations[walkId]).reset();
     }
     else{
         otherAnimations = null;
@@ -287,6 +288,7 @@ const lerpSpeed = 0.1;
 
 function Movecharacter(){
     idle = true;
+    otherIdle = true;
 
     var xPos = -startX + stepValue * (joystickSlideValue + 50);
     curPlayerPosition.lerp(new Vector3(xPos, PlayerYPos, 0), lerpSpeed);
@@ -321,7 +323,7 @@ function Movecharacter(){
     curOtherPosition.lerp(new Vector3(otherXpos, otherYPos, 0), lerpSpeed);
 
     otherCharacter.position.set(curOtherPosition.x, curOtherPosition.y, curOtherPosition.z);
-    uiTextCheck(otherCharacter);
+    updateNameIndicator(otherCharacter);
     EnableCharacterText();
 
     abs = Math.abs(otherXpos - otherCharacter.position.x);
@@ -666,6 +668,169 @@ function animateOtherCharacter(){
     
 }
 
+var movingTime = 0;
+var stoppingTime = 0;
+const startDuration = 0.2;
+const endDuration = 0.2;
+const startFadeDuration = 0.15;
+const endFadeDuration = 0.15;
+
+function animatePlayerTHREE(){
+    const fadeDuration = 0.25;
+    //const idleId = 2, walkId = 4, startId = 1, endId = 0;
+    const idleId = 0, walkId = 3, startId = 1, endId = 2;
+    const idleAction = playerMixer.clipAction(playerAnimations[idleId]);
+    const walkAction = playerMixer.clipAction(playerAnimations[walkId]);
+    const startAction = playerMixer.clipAction(playerAnimations[startId]);
+    const endAction = playerMixer.clipAction(playerAnimations[endId]);
+    if(canControlPlayer){
+
+        if(playerMixer == null)
+            return;
+        if(idle){
+            if(stoppingTime >= endDuration){
+                if(animationIndex != idleId){
+                    animationIndex = idleId;
+    
+                    //walkAction.stop();
+                    idleAction.reset();
+                    idleAction.crossFadeFrom(endAction ,fadeDuration);
+                    idleAction.play();
+                }
+            }
+            else if(stoppingTime < endDuration){
+                if(animationIndex != endId){
+                    animationIndex = endId;
+
+                    endAction.reset();
+                    endAction.crossFadeFrom(walkAction, endFadeDuration);
+                    endAction.play();
+                }
+            }
+        }
+        else
+        {
+            if(movingTime < startDuration){
+                if(animationIndex != startId){
+                    animationIndex = startId;
+
+                    startAction.reset();
+                    startAction.crossFadeFrom(idleAction, startFadeDuration);
+                    startAction.play();
+                }
+            }
+            else if(movingTime >= startDuration){
+                if(animationIndex != walkId){
+                    animationIndex = walkId;
+    
+                    //idleAction.stop();
+                    walkAction.reset();
+                    walkAction.crossFadeFrom(startAction, fadeDuration);
+                    walkAction.play();
+                }
+            }
+        }
+    }else{
+            //Go to Idle
+            if(animationIndex != idleId){
+                animationIndex = idleId;
+
+                //walkAction.stop();
+                idleAction.reset();
+                idleAction.crossFadeFrom(walkAction ,endFadeDuration);
+                idleAction.play();
+            }
+    }
+}
+
+var otherMovingTime = 0;
+var otherStoppingTime = 0;
+
+function animateOtherPlayerTHREE(){
+    const fadeDuration = 0.25;
+    const idleId = 0, walkId = 3, startId = 1, endId = 2;
+    const idleAction = otherMixer.clipAction(otherAnimations[idleId]);
+    const walkAction = otherMixer.clipAction(otherAnimations[walkId]);
+    const startAction = otherMixer.clipAction(otherAnimations[startId]);
+    const endAction = otherMixer.clipAction(otherAnimations[endId]);
+    if(canControlOtherPlayer){
+        if(otherMixer == null)
+            return;
+        if(otherIdle){
+            if(otherStoppingTime < endDuration){    //Walk -> Stop
+                if(otherAnimationIndex != endId){
+                    otherAnimationIndex = endId;
+
+                    endAction.reset();
+                    endAction.crossFadeFrom(walkAction, endFadeDuration);
+                    endAction.play();
+                    //console.log("Walk to End, Can Control");
+                }
+            }
+            else if(otherStoppingTime >= endDuration){      //Stop -> Idle
+                if(otherAnimationIndex != idleId){
+                    otherAnimationIndex = idleId;
+    
+                    //walkAction.stop();
+                    idleAction.reset();
+                    idleAction.crossFadeFrom(endAction ,endFadeDuration);
+                    idleAction.play();
+                    //console.log("End to Idle, Can Control");
+                }
+            }
+        }
+        else
+        {
+            if(otherMovingTime < startDuration){        //Idle -> Start
+                if(otherAnimationIndex != startId){
+                    otherAnimationIndex = startId;
+
+                    startAction.reset();
+                    startAction.crossFadeFrom(idleAction, startFadeDuration);
+                    startAction.play();
+                    //console.log("Idle to Start, Can Control");
+                }
+            }
+            else if(otherMovingTime >= startDuration){      //Start to Walk
+                if(otherAnimationIndex != walkId){
+                    otherAnimationIndex = walkId;
+    
+                    //idleAction.stop();
+                    walkAction.reset();
+                    walkAction.crossFadeFrom(startAction, fadeDuration);
+                    walkAction.play();
+                    //console.log("Start to Walk, Can Control");
+                }
+            }
+        }
+        //console.log("Can control, ", otherAnimationIndex, " , Idle=", otherIdle);
+    }
+    else if(otherMixer){
+            if(otherStoppingTime < endDuration){    //Walk -> Stop
+                if(otherAnimationIndex != endId){
+                    otherAnimationIndex = endId;
+
+                    endAction.reset();
+                    endAction.crossFadeFrom(walkAction, endFadeDuration);
+                    endAction.play();
+                    //console.log("Walk to End, No Control");
+                }
+            }
+            else if(otherStoppingTime >= endDuration){      //Stop -> Idle
+                if(otherAnimationIndex != idleId){
+                    otherAnimationIndex = idleId;
+    
+                    //walkAction.stop();
+                    idleAction.reset();
+                    idleAction.crossFadeFrom(endAction ,endFadeDuration);
+                    idleAction.play();
+                    console.log("End to Idle, No control");
+                }
+            }
+            //console.log("no control, ", otherAnimationIndex, " ,", otherIdle);
+    }
+}
+
 const clock = new THREE.Clock()
 let previousTime = 0
 let prevPos = new THREE.Vector3();
@@ -678,26 +843,51 @@ const tick = () =>
 
     if(canControlPlayer){
         Movecharacter()
-    }
 
-    if(playerMixer !== null){
-        playerMixer.update(deltatime)
-        animatePlayer()
-    }
-
-    if(otherMixer != null) {
-        otherMixer.update(deltatime)
-        animateOtherCharacter()
-    }
-
-    if(onInputDelay){
-        var timeDif = elapsedTime - targetTime;
-        if(timeDif >= controlDelay){
-            canControlOtherPlayer = true;
-            onInputDelay = false;
+        if(idle){
+            movingTime = 0;
+            stoppingTime += deltatime;
+        }
+        else{
+            movingTime += deltatime;
+            stoppingTime = 0;
         }
     }
 
+    if(playerMixer != null){
+        playerMixer.update(deltatime)
+        animatePlayerTHREE()
+    }
+    
+    
+    if(canControlPlayer){
+        if(otherIdle == false){
+            otherMovingTime += deltatime;
+            otherStoppingTime = 0;
+            //console.log("Moving time =", otherMovingTime);
+        }
+        else{
+            otherMovingTime = 0;
+            otherStoppingTime += deltatime;
+            //console.log("Stopping time = ", otherStoppingTime);
+        }
+        
+        if(onInputDelay){
+            var timeDif = elapsedTime - targetTime;
+            if(timeDif >= controlDelay){
+                canControlOtherPlayer = true;
+
+                onInputDelay = false;
+            }
+        }
+
+        console.log("Anim = ", otherAnimationIndex, " , Idle = ", otherIdle, " ,control=", canControlOtherPlayer);
+    }
+    
+    if(otherMixer != null) {
+        otherMixer.update(deltatime)
+        animateOtherPlayerTHREE()
+    }
     //Implement loop here
     window.requestAnimationFrame(tick)
 }
