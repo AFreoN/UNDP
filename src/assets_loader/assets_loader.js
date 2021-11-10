@@ -36,7 +36,8 @@ let models = {
 let animations = {
     playerCharacter:null,
     centerCharacter:null,
-    centerEmoji:null
+    centerEmoji:null,
+    father:null
 }
 
 //assign the number assets imported in this module
@@ -205,12 +206,33 @@ gltfloader.load(
 
         models['centerCharacter'] = model// test center model.
 
-        loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
-        loadingBar.animate(loadedPercentage) // animate the progress bar
-        // if(loadedPercentage >= 1){ //if loadedPercentage is 1, then the survey can start.
-        //     //Call function to start the survey
-        //     main.startSurvey()
-        // }
+        loadedPercentage += (1/numberOfAssets)
+        loadingBar.animate(loadedPercentage)
+    }
+)
+
+gltfloader.load(
+    'Models/father.gltf',
+    (gltf) =>
+    {
+        //animations['father'] = gltf.animations
+        let model = gltf.scene
+        model.name = 'father'
+        model.scale.set(1,1,1)
+        model.position.set(0,-.6, 0)
+
+        // model.traverse((child) => {
+        //     if (child.isMesh){
+        //         let toonMaterial = new THREE.MeshToonMaterial({ color : 0xFFC332, gradientMap : tex});
+        //         child.material = shaderMaterial; // a material i created in the code earlier
+        //         child.castShadow = true;
+        //     }
+        // });
+
+        models['father'] = model// test center model.
+
+        loadedPercentage += (1/numberOfAssets)
+        loadingBar.animate(loadedPercentage)
     }
 )
 
@@ -637,16 +659,6 @@ function SetTreeMaterial(scene){
         }
     });
 }
-
-
-
-
-
-
-
-
-
-
 
 //
 //      end of Loading models
