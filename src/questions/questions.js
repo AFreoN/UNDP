@@ -623,6 +623,9 @@ function setupJoystickScene(currentQuestion, player, questionIndex){
         let treeYPos = -0.6; 
         let r = 0.1;
 
+
+        document.getElementById("Slider_Filler").style.width = "10%";
+
         let tree1 = assetLoader.getModel('Tree1')
         tree1.position.set(2.0 + MathUtils.randFloat(-r,r),treeYPos,-2 + MathUtils.randFloat(-r,r))     //prev (2.0,-0.3,-2)
         tree1.rotation.y = MathUtils.randFloat(0.1, 359)

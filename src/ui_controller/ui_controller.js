@@ -279,6 +279,9 @@ export function SetFiller(sliderValue){
     }
 }
 
+
+
+
 let countrySkipContainer = document.getElementById('country-skip-container')
 let submitContainer = document.getElementById('submit-container') 
 
@@ -830,3 +833,6 @@ languageSelectedButton.addEventListener('click', function(){
 languageSelectedButton.addEventListener('onmousedown', function(){
     console.log("Button pressed");
 });
+
+
+
