@@ -2,6 +2,7 @@ import * as THREE from 'three'
 import { Vector3 } from 'three';
 import { joystickSlider,joystickSlideValue, resetJoystickSlider, sliderHolder } from '../ui_controller/ui_controller';
 import {updateNameIndicator, EnableCharacterText} from '../questions/questions'
+import { joystickScene ,ring1, ring2} from '../questions/scenes'
 //Character control
 
 
@@ -13,6 +14,9 @@ const controlDelay = 0.3;
 var onInputDelay = false;
 var targetTime = 0;
 
+const ringYPos = -0.59;
+const ringClearance = 0.001;
+
 export function enablePlayerControl(){
     canControlPlayer = true;
 
@@ -21,11 +25,19 @@ export function enablePlayerControl(){
     curPlayerPosition = player.position.clone();
 
     sliderHolder.hidden = false;
+
+    ring1.position.set(player.position.x, ringYPos, player.position.z);
+    if(otherCharacter)
+        ring2.position.set(otherCharacter.position.x, ringYPos + ringClearance, otherCharacter.position.z);
+    joystickScene.add(ring1);
+    joystickScene.add(ring2);
 }
 
 export function disablePlayerControl(){
     canControlPlayer = false;
     sliderHolder.hidden = true;
+    joystickScene.remove(ring1);
+    joystickScene.remove(ring2);
 }
 
 sliderHolder.addEventListener('change', function(){     //On value changed and input ended
@@ -80,6 +92,7 @@ export function setPlayer(playerModel, playerAnims){
     player = playerModel
     playerMixer = new THREE.AnimationMixer(player)
     playerAnimations = playerAnims
+    ring1.position.set(player.position.x, ringYPos, player.position.z);
 }
 
 const PlayerYPos = -0.6;
@@ -116,6 +129,9 @@ export function setOtherCharacter(otherModel, _otherAnimation){
     otherCharacter.position.set(otherXpos, otherCharacter.position.y, 0);
     curOtherPosition.x = otherXpos;
     curOtherPosition.y = otherModel.position.y;
+
+    ring1.position.set(player.position.x, ringYPos, player.position.z);
+    ring2.position.set(otherCharacter.position.x, ringYPos + ringClearance, otherCharacter.position.z);
 }
 
 const cameraZoomDis = window.innerHeight / window.innerWidth;
@@ -285,8 +301,14 @@ var curCameraPosition = new THREE.Vector3();
 
 var otherXpos;
 const lerpSpeed = 0.1;
+const oneVector = new THREE.Vector3(1,1,1);
+
+var ringUp = true;
+const minRingJoinDistance = 0.05;
+var finalScale;
 
 function Movecharacter(){
+    //#region  For setting player position
     idle = true;
     otherIdle = true;
 
@@ -308,7 +330,9 @@ function Movecharacter(){
     else{
         idle = false;
     }
+    //#endregion
 
+    //#region For setting other character position
     if(!otherXpos) otherXpos = otherCharacter.position.clone().x;
 
     if(canControlOtherPlayer)
@@ -333,7 +357,9 @@ function Movecharacter(){
     else{
         otherIdle = false;
     }
+//#endregion
 
+    //#region For setting camera position
     var curZoomDis = joystickSlideValue / 50 * cameraZoomDis;
     camera.getWorldDirection(curCameraPosition);
     curCameraPosition.normalize();
@@ -342,10 +368,54 @@ function Movecharacter(){
 
     curCameraPosition.add(cameraPos);
     camera.position.lerp(curCameraPosition, lerpSpeed * 0.3);
-    //camera.position.set(curCameraPosition.x, curCameraPosition.y, curCameraPosition.z);
+    //#endregion
 
-    //newPlayerMovement()
-    //limitArea()
+    //#region For setting up ring position
+    const scaleLerpSpeed = 0.3;
+    if(joystickSlideValue != 50){
+        var finalPos = player.position.clone();
+        finalPos.y = ringYPos;
+        ring1.position.lerp(finalPos, lerpSpeed);
+        finalPos = otherCharacter.position.clone();
+        finalPos.y = ringYPos + ringClearance;
+        ring2.position.lerp(finalPos, lerpSpeed * 2);
+
+        ring1.scale.lerp(oneVector, scaleLerpSpeed);
+        ring2.scale.lerp(oneVector, scaleLerpSpeed);
+        ringUp = true;
+    }
+    else{
+        var finalPos = player.position.clone().add(otherCharacter.position);
+        finalPos.x *= 0.5;
+        finalPos.y = ringYPos;
+        finalPos.z *= 0.5;
+        ring1.position.lerp(finalPos, lerpSpeed);
+        finalPos.y += ringClearance;
+        ring2.position.lerp(finalPos,lerpSpeed * 2);
+
+        var dis = Math.abs(ring2.position.x - ring1.position.x);
+        if(dis < minRingJoinDistance){
+            if(ringUp == true){
+                if(!finalScale){
+                    finalScale = ring1.scale.clone();
+                    finalScale.x *= 0.7;
+                    finalScale.z *= 1.3;
+                }
+
+                ring1.scale.lerp(finalScale, scaleLerpSpeed);
+                ring2.scale.lerp(finalScale, scaleLerpSpeed);
+
+                if(Math.abs(ring1.scale.x - finalScale.x) < 0.05){
+                    ringUp = false;
+                }
+            }
+            else{
+                ring1.scale.lerp(oneVector, scaleLerpSpeed);
+                ring2.scale.lerp(oneVector, scaleLerpSpeed);
+            }
+        }
+    }
+    //#endregion
 }
 
 //#region JoystickControls
@@ -824,7 +894,7 @@ function animateOtherPlayerTHREE(){
                     idleAction.reset();
                     idleAction.crossFadeFrom(endAction ,endFadeDuration);
                     idleAction.play();
-                    console.log("End to Idle, No control");
+                    //console.log("End to Idle, No control");
                 }
             }
             //console.log("no control, ", otherAnimationIndex, " ,", otherIdle);
@@ -881,7 +951,7 @@ const tick = () =>
             }
         }
 
-        console.log("Anim = ", otherAnimationIndex, " , Idle = ", otherIdle, " ,control=", canControlOtherPlayer);
+        //console.log("Anim = ", otherAnimationIndex, " , Idle = ", otherIdle, " ,control=", canControlOtherPlayer);
     }
     
     if(otherMixer != null) {

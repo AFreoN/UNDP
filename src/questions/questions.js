@@ -249,7 +249,7 @@ let qArray = [
                 dv : 'answer7'
             }
         ],
-        centerModelKey:'centerCharacter',
+        centerModelKey:'father',
         characterName:{
             en : 'Father',
             si : 'පියා',
@@ -594,6 +594,13 @@ export function loadQuestion(questionIndex){
                     sceneTransition.fadeIn(prevOtherModel, dir, null);
                 }
 
+                // const fatherModel = assetLoader.getModel('father');
+                // if(fatherModel){
+                //     fatherModel.position.set(0,-0.6,0);
+                //     fatherModel.scale.set(1,1,1);
+                //     fatherModel.rotation.y = MathUtils.degToRad(0);
+                //     joystickScene.add(fatherModel);
+                // }
                 
                 //updateSceneAndCamera(joystickScene, joystickCamera)
                 //if(mainScript.isJoyStickTutorialDisplayed())

@@ -566,11 +566,12 @@ canvas.webgl{
       justify-content: center;
       align-items: center;
 
-      color: black;
-      
+      color: rgb(255, 255, 255);
+      /*
       background: rgba(255, 255, 255, 0.637);
       padding: 8px;
       border-radius: 20px;
+      */
   }
 
   #slidertext-distant{

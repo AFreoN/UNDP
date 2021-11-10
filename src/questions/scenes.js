@@ -599,6 +599,17 @@ const floorSize = 100;
 var floorgeo = new THREE.PlaneGeometry(floorSize,floorSize);
 floorgeo.computeBoundingBox();
 
+const rRadius = 0.5;
+const geoRing = new THREE.CylinderGeometry(rRadius, rRadius, 0.001, 32);
+const ringmat = new THREE.MeshBasicMaterial({color : 0xFFFFFF, opacity : 0.2, transparent : true});
+export const ring1 = new THREE.Mesh(geoRing, ringmat);
+ring1.position.set(0, -0.59, 0);
+//joystickScene.add(ring1);
+
+export const ring2 = new THREE.Mesh(geoRing, ringmat);
+ring2.position.set(0, -0.59, 0);
+//joystickScene.add(ring2);
+
 //const floorgeo = new THREE.CylinderGeometry(1000,1000,0.05, 256);
 const floorMaterial = new THREE.MeshToonMaterial( {color: 0x725FB3});    //prev color 0xfff4db
 var gradFloorMaterial = new THREE.ShaderMaterial({
