@@ -94,6 +94,8 @@ let otherCharacter = null;
 var otherYPos = 0;
 let otherMixer = null;
 let otherAnimations = null;
+let otherAnimationId = null;
+let otherAnimAvailable = false;
 var otherIdle = true;
 var otherAnimationIndex = -1;    // 2- idle, 3-walk
 
@@ -122,7 +124,7 @@ export function setPlayer(playerModel, playerAnims){
 }
 
 const PlayerYPos = -0.6;
-export function setOtherCharacter(otherModel, _otherAnimation){
+export function setOtherCharacter(otherModel, _otherAnimation, _otherAnimationIds){
     resetJoystickSlider();
     canControlOtherPlayer = false;
     otherIdle = 0;
@@ -134,13 +136,37 @@ export function setOtherCharacter(otherModel, _otherAnimation){
     curOtherPosition.y = otherYPos;
     otherCharacter = otherModel;
     //curOtherPosition = otherCharacter.position;
-    const idleId = 1, walkId = 2, startId = 0, endId = 1;
+    const idleId = -1, walkId = -1, startId = -1, endId = -1;
     if(_otherAnimation != null){
         otherMixer = new THREE.AnimationMixer(otherCharacter);
         otherAnimations = _otherAnimation;
+        otherAnimationId = _otherAnimationIds;
 
-        otherMixer.clipAction(otherAnimations[idleId]).reset();
-        otherMixer.clipAction(otherAnimations[walkId]).reset();
+        otherIdleId = -1; otherWalkId = -1; otherStartId = -1; otherStopId = -1;
+        if(otherAnimationId['idle'] != null){
+            otherIdleId = otherAnimationId['idle'];
+            otherMixer.clipAction(otherAnimations[otherIdleId]).reset();
+        }
+        if(otherAnimationId['walk'] != null){
+            otherWalkId = otherAnimationId['walk'];
+            otherMixer.clipAction(otherAnimations[otherIdleId]).reset();
+        }
+        if(otherAnimationId['start'] != null){
+            otherStartId = otherAnimationId['start'];
+            otherMixer.clipAction(otherAnimations[otherIdleId]).reset();
+        }
+        if(otherAnimationId['stop'] != null){
+            otherStopId = otherAnimationId['stop'];
+            otherMixer.clipAction(otherAnimations[otherIdleId]).reset();
+        }
+        if(otherIdleId != -1 && otherWalkId != -1 && otherStartId != -1 && otherStopId != -1)
+            otherAnimAvailable = true;
+        else{
+            otherAnimAvailable = false;
+            if(otherIdleId != -1){
+                otherMixer.clipAction(otherAnimations[otherIdleId]).play();
+            }
+        }
     }
     else{
         otherAnimations = null;
@@ -854,9 +880,10 @@ function animatePlayerTHREE(){
 var otherMovingTime = 0;
 var otherStoppingTime = 0;
 
+var otherIdleId = -1, otherWalkId = -1, otherStartId = -1, otherStopId = -1;
 function animateOtherPlayerTHREE(){
     const fadeDuration = 0.25;
-    const idleId = 0, walkId = 2, startId = 1, endId = 3;
+    const idleId = otherIdleId, walkId = otherWalkId, startId = otherStartId, endId = otherStopId;
     const idleAction = otherMixer.clipAction(otherAnimations[idleId]);
     const walkAction = otherMixer.clipAction(otherAnimations[walkId]);
     const startAction = otherMixer.clipAction(otherAnimations[startId]);
@@ -994,7 +1021,8 @@ const tick = () =>
     
     if(otherMixer != null) {
         otherMixer.update(deltatime)
-        animateOtherPlayerTHREE()
+        if(otherAnimAvailable)
+            animateOtherPlayerTHREE()
     }
 
     if(isOnboarding){

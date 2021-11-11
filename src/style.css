@@ -535,6 +535,7 @@ canvas.webgl{
     outline: solid;
     outline-color: rgba(255, 255, 255, 1);
     outline-width: 5px;
+    transition: 0.3s;
   }
   
   .slider::-moz-range-thumb {

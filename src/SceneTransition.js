@@ -2,6 +2,7 @@ import * as THREE from 'three'
 import { getOtherCharacterInitialPosition, enablePlayerControl } from './character_controller/character_control';
 import { setUiText, sliderHolder } from './ui_controller/ui_controller';
 import { pointLight, joyDirLight } from './questions/scenes';
+import { MathUtils } from 'three';
 
 var dataInitialized = false;
 var animate = false;
@@ -9,11 +10,12 @@ var playerMoved = false;
 
 var transitionStyle;
 
-const takeOnFactor = 0.4; //prev 0.4
+const takeOnFactor = 1.2; //prev 0.4
 const takeOffFactor = 0.2;   //prev 0.2
-const takeSeparationFactor = 0.35;
+const takeSeparationFactor = 0.25;  //prev 0.35
 const playerTransitionDistance = 0.05;   //Prev 0.05
 const playerTransitionTime = 0.15;
+var jerkValue = takeOnFactor;  //Lerps the lerp value to make transition smoother
 
 const cameraTransitionDistance = 10;     //prev 2
 var tempPlayerYpos = 0;
@@ -105,6 +107,7 @@ export function fadeIn(_otherModel, switchDirection, _callFunction){
             child.castShadow = false;
         }
     });
+    //jerkValue = takeOffFactor;
 }
 
 export function fadeOut(_otherModel, switchDirection, _callFunction){
@@ -138,6 +141,7 @@ export function fadeOut(_otherModel, switchDirection, _callFunction){
             child.castShadow = false;
         }
     });   
+    //jerkValue = takeOnFactor;
 }
 
 const clock = new THREE.Clock();
@@ -207,24 +211,29 @@ const playerMovement = function(deltatime){
     }
 }
 
+const jerkLerpSpeed = 0.5;
 const transition = function(deltatime){
     if(transitionStyle == 'fadeout'){
         if(lerpFactor <= takeSeparationFactor){
-            lerpFactor += deltatime / takeOnFactor;
+            jerkValue = MathUtils.lerp(jerkValue, takeOnFactor, jerkLerpSpeed);
+            //lerpFactor += deltatime / takeOnFactor;
         }
         else{
-            lerpFactor += deltatime / takeOffFactor;
+            jerkValue = MathUtils.lerp(jerkValue, takeOffFactor, jerkLerpSpeed);
+            //lerpFactor += deltatime / takeOffFactor;
         }
     }
     else{
         if(lerpFactor <= 1-takeSeparationFactor){
-            lerpFactor += deltatime / takeOffFactor;
+            jerkValue = MathUtils.lerp(jerkValue, takeOffFactor, jerkLerpSpeed);
+            //lerpFactor += deltatime / takeOffFactor;
         }
         else{
-            lerpFactor += deltatime / takeOnFactor / 5;
+            jerkValue = MathUtils.lerp(jerkValue, takeOnFactor, jerkLerpSpeed);
+            //lerpFactor += deltatime / takeOnFactor;
         }
     }
-
+    lerpFactor += deltatime / jerkValue;
     
     var curCamPosition;
     var finalCamPosition;
