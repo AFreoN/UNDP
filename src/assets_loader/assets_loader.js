@@ -269,8 +269,8 @@ gltfloader.load(
         
         //Setting up model for country selection
         let countrySelectionModel = models['sriLankaMap'].clone(true)
-        countrySelectionModel.scale.set(0.2,0.2,0.2)
-        countrySelectionModel.position.set(-.25,0,0.1)
+        countrySelectionModel.scale.set(0.35,0.35,0.35)
+        countrySelectionModel.position.set(-.4,0,0.1)
         countrySelectionModel.children[10].castShadow = true
         console.log(countrySelectionModel);
 

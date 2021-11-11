@@ -423,6 +423,34 @@ export function setCountryName(name){
 
 export function setRegionName(name){
     regionAnswerContainer.innerText = name
+    regionAnswerContainer.style.animation = ''
+    regionAnswerContainer.offsetHeight
+    regionAnswerContainer.style.animation = 'fadein 0.4s linear forwards'
+
+    // if(name === ''){
+        
+    //     regionAnswerContainer.addEventListener('animationend',onAnimationEnd)
+    //     regionAnswerContainer.addEventListener('animationcancel',onAnimationEnd)
+
+    // }
+}
+
+// regionAnswerContainer.addEventListener('animationend',onAnimationEnd)
+// regionAnswerContainer.addEventListener('animationcancel',onAnimationEnd)
+
+// function onAnimationEnd(){
+//     regionAnswerContainer.style.animation = ''
+//     regionAnswerContainer.style.animation = 'fadeout 0.4s linear'
+// }
+
+
+export function hideRegionAnswerContainer(bool){
+    if(bool){
+        regionAnswerContainer.style.animation = ''
+        regionAnswerContainer.offsetHeight
+        regionAnswerContainer.style.animation = 'fadeout 0.4s linear forwards'
+    }
+
 }
 
 var selectedMcqAnswer = null;
