@@ -879,6 +879,20 @@ function setupJoystickScene(currentQuestion, player, questionIndex){
         addModelToScene(joystickScene, cloud1);
         addModelToScene(joystickScene, cloud2);
         addModelToScene(joystickScene, cloud3);
+
+        const carp = assetLoader.getModel('carpet');
+        let lamp = assetLoader.getModel('lamp');
+        if(questionIndex == 3 || questionIndex == 4){
+            addModelToScene(joystickScene, carp);
+    
+            addModelToScene(joystickScene, lamp);
+            lamp.position.z = -0.6;
+            lamp.rotation.y = MathUtils.degToRad(45);
+        }
+        else{
+            joystickScene.remove(carp);
+            joystickScene.remove(lamp);
+        }
         
         currentCenterModel = centerModel;
         prevOtherModel = currentCenterModel;

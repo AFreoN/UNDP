@@ -33,7 +33,9 @@ let models = {
     Tree10:null,
     cloud1:null,
     cloud2:null,
-    cloud3:null
+    cloud3:null,
+    carpet:null,
+    lamp:null
 }
 
 //player animations are stored here
@@ -275,7 +277,7 @@ gltfloader.load(
         //animations['father'] = gltf.animations
         let model = gltf.scene
         model.name = 'father'
-        model.scale.set(1,1,1)
+        model.scale.set(0.08,0.08,0.08)
         model.position.set(0,-.6, 0)
 
         // model.traverse((child) => {
@@ -336,6 +338,36 @@ gltfloader.load(
         });
 
         models['friends'] = model// test center model.
+        loadedPercentage += (1/numberOfAssets)
+        loadingBar.animate(loadedPercentage)
+    }
+)
+
+gltfloader.load(
+    'Models/carpet.gltf',
+    (gltf) =>
+    {
+        let model = gltf.scene
+        model.name = 'carpet'
+        model.scale.set(.075,.075,.075)
+        model.position.set(0,-.6, 0)
+
+        models['carpet'] = model// test center model.
+        loadedPercentage += (1/numberOfAssets)
+        loadingBar.animate(loadedPercentage)
+    }
+)
+
+gltfloader.load(
+    'Models/lamp.gltf',
+    (gltf) =>
+    {
+        let model = gltf.scene
+        model.name = 'lamp'
+        model.scale.set(.075,.075,.075)
+        model.position.set(0,-.6, 0)
+
+        models['lamp'] = model// test center model.
         loadedPercentage += (1/numberOfAssets)
         loadingBar.animate(loadedPercentage)
     }
