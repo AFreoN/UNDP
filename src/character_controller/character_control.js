@@ -786,7 +786,7 @@ const endFadeDuration = 0.15;
 function animatePlayerTHREE(){
     const fadeDuration = 0.25;
     //const idleId = 2, walkId = 4, startId = 1, endId = 0;
-    const idleId = 0, walkId = 3, startId = 1, endId = 2;
+    const idleId = 0, walkId = 2, startId = 1, endId = 3;
     const idleAction = playerMixer.clipAction(playerAnimations[idleId]);
     const walkAction = playerMixer.clipAction(playerAnimations[walkId]);
     const startAction = playerMixer.clipAction(playerAnimations[startId]);
@@ -856,7 +856,7 @@ var otherStoppingTime = 0;
 
 function animateOtherPlayerTHREE(){
     const fadeDuration = 0.25;
-    const idleId = 0, walkId = 3, startId = 1, endId = 2;
+    const idleId = 0, walkId = 2, startId = 1, endId = 3;
     const idleAction = otherMixer.clipAction(otherAnimations[idleId]);
     const walkAction = otherMixer.clipAction(otherAnimations[walkId]);
     const startAction = otherMixer.clipAction(otherAnimations[startId]);
