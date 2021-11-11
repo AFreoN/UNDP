@@ -66,7 +66,7 @@ maldivesCube.material.visible = false
 
 export const sriLankaCube = new THREE.Mesh(new THREE.BoxGeometry(1.4,0.1,2.3), new THREE.MeshLambertMaterial({color: 0x2b2bee,wireframe:true}))
 countryScene.add(sriLankaCube)
-sriLankaCube.position.set(1.25,0,0)
+sriLankaCube.position.set(0.75,0,0)
 sriLankaCube.material.visible = false
 // sriLankaCube.children[0].castShadow = true
 
