@@ -334,10 +334,10 @@ let allTexts = {
         dv : 'Part 1 of 4'
     },
     otherRegionText : {
-        en : 'Other regions',
+        en : 'Other',
         si : 'වෙනත් කලාප',
         ta : 'பிற பகுதி',
-        dv : 'Other regions'
+        dv : 'Other'
     },
     submitButtonText : {
         en : 'Submit',
@@ -678,7 +678,7 @@ export function updateUI(questionType, questionText, answers){
             aboutAnswerContainer.style.display = 'none'
             joystickAnswerContainer.style.display = 'none'
             submitContainer.style.display = 'none'
-            countryAnswerContainer.style.display = ''
+            countryAnswerContainer.style.display = 'none'
             regionAnswerContainer.style.display = 'none'
             joystickTutorialContainer.style.display = 'none'
             joystickSlider.style.display = 'none'

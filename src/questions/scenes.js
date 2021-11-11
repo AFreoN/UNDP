@@ -536,6 +536,41 @@ function onSriLankaRegionTouch(event){
 //
 //      end of Sri Lanka region selection scene
 
+//      Animation loop
+//
+const maxLerpDuration = 2
+
+const clock = new THREE.Clock()
+let previousTime = 0
+const tick = () =>
+{
+    const elapsedTime = clock.getElapsedTime()
+    const deltatime = elapsedTime - previousTime //delta time can be retrieved from here
+    previousTime = elapsedTime
+    
+    
+
+    //Implement loop here
+
+    window.requestAnimationFrame(tick)
+}
+
+
+function animateMesh(mesh, deltaTime, duration){
+    if(mesh.timeElapsed && mesh.startValue && mesh.endValue){
+        if(mesh.timeElapsed < duration){
+            mesh.position.y = THREE.MathUtils.lerp(mesh.startValue,mesh.endValue,mesh.timeElapsed/duration)
+            mesh.timeElapsed+= deltaTime
+        }else{
+            mesh.position.y = mesh.endValue
+        }
+    }
+}
+
+//
+//      End of animation loop
+
+
 
 //      About scene
 //
