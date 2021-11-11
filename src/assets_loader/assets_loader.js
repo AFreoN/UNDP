@@ -14,7 +14,10 @@ import { shaderMaterial, shaderUnlit } from '../fresnel'
 let models = {
     playerCharacter:null,
     centerCharacter:null,
+    mother:null,
     Father:null,
+    siblings:null,
+    friends:null,
     centerEmoji:null,
     sriLankaMap:null,
     maldivesMap:null,
@@ -38,7 +41,37 @@ let animations = {
     playerCharacter:null,
     centerCharacter:null,
     centerEmoji:null,
-    father:null
+    father:null,
+    mother:null,
+    siblings:null,
+    friends:null
+}
+
+let animationId = {
+    playerCharacter:{
+        'idle':0,
+        'walk':2,
+        'start':1,
+        'stop':3
+    },
+    centerCharacter:{
+        'idle':0,
+        'walk':2,
+        'start':1,
+        'stop':3
+    },
+    father:{
+        
+    },
+    mother:{
+        'idle':1
+    },
+    siblings:{
+
+    },
+    friends:{
+
+    }
 }
 
 //assign the number assets imported in this module
@@ -206,7 +239,30 @@ gltfloader.load(
         });
 
         models['centerCharacter'] = model// test center model.
+        loadedPercentage += (1/numberOfAssets)
+        loadingBar.animate(loadedPercentage)
+    }
+)
 
+gltfloader.load(
+    'Models/mom.gltf',
+    (gltf) =>
+    {
+        animations['mother'] = gltf.animations
+        let model = gltf.scene
+        model.name = 'mother'
+        model.scale.set(.075,.075,.075)
+        model.position.set(0,-.6, 0)
+
+        model.traverse((child) => {
+            if (child.isMesh){
+                let toonMaterial = new THREE.MeshToonMaterial({ color : 0xFFC332, gradientMap : tex});
+                child.material = shaderMaterial; // a material i created in the code earlier
+                child.castShadow = true;
+            }
+        });
+
+        models['mother'] = model// test center model.
         loadedPercentage += (1/numberOfAssets)
         loadingBar.animate(loadedPercentage)
     }
@@ -232,6 +288,54 @@ gltfloader.load(
 
         models['father'] = model// test center model.
 
+        loadedPercentage += (1/numberOfAssets)
+        loadingBar.animate(loadedPercentage)
+    }
+)
+
+gltfloader.load(
+    'Models/siblings.gltf',
+    (gltf) =>
+    {
+        //animations['siblings'] = gltf.animations
+        let model = gltf.scene
+        model.name = 'siblings'
+        model.scale.set(.075,.075,.075)
+        model.position.set(0,-.6, 0)
+
+        model.traverse((child) => {
+            if (child.isMesh){
+                let toonMaterial = new THREE.MeshToonMaterial({ color : 0xFFC332, gradientMap : tex});
+                child.material = shaderMaterial; // a material i created in the code earlier
+                child.castShadow = true;
+            }
+        });
+
+        models['siblings'] = model// test center model.
+        loadedPercentage += (1/numberOfAssets)
+        loadingBar.animate(loadedPercentage)
+    }
+)
+
+gltfloader.load(
+    'Models/Friends.gltf',
+    (gltf) =>
+    {
+        //animations['friends'] = gltf.animations
+        let model = gltf.scene
+        model.name = 'friends'
+        model.scale.set(.075,.075,.075)
+        model.position.set(0,-.6, 0)
+
+        model.traverse((child) => {
+            if (child.isMesh){
+                let toonMaterial = new THREE.MeshToonMaterial({ color : 0xFFC332, gradientMap : tex});
+                child.material = shaderMaterial; // a material i created in the code earlier
+                child.castShadow = true;
+            }
+        });
+
+        models['friends'] = model// test center model.
         loadedPercentage += (1/numberOfAssets)
         loadingBar.animate(loadedPercentage)
     }
@@ -687,4 +791,8 @@ export function getPlayerAnimations(){
 
 export function getOtherCharacterAnimations(animationKey){
     return animations[animationKey]
+}
+
+export function getAnimationIds(key){
+    return animationId[key];
 }

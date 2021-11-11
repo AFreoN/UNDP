@@ -188,7 +188,7 @@ let qArray = [
                 dv : 'answer7'
             }
         ],
-        centerModelKey:'centerCharacter',
+        centerModelKey:'mother',
         characterName: {
             en : 'Mother',
             si : 'මව',
@@ -255,6 +255,189 @@ let qArray = [
             si : 'පියා',
             ta : 'தந்தை',
             dv : 'Father'
+        },
+        compulsory: true
+    },
+    {   //6
+        type : 'joystick',
+        question : {
+            en : 'How close are you to you siblings?',
+            si : 'ඔබ ඔබේ පියාට කොතරම් සමීපද?',
+            ta : 'உங்கள் தந்தையிடம் நீங்கள் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
+            dv : 'How close are you to you siblings?'
+        },
+        answers : [
+            {
+                en : 'answer1',
+                si : 'පිළිතුර1',
+                ta : 'பதில்1',
+                dv : 'answer1'
+            },
+            {
+                en : 'answer2',
+                si : 'පිළිතුර2',
+                ta : 'பதில்2',
+                dv : 'answer2'
+            },
+            {
+                en : 'answer3',
+                si : 'පිළිතුර3',
+                ta : 'பதில்3',
+                dv : 'answer3'
+            },
+            {
+                en : 'answer4',
+                si : 'පිළිතුර4',
+                ta : 'பதில்4',
+                dv : 'answer4'
+            },
+            {
+                en : 'answer5',
+                si : 'පිළිතුර5',
+                ta : 'பதில்5',
+                dv : 'answer5'
+            },
+            {
+                en : 'answer6',
+                si : 'පිළිතුර6',
+                ta : 'பதில்6',
+                dv : 'answer6'
+            },
+            {
+                en : 'answer7',
+                si : 'පිළිතුර7',
+                ta : 'பதில்7',
+                dv : 'answer7'
+            }
+        ],
+        centerModelKey:'siblings',
+        characterName:{
+            en : 'Siblings',
+            si : 'පියා',
+            ta : 'தந்தை',
+            dv : 'Siblings'
+        },
+        compulsory: true
+    },
+    {   //7
+        type : 'joystick',
+        question : {
+            en : 'How close are you to your closest friends?',
+            si : 'ඔබ ඔබේ පියාට කොතරම් සමීපද?',
+            ta : 'உங்கள் தந்தையிடம் நீங்கள் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
+            dv : 'How close are you to your closest friends?'
+        },
+        answers : [
+            {
+                en : 'answer1',
+                si : 'පිළිතුර1',
+                ta : 'பதில்1',
+                dv : 'answer1'
+            },
+            {
+                en : 'answer2',
+                si : 'පිළිතුර2',
+                ta : 'பதில்2',
+                dv : 'answer2'
+            },
+            {
+                en : 'answer3',
+                si : 'පිළිතුර3',
+                ta : 'பதில்3',
+                dv : 'answer3'
+            },
+            {
+                en : 'answer4',
+                si : 'පිළිතුර4',
+                ta : 'பதில்4',
+                dv : 'answer4'
+            },
+            {
+                en : 'answer5',
+                si : 'පිළිතුර5',
+                ta : 'பதில்5',
+                dv : 'answer5'
+            },
+            {
+                en : 'answer6',
+                si : 'පිළිතුර6',
+                ta : 'பதில்6',
+                dv : 'answer6'
+            },
+            {
+                en : 'answer7',
+                si : 'පිළිතුර7',
+                ta : 'பதில்7',
+                dv : 'answer7'
+            }
+        ],
+        centerModelKey:'friends',
+        characterName:{
+            en : 'Friends',
+            si : 'පියා',
+            ta : 'தந்தை',
+            dv : 'Friends'
+        },
+        compulsory: true
+    },
+    {   //8
+        type : 'joystick',
+        question : {
+            en : 'How close are you to your distant friends?',
+            si : 'ඔබ ඔබේ පියාට කොතරම් සමීපද?',
+            ta : 'உங்கள் தந்தையிடம் நீங்கள் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
+            dv : 'How close are you to your distant friends?'
+        },
+        answers : [
+            {
+                en : 'answer1',
+                si : 'පිළිතුර1',
+                ta : 'பதில்1',
+                dv : 'answer1'
+            },
+            {
+                en : 'answer2',
+                si : 'පිළිතුර2',
+                ta : 'பதில்2',
+                dv : 'answer2'
+            },
+            {
+                en : 'answer3',
+                si : 'පිළිතුර3',
+                ta : 'பதில்3',
+                dv : 'answer3'
+            },
+            {
+                en : 'answer4',
+                si : 'පිළිතුර4',
+                ta : 'பதில்4',
+                dv : 'answer4'
+            },
+            {
+                en : 'answer5',
+                si : 'පිළිතුර5',
+                ta : 'பதில்5',
+                dv : 'answer5'
+            },
+            {
+                en : 'answer6',
+                si : 'පිළිතුර6',
+                ta : 'பதில்6',
+                dv : 'answer6'
+            },
+            {
+                en : 'answer7',
+                si : 'පිළිතුර7',
+                ta : 'பதில்7',
+                dv : 'answer7'
+            }
+        ],
+        centerModelKey:'centerCharacter',
+        characterName:{
+            en : 'Friend',
+            si : 'පියා',
+            ta : 'தந்தை',
+            dv : 'Friend'
         },
         compulsory: true
     }
@@ -700,7 +883,7 @@ function setupJoystickScene(currentQuestion, player, questionIndex){
         currentCenterModel = centerModel;
         prevOtherModel = currentCenterModel;
         
-        controls.setOtherCharacter(currentCenterModel, assetLoader.getOtherCharacterAnimations(currentQuestion.centerModelKey));
+        controls.setOtherCharacter(currentCenterModel, assetLoader.getOtherCharacterAnimations(currentQuestion.centerModelKey), assetLoader.getAnimationIds(currentQuestion.centerModelKey) );
         // if(!joystickScene.getObjectByName('player')){
         //     joystickScene.add(player)
         // }
