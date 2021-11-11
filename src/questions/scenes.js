@@ -86,6 +86,8 @@ countryDirectionalLight.shadow.camera.top = 10
 
 export function resetCountrySelection(){
     currentSelectionScene = 'country'
+    setMeshAnimProperties(sriLankaCube,0.0,0)
+    setMeshAnimProperties(maldivesCube,0.0,0)
     sriLankaCube.position.y = 0
     maldivesCube.position.y = 0
 
@@ -97,6 +99,8 @@ export function resetCountrySelection(){
     }
     hoveringCountry = null
     selectedCountry = null
+
+    uiControl.disableNextButton()
 }
 
 var hoveringCountry
@@ -112,13 +116,19 @@ export function raycastCountry(){
         if(closestIntersect !== selectedCountry){
             if(closestIntersect !== hoveringCountry){
                 if(hoveringCountry){
-                    hoveringCountry.position.y = 0
+                    // hoveringCountry.position.y = 0
                     hoveringCountry.regionMaterial.color = hoveringCountry.standardColor
+                    setMeshAnimProperties(hoveringCountry,0.1,0)
                 }
 
                 hoveringCountry = closestIntersect
                 hoveringCountry.regionMaterial.color = hoveringCountry.hoveringColor
-                hoveringCountry.position.y = 0.1
+                // hoveringCountry.startValue = 0
+                // hoveringCountry.endValue = 0.1
+                // hoveringCountry.timeElapsed = 0
+                setMeshAnimProperties(hoveringCountry,0,0.1)
+                console.log(hoveringCountry.timeElapsed);
+                // hoveringCountry.position.y = 0.1
                 if(hoveringCountry === maldivesCube){
                     uiControl.setCountryName('Maldives')
                 } else if (hoveringCountry === sriLankaCube){
@@ -130,9 +140,12 @@ export function raycastCountry(){
     }
     else{
         if(hoveringCountry){
-            hoveringCountry.position.y = 0
+            // hoveringCountry.position.y = 0
+            setMeshAnimProperties(hoveringCountry,0.1,0)
+
             hoveringCountry.regionMaterial.color = hoveringCountry.standardColor
             hoveringCountry = null
+            
             uiControl.setCountryName('')
         }
         if(selectedCountry){
@@ -151,13 +164,15 @@ function onCountryClick(){
     if(hoveringCountry){
         if(hoveringCountry !== selectedCountry){
             if(selectedCountry){
-                selectedCountry.position.y = 0
+                // selectedCountry.position.y = 0
+                setMeshAnimProperties(selectedCountry,0.25,0)
                 selectedCountry.regionMaterial.color = selectedCountry.standardColor
                 selectedCountry = null
             }
             selectedCountry = hoveringCountry
             hoveringCountry = null
-            selectedCountry.position.y = 0.25
+            // selectedCountry.position.y = 0.25
+            setMeshAnimProperties(selectedCountry,0.1,0.25)
             selectedCountry.regionMaterial.color = selectedCountry.selectedColor
             uiControl.enableNextButton()
             if(selectedCountry === maldivesCube){
@@ -187,13 +202,17 @@ function onCountryTouch(event){
         const closestIntersect = intersects[0].object
         if(closestIntersect !== selectedCountry){
             if(selectedCountry){
-                selectedCountry.position.y = 0
+                // selectedCountry.position.y = 0
+                setMeshAnimProperties(selectedCountry,0.25,0)
+
                 selectedCountry.regionMaterial.color = selectedCountry.standardColor
                 selectedCountry = null
             }
             selectedCountry = closestIntersect
-            selectedCountry.position.y = 0.25
+            // selectedCountry.position.y = 0.25
+            setMeshAnimProperties(selectedCountry,0,0.25)
             selectedCountry.regionMaterial.color = selectedCountry.selectedColor
+            uiControl.enableNextButton()
             if(selectedCountry === maldivesCube){
                 uiControl.enableConfirmation(0)
                 uiControl.setCountryName('Maldives')
@@ -204,6 +223,8 @@ function onCountryTouch(event){
         }
     }
 }
+
+
 
 //
 //      end of Country selection scene
@@ -284,6 +305,7 @@ export function resetMaldivesSelection(){
     currentSelectionScene = 'maldives'
     for (let i = 0; i < maldivesRegionBoxes.length; i++) {
        const element = maldivesRegionBoxes[i];
+       setMeshAnimProperties(element,0,0)
        element.position.y = 0
     }
 
@@ -296,6 +318,7 @@ export function resetMaldivesSelection(){
 
     hoveringMaldivesRegion = null
     selectedMaldivesRegion = null
+    
 }
 
 var hoveringMaldivesRegion
@@ -310,13 +333,15 @@ export function raycastMaldivesRegions(){
         if(closestIntersect !== selectedMaldivesRegion){
             if(closestIntersect !== hoveringMaldivesRegion){
                 if(hoveringMaldivesRegion){
-                    hoveringMaldivesRegion.regionPosition.y = 0
+                    // hoveringMaldivesRegion.regionPosition.y = 0
+                    setMeshAnimProperties(hoveringMaldivesRegion,0.2,0)
                     hoveringMaldivesRegion.regionMaterial.color = hoveringMaldivesRegion.standardColor
                 }
 
                 hoveringMaldivesRegion = closestIntersect
                 hoveringMaldivesRegion.regionMaterial.color = hoveringMaldivesRegion.hoveringColor
-                hoveringMaldivesRegion.regionPosition.y = 0.2
+                // hoveringMaldivesRegion.regionPosition.y = 0.2
+                setMeshAnimProperties(hoveringMaldivesRegion,0,0.2)
                 uiControl.setRegionName(hoveringMaldivesRegion.name)
                 uiControl.hideRegionAnswerContainer(false)
             }
@@ -324,7 +349,8 @@ export function raycastMaldivesRegions(){
     }
     else{
         if(hoveringMaldivesRegion){
-            hoveringMaldivesRegion.regionPosition.y = 0
+            // hoveringMaldivesRegion.regionPosition.y = 0
+            setMeshAnimProperties(hoveringMaldivesRegion,0.2,0)
             hoveringMaldivesRegion.regionMaterial.color = hoveringMaldivesRegion.standardColor
             hoveringMaldivesRegion = null
             // uiControl.setRegionName('')
@@ -343,13 +369,15 @@ function onMaldivesRegionClick(){
     if(hoveringMaldivesRegion){
         if(hoveringMaldivesRegion !== selectedMaldivesRegion){
             if(selectedMaldivesRegion){
-                selectedMaldivesRegion.regionPosition.y = 0
+                // selectedMaldivesRegion.regionPosition.y = 0
+                setMeshAnimProperties(selectedMaldivesRegion,0.3,0)
                 selectedMaldivesRegion.regionMaterial.color = selectedMaldivesRegion.standardColor
                 selectedMaldivesRegion = null
             }
             selectedMaldivesRegion = hoveringMaldivesRegion
             hoveringMaldivesRegion = null
-            selectedMaldivesRegion.regionPosition.y = 0.3
+            // selectedMaldivesRegion.regionPosition.y = 0.3
+            setMeshAnimProperties(selectedMaldivesRegion,0.2,0.3)
             selectedMaldivesRegion.regionMaterial.color = selectedMaldivesRegion.selectedColor
             const regionIndex = maldivesRegionBoxes.indexOf(selectedMaldivesRegion)
             // console.log(regionIndex);
@@ -377,12 +405,15 @@ function onMaldivesRegionTouch(event){
         const closestIntersect = intersects[0].object
         if(closestIntersect !== selectedMaldivesRegion){
             if(selectedMaldivesRegion){
-                selectedMaldivesRegion.regionPosition.y = 0
+                // selectedMaldivesRegion.regionPosition.y = 0
+                setMeshAnimProperties(selectedMaldivesRegion,0.3,0)
+
                 selectedMaldivesRegion.regionMaterial.color = selectedMaldivesRegion.standardColor
                 selectedMaldivesRegion = null
             }
             selectedMaldivesRegion = closestIntersect
-            selectedMaldivesRegion.regionPosition.y = 0.3
+            // selectedMaldivesRegion.regionPosition.y = 0.3
+            setMeshAnimProperties(selectedMaldivesRegion,0,0.3)
             selectedMaldivesRegion.regionMaterial.color = selectedMaldivesRegion.selectedColor
             const regionIndex = maldivesRegionBoxes.indexOf(selectedMaldivesRegion)
             uiControl.enableConfirmation(regionIndex)
@@ -391,6 +422,8 @@ function onMaldivesRegionTouch(event){
         }
     }
 }
+
+
 
 
 //
@@ -433,6 +466,7 @@ export function resetSriLankaSelection(){
     currentSelectionScene = 'srilanka'
     for (let i = 0; i < sriLankaRegions.length; i++) {
         const element = sriLankaRegions[i];
+        setMeshAnimProperties(element,0,0)
         element.position.y = 0
     }
 
@@ -460,12 +494,14 @@ export function raycastSriLankaRegions(){
         if(closestIntersect !== selectedSriLankaRegion){
             if(closestIntersect !== hoveringSriLankaRegion){
                 if(hoveringSriLankaRegion){
-                    hoveringSriLankaRegion.position.y = 0
+                    // hoveringSriLankaRegion.position.y = 0
+                    setMeshAnimProperties(hoveringSriLankaRegion,0.15,0)
                     hoveringSriLankaRegion.material = hoveringSriLankaRegion.standardMaterial
                 }
                 hoveringSriLankaRegion = closestIntersect
                 hoveringSriLankaRegion.material = hoveringSriLankaRegion.hoveringMaterial
-                hoveringSriLankaRegion.position.y = 0.1
+                // hoveringSriLankaRegion.position.y = 0.1
+                setMeshAnimProperties(hoveringSriLankaRegion,0,0.15)
                 uiControl.setRegionName(hoveringSriLankaRegion.name)
                 uiControl.hideRegionAnswerContainer(false)
             }
@@ -473,7 +509,8 @@ export function raycastSriLankaRegions(){
     }
     else{
         if(hoveringSriLankaRegion){
-            hoveringSriLankaRegion.position.y = 0
+            // hoveringSriLankaRegion.position.y = 0
+            setMeshAnimProperties(hoveringSriLankaRegion,0.15,0)
             hoveringSriLankaRegion.material = hoveringSriLankaRegion.standardMaterial
             hoveringSriLankaRegion = null
             uiControl.hideRegionAnswerContainer(true)
@@ -492,13 +529,15 @@ function onSriLankaRegionClick(){
     if(hoveringSriLankaRegion){
         if(hoveringSriLankaRegion !== selectedSriLankaRegion){
             if(selectedSriLankaRegion){
-                selectedSriLankaRegion.position.y = 0
+                // selectedSriLankaRegion.position.y = 0
+                setMeshAnimProperties(selectedSriLankaRegion,0.25,0)
                 selectedSriLankaRegion.material = selectedSriLankaRegion.standardMaterial
                 selectedSriLankaRegion = null
             }
             selectedSriLankaRegion = hoveringSriLankaRegion
             hoveringSriLankaRegion = null
-            selectedSriLankaRegion.position.y = 0.2
+            // selectedSriLankaRegion.position.y = 0.2
+            setMeshAnimProperties(selectedSriLankaRegion,0.15,0.25)
             selectedSriLankaRegion.material = selectedSriLankaRegion.selectedMaterial
             const regionIndex = sriLankaRegions.indexOf(selectedSriLankaRegion)
             uiControl.enableConfirmation(regionIndex)
@@ -525,12 +564,14 @@ function onSriLankaRegionTouch(event){
         const closestIntersect = intersects[0].object
         if(closestIntersect !== selectedSriLankaRegion){
             if(selectedSriLankaRegion){
-                selectedSriLankaRegion.position.y = 0
+                // selectedSriLankaRegion.position.y = 0
+                setMeshAnimProperties(selectedSriLankaRegion,0.25,0)
                 selectedSriLankaRegion.material = selectedSriLankaRegion.standardMaterial
                 selectedSriLankaRegion = null
             }
             selectedSriLankaRegion = closestIntersect
-            selectedSriLankaRegion.position.y = 0.2
+            // selectedSriLankaRegion.position.y = 0.2
+            setMeshAnimProperties(selectedSriLankaRegion,0,0.25)
             selectedSriLankaRegion.material = selectedSriLankaRegion.selectedMaterial
             const regionIndex = sriLankaRegions.indexOf(selectedSriLankaRegion)
             // console.log(regionIndex);
@@ -546,7 +587,7 @@ function onSriLankaRegionTouch(event){
 
 //      Animation loop
 //
-const maxLerpDuration = 2
+const maxLerpDuration = 0.1
 
 const clock = new THREE.Clock()
 let previousTime = 0
@@ -556,21 +597,58 @@ const tick = () =>
     const deltatime = elapsedTime - previousTime //delta time can be retrieved from here
     previousTime = elapsedTime
     
-    
+    animateMeshPosition(sriLankaCube,deltatime,maxLerpDuration)
+    animateMeshPosition(maldivesCube,deltatime,maxLerpDuration)
+
+    for (let i = 0; i < maldivesRegionBoxes.length; i++) {
+        const region = maldivesRegionBoxes[i];
+        animateMeshRegionPosition(region,deltatime,maxLerpDuration)
+    }
+
+    if(sriLankaRegions.length !== 0){
+        for (let i = 0; i < sriLankaRegions.length; i++) {
+            const region = sriLankaRegions[i];
+            animateMeshPosition(region,deltatime,maxLerpDuration)
+        }
+    }
+
 
     //Implement loop here
 
     window.requestAnimationFrame(tick)
 }
 
+tick()
 
-function animateMesh(mesh, deltaTime, duration){
-    if(mesh.timeElapsed && mesh.startValue && mesh.endValue){
+function setMeshAnimProperties(mesh,startValue,endValue){
+    mesh.startValue = startValue
+    mesh.endValue = endValue
+    mesh.timeElapsed = 0
+}
+
+//For animating Country and Sri Lankan regions meshes
+function animateMeshPosition(mesh, deltaTime, duration){
+    // console.log(mesh.timeElapsed);
+    if('timeElapsed' in mesh && 'startValue' in mesh && 'endValue' in mesh){
+        // console.log('animating');
         if(mesh.timeElapsed < duration){
             mesh.position.y = THREE.MathUtils.lerp(mesh.startValue,mesh.endValue,mesh.timeElapsed/duration)
             mesh.timeElapsed+= deltaTime
         }else{
             mesh.position.y = mesh.endValue
+        }
+    }
+}
+
+//For animating Maldives regions meshes
+function animateMeshRegionPosition(mesh, deltaTime, duration){
+    if('timeElapsed' in mesh && 'startValue' in mesh && 'endValue' in mesh){
+        // console.log('animating');
+        if(mesh.timeElapsed < duration){
+            mesh.regionPosition.y = THREE.MathUtils.lerp(mesh.startValue,mesh.endValue,mesh.timeElapsed/duration)
+            mesh.timeElapsed+= deltaTime
+        }else{
+            mesh.regionPosition.y = mesh.endValue
         }
     }
 }

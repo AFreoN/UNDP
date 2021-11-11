@@ -458,6 +458,8 @@ var selectedMcqAnswer = null;
 const defaultBackground = "linear-gradient(to top , #5f27fc, #e827fc )";
 const sliderSceneBackground = "linear-gradient(to bottom, #bb56ff 0%,#ed81f9 35%)";
 
+
+
 // Gender selector set up
 
 let genderScrollContainer = document.getElementById('scroll-container-gender')
@@ -692,7 +694,52 @@ function setageNearestStyle(nearestageItem){
     }
 }
 
+//Scroll wheel drag control 
+let pos = {
+    top: 0,
+    left:0,
+    x:0,
+    y:0
+}
 
+let elementToScroll = null
+
+function mouseDownHandler(e){
+    e.preventDefault ? e.preventDefault() : e.returnValue = false 
+    e.target.style.cursor = 'grabbing';
+    elementToScroll = e.target
+    pos = {
+        // The current scroll
+        left: e.target.scrollLeft,
+        top: e.target.scrollTop,
+        // Get the current mouse position
+        x: e.clientX,
+        y: e.clientY,
+    };
+    document.addEventListener('mousemove', mouseMoveHandler);
+    document.addEventListener('mouseup', mouseUpHandler);
+}
+
+ function mouseMoveHandler (e) {
+    // How far the mouse has been moved
+    const dx = e.clientX - pos.x;
+    const dy = e.clientY - pos.y;
+
+    // Scroll the element
+    elementToScroll.scrollTop = pos.top - dy;
+    elementToScroll.scrollLeft = pos.left - dx;
+};
+
+function mouseUpHandler(e){
+    document.removeEventListener('mousemove', mouseMoveHandler);
+    document.removeEventListener('mouseup', mouseUpHandler);
+
+    elementToScroll.style.cursor = 'grab';
+    elementToScroll.style.removeProperty('user-select');
+}
+
+genderScrollContainer.addEventListener('mousedown',mouseDownHandler)
+ageScrollContainer.addEventListener('mousedown',mouseDownHandler)
 
 //Changes UI in respect to question type, sets the question text, and answers
 export function updateUI(questionType, questionText, answers){
