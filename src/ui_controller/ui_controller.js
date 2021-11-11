@@ -339,10 +339,10 @@ let allTexts = {
         dv : 'Part 1 of 4'
     },
     otherRegionText : {
-        en : 'Other regions',
+        en : 'Other',
         si : 'වෙනත් කලාප',
         ta : 'பிற பகுதி',
-        dv : 'Other regions'
+        dv : 'Other'
     },
     submitButtonText : {
         en : 'Submit',
@@ -423,6 +423,34 @@ export function setCountryName(name){
 
 export function setRegionName(name){
     regionAnswerContainer.innerText = name
+    regionAnswerContainer.style.animation = ''
+    regionAnswerContainer.offsetHeight
+    regionAnswerContainer.style.animation = 'fadein 0.4s linear forwards'
+
+    // if(name === ''){
+        
+    //     regionAnswerContainer.addEventListener('animationend',onAnimationEnd)
+    //     regionAnswerContainer.addEventListener('animationcancel',onAnimationEnd)
+
+    // }
+}
+
+// regionAnswerContainer.addEventListener('animationend',onAnimationEnd)
+// regionAnswerContainer.addEventListener('animationcancel',onAnimationEnd)
+
+// function onAnimationEnd(){
+//     regionAnswerContainer.style.animation = ''
+//     regionAnswerContainer.style.animation = 'fadeout 0.4s linear'
+// }
+
+
+export function hideRegionAnswerContainer(bool){
+    if(bool){
+        regionAnswerContainer.style.animation = ''
+        regionAnswerContainer.offsetHeight
+        regionAnswerContainer.style.animation = 'fadeout 0.4s linear forwards'
+    }
+
 }
 
 var selectedMcqAnswer = null;
@@ -683,7 +711,7 @@ export function updateUI(questionType, questionText, answers){
             aboutAnswerContainer.style.display = 'none'
             joystickAnswerContainer.style.display = 'none'
             submitContainer.style.display = 'none'
-            countryAnswerContainer.style.display = ''
+            countryAnswerContainer.style.display = 'none'
             regionAnswerContainer.style.display = 'none'
             joystickTutorialContainer.style.display = 'none'
             joystickSlider.style.display = 'none'

@@ -64,9 +64,9 @@ maldivesCube.material.visible = false
 // console.log(maldivesCube.children[0]);
 // maldivesCube.children[0].castShadow = true
 
-export const sriLankaCube = new THREE.Mesh(new THREE.BoxGeometry(0.9,0.1,1.5), new THREE.MeshLambertMaterial({color: 0x2b2bee,wireframe:true}))
+export const sriLankaCube = new THREE.Mesh(new THREE.BoxGeometry(1.4,0.1,2.3), new THREE.MeshLambertMaterial({color: 0x2b2bee,wireframe:true}))
 countryScene.add(sriLankaCube)
-sriLankaCube.position.set(1,0,0)
+sriLankaCube.position.set(1.25,0,0)
 sriLankaCube.material.visible = false
 // sriLankaCube.children[0].castShadow = true
 
@@ -318,7 +318,7 @@ export function raycastMaldivesRegions(){
                 hoveringMaldivesRegion.regionMaterial.color = hoveringMaldivesRegion.hoveringColor
                 hoveringMaldivesRegion.regionPosition.y = 0.2
                 uiControl.setRegionName(hoveringMaldivesRegion.name)
-
+                uiControl.hideRegionAnswerContainer(false)
             }
         }
     }
@@ -327,10 +327,12 @@ export function raycastMaldivesRegions(){
             hoveringMaldivesRegion.regionPosition.y = 0
             hoveringMaldivesRegion.regionMaterial.color = hoveringMaldivesRegion.standardColor
             hoveringMaldivesRegion = null
-            uiControl.setRegionName('')
+            // uiControl.setRegionName('')
+            uiControl.hideRegionAnswerContainer(true)
         }
         if(selectedMaldivesRegion){
             uiControl.setRegionName(selectedMaldivesRegion.name)
+            uiControl.hideRegionAnswerContainer(false)
         }
     }
 }
@@ -353,6 +355,7 @@ function onMaldivesRegionClick(){
             // console.log(regionIndex);
             uiControl.enableConfirmation(regionIndex)
             uiControl.setRegionName(selectedMaldivesRegion.name)
+            uiControl.hideRegionAnswerContainer(false)
         }
     }
 }
@@ -384,6 +387,7 @@ function onMaldivesRegionTouch(event){
             const regionIndex = maldivesRegionBoxes.indexOf(selectedMaldivesRegion)
             uiControl.enableConfirmation(regionIndex)
             uiControl.setRegionName(selectedMaldivesRegion.name)
+            uiControl.hideRegionAnswerContainer(false)
         }
     }
 }
@@ -463,7 +467,7 @@ export function raycastSriLankaRegions(){
                 hoveringSriLankaRegion.material = hoveringSriLankaRegion.hoveringMaterial
                 hoveringSriLankaRegion.position.y = 0.1
                 uiControl.setRegionName(hoveringSriLankaRegion.name)
-
+                uiControl.hideRegionAnswerContainer(false)
             }
         }
     }
@@ -472,10 +476,12 @@ export function raycastSriLankaRegions(){
             hoveringSriLankaRegion.position.y = 0
             hoveringSriLankaRegion.material = hoveringSriLankaRegion.standardMaterial
             hoveringSriLankaRegion = null
-            uiControl.setRegionName('')
+            uiControl.hideRegionAnswerContainer(true)
+            // uiControl.setRegionName('')
         }
         if(selectedSriLankaRegion){
             uiControl.setRegionName(selectedSriLankaRegion.name)
+            uiControl.hideRegionAnswerContainer(false)
         }
     }
 }
@@ -497,6 +503,7 @@ function onSriLankaRegionClick(){
             const regionIndex = sriLankaRegions.indexOf(selectedSriLankaRegion)
             uiControl.enableConfirmation(regionIndex)
             uiControl.setRegionName(selectedSriLankaRegion.name)
+            uiControl.hideRegionAnswerContainer(false)
         }
     }
 }
@@ -529,12 +536,48 @@ function onSriLankaRegionTouch(event){
             // console.log(regionIndex);
             uiControl.enableConfirmation(regionIndex)
             uiControl.setRegionName(selectedSriLankaRegion.name)
+            uiControl.hideRegionAnswerContainer(false)
         }
     }
 }
 
 //
 //      end of Sri Lanka region selection scene
+
+//      Animation loop
+//
+const maxLerpDuration = 2
+
+const clock = new THREE.Clock()
+let previousTime = 0
+const tick = () =>
+{
+    const elapsedTime = clock.getElapsedTime()
+    const deltatime = elapsedTime - previousTime //delta time can be retrieved from here
+    previousTime = elapsedTime
+    
+    
+
+    //Implement loop here
+
+    window.requestAnimationFrame(tick)
+}
+
+
+function animateMesh(mesh, deltaTime, duration){
+    if(mesh.timeElapsed && mesh.startValue && mesh.endValue){
+        if(mesh.timeElapsed < duration){
+            mesh.position.y = THREE.MathUtils.lerp(mesh.startValue,mesh.endValue,mesh.timeElapsed/duration)
+            mesh.timeElapsed+= deltaTime
+        }else{
+            mesh.position.y = mesh.endValue
+        }
+    }
+}
+
+//
+//      End of animation loop
+
 
 
 //      About scene
