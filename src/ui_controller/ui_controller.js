@@ -291,9 +291,14 @@ let countrySkipContainer = document.getElementById('country-skip-container')
 let submitContainer = document.getElementById('submit-container') 
 
 
-export const joystickSlider = document.getElementById('myRange');
+export const joystickSlider = document.getElementById('sliderRange');
 export var joystickSlideValue = 0;
+
 joystickSlider.oninput = function(){
+    SetSliderFillerAndAnswer();
+}
+
+export function SetSliderFillerAndAnswer(){
     joystickSlideValue = joystickSlider.value;
     SetFiller(joystickSlideValue)
     enableConfirmation(parseInt(joystickSlideValue))

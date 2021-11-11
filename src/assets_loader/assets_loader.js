@@ -14,6 +14,7 @@ import { shaderMaterial, shaderUnlit } from '../fresnel'
 let models = {
     playerCharacter:null,
     centerCharacter:null,
+    Father:null,
     centerEmoji:null,
     sriLankaMap:null,
     maldivesMap:null,
@@ -155,7 +156,7 @@ tex.magFilter = THREE.NearestFilter;
 
 //Importing player character
 gltfloader.load(
-    'Models/Animation_V04.gltf',       //'Models/toonwalk_character.gltf'
+    'Models/Animation_V05.gltf',       //'Models/toonwalk_character.gltf'
     (gltf) =>
     {
         animations['playerCharacter'] = gltf.animations
@@ -187,7 +188,7 @@ gltfloader.load(
 )  
 
 gltfloader.load(
-    'Models/Animation_V04.gltf',
+    'Models/Animation_V05.gltf',
     (gltf) =>
     {
         animations['centerCharacter'] = gltf.animations
