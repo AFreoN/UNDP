@@ -1,6 +1,6 @@
 import * as THREE from 'three'
-import { Vector3 } from 'three';
-import { joystickSlider,joystickSlideValue, resetJoystickSlider, sliderHolder } from '../ui_controller/ui_controller';
+import { MathUtils, Vector3 } from 'three';
+import { joystickSlider,joystickSlideValue, SetSliderFillerAndAnswer, resetJoystickSlider, sliderHolder } from '../ui_controller/ui_controller';
 import {updateNameIndicator, EnableCharacterText} from '../questions/questions'
 import { joystickScene ,ring1, ring2} from '../questions/scenes'
 //Character control
@@ -10,14 +10,35 @@ import { joystickScene ,ring1, ring2} from '../questions/scenes'
 //can enable/disable player control using canControlPlayer
 let canControlPlayer = false;
 let canControlOtherPlayer = false;
-const controlDelay = 0.3;
-var onInputDelay = false;
-var targetTime = 0;
+const controlDelay = 0.3;   //Input delay for other character (in seconds)
+var onInputDelay = false;   //Boolean to control whether other character move or not based on input delay
+var targetTime = 0;         //If clock hits this time, other character will start to move
 
-const ringYPos = -0.59;
-const ringClearance = 0.001;
+const ringYPos = -0.59;     //Y position of the player ring indicator
+const ringClearance = 0.001;    // this + player_ring_y_position = Y position of other character ring
+
+var isSliderOnboarded = false;  //Boolean to check whether onboarded previously or not
+var isOnboarding = false;       //If this is true, slider will move automatically to indicate the user that it's moveable
+var onBoardDuration = 0.8;  //Duration of whole slider onboarding
+var onboardTimer = 0;       //Local timer
+var onboardDirection = 0;   // 0 -> Right, 1 -> from right to left, 2 -> from left to middle
+var maxOnboardValue = 30;   //Max value of slider to move
+
+//#region New Style created here for showing slider outline while giving input
+let s = document.createElement("style");
+document.head.appendChild(s);
+const thumbWhite = '.slider::-webkit-slider-thumb{ outline-color: rgba(255, 255, 255, 1)}';
+const thumbTransparent = '.slider::-webkit-slider-thumb{ outline-color: rgba(255, 255, 255, 0)}';
+s.textContent = thumbTransparent;
+//#endregion
 
 export function enablePlayerControl(){
+    if(isSliderOnboarded == false){
+        isOnboarding = true;
+        isSliderOnboarded = true;
+        s.textContent = thumbWhite;
+    }
+
     canControlPlayer = true;
 
     var xPos = -startX + stepValue * (joystickSlideValue + 50);
@@ -49,11 +70,16 @@ sliderHolder.addEventListener('input', function(){      //Called while giving in
         targetTime = clock.getElapsedTime();
         canControlOtherPlayer = false;
         onInputDelay = true;
+        s.textContent = thumbWhite;
+        
+        isOnboarding = false;
+        isSliderOnboarded = true;
     }
 });
 
 const onSliderInputEnd = function(){    //On Input end on the slider
     canControlOtherPlayer = false;
+    s.textContent = thumbTransparent;
 }
 
 const startX = 0.4;   //Starting x position of the character eg. 1 for character 1 and -1 for character 2     //prev 1
@@ -308,28 +334,10 @@ const minRingJoinDistance = 0.05;
 var finalScale;
 
 function Movecharacter(){
+
     //#region  For setting player position
-    idle = true;
-    otherIdle = true;
-
-    var xPos = -startX + stepValue * (joystickSlideValue + 50);
-    curPlayerPosition.lerp(new Vector3(xPos, PlayerYPos, 0), lerpSpeed);
-
-    if(player.position.x != curPlayerPosition.x){
-        //console.log("Player position is = ", player.position.x);
-    }
-
-    player.position.set(curPlayerPosition.x, curPlayerPosition.y, curPlayerPosition.z);
-
-    let minDis = 0.005;
-
-    var abs = Math.abs(xPos - player.position.x);
-    if((abs) < minDis){
-        idle = true;
-    }
-    else{
-        idle = false;
-    }
+    if(isOnboarding == false)
+        movePlayer();
     //#endregion
 
     //#region For setting other character position
@@ -350,7 +358,8 @@ function Movecharacter(){
     updateNameIndicator(otherCharacter);
     EnableCharacterText();
 
-    abs = Math.abs(otherXpos - otherCharacter.position.x);
+    let minDis = 0.005;
+    var abs = Math.abs(otherXpos - otherCharacter.position.x);
     if((abs) < minDis){
         otherIdle = true;
     }
@@ -360,14 +369,8 @@ function Movecharacter(){
 //#endregion
 
     //#region For setting camera position
-    var curZoomDis = joystickSlideValue / 50 * cameraZoomDis;
-    camera.getWorldDirection(curCameraPosition);
-    curCameraPosition.normalize();
-
-    curCameraPosition.multiplyScalar(curZoomDis);
-
-    curCameraPosition.add(cameraPos);
-    camera.position.lerp(curCameraPosition, lerpSpeed * 0.3);
+    if(isOnboarding == false)
+        moveCamera();
     //#endregion
 
     //#region For setting up ring position
@@ -416,6 +419,41 @@ function Movecharacter(){
         }
     }
     //#endregion
+}
+
+const movePlayer = function(){
+    idle = true;
+    otherIdle = true;
+
+    var xPos = -startX + stepValue * (joystickSlideValue + 50);
+    curPlayerPosition.lerp(new Vector3(xPos, PlayerYPos, 0), lerpSpeed);
+
+    if(player.position.x != curPlayerPosition.x){
+        //console.log("Player position is = ", player.position.x);
+    }
+
+    player.position.set(curPlayerPosition.x, curPlayerPosition.y, curPlayerPosition.z);
+
+    let minDis = 0.005;
+
+    var abs = Math.abs(xPos - player.position.x);
+    if((abs) < minDis){
+        idle = true;
+    }
+    else{
+        idle = false;
+    }
+}
+
+const moveCamera = function(){
+    var curZoomDis = joystickSlideValue / 50 * cameraZoomDis;
+    camera.getWorldDirection(curCameraPosition);
+    curCameraPosition.normalize();
+
+    curCameraPosition.multiplyScalar(curZoomDis);
+
+    curCameraPosition.add(cameraPos);
+    camera.position.lerp(curCameraPosition, lerpSpeed * 0.3);
 }
 
 //#region JoystickControls
@@ -958,6 +996,36 @@ const tick = () =>
         otherMixer.update(deltatime)
         animateOtherPlayerTHREE()
     }
+
+    if(isOnboarding){
+        const Lspeed = 0.5;
+        if(onboardDirection == 0){
+            onboardTimer += deltatime * maxOnboardValue / (onBoardDuration / 2);
+            joystickSlider.value =  MathUtils.lerp(joystickSlider.value, onboardTimer, Lspeed);
+            SetSliderFillerAndAnswer();
+            if(onboardTimer >= maxOnboardValue){
+                onboardDirection = 1;
+            }
+        }
+        else if(onboardDirection == 1){
+            onboardTimer -= deltatime * maxOnboardValue / (onBoardDuration / 4);
+            joystickSlider.value =  MathUtils.lerp(joystickSlider.value, onboardTimer, Lspeed);
+            SetSliderFillerAndAnswer();
+            if(onboardTimer <= -maxOnboardValue){
+                onboardDirection = 2;
+            }
+        }
+        else if(onboardDirection == 2){
+            onboardTimer += deltatime * maxOnboardValue / (onBoardDuration / 2);
+            joystickSlider.value =  MathUtils.lerp(joystickSlider.value, onboardTimer, Lspeed);
+            SetSliderFillerAndAnswer();
+            if(onboardTimer >= 0){
+                isOnboarding = false;
+                s.textContent = thumbTransparent;
+            }
+        }
+    }
+
     //Implement loop here
     window.requestAnimationFrame(tick)
 }

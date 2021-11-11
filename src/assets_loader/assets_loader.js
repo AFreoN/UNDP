@@ -14,6 +14,7 @@ import { shaderMaterial, shaderUnlit } from '../fresnel'
 let models = {
     playerCharacter:null,
     centerCharacter:null,
+    Father:null,
     centerEmoji:null,
     sriLankaMap:null,
     maldivesMap:null,

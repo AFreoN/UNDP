@@ -533,9 +533,8 @@ canvas.webgl{
     z-index: 3;
 
     outline: solid;
-    outline-color: white;
+    outline-color: rgba(255, 255, 255, 1);
     outline-width: 5px;
-    
   }
   
   .slider::-moz-range-thumb {
