@@ -422,10 +422,12 @@ export function setCountryName(name){
 }
 
 export function setRegionName(name){
-    regionAnswerContainer.innerText = name
-    regionAnswerContainer.style.animation = ''
-    regionAnswerContainer.offsetHeight
-    regionAnswerContainer.style.animation = 'fadein 0.4s linear forwards'
+
+    if(regionAnswerContainer.innerText !== name){
+        showRegionAnswerContainer()
+        regionAnswerContainer.innerText = name
+    }
+    
 
     // if(name === ''){
         
@@ -444,13 +446,16 @@ export function setRegionName(name){
 // }
 
 
-export function hideRegionAnswerContainer(bool){
-    if(bool){
-        regionAnswerContainer.style.animation = ''
-        regionAnswerContainer.offsetHeight
-        regionAnswerContainer.style.animation = 'fadeout 0.4s linear forwards'
-    }
+export function hideRegionAnswerContainer(){    
+    regionAnswerContainer.style.animation = ''
+    regionAnswerContainer.offsetHeight
+    regionAnswerContainer.style.animation = 'fadeout 0.2s linear forwards'
+}
 
+export function showRegionAnswerContainer(){
+    regionAnswerContainer.style.animation = ''
+    regionAnswerContainer.offsetHeight
+    regionAnswerContainer.style.animation = 'fadein 0.2s linear forwards'
 }
 
 var selectedMcqAnswer = null;
@@ -503,6 +508,7 @@ let genderSelectedItem = genderItems[genderCurrentItemIndex]
 genderScrollContainer.scrollTop = 0
 setGenderSelectedStyle(genderSelectedItem)
 setGenderNearestStyle(genderItems[genderCurrentItemIndex + 1])
+setGenderFarthestStyle(genderItems[genderCurrentItemIndex + 2])
 
 
 var genderSelectionTimeout = null;
@@ -522,20 +528,31 @@ function onScrollGender(){
     }
     setGenderSelectedStyle(genderSelectedItem)
 
-    if(genderCurrentItemIndex === 0){
+    if(genderCurrentItemIndex < (genderItems.length - 2)){
         setGenderNearestStyle(genderItems[genderCurrentItemIndex + 1])
-        genderSelectorHeader.classList.remove('hidden')
+        setGenderFarthestStyle(genderItems[genderCurrentItemIndex + 2])
+    }else if (genderCurrentItemIndex === (genderItems.length - 2)){
+        setGenderNearestStyle(genderItems[genderCurrentItemIndex + 1])
     }
-    else if(genderCurrentItemIndex === (genderItems.length - 1) ){
-        setGenderNearestStyle(genderItems[genderCurrentItemIndex - 1])
-        genderSelectorHeader.classList.add('hidden')
+    // else if (genderCurrentItemIndex === (genderItems.length - 1)){
 
-    }
-    else{
-        setGenderNearestStyle(genderItems[genderCurrentItemIndex + 1])
-        setGenderNearestStyle(genderItems[genderCurrentItemIndex - 1])
-        genderSelectorHeader.classList.add('hidden')
-    }
+    // }
+
+    // if(genderCurrentItemIndex === 0){
+    //     setGenderNearestStyle(genderItems[1])
+    //     setGenderNearestStyle(genderItems[2])
+    //     // genderSelectorHeader.classList.remove('hidden')
+    // }
+    // else if(genderCurrentItemIndex === (genderItems.length - 1) ){
+    //     setGenderNearestStyle(genderItems[genderCurrentItemIndex - 1])
+    //     // genderSelectorHeader.classList.add('hidden')
+
+    // }
+    // else{
+    //     setGenderNearestStyle(genderItems[genderCurrentItemIndex + 1])
+    //     setGenderNearestStyle(genderItems[genderCurrentItemIndex - 1])
+    //     // genderSelectorHeader.classList.add('hidden')
+    // }
 
 
     if(genderSelectionTimeout !== null) {
@@ -556,15 +573,15 @@ genderScrollContainer.addEventListener('scroll',onScrollGender)
 function resetGenderItemStyle(genderItem){
     if(genderItem){
         const itemClassList = genderItem.classList
-        itemClassList.remove('selected','nearest')
-        itemClassList.add('farthest')
+        itemClassList.remove('selected','nearest','farthest')
+        itemClassList.add('hidden')
     }
 }
 
 function setGenderSelectedStyle(selectedGenderItem){
     if(selectedGenderItem){
         const itemClassList = selectedGenderItem.classList
-        itemClassList.remove('nearest','farthest')
+        itemClassList.remove('nearest','farthest','hidden')
         itemClassList.add('selected')
     }
 }
@@ -572,11 +589,18 @@ function setGenderSelectedStyle(selectedGenderItem){
 function setGenderNearestStyle(nearestGenderItem){
     if(nearestGenderItem){
         const itemClassList = nearestGenderItem.classList
-        itemClassList.remove('selected','farthest')
+        itemClassList.remove('selected','farthest','hidden')
         itemClassList.add('nearest')
     }
 }
 
+function setGenderFarthestStyle(farthestGenderItem){
+    if(farthestGenderItem){
+        const itemClassList = farthestGenderItem.classList
+        itemClassList.remove('selected','nearest','hidden')
+        itemClassList.add('farthest')
+    }
+}
 
 // Age selector setup
 let ageScrollContainer = document.getElementById('scroll-container-age')
@@ -597,7 +621,7 @@ let ageMiddleChildrenMargin = ((ageScrollContainer.offsetHeight/2) - ageFirstChi
 for (let i = 0; i < ageItems.length; i++) {
     const item = ageItems[i];
     item.style.marginTop = ageMiddleChildrenMargin + "px"
-    resetageItemStyle(item)
+    resetAgeItemStyle(item)
 }
 
 let ageEndChildrenMargin = (ageScrollContainer.clientHeight/2) - (ageFirstChildItem.offsetHeight/2)
@@ -619,9 +643,9 @@ const ageItemOffset = ageMiddleChildrenMargin + ageFirstChildItem.offsetHeight
 let ageCurrentItemIndex = 0
 let ageSelectedItem = ageItems[ageCurrentItemIndex]
 ageScrollContainer.scrollTop = 0
-setageSelectedStyle(ageSelectedItem)
-setageNearestStyle(ageItems[ageCurrentItemIndex + 1])
-
+setAgeSelectedStyle(ageSelectedItem)
+setAgeNearestStyle(ageItems[ageCurrentItemIndex + 1])
+setAgeFarthestStyle(ageItems[ageCurrentItemIndex + 2])
 
 var ageSelectionTimeout = null;
 function onScrollAge(){
@@ -636,23 +660,31 @@ function onScrollAge(){
 
     for (let i = 0; i < ageItems.length; i++) {
         const item = ageItems[i];
-        resetageItemStyle(item)
+        resetAgeItemStyle(item)
     }
-    setageSelectedStyle(ageSelectedItem)
+    setAgeSelectedStyle(ageSelectedItem)
 
-    if(ageCurrentItemIndex === 0){
-        setageNearestStyle(ageItems[ageCurrentItemIndex + 1])
-        ageSelectorHeader.classList.remove('hidden')
+    if(ageCurrentItemIndex < (ageItems.length - 2)){
+        setAgeNearestStyle(ageItems[ageCurrentItemIndex + 1])
+        setAgeFarthestStyle(ageItems[ageCurrentItemIndex + 2])
+    }else if (ageCurrentItemIndex === (ageItems.length - 2)){
+        setAgeNearestStyle(ageItems[ageCurrentItemIndex + 1])
     }
-    else if(ageCurrentItemIndex === (ageItems.length - 1) ){
-        setageNearestStyle(ageItems[ageCurrentItemIndex - 1])
-        ageSelectorHeader.classList.add('hidden')
-    }
-    else{
-        setageNearestStyle(ageItems[ageCurrentItemIndex + 1])
-        setageNearestStyle(ageItems[ageCurrentItemIndex - 1])
-        ageSelectorHeader.classList.add('hidden')
-    }
+
+
+    // if(ageCurrentItemIndex === 0){
+    //     setAgeNearestStyle(ageItems[ageCurrentItemIndex + 1])
+    //     ageSelectorHeader.classList.remove('hidden')
+    // }
+    // else if(ageCurrentItemIndex === (ageItems.length - 1) ){
+    //     setAgeNearestStyle(ageItems[ageCurrentItemIndex - 1])
+    //     ageSelectorHeader.classList.add('hidden')
+    // }
+    // else{
+    //     setAgeNearestStyle(ageItems[ageCurrentItemIndex + 1])
+    //     setAgeNearestStyle(ageItems[ageCurrentItemIndex - 1])
+    //     ageSelectorHeader.classList.add('hidden')
+    // }
 
 
     if(ageSelectionTimeout !== null) {
@@ -670,29 +702,38 @@ function onScrollAge(){
 
 ageScrollContainer.addEventListener('scroll',onScrollAge)
 
-function resetageItemStyle(ageItem){
+function resetAgeItemStyle(ageItem){
     if(ageItem){
         const itemClassList = ageItem.classList
-        itemClassList.remove('selected','nearest')
-        itemClassList.add('farthest')
+        itemClassList.remove('selected','nearest','farthest')
+        itemClassList.add('hidden')
     }
 }
 
-function setageSelectedStyle(selectedageItem){
-    if(selectedageItem){
-        const itemClassList = selectedageItem.classList
-        itemClassList.remove('nearest','farthest')
+function setAgeSelectedStyle(selectedAgeItem){
+    if(selectedAgeItem){
+        const itemClassList = selectedAgeItem.classList
+        itemClassList.remove('nearest','farthest','hidden')
         itemClassList.add('selected')
     }
 }
 
-function setageNearestStyle(nearestageItem){
-    if(nearestageItem){
-        const itemClassList = nearestageItem.classList
-        itemClassList.remove('selected','farthest')
+function setAgeNearestStyle(nearestAgeItem){
+    if(nearestAgeItem){
+        const itemClassList = nearestAgeItem.classList
+        itemClassList.remove('selected','farthest','hidden')
         itemClassList.add('nearest')
     }
 }
+
+function setAgeFarthestStyle(farthestAgeItem){
+    if(farthestAgeItem){
+        const itemClassList = farthestAgeItem.classList
+        itemClassList.remove('selected','nearest','hidden')
+        itemClassList.add('farthest')
+    }
+}
+
 
 //Scroll wheel drag control 
 let pos = {
