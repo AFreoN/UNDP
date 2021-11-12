@@ -18,6 +18,7 @@ let models = {
     Father:null,
     siblings:null,
     friends:null,
+    community:null,
     centerEmoji:null,
     sriLankaMap:null,
     maldivesMap:null,
@@ -35,7 +36,10 @@ let models = {
     cloud2:null,
     cloud3:null,
     carpet:null,
-    lamp:null
+    lamp:null,
+    sofa:null,
+    sofasmall:null,
+    letter:null
 }
 
 //player animations are stored here
@@ -46,7 +50,8 @@ let animations = {
     father:null,
     mother:null,
     siblings:null,
-    friends:null
+    friends:null,
+    community:null
 }
 
 let animationId = {
@@ -235,7 +240,7 @@ gltfloader.load(
         model.traverse((child) => {
             if (child.isMesh){
                 let toonMaterial = new THREE.MeshToonMaterial({ color : 0xFFC332, gradientMap : tex});
-                child.material = shaderMaterial; // a material i created in the code earlier
+                child.material = shaderMaterial;
                 child.castShadow = true;
             }
         });
@@ -259,12 +264,12 @@ gltfloader.load(
         model.traverse((child) => {
             if (child.isMesh){
                 let toonMaterial = new THREE.MeshToonMaterial({ color : 0xFFC332, gradientMap : tex});
-                child.material = shaderMaterial; // a material i created in the code earlier
+                child.material = shaderMaterial;
                 child.castShadow = true;
             }
         });
 
-        models['mother'] = model// test center model.
+        models['mother'] = model
         loadedPercentage += (1/numberOfAssets)
         loadingBar.animate(loadedPercentage)
     }
@@ -308,12 +313,12 @@ gltfloader.load(
         model.traverse((child) => {
             if (child.isMesh){
                 let toonMaterial = new THREE.MeshToonMaterial({ color : 0xFFC332, gradientMap : tex});
-                child.material = shaderMaterial; // a material i created in the code earlier
+                child.material = shaderMaterial;
                 child.castShadow = true;
             }
         });
 
-        models['siblings'] = model// test center model.
+        models['siblings'] = model
         loadedPercentage += (1/numberOfAssets)
         loadingBar.animate(loadedPercentage)
     }
@@ -332,12 +337,35 @@ gltfloader.load(
         model.traverse((child) => {
             if (child.isMesh){
                 let toonMaterial = new THREE.MeshToonMaterial({ color : 0xFFC332, gradientMap : tex});
-                child.material = shaderMaterial; // a material i created in the code earlier
+                child.material = shaderMaterial;
                 child.castShadow = true;
             }
         });
 
-        models['friends'] = model// test center model.
+        models['friends'] = model
+        loadedPercentage += (1/numberOfAssets)
+        loadingBar.animate(loadedPercentage)
+    }
+)
+
+gltfloader.load(
+    'Models/Community.gltf',
+    (gltf) =>
+    {
+        //animations['community'] = gltf.animations
+        let model = gltf.scene
+        model.name = 'community'
+        model.scale.set(.075,.075,.075)
+        model.position.set(0,-.6, 0)
+
+        // model.traverse((child) => {
+        //     if (child.isMesh){
+        //         child.material = shaderMaterial;
+        //         child.castShadow = true;
+        //     }
+        // });
+
+        models['community'] = model
         loadedPercentage += (1/numberOfAssets)
         loadingBar.animate(loadedPercentage)
     }
@@ -352,7 +380,7 @@ gltfloader.load(
         model.scale.set(.075,.075,.075)
         model.position.set(0,-.6, 0)
 
-        models['carpet'] = model// test center model.
+        models['carpet'] = model
         loadedPercentage += (1/numberOfAssets)
         loadingBar.animate(loadedPercentage)
     }
@@ -367,7 +395,52 @@ gltfloader.load(
         model.scale.set(.075,.075,.075)
         model.position.set(0,-.6, 0)
 
-        models['lamp'] = model// test center model.
+        models['lamp'] = model
+        loadedPercentage += (1/numberOfAssets)
+        loadingBar.animate(loadedPercentage)
+    }
+)
+
+gltfloader.load(
+    'Models/Sofa.gltf',
+    (gltf) =>
+    {
+        let model = gltf.scene
+        model.name = 'sofa'
+        model.scale.set(.075,.075,.075)
+        model.position.set(0,-.6, 0)
+
+        models['sofa'] = model
+        loadedPercentage += (1/numberOfAssets)
+        loadingBar.animate(loadedPercentage)
+    }
+)
+
+gltfloader.load(
+    'Models/SofaSmall.gltf',
+    (gltf) =>
+    {
+        let model = gltf.scene
+        model.name = 'sofasmall'
+        model.scale.set(.075,.075,.075)
+        model.position.set(0,-.6, 0)
+
+        models['sofasmall'] = model
+        loadedPercentage += (1/numberOfAssets)
+        loadingBar.animate(loadedPercentage)
+    }
+)
+
+gltfloader.load(
+    'Models/letter.gltf',
+    (gltf) =>
+    {
+        let model = gltf.scene
+        model.name = 'letter'
+        model.scale.set(0.2,0.2,0.2)
+        model.position.set(0,-0.6, 0)
+
+        models['letter'] = model
         loadedPercentage += (1/numberOfAssets)
         loadingBar.animate(loadedPercentage)
     }

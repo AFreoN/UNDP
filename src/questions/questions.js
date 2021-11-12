@@ -136,7 +136,7 @@ let qArray = [
         },
         compulsory : false
     },
-    {   //4
+    {   //4     Mother
         type : 'joystick',
         question : {
             en : 'How close do you feel to your mother ?',
@@ -197,7 +197,7 @@ let qArray = [
         },
         compulsory: true
     },
-    {   //5
+    {   //5     Father
         type : 'joystick',
         question : {
             en : 'How close do you feel to your father ?',
@@ -258,12 +258,12 @@ let qArray = [
         },
         compulsory: true
     },
-    {   //6
+    {   //6     Siblings
         type : 'joystick',
         question : {
             en : 'How close are you to you siblings?',
-            si : 'ඔබ ඔබේ පියාට කොතරම් සමීපද?',
-            ta : 'உங்கள் தந்தையிடம் நீங்கள் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
+            si : 'ඔබ සහෝදර සහෝදරියන් සමඟ කෙතරම් සමීපද?',
+            ta : 'நீங்கள் உடன்பிறந்தவர்களுடன் எவ்வளவு நெருக்கமாக இருக்கிறீர்கள்?',
             dv : 'How close are you to you siblings?'
         },
         answers : [
@@ -313,18 +313,18 @@ let qArray = [
         centerModelKey:'siblings',
         characterName:{
             en : 'Siblings',
-            si : 'පියා',
-            ta : 'தந்தை',
+            si : 'සහෝදර සහෝදරියන්',
+            ta : 'உடன்பிறந்தவர்கள்',
             dv : 'Siblings'
         },
         compulsory: true
     },
-    {   //7
+    {   //7     Closest Friends
         type : 'joystick',
         question : {
             en : 'How close are you to your closest friends?',
-            si : 'ඔබ ඔබේ පියාට කොතරම් සමීපද?',
-            ta : 'உங்கள் தந்தையிடம் நீங்கள் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
+            si : 'ඔබේ සමීපතම මිතුරන්ට ඔබ කෙතරම් සමීපද?',
+            ta : 'உங்கள் நெருங்கிய நண்பர்களுடன் நீங்கள் எவ்வளவு நெருக்கமாக இருக்கிறீர்கள்?',
             dv : 'How close are you to your closest friends?'
         },
         answers : [
@@ -373,19 +373,19 @@ let qArray = [
         ],
         centerModelKey:'friends',
         characterName:{
-            en : 'Friends',
-            si : 'පියා',
-            ta : 'தந்தை',
-            dv : 'Friends'
+            en : 'Closest Friends',
+            si : 'සමීපතම මිතුරන්',
+            ta : 'நெருங்கிய நண்பர்கள்',
+            dv : 'Closest Friends'
         },
         compulsory: true
     },
-    {   //8
+    {   //8     Distant Friends
         type : 'joystick',
         question : {
             en : 'How close are you to your distant friends?',
-            si : 'ඔබ ඔබේ පියාට කොතරම් සමීපද?',
-            ta : 'உங்கள் தந்தையிடம் நீங்கள் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
+            si : 'ඔබේ දුරස්ථ මිතුරන්ට ඔබ කෙතරම් සමීපද?',
+            ta : 'உங்கள் தொலைதூர நண்பர்களுடன் நீங்கள் எவ்வளவு நெருக்கமாக இருக்கிறீர்கள்?',
             dv : 'How close are you to your distant friends?'
         },
         answers : [
@@ -434,10 +434,71 @@ let qArray = [
         ],
         centerModelKey:'centerCharacter',
         characterName:{
-            en : 'Friend',
-            si : 'පියා',
-            ta : 'தந்தை',
-            dv : 'Friend'
+            en : 'Distant Friends',
+            si : 'දුරස්ථ මිතුරන්',
+            ta : 'தொலைதூர நண்பர்கள்',
+            dv : 'Distant Friends'
+        },
+        compulsory: true
+    },
+    {   //9     Local Community
+        type : 'joystick',
+        question : {
+            en : 'How close do you feel with your local community ?',
+            si : 'ඔබේ ප්‍රාදේශීය ප්‍රජාව සමඟ ඔබට කෙතරම් සමීප බවක් දැනෙන්නේද?',
+            ta : 'உங்கள் உள்ளூர் சமூகத்துடன் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள்?',
+            dv : 'How close do you feel with your local community ?'
+        },
+        answers : [
+            {
+                en : 'answer1',
+                si : 'පිළිතුර1',
+                ta : 'பதில்1',
+                dv : 'answer1'
+            },
+            {
+                en : 'answer2',
+                si : 'පිළිතුර2',
+                ta : 'பதில்2',
+                dv : 'answer2'
+            },
+            {
+                en : 'answer3',
+                si : 'පිළිතුර3',
+                ta : 'பதில்3',
+                dv : 'answer3'
+            },
+            {
+                en : 'answer4',
+                si : 'පිළිතුර4',
+                ta : 'பதில்4',
+                dv : 'answer4'
+            },
+            {
+                en : 'answer5',
+                si : 'පිළිතුර5',
+                ta : 'பதில்5',
+                dv : 'answer5'
+            },
+            {
+                en : 'answer6',
+                si : 'පිළිතුර6',
+                ta : 'பதில்6',
+                dv : 'answer6'
+            },
+            {
+                en : 'answer7',
+                si : 'පිළිතුර7',
+                ta : 'பதில்7',
+                dv : 'answer7'
+            }
+        ],
+        centerModelKey:'community',
+        characterName:{
+            en : 'Community',
+            si : 'ප්රජාව',
+            ta : 'சமூகம்',
+            dv : 'Community'
         },
         compulsory: true
     }
@@ -800,6 +861,7 @@ export function loadQuestion(questionIndex){
     }
 }
 
+var models = null;
 function setupJoystickScene(currentQuestion, player, questionIndex){
 
     if(currentQuestion.centerModelKey){
@@ -880,19 +942,19 @@ function setupJoystickScene(currentQuestion, player, questionIndex){
         addModelToScene(joystickScene, cloud2);
         addModelToScene(joystickScene, cloud3);
 
-        const carp = assetLoader.getModel('carpet');
-        let lamp = assetLoader.getModel('lamp');
-        if(questionIndex == 3 || questionIndex == 4){
-            addModelToScene(joystickScene, carp);
+        // const carp = assetLoader.getModel('carpet');
+        // let lamp = assetLoader.getModel('lamp');
+        // if(questionIndex == 3 || questionIndex == 4){
+        //     addModelToScene(joystickScene, carp);
     
-            addModelToScene(joystickScene, lamp);
-            lamp.position.z = -0.6;
-            lamp.rotation.y = MathUtils.degToRad(45);
-        }
-        else{
-            joystickScene.remove(carp);
-            joystickScene.remove(lamp);
-        }
+        //     addModelToScene(joystickScene, lamp);
+        //     lamp.position.z = -0.6;
+        //     lamp.rotation.y = MathUtils.degToRad(45);
+        // }
+        // else{
+        //     joystickScene.remove(carp);
+        //     joystickScene.remove(lamp);
+        // }
         
         currentCenterModel = centerModel;
         prevOtherModel = currentCenterModel;
@@ -912,10 +974,46 @@ function setupJoystickScene(currentQuestion, player, questionIndex){
     
     controls.setCamera(joystickCamera);
 
+    if(models != null)
+        removeModelsFromScene(joystickScene, models);
+
+    models = scenes.GetModelIds(questionIndex);
+    if(models != null){
+        addModelsForThisScene(joystickScene, models);
+    }
+    else{
+        console.log("No models array avaiable for this scene (Question index = ", questionIndex,")")
+    }
+
     uiControl.updateUI(currentQuestion.type, currentQuestion.question[langId], currentQuestion.answers);
     uiControl.setSurveyProgressValue(questionIndex);
 }
 
+function addModelsForThisScene(scene, modelsArray){
+    modelsArray.forEach(element => {
+        var m = assetLoader.getModel(element.name);
+        if(m != null){
+            m.position.set(element.position.x, element.position.y, element.position.z);
+            m.rotation.x = MathUtils.degToRad(element.rotation.x);
+            m.rotation.y = MathUtils.degToRad(element.rotation.y);
+            m.rotation.z = MathUtils.degToRad(element.rotation.z);
+            scene.add(m);
+        }
+        else{
+            console.log("No models exist in the assets based on the key given by models array")
+        }
+    });
+}
+
+function removeModelsFromScene(scene, modelsArray){
+    modelsArray.forEach(element => {
+        var m = assetLoader.getModel(element.name);
+        if(m != null)
+            scene.remove(m);
+    });
+}
+
+//#region Character name indicator position update
 export const EnableCharacterText = function(){
     characterText.hidden = false;
 }
@@ -943,6 +1041,7 @@ export const updateNameIndicator = function(obj){
     characterText.style.top = (pos.y - characterText.clientHeight * 0.5) + "px";
     characterText.style.left = (pos.x - characterText.clientWidth * 0.5) + "px";
 }
+//#endregion
 
 const addModelToScene = function(_scene, _model){
     if(_scene.getObjectById(_model.id) == null){

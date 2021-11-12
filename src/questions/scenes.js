@@ -4,6 +4,7 @@ import * as assetLoader from '../assets_loader/assets_loader'
 import * as uiControl from '../ui_controller/ui_controller'
 import * as mainScipt from '../script'
 import { clamp } from 'three/src/math/mathutils'
+import { MathUtils } from 'three'
 
 const mouse = new THREE.Vector2() 
 
@@ -758,45 +759,6 @@ ring2.position.set(0, -0.59, 0);
 
 //const floorgeo = new THREE.CylinderGeometry(1000,1000,0.05, 256);
 const floorMaterial = new THREE.MeshToonMaterial( {color: 0x725FB3});    //prev color 0xfff4db
-var gradFloorMaterial = new THREE.ShaderMaterial({
-    uniforms: {
-      color1: {
-        value: new THREE.Color("#7d71cf")
-      },
-      color2: {
-        value: new THREE.Color("#ea8bea")
-      },
-      bboxMin: {
-        value: floorgeo.boundingBox.min
-      },
-      bboxMax: {
-        value: floorgeo.boundingBox.max
-      }
-    },
-    vertexShader: `
-      uniform vec3 bboxMin;
-      uniform vec3 bboxMax;
-    
-      varying vec2 vUv;
-  
-      void main() {
-        vUv.y = (position.y - bboxMin.y) / (bboxMax.y - bboxMin.y);
-        gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
-      }
-    `,
-    fragmentShader: `
-      uniform vec3 color1;
-      uniform vec3 color2;
-    
-      varying vec2 vUv;
-      
-      void main() {
-        
-        gl_FragColor = vec4(mix(color1, color2, vUv.y), 1.0);
-      }
-    `,
-    wireframe: false
-  });
 const RingMaterial = new THREE.MeshBasicMaterial({color: 0xf5eddc}) 
 
 const floor = new THREE.Mesh (floorgeo, floorMaterial); 
@@ -1027,6 +989,66 @@ export function updateRingLocation(currentCenterModel){
         cylinder6.position.set(centerModelPosX,-.60,centerModelPosZ)
         cylinder7.position.set(centerModelPosX,-.61,centerModelPosZ)
         */
+    }
+}
+
+export function GetModelIds(questionIndex){
+    switch(questionIndex){
+        default:
+            return null;
+        case 3: //Mother scene
+            return [{
+                name : 'lamp',
+                position : new THREE.Vector3(0, -0.6, -0.6),
+                rotation : new THREE.Vector3(0, 45, 0)
+            },
+            {
+                name : 'carpet',
+                position : new THREE.Vector3(0, -0.6, 0),
+                rotation : new THREE.Vector3(0,0,0)
+            }]
+            break;
+        case 4:     //Father
+            return [{
+                name : 'lamp',
+                position : new THREE.Vector3(0, -0.6, -0.6),
+                rotation : new THREE.Vector3(0, -45, 0)
+            },
+            {
+                name : 'carpet',
+                position : new THREE.Vector3(0, -0.6, 0),
+                rotation : new THREE.Vector3(0,0,0)
+            }]
+            break;
+        case 5:     //Siblings
+            return [{
+                name : 'lamp',
+                position : new THREE.Vector3(-1, -0.6, -1),
+                rotation : new THREE.Vector3(0, 45, 0)
+            },
+            {
+                name : 'carpet',
+                position : new THREE.Vector3(-0.5, -0.6, -0.8),
+                rotation : new THREE.Vector3(0,45,0)
+            },
+            {
+                name:'sofasmall',
+                position : new THREE.Vector3(-0.7, -0.6, -1.3),
+                rotation : new THREE.Vector3(0,45,0)
+            },
+            {
+                name:'sofa',
+                position : new THREE.Vector3(0.7, -0.6, -0.8),
+                rotation : new THREE.Vector3(0,-45,0)
+            }]
+            break;
+        case 7:     //Distant friends
+            return [{
+                name : 'letter',
+                position : new THREE.Vector3(0, 0, 0),
+                rotation : new THREE.Vector3(0, 0, 0)
+            }]
+            break;
     }
 }
 
