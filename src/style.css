@@ -572,6 +572,14 @@ canvas.webgl{
       */
   }
 
+  #Player_name{
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+
+    color: rgb(255, 255, 255);
+  }
+
   #slidertext-distant{
       position: absolute;
       color: #ffffff;

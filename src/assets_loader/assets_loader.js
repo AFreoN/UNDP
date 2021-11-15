@@ -74,10 +74,10 @@ let animationId = {
         'idle':1
     },
     siblings:{
-
+        'idle':1
     },
     friends:{
-
+        'idle':1
     }
 }
 
@@ -304,7 +304,7 @@ gltfloader.load(
     'Models/siblings.gltf',
     (gltf) =>
     {
-        //animations['siblings'] = gltf.animations
+        animations['siblings'] = gltf.animations
         let model = gltf.scene
         model.name = 'siblings'
         model.scale.set(.075,.075,.075)
@@ -328,7 +328,7 @@ gltfloader.load(
     'Models/Friends.gltf',
     (gltf) =>
     {
-        //animations['friends'] = gltf.animations
+        animations['friends'] = gltf.animations
         let model = gltf.scene
         model.name = 'friends'
         model.scale.set(.075,.075,.075)
@@ -349,13 +349,13 @@ gltfloader.load(
 )
 
 gltfloader.load(
-    'Models/Community.gltf',
+    'Models/community.gltf',
     (gltf) =>
     {
         //animations['community'] = gltf.animations
         let model = gltf.scene
         model.name = 'community'
-        model.scale.set(.075,.075,.075)
+        model.scale.set(.035,.035,.035)     //prev (.075,.075,.075)
         model.position.set(0,-.6, 0)
 
         // model.traverse((child) => {

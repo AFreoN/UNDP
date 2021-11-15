@@ -741,6 +741,7 @@ var prevQues = '';
 var prevPlayerModel, prevOtherModel, prevCamera;
 let player = null;
 const characterText = document.getElementById('Character_name');
+const playerName = document.getElementById('Player_name');
 
 //Takes a question object from the array above and updates UI with the info.
 //Implement updating models/ environment in respect to the question
@@ -751,6 +752,7 @@ export function loadQuestion(questionIndex){
     sceneTransition.initializeData(player, joystickCamera, controls.getPlayerInitialPosition());
     controls.disablePlayerControl();
     characterText.hidden = true;
+    playerName.hidden = true;
 
     var UIUpdateNeeded = true;
     currentQuestion = qArray[questionIndex]
@@ -1016,12 +1018,13 @@ function removeModelsFromScene(scene, modelsArray){
 //#region Character name indicator position update
 export const EnableCharacterText = function(){
     characterText.hidden = false;
+    playerName.hidden = false;
 }
 
 const objPos = new THREE.Vector3();
-export const updateNameIndicator = function(obj){
+export const updateNameIndicator = function(player, other){
     let pos = new THREE.Vector3();
-    obj.getWorldPosition(objPos);
+    other.getWorldPosition(objPos);
     //emptyObject.position.y += 0.3;
 
     pos.x = objPos.x;
@@ -1040,8 +1043,26 @@ export const updateNameIndicator = function(obj){
     characterText.style.position = "absolute";
     characterText.style.top = (pos.y - characterText.clientHeight * 0.5) + "px";
     characterText.style.left = (pos.x - characterText.clientWidth * 0.5) + "px";
+
+    //For setting player name indicator
+    player.getWorldPosition(objPos);
+
+    pos.x = objPos.x;
+    pos.y = objPos.y + 0.5 ;
+    pos.z = objPos.z;
+
+    pos.project(joystickCamera);
+
+    pos.x = (pos.x * widthHalf) + widthHalf;
+    pos.y = - (pos.y * heightHalf) + heightHalf;
+    pos.z = 0;
+    
+    playerName.style.position = "absolute";
+    playerName.style.top = (pos.y - playerName.clientHeight * 0.5) + "px";
+    playerName.style.left = (pos.x - playerName.clientWidth * 0.5) + "px";
 }
 //#endregion
+
 
 const addModelToScene = function(_scene, _model){
     if(_scene.getObjectById(_model.id) == null){

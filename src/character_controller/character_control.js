@@ -381,7 +381,7 @@ function Movecharacter(){
     curOtherPosition.lerp(new Vector3(otherXpos, otherYPos, 0), lerpSpeed);
 
     otherCharacter.position.set(curOtherPosition.x, curOtherPosition.y, curOtherPosition.z);
-    updateNameIndicator(otherCharacter);
+    updateNameIndicator(player,otherCharacter);
     EnableCharacterText();
 
     let minDis = 0.005;
