@@ -661,6 +661,7 @@ canvas.webgl{
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: font-size 0.1s, opacity 0.1s, filter 0.1s ;
 }
 
 .scroll-item.selected{
@@ -762,6 +763,7 @@ canvas.webgl{
 
 #selected-item-indicator-age, #selected-item-indicator-gender{
     height: calc(2.4rem + 4px);
+    width: 10ch;
 }
 
 .scroll-item-gender.selected, .scroll-item-age.selected{
@@ -774,6 +776,12 @@ canvas.webgl{
 
 .scroll-item-gender.farthest, .scroll-item-age.farthest{
     font-size: 0.85rem;
+}
+
+.scroll-item-gender.hidden, .scroll-item-age.hidden{
+    transition: font-size 0.1s, opacity 0.1s, filter 0.1s  ;
+    font-size: 0.5rem;
+    opacity: 0%;
 }
 
 /* #selected-item-indicator-gender{

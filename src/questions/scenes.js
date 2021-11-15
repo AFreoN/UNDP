@@ -344,7 +344,17 @@ export function raycastMaldivesRegions(){
                 // hoveringMaldivesRegion.regionPosition.y = 0.2
                 setMeshAnimProperties(hoveringMaldivesRegion,0,0.2)
                 uiControl.setRegionName(hoveringMaldivesRegion.name)
-                uiControl.hideRegionAnswerContainer(false)
+                uiControl.showRegionAnswerContainer()
+            }
+        }
+        else{
+            if(hoveringMaldivesRegion){
+                setMeshAnimProperties(hoveringMaldivesRegion,0.2,0)
+                hoveringMaldivesRegion.regionMaterial.color = hoveringMaldivesRegion.standardColor
+                hoveringMaldivesRegion = null
+                if(selectedMaldivesRegion){
+                    uiControl.setRegionName(selectedMaldivesRegion.name)
+                }
             }
         }
     }
@@ -353,13 +363,13 @@ export function raycastMaldivesRegions(){
             // hoveringMaldivesRegion.regionPosition.y = 0
             setMeshAnimProperties(hoveringMaldivesRegion,0.2,0)
             hoveringMaldivesRegion.regionMaterial.color = hoveringMaldivesRegion.standardColor
+            // uiControl.setRegionName(hoveringMaldivesRegion.name)
             hoveringMaldivesRegion = null
             // uiControl.setRegionName('')
-            uiControl.hideRegionAnswerContainer(true)
+            uiControl.hideRegionAnswerContainer()
         }
         if(selectedMaldivesRegion){
             uiControl.setRegionName(selectedMaldivesRegion.name)
-            uiControl.hideRegionAnswerContainer(false)
         }
     }
 }
@@ -384,7 +394,6 @@ function onMaldivesRegionClick(){
             // console.log(regionIndex);
             uiControl.enableConfirmation(regionIndex)
             uiControl.setRegionName(selectedMaldivesRegion.name)
-            uiControl.hideRegionAnswerContainer(false)
         }
     }
 }
@@ -419,7 +428,6 @@ function onMaldivesRegionTouch(event){
             const regionIndex = maldivesRegionBoxes.indexOf(selectedMaldivesRegion)
             uiControl.enableConfirmation(regionIndex)
             uiControl.setRegionName(selectedMaldivesRegion.name)
-            uiControl.hideRegionAnswerContainer(false)
         }
     }
 }
@@ -504,7 +512,23 @@ export function raycastSriLankaRegions(){
                 // hoveringSriLankaRegion.position.y = 0.1
                 setMeshAnimProperties(hoveringSriLankaRegion,0,0.15)
                 uiControl.setRegionName(hoveringSriLankaRegion.name)
-                uiControl.hideRegionAnswerContainer(false)
+                uiControl.showRegionAnswerContainer()
+                // uiControl.hideRegionAnswerContainer(false)
+            }
+        }else{
+            if(hoveringSriLankaRegion){
+                // hoveringSriLankaRegion.position.y = 0
+                setMeshAnimProperties(hoveringSriLankaRegion,0.15,0)
+                hoveringSriLankaRegion.material = hoveringSriLankaRegion.standardMaterial
+                // uiControl.setRegionName(hoveringSriLankaRegion.name)
+                hoveringSriLankaRegion = null
+                // uiControl.hideRegionAnswerContainer()
+                // uiControl.hideRegionAnswerContainer(true)
+                // uiControl.setRegionName('')
+                if(selectedSriLankaRegion){
+                    uiControl.setRegionName(selectedSriLankaRegion.name)
+                    // uiControl.hideRegionAnswerContainer(false)
+                }
             }
         }
     }
@@ -513,13 +537,15 @@ export function raycastSriLankaRegions(){
             // hoveringSriLankaRegion.position.y = 0
             setMeshAnimProperties(hoveringSriLankaRegion,0.15,0)
             hoveringSriLankaRegion.material = hoveringSriLankaRegion.standardMaterial
+            // uiControl.setRegionName(hoveringSriLankaRegion.name)
             hoveringSriLankaRegion = null
-            uiControl.hideRegionAnswerContainer(true)
+            uiControl.hideRegionAnswerContainer()
+            // uiControl.hideRegionAnswerContainer(true)
             // uiControl.setRegionName('')
         }
         if(selectedSriLankaRegion){
             uiControl.setRegionName(selectedSriLankaRegion.name)
-            uiControl.hideRegionAnswerContainer(false)
+            // uiControl.hideRegionAnswerContainer(false)
         }
     }
 }
@@ -543,7 +569,6 @@ function onSriLankaRegionClick(){
             const regionIndex = sriLankaRegions.indexOf(selectedSriLankaRegion)
             uiControl.enableConfirmation(regionIndex)
             uiControl.setRegionName(selectedSriLankaRegion.name)
-            uiControl.hideRegionAnswerContainer(false)
         }
     }
 }
@@ -578,7 +603,7 @@ function onSriLankaRegionTouch(event){
             // console.log(regionIndex);
             uiControl.enableConfirmation(regionIndex)
             uiControl.setRegionName(selectedSriLankaRegion.name)
-            uiControl.hideRegionAnswerContainer(false)
+            // uiControl.hideRegionAnswerContainer(false)
         }
     }
 }
