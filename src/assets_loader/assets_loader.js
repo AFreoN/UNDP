@@ -350,7 +350,7 @@ gltfloader.load(
 )
 
 gltfloader.load(
-    'Models/community.gltf',
+    'Models/Community.gltf',
     (gltf) =>
     {
         //animations['community'] = gltf.animations
