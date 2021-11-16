@@ -697,7 +697,7 @@ const tick = () =>
     const deltatime = elapsedTime - previousTime //delta time can be retrieved from here
     previousTime = elapsedTime
     
-    scenes.updateShadowNormalOffset(deltatime/60)
+    // scenes.updateShadowNormalOffset(deltatime/60)
 
     if(!(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))){
         if(currentQuestion && currentQuestion.type === 'joystick'){

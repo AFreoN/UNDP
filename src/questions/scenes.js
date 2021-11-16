@@ -34,7 +34,7 @@ shadowMaterial.opacity = 0.5
 const shadowMesh = new THREE.Mesh(shadowPlane,shadowMaterial)
 shadowMesh.receiveShadow = true
 shadowMesh.rotation.set(Math.PI / -2, 0 ,0)
-shadowMesh.position.set(0,-0.06 ,0)
+shadowMesh.position.set(0,-0.1,0)
 
 var shadowNormalOffset = 0
 export function updateShadowNormalOffset(delta){
@@ -68,7 +68,7 @@ maldivesCube.material.visible = false
 export const sriLankaCube = new THREE.Mesh(new THREE.BoxGeometry(1.4,0.1,2.3), new THREE.MeshLambertMaterial({color: 0x2b2bee,wireframe:true}))
 countryScene.add(sriLankaCube)
 sriLankaCube.position.set(0.75,0,0)
-sriLankaCube.material.visible = false
+// sriLankaCube.material.visible = false
 // sriLankaCube.children[0].castShadow = true
 
 const countryDirectionalLight = new THREE.DirectionalLight(0xffffff,0.75)
@@ -93,10 +93,26 @@ export function resetCountrySelection(){
     maldivesCube.position.y = 0
 
     if(hoveringCountry){
-        hoveringCountry.regionMaterial.color = hoveringCountry.standardColor
+        if('standardMap' in hoveringCountry 
+        && 'hoveringMap' in hoveringCountry 
+        && 'selectedMap' in hoveringCountry ){
+            hoveringCountry.regionMaterial.map = hoveringCountry.standardMap
+            // hoveringCountry.regionMaterial.needsUpdate = true;
+        }else{
+            hoveringCountry.regionMaterial.color = hoveringCountry.standardColor
+        }
+        // hoveringCountry.regionMaterial.color = hoveringCountry.standardColor
     }
     if(selectedCountry){
-        selectedCountry.regionMaterial.color = selectedCountry.standardColor
+        if('standardMap' in selectedCountry 
+        && 'hoveringMap' in selectedCountry 
+        && 'selectedMap' in selectedCountry ){
+            selectedCountry.regionMaterial.map = selectedCountry.standardMap
+            // selectedCountry.regionMaterial.needsUpdate = true;
+        }else{
+            selectedCountry.regionMaterial.color = selectedCountry.standardColor
+        }
+        // selectedCountry.regionMaterial.color = selectedCountry.standardColor
     }
     hoveringCountry = null
     selectedCountry = null
@@ -118,12 +134,30 @@ export function raycastCountry(){
             if(closestIntersect !== hoveringCountry){
                 if(hoveringCountry){
                     // hoveringCountry.position.y = 0
-                    hoveringCountry.regionMaterial.color = hoveringCountry.standardColor
+                    if('standardMap' in hoveringCountry 
+                    && 'hoveringMap' in hoveringCountry 
+                    && 'selectedMap' in hoveringCountry ){
+                        hoveringCountry.regionMaterial.map = hoveringCountry.standardMap
+                        // hoveringCountry.regionMaterial.needsUpdate = true;
+                        console.log(hoveringCountry.material.map);
+                    }else{
+                        hoveringCountry.regionMaterial.color = hoveringCountry.standardColor
+                    }
                     setMeshAnimProperties(hoveringCountry,0.1,0)
                 }
 
                 hoveringCountry = closestIntersect
-                hoveringCountry.regionMaterial.color = hoveringCountry.hoveringColor
+                if('standardMap' in hoveringCountry 
+                && 'hoveringMap' in hoveringCountry 
+                && 'selectedMap' in hoveringCountry ){
+                    hoveringCountry.regionMaterial.map = hoveringCountry.hoveringMap
+                    // hoveringCountry.regionMaterial.needsUpdate = true;
+                    console.log(hoveringCountry.regionMaterial.map);
+                    console.log('texture updated');
+                }else{
+                    hoveringCountry.regionMaterial.color = hoveringCountry.hoveringColor
+                }
+                // hoveringCountry.regionMaterial.color = hoveringCountry.hoveringColor
                 // hoveringCountry.startValue = 0
                 // hoveringCountry.endValue = 0.1
                 // hoveringCountry.timeElapsed = 0
@@ -144,7 +178,16 @@ export function raycastCountry(){
             // hoveringCountry.position.y = 0
             setMeshAnimProperties(hoveringCountry,0.1,0)
 
-            hoveringCountry.regionMaterial.color = hoveringCountry.standardColor
+            if('standardMap' in hoveringCountry 
+            && 'hoveringMap' in hoveringCountry 
+            && 'selectedMap' in hoveringCountry ){
+                hoveringCountry.regionMaterial.map = hoveringCountry.standardMap
+                // hoveringCountry.regionMaterial.needsUpdate = true;
+                console.log(hoveringCountry.regionMaterial.map);
+            }else{
+                hoveringCountry.regionMaterial.color = hoveringCountry.standardColor
+            }
+            // hoveringCountry.regionMaterial.color = hoveringCountry.standardColor
             hoveringCountry = null
             
             uiControl.setCountryName('')
@@ -167,14 +210,31 @@ function onCountryClick(){
             if(selectedCountry){
                 // selectedCountry.position.y = 0
                 setMeshAnimProperties(selectedCountry,0.25,0)
-                selectedCountry.regionMaterial.color = selectedCountry.standardColor
+                if('standardMap' in selectedCountry 
+                && 'hoveringMap' in selectedCountry 
+                && 'selectedMap' in selectedCountry ){
+                    selectedCountry.regionMaterial.map = selectedCountry.standardMap
+                    // selectedCountry.regionMaterial.needsUpdate = true;
+
+                }else{
+                    selectedCountry.regionMaterial.color = selectedCountry.standardColor
+                }
+                // selectedCountry.regionMaterial.color = selectedCountry.standardColor
                 selectedCountry = null
             }
             selectedCountry = hoveringCountry
             hoveringCountry = null
             // selectedCountry.position.y = 0.25
             setMeshAnimProperties(selectedCountry,0.1,0.25)
-            selectedCountry.regionMaterial.color = selectedCountry.selectedColor
+            if('standardMap' in selectedCountry 
+            && 'hoveringMap' in selectedCountry 
+            && 'selectedMap' in selectedCountry ){
+                selectedCountry.regionMaterial.map = selectedCountry.selectedMap
+                selectedCountry.regionMaterial.needsUpdate = true;
+            }else{
+                selectedCountry.regionMaterial.color = selectedCountry.selectedColor
+            }
+            // selectedCountry.regionMaterial.color = selectedCountry.selectedColor
             uiControl.enableNextButton()
             if(selectedCountry === maldivesCube){
                 uiControl.enableConfirmation(0)
@@ -205,14 +265,29 @@ function onCountryTouch(event){
             if(selectedCountry){
                 // selectedCountry.position.y = 0
                 setMeshAnimProperties(selectedCountry,0.25,0)
-
-                selectedCountry.regionMaterial.color = selectedCountry.standardColor
+                if('standardMap' in selectedCountry 
+                && 'hoveringMap' in selectedCountry 
+                && 'selectedMap' in selectedCountry ){
+                    selectedCountry.regionMaterial.map = selectedCountry.standardMap
+                    selectedCountry.regionMaterial.needsUpdate = true;
+                }else{
+                    selectedCountry.regionMaterial.color = selectedCountry.standardColor
+                }
+                // selectedCountry.regionMaterial.color = selectedCountry.standardColor
                 selectedCountry = null
             }
             selectedCountry = closestIntersect
             // selectedCountry.position.y = 0.25
             setMeshAnimProperties(selectedCountry,0,0.25)
-            selectedCountry.regionMaterial.color = selectedCountry.selectedColor
+            if('standardMap' in selectedCountry 
+            && 'hoveringMap' in selectedCountry 
+            && 'selectedMap' in selectedCountry ){
+                selectedCountry.regionMaterial.map = hoveringCountry.selectedMap
+                selectedCountry.regionMaterial.needsUpdate = true;
+            }else{
+                selectedCountry.regionMaterial.color = selectedCountry.selectedColor
+            }
+            // selectedCountry.regionMaterial.color = selectedCountry.selectedColor
             uiControl.enableNextButton()
             if(selectedCountry === maldivesCube){
                 uiControl.enableConfirmation(0)

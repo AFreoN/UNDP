@@ -21,6 +21,7 @@ let models = {
     community:null,
     centerEmoji:null,
     sriLankaMap:null,
+    sriLankaProvincesMap:null,
     maldivesMap:null,
     Tree1:null,
     Tree2:null,
@@ -474,33 +475,33 @@ gltfloader.load(
         model.scale.set(0.75,0.75,0.75)
         model.position.set(-1, 0, 0.5)
 
-        models['sriLankaMap'] = model
+        models['sriLankaProvincesMap'] = model
         
         //Setting up model for country selection
-        let countrySelectionModel = models['sriLankaMap'].clone(true)
-        countrySelectionModel.scale.set(0.35,0.35,0.35)
-        countrySelectionModel.position.set(-.4,0,0.1)
-        countrySelectionModel.children[10].castShadow = true
-        console.log(countrySelectionModel);
+        // let countrySelectionModel = models['sriLankaProvincesMap'].clone(true)
+        // countrySelectionModel.scale.set(0.35,0.35,0.35)
+        // countrySelectionModel.position.set(-.4,0,0.1)
+        // countrySelectionModel.children[10].castShadow = true
+        // // console.log(countrySelectionModel);
 
 
-        scenes.sriLankaCube.add(countrySelectionModel)
+        // scenes.sriLankaCube.add(countrySelectionModel)
 
-        //Storing state colors as new properties
-        scenes.sriLankaCube.regionMaterial = countrySelectionModel.children[0].material//Material for all regions
+        // //Storing state colors as new properties
+        // scenes.sriLankaCube.regionMaterial = countrySelectionModel.children[0].material//Material for all regions
 
-        scenes.sriLankaCube.standardColor = countrySelectionModel.children[0].material.color.clone()//standard color
-        scenes.sriLankaCube.hoveringColor =  new THREE.Color( 0xff0000 )//hovering color
-        scenes.sriLankaCube.selectedColor = new THREE.Color( 0x0000ff )//selected color
+        // scenes.sriLankaCube.standardColor = countrySelectionModel.children[0].material.color.clone()//standard color
+        // scenes.sriLankaCube.hoveringColor =  new THREE.Color( 0xff0000 )//hovering color
+        // scenes.sriLankaCube.selectedColor = new THREE.Color( 0x0000ff )//selected color
 
 
         //Setting up model for region selection
-        let regionSelectionModel = models['sriLankaMap'].clone(true) 
+        let regionSelectionModel = models['sriLankaProvincesMap'].clone(true) 
         regionSelectionModel.scale.set(0.5,0.5,0.5)
         regionSelectionModel.position.set(-0.5, 0, 0.5)
 
         regionSelectionModel.children[10].castShadow = true
-        console.log(regionSelectionModel);
+        // console.log(regionSelectionModel);
         scenes.sriLankaScene.add(regionSelectionModel)
 
         //Setting up and filtering regions and setting up region state colors
@@ -609,15 +610,46 @@ gltfloader.load(
 )
 
 gltfloader.load(
-    'Maldives provinces.glb',
+    'srilanka_cartoon_map.glb',
     (gltf) =>
     {
         let model = gltf.scene
 
-        // console.log(model);
+        models['sriLankaMap'] = model.children[1]
+
+        let countrySelectionModel = models['sriLankaMap'].clone(true)
+        countrySelectionModel.scale.set(0.18,0.18,0.18)
+        countrySelectionModel.position.set(0.24,0,0.1)
+        countrySelectionModel.castShadow = true
+        // console.log(countrySelectionModel);
+
+
+        scenes.sriLankaCube.add(countrySelectionModel)
+
+
+        //Storing state colors as new properties
+        scenes.sriLankaCube.regionMaterial = countrySelectionModel.material //Material for all regions
+        countrySelectionModel.material.needsUpdate = true
+
+        scenes.sriLankaCube.standardMap = new THREE.TextureLoader().load('sri_lanka_standard.png')
+        scenes.sriLankaCube.standardMap.needsUpdate = true
+        scenes.sriLankaCube.standardMap.flipY = false
+        scenes.sriLankaCube.regionMaterial.map = scenes.sriLankaCube.standardMap
+
+        scenes.sriLankaCube.hoveringMap =  new THREE.TextureLoader().load('sri_lanka_hovering.png')
+        scenes.sriLankaCube.hoveringMap.needsUpdate = true
+        scenes.sriLankaCube.hoveringMap.flipY = false
         
-        // loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
-        // loadingBar.animate(loadedPercentage) // animate the progress bar
+        scenes.sriLankaCube.selectedMap = new THREE.TextureLoader().load('sri_lanka_selected.png')
+        scenes.sriLankaCube.selectedMap.needsUpdate = true
+        scenes.sriLankaCube.selectedMap.flipY = false
+
+
+
+        console.log(models['sriLankaMap']);
+        
+        loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
+        loadingBar.animate(loadedPercentage) // animate the progress bar
         // if(loadedPercentage >= 1){ //if loadedPercentage is 1, then the survey can start.
         //     //Call function to start the survey
         //     main.startSurvey()
