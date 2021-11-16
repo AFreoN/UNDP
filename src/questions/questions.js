@@ -127,10 +127,10 @@ let qArray = [
                     dv : 'Other'
                 },
                 {
-                    en : 'Prefer Not to Say',
+                    en : 'Prefer not to Say',
                     si : 'නොකියන්න කැමති',
                     ta : 'சொல்ல விரும்பவில்லை',
-                    dv : 'Prefer Not to Say'
+                    dv : 'Prefer not to Say'
                 }
             ]
         },

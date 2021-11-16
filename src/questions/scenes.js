@@ -282,7 +282,7 @@ function onCountryTouch(event){
             if('standardMap' in selectedCountry 
             && 'hoveringMap' in selectedCountry 
             && 'selectedMap' in selectedCountry ){
-                selectedCountry.regionMaterial.map = hoveringCountry.selectedMap
+                selectedCountry.regionMaterial.map = selectedCountry.selectedMap
                 selectedCountry.regionMaterial.needsUpdate = true;
             }else{
                 selectedCountry.regionMaterial.color = selectedCountry.selectedColor
