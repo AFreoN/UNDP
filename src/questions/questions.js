@@ -763,11 +763,11 @@ export function loadQuestion(questionIndex){
         }else{
             uiControl.enableBackButton()
         }
-        if(questionIndex >= numberOfQuestions - 1){
-            uiControl.disableNextButton()
-        }else{
+        // if(questionIndex >= numberOfQuestions - 1){
+        //     // uiControl.disableNextButton()
+        // }else{
             uiControl.enableNextButton()
-        }
+        // }
         uiControl.disableConfirmation()
 
         let questionType = currentQuestion.type

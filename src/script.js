@@ -43,6 +43,11 @@ let questionIndex = 0 //indicates the question to be loaded
 let confirmedAnswers = [] //stores confirmed answers
 let uiHolder = document.getElementById('ui-holder');
 
+const timeStamps = {
+    start: null,
+    end: null
+}
+
 export function startSurvey(){//call this function when loading is complete
     document.getElementById('loading-container').classList.add('closed')
     surveyStarted = true;
@@ -53,6 +58,8 @@ export function startSurvey(){//call this function when loading is complete
     controls.setPlayer(player, playerAnimations)
     
     questions.loadQuestion(questionIndex)
+    timeStamps.start = getCurrentTimeFormatted()
+    console.log(timeStamps);
     //uiControl.addLangugageButtonEvents();
     //Call any functions related to starting the survey (setting up the first scene etc..)
 }
@@ -72,6 +79,7 @@ export function loadNextQuestion(){
     }
     else if(questionIndex == numberOfQuestions - 1 ){
         // uiControl.enableSubmitPage()
+        validateAnswers()
     }
 }
 
@@ -133,9 +141,11 @@ export function skipCountrySelection(){
 async function submitAnswers(){
     console.log('answers submitted');
     console.log(confirmedAnswers);
+    timeStamps.end = getCurrentTimeFormatted()
     try {
         const docRef = await addDoc(collection(db, "answers"), {
-          answers: confirmedAnswers
+            timeStamps:timeStamps,
+            answers: confirmedAnswers
         });
         console.log("Document written with ID: ", docRef.id);
       } catch (e) {
@@ -166,6 +176,18 @@ export function validateAnswers(){
     submitAnswers()
 }
 
+function getCurrentTimeFormatted(){
+    const currentTime = new Date()
+    const date = currentTime.getDate()
+    const month = currentTime.getMonth()
+    const year = currentTime.getFullYear()
+    const hours = currentTime.getHours()
+    const minutes = currentTime.getMinutes()
+    const seconds = currentTime.getSeconds()
+
+    const formattedTimeString  = `${date}/${month+1}/${year.toString().slice(2)} - ${hours}:${minutes}:${seconds}`
+    return formattedTimeString
+}
 
 //      Main JS Notes
 //-Controls question index

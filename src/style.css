@@ -96,7 +96,7 @@ canvas.webgl{
     padding: 5px 20px;
     border: 0;
     box-shadow: 3px 3px 10px #444444;
-    
+    cursor: pointer;
 }
 
 .loading-footer{
@@ -361,7 +361,11 @@ canvas.webgl{
     position: absolute;
     left: 50%;
     bottom: 25%;
-    transform: translateX(-50%);
+    /* transform: translateX(-50%); */
+    /* transform: translateY(0); */
+    transform: translate(-50%,0);
+    transition: transform 0.1s, box-shadow 0.1s, text-shadow 0.1s;
+    cursor: pointer;
 }
 
 .question-footer-container{
@@ -397,7 +401,7 @@ canvas.webgl{
     color: white;
     font-size: 25px;
     padding: 0;
-    
+    cursor: pointer;
 }
 
 #control-back-button{
@@ -412,6 +416,7 @@ canvas.webgl{
     font-weight: bold;
     padding: 5px 30px;
     box-shadow: 3px 3px 10px #444444;;
+    
 }
 
 .survey-progress-container{
@@ -565,6 +570,10 @@ canvas.webgl{
       align-items: center;
 
       color: rgb(255, 255, 255);
+      font-family: 'Rubik',sans-serif;
+      text-shadow: 0 0px 10px rgba(0, 0, 0);
+      
+
       /*
       background: rgba(255, 255, 255, 0.637);
       padding: 8px;
@@ -578,7 +587,10 @@ canvas.webgl{
     align-items: center;
 
     color: rgb(255, 255, 255);
-  }
+    font-family: 'Rubik',sans-serif;
+    text-shadow: 0 0px 10px rgba(0, 0, 0);
+    
+}
 
   #slidertext-distant{
       position: absolute;
@@ -987,6 +999,10 @@ canvas.webgl{
     }
     .country-skip-button:hover{
         /* background: #cdf0ff; */
+        transform: translate(-50%,-4px);
+        /* transform: translateY(-5px); */
+        box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.5), 0 5px 10px 0 rgba(0, 0, 0, 0.5) inset ;
+        text-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
     }
     .submit-button:hover{
         background: #cdf0ff;
@@ -1005,8 +1021,10 @@ canvas.webgl{
 }
 
 .country-skip-button:active{
-    /* background: #90bfd3; */
-
+    background: rgb(172, 172, 172);
+    transition: none;
+    text-shadow: none;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.5);
 }
 
 .submit-button:active{
@@ -1016,11 +1034,12 @@ canvas.webgl{
 .control-button:disabled{
     /* background: #5b7986; */
     opacity: 50%;
+    cursor: not-allowed;
 }
 
 .survey-start-button:disabled{
     opacity: 50%;
-    
+    cursor: not-allowed;
 }
 
 
