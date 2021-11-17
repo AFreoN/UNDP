@@ -9,6 +9,10 @@ var animate = false;
 var playerMoved = false;
 
 var transitionStyle;
+const styleFadeIn = 'fadein';
+const styleFadeOut = 'fadeout';
+const styleJumpIn = 'jumpin';
+const styleJumpOut = 'jumpout';
 
 const takeOnFactor = 1.2; //prev 0.4
 const takeOffFactor = 0.2;   //prev 0.2
@@ -16,6 +20,9 @@ const takeSeparationFactor = 0.25;  //prev 0.35
 const playerTransitionDistance = 0.05;   //Prev 0.05
 const playerTransitionTime = 0.15;
 var jerkValue = takeOnFactor;  //Lerps the lerp value to make transition smoother
+
+const playerJumpDistance = 3;
+const jumpTransitionTime = 0.5;
 
 const cameraTransitionDistance = 10;     //prev 2
 var tempPlayerYpos = 0;
@@ -77,7 +84,7 @@ export function fadeIn(_otherModel, switchDirection, _callFunction){
     }
 
     callBackFunction = _callFunction;
-    transitionStyle = 'fadein';
+    transitionStyle = styleFadeIn;
 
     initCameraPos = cameraPos.clone();
     //initPlayerPos = playerPos.clone();
@@ -116,7 +123,7 @@ export function fadeOut(_otherModel, switchDirection, _callFunction){
         otherPos = otherCharacter.position;
     }
     callBackFunction = _callFunction;
-    transitionStyle = 'fadeout';
+    transitionStyle = styleFadeOut;
 
     initCameraPos = cameraPos.clone();
     //initPlayerPos = playerPos.clone();
@@ -153,7 +160,7 @@ const tick = () => {
     prevTime = elapsedTime;
 
     if(animate){
-        if(transitionStyle == 'fadein'){
+        if(transitionStyle == styleFadeIn){
             if(playerMoved){
                 transition(deltatime);
             }
@@ -161,13 +168,17 @@ const tick = () => {
                 playerMovement(deltatime);
             }
         }
-        else{
+        else if(transitionStyle == styleFadeOut){
             if(playerMoved == false){
                 playerMovement(deltatime);
             }
             else{
                 transition(deltatime);
             }
+        }
+        
+        if(transitionStyle == styleJumpIn || transitionStyle == styleJumpOut){
+            jumpTransition(deltatime);
         }
         //transition(deltatime);
         
@@ -181,10 +192,10 @@ const playerMovement = function(deltatime){
     
     lerpFactor += deltatime / playerTransitionTime;
 
-    if(transitionStyle == 'fadein'){
+    if(transitionStyle == styleFadeIn){
         tempPlayerYpos = (1 - lerpFactor) * playerTransitionDistance;
     }
-    else{
+    else if(transitionStyle == styleFadeOut){
         tempPlayerYpos = lerpFactor * playerTransitionDistance;
     }
     
@@ -194,26 +205,17 @@ const playerMovement = function(deltatime){
     
     if(lerpFactor >= 0.98){
         playerMoved = true;
-        if(transitionStyle == 'fadein'){
+        if(transitionStyle == styleFadeIn){
             animate = false;
             enablePlayerControl();
-            // if(otherCharacter)
-            // {
-            //     EnableCharacterText();  
-            // }
-
         }
-
         lerpFactor = 0;
-
-        //playerOffset = playerCharacter.position.clone();
-        //playerOffset.sub(mainCamera.position);
     }
 }
 
 const jerkLerpSpeed = 0.5;
 const transition = function(deltatime){
-    if(transitionStyle == 'fadeout'){
+    if(transitionStyle == styleFadeOut){
         if(lerpFactor <= takeSeparationFactor){
             jerkValue = MathUtils.lerp(jerkValue, takeOnFactor, jerkLerpSpeed);
             //lerpFactor += deltatime / takeOnFactor;
@@ -223,7 +225,7 @@ const transition = function(deltatime){
             //lerpFactor += deltatime / takeOffFactor;
         }
     }
-    else{
+    else if(transitionStyle == styleFadeOut){
         if(lerpFactor <= 1-takeSeparationFactor){
             jerkValue = MathUtils.lerp(jerkValue, takeOffFactor, jerkLerpSpeed);
             //lerpFactor += deltatime / takeOffFactor;
@@ -244,7 +246,7 @@ const transition = function(deltatime){
     var curOtherPosition;
     var finalOtherPosition;
 
-    if(transitionStyle == 'fadein'){
+    if(transitionStyle == styleFadeIn){
         finalCamPosition = cameraPos.clone();
         curCamPosition = initCameraPos.clone();
         curCamPosition.lerp(cameraPos, lerpFactor);
@@ -258,7 +260,7 @@ const transition = function(deltatime){
         curOtherPosition = initOtherPos.clone();
         curOtherPosition.lerp(otherPos, lerpFactor);            
     }
-    else{
+    else if(transitionStyle == styleFadeOut){
         finalCamPosition = initCameraPos.clone();
         curCamPosition = cameraPos.clone();
         curCamPosition.lerp(initCameraPos, lerpFactor);
@@ -303,7 +305,7 @@ const transition = function(deltatime){
         playerMoved = false;
 
         mainCamera.position.set(finalCamPosition.x, finalCamPosition.y, finalCamPosition.z);
-        if(transitionStyle == 'fadein'){
+        if(transitionStyle == styleFadeIn){
             playerCharacter.position.set(finalPlayerPosition.x, tempPlayerYpos, finalPlayerPosition.z);
             //enablePlayerControl();
         }
@@ -314,26 +316,49 @@ const transition = function(deltatime){
             }
         });
         
-        //debugVector3(finalPlayerPosition, "After transition final position");
-        //debugVector3(curPlayerPosition, "Cur position after transition");
-        //debugVector3(playerCharacter.position, "Player after transition");
-
-
-        if(callBackFunction && transitionStyle == 'fadeout'){
+        if(callBackFunction && transitionStyle == styleFadeOut){
             callBackFunction();
         }
-
-        // if(transitionStyle == 'fadein'){
-        //     sliderHolder.hidden = false;
-        // }
     }
 }
 
-const debugVector3 = function(vector, msg){
-    if(msg){
-        console.log(msg + " --> x = " + vector.x + ", y = " + vector.y + ", z = " + vector.z);
+export const jumpIn = function(){
+    playerCharacter.position.set(playerPos.x, minPlayerYpos + playerJumpDistance, playerPos.z);
+    transitionStyle = styleJumpIn;
+    animate = true;
+}
+
+export const jumpOut = function(_callBack){
+    playerCharacter.position.set(playerPos.x, playerPos.y, playerPos.z);
+    transitionStyle = styleJumpOut;
+    callBackFunction = _callBack;
+    animate = true;
+}
+
+const jumpTransition = function(deltatime){
+    
+    lerpFactor += deltatime / jumpTransitionTime;
+
+    if(transitionStyle == styleJumpIn){
+        tempPlayerYpos = (1 - lerpFactor) * playerJumpDistance;
     }
-    else{
-        console.log("x = " + vector.x + ", y = " + vector.y + ", z = " + vector.z);
+    else if(transitionStyle == styleJumpOut){
+        tempPlayerYpos = lerpFactor * playerJumpDistance;
+    }
+    
+    var curPpos = playerPos.clone();
+    curPpos.y = tempPlayerYpos + minPlayerYpos;
+    playerCharacter.position.set(curPpos.x,curPpos.y,curPpos.z);
+    
+    if(lerpFactor >= 0.98){
+        playerMoved = true;
+        animate = false;
+        if(transitionStyle == styleJumpIn){
+            enablePlayerControl();
+        }
+        if(transitionStyle == styleJumpOut){
+            callBackFunction();
+        }
+        lerpFactor = 0;
     }
 }

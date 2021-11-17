@@ -461,7 +461,7 @@ export function showRegionAnswerContainer(){
 var selectedMcqAnswer = null;
 
 const defaultBackground = "linear-gradient(to top , #5f27fc, #e827fc )";
-const sliderSceneBackground = "linear-gradient(to bottom, #bb56ff 0%,#ed81f9 35%)";
+const sliderSceneBackground = "linear-gradient(to bottom, #A216FF 0%,#fa76ff 35%)";     //prev "linear-gradient(to bottom, #bb56ff 0%,#ed81f9 35%)"
 
 
 

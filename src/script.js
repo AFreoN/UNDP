@@ -2,7 +2,7 @@ import './style.css'
 import * as questions from './questions/questions' 
 import * as assetLoader from './assets_loader/assets_loader'
 import * as controls from './character_controller/character_control'
-import * as uiControl from './ui_controller/ui_controller'
+//import * as uiControl from './ui_controller/ui_controller'
 import { enableBackButton, enableConfirmation, enableNextButton } from './ui_controller/ui_controller'
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
@@ -50,7 +50,9 @@ export function startSurvey(){//call this function when loading is complete
 
     var player = assetLoader.getModel('playerCharacter')
     var playerAnimations = assetLoader.getPlayerAnimations()
-    controls.setPlayer(player, playerAnimations)
+    var outline = assetLoader.getModel('playerOutline')
+    var outlineAnimation = assetLoader.getOtherCharacterAnimations('playerOutline')
+    controls.setPlayer(player, playerAnimations, outline, outlineAnimation)
     
     questions.loadQuestion(questionIndex)
     //uiControl.addLangugageButtonEvents();

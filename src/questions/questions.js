@@ -778,7 +778,7 @@ export function loadQuestion(questionIndex){
             questionText = currentQuestion.question[langId]
         }
         let answers = currentQuestion.answers
-        
+
         switch(questionType.toLowerCase()){
             case 'country':
                 scenes.resetCountrySelection()
@@ -804,13 +804,29 @@ export function loadQuestion(questionIndex){
                 
                 break;
             case 'about':
-                scenes.resetCurrentSelectionScene()
-                updateSceneAndCamera(aboutScene, aboutCamera)
-                currentCenterModel = null
-                player.position.set(0,-.6, 2)
-                player.rotation.set(0,0,0)
-                controls.disablePlayerControl()
-                aboutScene.add(player)
+                if(prevQues != 'joystick'){
+                    scenes.resetCurrentSelectionScene()
+                    updateSceneAndCamera(aboutScene, aboutCamera)
+                    currentCenterModel = null
+                    player.position.set(0,-.6, 2)
+                    player.rotation.set(0,0,0)
+                    controls.disablePlayerControl()
+                    aboutScene.add(player)
+                }
+                else{
+                    UIUpdateNeeded = false;
+                    sceneTransition.jumpOut(function() {
+                        scenes.resetCurrentSelectionScene()
+                        updateSceneAndCamera(aboutScene, aboutCamera)
+                        currentCenterModel = null
+                        player.position.set(0,-.6, 2)
+                        player.rotation.set(0,0,0)
+                        controls.disablePlayerControl()
+                        aboutScene.add(player)
+                        uiControl.updateUI(questionType, questionText, answers)
+                        uiControl.setSurveyProgressValue(questionIndex)
+                    });
+                }
                 break;
             case 'joystick':
                 scenes.resetCurrentSelectionScene();
@@ -826,7 +842,7 @@ export function loadQuestion(questionIndex){
 
                 var slideDirection = questionIndex - qId;
                 var dir = slideDirection > 0 ? 'right' : 'left';
-                if(prevQues == 'joystick'){
+                if(prevQues == 'joystick'){     //If previos scene is joystick scene, then scene has to fadeout first then fadein to other scene
                     UIUpdateNeeded = false;
                     sceneTransition.fadeOut(prevOtherModel, dir, function(){
                         setupJoystickScene(currentQuestion, player, questionIndex);
@@ -835,9 +851,16 @@ export function loadQuestion(questionIndex){
                     });
                 }
                 else{
-                    setupJoystickScene(currentQuestion, player, questionIndex);
-                    updateSceneAndCamera(joystickScene, joystickCamera);
-                    sceneTransition.fadeIn(prevOtherModel, dir, null);
+                    if(questionIndex != 3){     //questionIndex 3 is mother scene
+                        setupJoystickScene(currentQuestion, player, questionIndex);
+                        updateSceneAndCamera(joystickScene, joystickCamera);
+                        sceneTransition.fadeIn(prevOtherModel, dir, null);
+                    }
+                    else{
+                        setupJoystickScene(currentQuestion, player, questionIndex);
+                        updateSceneAndCamera(joystickScene, joystickCamera);
+                        sceneTransition.jumpIn();
+                    }
                 }
 
                 // const fatherModel = assetLoader.getModel('father');
@@ -1060,9 +1083,18 @@ export const updateNameIndicator = function(player, other){
     playerName.style.position = "absolute";
     playerName.style.top = (pos.y - playerName.clientHeight * 0.5) + "px";
     playerName.style.left = (pos.x - playerName.clientWidth * 0.5) + "px";
+
+    //checkingBoundbox(other);
 }
 //#endregion
 
+function checkingBoundbox(model){
+
+    let bb = new THREE.Box3().setFromObject(model);
+    var size = new THREE.Vector3();
+    bb.getSize(size);
+    console.log("Model size = ", size);
+}
 
 const addModelToScene = function(_scene, _model){
     if(_scene.getObjectById(_model.id) == null){
