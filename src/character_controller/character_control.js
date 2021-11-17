@@ -40,6 +40,7 @@ export function enablePlayerControl(){
     }
 
     canControlPlayer = true;
+    //joystickScene.add(playerOutline);
 
     var xPos = -startX + stepValue * (joystickSlideValue + 50);
     player.position.set(xPos, PlayerYPos, 0);
@@ -56,6 +57,8 @@ export function enablePlayerControl(){
 
 export function disablePlayerControl(){
     canControlPlayer = false;
+    joystickScene.remove(playerOutline);
+
     sliderHolder.hidden = true;
     joystickScene.remove(ring1);
     joystickScene.remove(ring2);
@@ -85,9 +88,13 @@ const onSliderInputEnd = function(){    //On Input end on the slider
 const startX = 0.4;   //Starting x position of the character eg. 1 for character 1 and -1 for character 2     //prev 1
 const stepValue = 0.00005; //Distance of character movement on each change in slider value    //Prev 0.125
 
-let player = null; //Holds player model
+let player = null; //Holds player model\
 let playerMixer = null; //Holds player animation mixer
 let playerAnimations = null //Holds player animation array
+var playerMovedRight = false;   //To control the sliding animation based on which direction character has moved
+let playerOutline = null;
+let playerOutlineMixer = null;
+let playerOutlineAnimation = null;
 var animationIndex = -1;     //Id for current playing animation  2-Idle, 3-Walk
 
 let otherCharacter = null;
@@ -116,11 +123,21 @@ window.addEventListener('resize',()=>{
 })
 
 //executes when loading is complete. Imports player model, animation mixer and animations
-export function setPlayer(playerModel, playerAnims){
+export function setPlayer(playerModel, playerAnims, outline, outlineAnimation){
     player = playerModel
     playerMixer = new THREE.AnimationMixer(player)
     playerAnimations = playerAnims
     ring1.position.set(player.position.x, ringYPos, player.position.z);
+
+    playerOutline = outline;
+    playerOutlineAnimation = outlineAnimation;
+    playerOutlineMixer = new THREE.AnimationMixer(playerOutline);
+    playerOutline.position.set(player.position.x, player.position.y, player.position.z);
+    playerOutlineMixer.clipAction(playerOutlineAnimation[0]).stop();
+    playerOutlineMixer.clipAction(playerOutlineAnimation[1]).stop();
+    playerOutlineMixer.clipAction(playerOutlineAnimation[2]).stop();
+    playerOutlineMixer.clipAction(playerOutlineAnimation[3]).stop();
+    //joystickScene.add(playerOutline);
 }
 
 const PlayerYPos = -0.6;
@@ -448,7 +465,7 @@ function Movecharacter(){
 }
 
 const movePlayer = function(){
-    idle = true;
+    //idle = true;
     otherIdle = true;
 
     var xPos = -startX + stepValue * (joystickSlideValue + 50);
@@ -469,6 +486,11 @@ const movePlayer = function(){
     else{
         idle = false;
     }
+
+    if(player.position.x > xPos)
+        playerMovedRight = false;
+    else
+        playerMovedRight = true;
 }
 
 const moveCamera = function(){
@@ -804,21 +826,47 @@ function animateOtherCharacter(){
 
 var movingTime = 0;
 var stoppingTime = 0;
-const startDuration = 0.2;
-const endDuration = 0.2;
-const startFadeDuration = 0.15;
-const endFadeDuration = 0.15;
+const startDuration = 0.1;  //prev 0.2
+const endDuration = 0.1;    //prev 0.2
+const startFadeDuration = 0.08; //prev 0.15
+const endFadeDuration = 0.08;   //prev 0.15
+
+function resetAnimations(animArray){
+    animArray.forEach(action => {
+        action.reset(); 
+        action.stop();
+    });
+}
+
+var playerMoveEnded = true;
 
 function animatePlayerTHREE(){
     const fadeDuration = 0.25;
     //const idleId = 2, walkId = 4, startId = 1, endId = 0;
     const idleId = 0, walkId = 2, startId = 1, endId = 3;
+    const IDwalkStartLeft = 2, IDwalkLeft = 3, IDwalkStopLeft = 4, IDwalkStartRight = 5, IDwalkRight = 6, IDwalkStopRight = 7;
     const idleAction = playerMixer.clipAction(playerAnimations[idleId]);
     const walkAction = playerMixer.clipAction(playerAnimations[walkId]);
     const startAction = playerMixer.clipAction(playerAnimations[startId]);
     const endAction = playerMixer.clipAction(playerAnimations[endId]);
-    if(canControlPlayer){
+    const walkStartLeft = playerMixer.clipAction(playerAnimations[IDwalkStartLeft]);
+    const walkLeft = playerMixer.clipAction(playerAnimations[IDwalkLeft]);
+    const walkStopLeft = playerMixer.clipAction(playerAnimations[IDwalkStopLeft]);
+    const walkStartRight = playerMixer.clipAction(playerAnimations[IDwalkStartRight]);
+    const walkRight = playerMixer.clipAction(playerAnimations[IDwalkRight]);
+    const walkStopRight = playerMixer.clipAction(playerAnimations[IDwalkStopRight]);
 
+    
+    const allAnims = [idleAction, walkStartLeft, walkLeft, walkStopLeft,
+                        walkStartRight, walkRight, walkStopRight];
+
+    const outlineIdle = playerOutlineMixer.clipAction(playerOutlineAnimation[idleId]);
+    const outlineWalk = playerOutlineMixer.clipAction(playerOutlineAnimation[walkId]);
+    const outlineStart = playerOutlineMixer.clipAction(playerOutlineAnimation[startId]);
+    const outlineEnd = playerOutlineMixer.clipAction(playerOutlineAnimation[endId]);
+
+    if(canControlPlayer){
+        const prevAnimation = playerMixer.clipAction(playerAnimations[animationIndex]);
         if(playerMixer == null)
             return;
         if(idle){
@@ -826,41 +874,111 @@ function animatePlayerTHREE(){
                 if(animationIndex != idleId){
                     animationIndex = idleId;
     
-                    //walkAction.stop();
                     idleAction.reset();
-                    idleAction.crossFadeFrom(endAction ,fadeDuration);
+                    if(playerMovedRight){
+                        idleAction.crossFadeFrom(walkStopRight ,fadeDuration);
+                        allAnims.splice(allAnims.indexOf(walkStopRight), 1);
+                        resetAnimations(allAnims); 
+                    }
+                    else{
+                        idleAction.crossFadeFrom(walkStopLeft, fadeDuration);
+                        allAnims.splice(allAnims.indexOf(walkStopLeft), 1);
+                        resetAnimations(allAnims); 
+                    }
                     idleAction.play();
+
+                    outlineIdle.reset();
+                    outlineIdle.crossFadeFrom(outlineEnd, fadeDuration);
+                    outlineIdle.play();
                 }
+                playerMoveEnded = true;
             }
             else if(stoppingTime < endDuration){
-                if(animationIndex != endId){
-                    animationIndex = endId;
-
-                    endAction.reset();
-                    endAction.crossFadeFrom(walkAction, endFadeDuration);
-                    endAction.play();
+                if(playerMovedRight){
+                    if(animationIndex != IDwalkStopRight){
+                        animationIndex = IDwalkStopRight;
+    
+                        walkStopRight.reset();
+                        walkStopRight.crossFadeFrom(walkRight, endFadeDuration);
+                        walkStopRight.play();
+    
+                        outlineEnd.reset();
+                        outlineEnd.crossFadeFrom(outlineWalk, endFadeDuration);
+                        outlineEnd.play();
+                    }
+                }
+                else{
+                    if(animationIndex != IDwalkStopRight){
+                        animationIndex = IDwalkStopLeft;
+    
+                        walkStopLeft.reset();
+                        walkStopLeft.crossFadeFrom(walkLeft, endFadeDuration);
+                        walkStopLeft.play();
+    
+                        outlineEnd.reset();
+                        outlineEnd.crossFadeFrom(outlineWalk, endFadeDuration);
+                        outlineEnd.play();
+                    }
                 }
             }
         }
         else
         {
             if(movingTime < startDuration){
-                if(animationIndex != startId){
-                    animationIndex = startId;
-
-                    startAction.reset();
-                    startAction.crossFadeFrom(idleAction, startFadeDuration);
-                    startAction.play();
+                if(playerMovedRight){
+                    if(animationIndex != IDwalkStartRight){
+                        animationIndex = IDwalkStartRight;
+    
+                        walkStartRight.reset();
+                        walkStartRight.crossFadeFrom(idleAction, startFadeDuration);
+                        walkStartRight.play();
+    
+                        outlineStart.reset();
+                        outlineStart.crossFadeFrom(outlineIdle, startFadeDuration);
+                        outlineStart.play();
+                    }
                 }
+                else{
+                    if(animationIndex != IDwalkStartLeft){
+                        animationIndex = IDwalkStartLeft;
+    
+                        walkStartLeft.reset();
+                        walkStartLeft.crossFadeFrom(idleAction, startFadeDuration);
+                        walkStartLeft.play();
+    
+                        outlineStart.reset();
+                        outlineStart.crossFadeFrom(outlineIdle, startFadeDuration);
+                        outlineStart.play();
+                    }
+                }
+                playerMoveEnded = false;
             }
             else if(movingTime >= startDuration){
-                if(animationIndex != walkId){
-                    animationIndex = walkId;
+                if(playerMovedRight){
+                    if(animationIndex != IDwalkRight){
+                        animationIndex = IDwalkRight;
+        
+                        walkRight.reset();
+                        walkRight.crossFadeFrom(prevAnimation, fadeDuration);
+                        walkRight.play();
     
-                    //idleAction.stop();
-                    walkAction.reset();
-                    walkAction.crossFadeFrom(startAction, fadeDuration);
-                    walkAction.play();
+                        outlineWalk.reset();
+                        outlineWalk.crossFadeFrom(prevAnimation, fadeDuration);
+                        outlineWalk.play();
+                    }
+                }
+                else{
+                    if(animationIndex != IDwalkLeft){
+                        animationIndex = IDwalkLeft;
+        
+                        walkLeft.reset();
+                        walkLeft.crossFadeFrom(walkStartLeft, fadeDuration);
+                        walkLeft.play();
+    
+                        outlineWalk.reset();
+                        outlineWalk.crossFadeFrom(outlineStart, fadeDuration);
+                        outlineWalk.play();
+                    }
                 }
             }
         }
@@ -871,8 +989,15 @@ function animatePlayerTHREE(){
 
                 //walkAction.stop();
                 idleAction.reset();
-                idleAction.crossFadeFrom(walkAction ,endFadeDuration);
+                if(playerMovedRight)
+                    idleAction.crossFadeFrom(walkRight ,endFadeDuration);
+                else
+                    idleAction.crossFadeFrom(walkLeft, endFadeDuration);
                 idleAction.play();
+
+                outlineIdle.reset();
+                outlineIdle.crossFadeFrom(outlineWalk, endFadeDuration);
+                outlineIdle.play();
             }
     }
 }
@@ -980,12 +1105,14 @@ const tick = () =>
         Movecharacter()
 
         if(idle){
-            movingTime = 0;
             stoppingTime += deltatime;
+            if(playerMoveEnded)
+                movingTime = 0;
         }
         else{
             movingTime += deltatime;
-            stoppingTime = 0;
+            if(playerMoveEnded == false)
+                stoppingTime = 0;
         }
     }
 
@@ -1053,6 +1180,14 @@ const tick = () =>
             }
         }
     }
+
+    //Updating outlines here
+    if(playerOutline != null){
+        playerOutline.position.set(player.position.x - 0.005, player.position.y - 0.03, player.position.z - 0.05);
+    }
+
+    if(playerOutlineMixer != null)
+        playerOutlineMixer.update(deltatime)
 
     //Implement loop here
     window.requestAnimationFrame(tick)

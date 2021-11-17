@@ -30,7 +30,7 @@ export const shaderMaterial = new THREE.ShaderMaterial({
           ${THREE.ShaderChunk.skinbase_vertex}
           ${THREE.ShaderChunk.skinnormal_vertex}
 
-          vec3 transformed = vec3( position );
+          vec3 transformed = vec3( position )+ objectNormal*0.001;
 
           //Transform vertex by modelview and projection matrices
 
@@ -60,7 +60,7 @@ export const shaderMaterial = new THREE.ShaderMaterial({
         //gl_FragColor.rgb = mix(gl_FragColor.rgb, objectColor, 1.0);
         //gl_FragColor = vec4( 1.0, 0.0, 0.0, 1.0);
       }`,
-      lights : false
+      lights : true
   });
 
   export const shaderUnlit = new THREE.ShaderMaterial({

@@ -13,6 +13,7 @@ import { shaderMaterial, shaderUnlit } from '../fresnel'
 //Add empty keys for each model loaded to calculate loading percentage
 let models = {
     playerCharacter:null,
+    playerOutline:null,
     centerCharacter:null,
     mother:null,
     Father:null,
@@ -46,6 +47,7 @@ let models = {
 //player animations are stored here
 let animations = {
     playerCharacter:null,
+    playerOutline:null,
     centerCharacter:null,
     centerEmoji:null,
     father:null,
@@ -57,6 +59,15 @@ let animations = {
 
 let animationId = {
     playerCharacter:{
+        'idle':0,
+        'startL':2,
+        'walkL':3,
+        'stopL':4,
+        'startR':5,
+        'walkR':6,
+        'stopR':7
+    },
+    playerOutline:{
         'idle':0,
         'walk':2,
         'start':1,
@@ -197,7 +208,7 @@ tex.magFilter = THREE.NearestFilter;
 
 //Importing player character
 gltfloader.load(
-    'Models/Animation_V05.gltf',       //'Models/toonwalk_character.gltf'
+    'Models/Animation_V07.gltf',       //'Models/toonwalk_character.gltf'
     (gltf) =>
     {
         animations['playerCharacter'] = gltf.animations
@@ -206,10 +217,41 @@ gltfloader.load(
         model.scale.set(.3,.3,.3)        //0.07 prev
         model.position.set(0,-.6, 2)
 
+        var toonMaterial = new THREE.MeshToonMaterial({ color : 0xFFC332, gradientMap : tex});
+        //toonMaterial = new THREE.MeshStandardMaterial({color : 0xFFC332, roughness : 0.8, metalness : 0.2});
+        const shader = {
+            'outline' :
+            {
+                vertex_shader: [
+                    "uniform float offset;",
+                    "void main() {",
+                    "vec4 pos = modelViewMatrix * vec4( position + normal * offset, 1.0 );",
+                    "gl_Position = projectionMatrix * pos;",
+                    "}"
+                ].join("\n"),
+    
+                fragment_shader: [
+                    "void main(){",
+                    "gl_FragColor = vec4( 1.0, 0.0, 0.0, 1.0 );",
+                    "}"
+                ].join("\n")
+            }
+        };
+        const outShader = shader['outline'];
+        const uniforms = {offset: {
+            type: "f",
+            value: 1}
+        };
+
+        const matShader = new THREE.ShaderMaterial({
+            uniforms: uniforms,
+            vertexShader: outShader.vertex_shader,
+            fragmentShader: outShader.fragment_shader
+        });
+        matShader.depthWrite = false;
+
         model.traverse((child) => {
             if (child.isMesh){
-                var toonMaterial = new THREE.MeshToonMaterial({ color : 0xFFC332, gradientMap : tex});
-                //toonMaterial = new THREE.MeshStandardMaterial({color : 0xFFC332, roughness : 0.8, metalness : 0.2});
                 //new THREE.MeshBasicMaterial({color : 0xFFC332});
                 child.material = shaderMaterial; // material of the player character
                 child.castShadow = true;
@@ -227,6 +269,40 @@ gltfloader.load(
         // }
     }
 )  
+
+gltfloader.load(
+    'Models/Animation_V05.gltf',
+    (gltf) =>
+    {
+        animations['playerOutline'] = gltf.animations
+        let model = gltf.scene
+        model.name = 'playerOutline'
+        model.scale.set(.34,.33,.33)
+        model.position.set(0,-.6, 0)
+
+        const mat = new THREE.MeshLambertMaterial({ color:'black', side : THREE.BackSide});
+
+
+        model.traverse((child) => {
+            if (child.isMesh){
+                child.material = mat;
+            }
+        });
+
+        // mat.onBeforeCompile = (shader) => {
+        //     const token = `#include <begin_vertex>`
+        //     const customTransform = `
+        //         vec3 transformed = vec3(position)  + objectNormal*0.006;
+        //     `
+        //     shader.vertexShader = 
+        //         shader.vertexShader.replace(token,customTransform)
+        // }
+
+        models['playerOutline'] = model// test center model.
+        loadedPercentage += (1/numberOfAssets)
+        loadingBar.animate(loadedPercentage)
+    }
+)
 
 gltfloader.load(
     'Models/Animation_V05.gltf',
@@ -276,6 +352,7 @@ gltfloader.load(
     }
 )
 
+var group = new THREE.Group();
 gltfloader.load(
     'Models/father.gltf',
     (gltf) =>
@@ -286,13 +363,17 @@ gltfloader.load(
         model.scale.set(0.08,0.08,0.08)
         model.position.set(0,-.6, 0)
 
-        // model.traverse((child) => {
-        //     if (child.isMesh){
-        //         let toonMaterial = new THREE.MeshToonMaterial({ color : 0xFFC332, gradientMap : tex});
-        //         child.material = shaderMaterial; // a material i created in the code earlier
-        //         child.castShadow = true;
-        //     }
-        // });
+        //
+        model.traverse((child) => {
+            if (child.isMesh){
+                //group.add(child);
+            }
+        });
+        // console.log("Models length = ", group.length);
+        // let bb = new THREE.Box3().setFromObject(group);
+        // var size = new THREE.Vector3();
+        // bb.getSize(size);
+        // console.log("Father size = ", size);
 
         models['father'] = model// test center model.
 
@@ -350,7 +431,7 @@ gltfloader.load(
 )
 
 gltfloader.load(
-    'Models/Community.gltf',
+    'Models/community.gltf',
     (gltf) =>
     {
         //animations['community'] = gltf.animations

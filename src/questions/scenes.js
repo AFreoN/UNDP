@@ -4,7 +4,7 @@ import * as assetLoader from '../assets_loader/assets_loader'
 import * as uiControl from '../ui_controller/ui_controller'
 import * as mainScipt from '../script'
 import { clamp } from 'three/src/math/mathutils'
-import { MathUtils } from 'three'
+//import { MathUtils } from 'three'
 
 const mouse = new THREE.Vector2() 
 
@@ -801,7 +801,7 @@ joystickCamera.lookAt(0, -0.3, 0);
 
 joystickScene.add(joystickCamera)
 
-const color = 0xea7ff9;   //prev 0x99CCFF
+const color = 0xfa76ff;   //prev 0xea7ff9
 //joystickScene.background = new THREE.Color(color);
 
 const minDis = joystickCamera.position.z;
@@ -820,20 +820,8 @@ const sliderBG = "linear-gradient(to bottom, #bb56ff 0%,#ed81f9 35%)";
 const floorSize = 100;
 var floorgeo = new THREE.PlaneGeometry(floorSize,floorSize);
 floorgeo.computeBoundingBox();
-
-const rRadius = 0.5;
-const geoRing = new THREE.CylinderGeometry(rRadius, rRadius, 0.001, 32);
-const ringmat = new THREE.MeshBasicMaterial({color : 0xFFFFFF, opacity : 0.2, transparent : true});
-export const ring1 = new THREE.Mesh(geoRing, ringmat);
-ring1.position.set(0, -0.59, 0);
-//joystickScene.add(ring1);
-
-export const ring2 = new THREE.Mesh(geoRing, ringmat);
-ring2.position.set(0, -0.59, 0);
-//joystickScene.add(ring2);
-
 //const floorgeo = new THREE.CylinderGeometry(1000,1000,0.05, 256);
-const floorMaterial = new THREE.MeshToonMaterial( {color: 0x725FB3});    //prev color 0xfff4db
+const floorMaterial = new THREE.MeshToonMaterial( {color: 0x5331FF});   //dark pink 801FCF    //prev new THREE.MeshToonMaterial( {color: 0x725FB3})
 const RingMaterial = new THREE.MeshBasicMaterial({color: 0xf5eddc}) 
 
 const floor = new THREE.Mesh (floorgeo, floorMaterial); 
@@ -843,7 +831,19 @@ floor.position.y = -.6
 floor.receiveShadow = true;
 joystickScene.add(floor);
 
-const ambLight = new THREE.AmbientLight(0xCFD1E6, 0.5);
+//#region Characters ring
+const rRadius = 0.5;
+const geoRing = new THREE.CylinderGeometry(rRadius, rRadius, 0.001, 32);
+const ringmat = new THREE.MeshBasicMaterial({color : 0xFFFFFF, opacity : 0.2, transparent : true});
+export const ring1 = new THREE.Mesh(geoRing, ringmat);
+ring1.position.set(0, -0.59, 0);
+
+export const ring2 = new THREE.Mesh(geoRing, ringmat);
+ring2.position.set(0, -0.59, 0);
+//#endregion
+
+//#region Adding lights in slider scene
+const ambLight = new THREE.AmbientLight(0xCFD1E6, 0.3);     //Prev 0.5
 joystickScene.add(ambLight);
 
 export const joyDirLight = new THREE.DirectionalLight(0xffffff, 1 );
@@ -854,7 +854,7 @@ joyDirLight.shadow.camera.near = 0.1;
 joyDirLight.shadow.camera.far = 100;
 joystickScene.add(joyDirLight);
 
-export const pointLight = new THREE.PointLight(0xA7C0FF, 1, 3);      //0.7,3
+export const pointLight = new THREE.PointLight(0xA7C0FF, 1, 3);      //prev new THREE.PointLight(0xA7C0FF, 1, 3)
 pointLight.position.y = -1;
 pointLight.position.z = 3.5/ aspect;
 joystickScene.add(pointLight);
@@ -870,6 +870,7 @@ const bgPointLight2 = new THREE.PointLight(0xea7ff9, 2, rimLightDistance - 2);
 bgPointLight2.position.y = -1;
 bgPointLight2.position.z = -rimLightDistance + 7;
 bgPointLight2.position.x = (rimLightDistance - 2) * 1.3;
+//#endregion
 //joystickScene.add(bgPointLight2);
 
 
