@@ -3,6 +3,7 @@ import { getOtherCharacterInitialPosition, enablePlayerControl } from './charact
 import { setUiText, sliderHolder } from './ui_controller/ui_controller';
 import { pointLight, joyDirLight } from './questions/scenes';
 import { MathUtils } from 'three';
+import { doc } from '@firebase/firestore';
 
 var dataInitialized = false;
 var animate = false;
@@ -83,6 +84,8 @@ export function fadeIn(_otherModel, switchDirection, _callFunction){
         otherPos = otherCharacter.position.clone();
     }
 
+
+
     callBackFunction = _callFunction;
     transitionStyle = styleFadeIn;
 
@@ -115,6 +118,10 @@ export function fadeIn(_otherModel, switchDirection, _callFunction){
         }
     });
     //jerkValue = takeOffFactor;
+
+    
+    document.getElementById("question-container").style.opacity = 1;
+
 }
 
 export function fadeOut(_otherModel, switchDirection, _callFunction){
@@ -149,6 +156,9 @@ export function fadeOut(_otherModel, switchDirection, _callFunction){
         }
     });   
     //jerkValue = takeOnFactor;
+
+    document.getElementById("question-container").style.opacity = 0;
+
 }
 
 const clock = new THREE.Clock();
@@ -326,6 +336,9 @@ export const jumpIn = function(){
     playerCharacter.position.set(playerPos.x, minPlayerYpos + playerJumpDistance, playerPos.z);
     transitionStyle = styleJumpIn;
     animate = true;
+
+    document.getElementById("question-container").style.opacity = 1;
+
 }
 
 export const jumpOut = function(_callBack){
@@ -333,6 +346,8 @@ export const jumpOut = function(_callBack){
     transitionStyle = styleJumpOut;
     callBackFunction = _callBack;
     animate = true;
+
+    document.getElementById("question-container").style.opacity = 0;
 }
 
 const jumpTransition = function(deltatime){

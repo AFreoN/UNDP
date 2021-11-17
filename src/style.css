@@ -316,7 +316,7 @@ canvas.webgl{
     height: fit-content;
     margin: 10vh auto 0 auto;
     background: rgba(0, 0, 0, 0.2);
-
+    opacity: 0;
     /* border: 2px solid rgba(255, 255, 255, 0.2);
     box-sizing: border-box;
     border-radius: 2px; */
@@ -336,8 +336,10 @@ canvas.webgl{
 
     text-align: center;
     
-    
+    transition: opacity 0.5s ease-in-out;
+    -webkit-transition: opacity 0.5s ease-in-out;
 }
+
 
 .country-skip-container{
     margin: 5px auto;
@@ -503,6 +505,12 @@ canvas.webgl{
     /* margin-left: 20vw;
     margin-top: 70vh; */
 
+    
+
+    transition: opacity 0.5s ease-in-out;
+    -webkit-transition:  opacity 0.5s ease-in-out;
+
+
   }
 
 .slider {
@@ -514,8 +522,9 @@ canvas.webgl{
     background: rgba(0, 0, 0, 0.493);
     outline: none;
     opacity: 0.8;
-    -webkit-transition: .2s;
-    transition: opacity .2s;
+    transition: opacity 0.5s ease-in-out;
+    -webkit-transition: opacity 0.5s ease-in-out;
+    
   }
 
   .slider-filler{
