@@ -127,10 +127,10 @@ let qArray = [
                     dv : 'Other'
                 },
                 {
-                    en : 'Prefer Not to Say',
+                    en : 'Prefer not to Say',
                     si : 'නොකියන්න කැමති',
                     ta : 'சொல்ல விரும்பவில்லை',
-                    dv : 'Prefer Not to Say'
+                    dv : 'Prefer not to Say'
                 }
             ]
         },
@@ -697,7 +697,7 @@ const tick = () =>
     const deltatime = elapsedTime - previousTime //delta time can be retrieved from here
     previousTime = elapsedTime
     
-    scenes.updateShadowNormalOffset(deltatime/60)
+    // scenes.updateShadowNormalOffset(deltatime/60)
 
     if(!(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))){
         if(currentQuestion && currentQuestion.type === 'joystick'){
@@ -763,11 +763,11 @@ export function loadQuestion(questionIndex){
         }else{
             uiControl.enableBackButton()
         }
-        if(questionIndex >= numberOfQuestions - 1){
-            uiControl.disableNextButton()
-        }else{
+        // if(questionIndex >= numberOfQuestions - 1){
+        //     // uiControl.disableNextButton()
+        // }else{
             uiControl.enableNextButton()
-        }
+        // }
         uiControl.disableConfirmation()
 
         let questionType = currentQuestion.type
