@@ -721,7 +721,10 @@ const tick = () =>
         }
     }
 
-    
+    if(currentQuestion && currentQuestion.type === 'joystick'){
+        // console.log(mainCamera.position)
+        animateClouds(deltatime)
+    }
 
     //Implement loop here
 
@@ -839,7 +842,6 @@ export function loadQuestion(questionIndex){
                     updateSceneAndCamera(joystickScene, joystickCamera);
                     sceneTransition.fadeIn(prevOtherModel, dir, null);
                 }
-
                 // const fatherModel = assetLoader.getModel('father');
                 // if(fatherModel){
                 //     fatherModel.position.set(0,-0.6,0);
@@ -864,6 +866,11 @@ export function loadQuestion(questionIndex){
 }
 
 var models = null;
+const clouds = {
+    high: null,
+    mid: null,
+    low: null
+}
 function setupJoystickScene(currentQuestion, player, questionIndex){
 
     if(currentQuestion.centerModelKey){
@@ -922,12 +929,15 @@ function setupJoystickScene(currentQuestion, player, questionIndex){
 
         let cloud1 = assetLoader.getModel('cloud1')
         cloud1.position.set(2, 1.8,-12)
+        clouds.low = cloud1 
 
         let cloud2 = assetLoader.getModel('cloud2')
-        cloud2.position.set(1.5, 2.2,-12)
+        cloud2.position.set(0.5, 2.2,-12)
+        clouds.high = cloud2
 
         let cloud3 = assetLoader.getModel('cloud3')
         cloud3.position.set(-1.5, 1.8,-10)
+        clouds.mid = cloud3
     
         addModelToScene(joystickScene, tree1);
         addModelToScene(joystickScene, tree2);
@@ -1078,6 +1088,35 @@ function updateSceneAndCamera(sceneObject, cameraObject, dontUpdate){
 
     mainCamera.aspect = sizes.width / sizes.height
     mainCamera.updateProjectionMatrix()
+}
+
+function animateClouds(deltaTime){
+    const baseSpeed = -0.1
+    const speedMultiplier = {
+        high: 1,
+        mid: 2,
+        low: 4
+    }
+    const vanishingXcoordinate = 3
+    clouds.low.position.x += baseSpeed * speedMultiplier.low * deltaTime
+    if(clouds.low.position.x < vanishingXcoordinate*-1){
+        clouds.low.position.x = vanishingXcoordinate
+    }
+
+    clouds.mid.position.x += baseSpeed * speedMultiplier.mid * deltaTime
+    if(clouds.mid.position.x < vanishingXcoordinate*-1){
+        clouds.mid.position.x = vanishingXcoordinate
+    }
+
+    clouds.high.position.x += baseSpeed * speedMultiplier.high * deltaTime
+    if(clouds.high.position.x < vanishingXcoordinate*-1){
+        clouds.high.position.x = vanishingXcoordinate
+    }
+
+    clouds.low.material.opacity = (vanishingXcoordinate - Math.abs(clouds.low.position.x))/vanishingXcoordinate
+    clouds.mid.material.opacity = (vanishingXcoordinate - Math.abs(clouds.mid.position.x))/vanishingXcoordinate
+    clouds.high.material.opacity = (vanishingXcoordinate - Math.abs(clouds.high.position.x))/vanishingXcoordinate
+
 }
 
 //Calculating distance between player and the center model
