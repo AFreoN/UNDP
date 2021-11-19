@@ -144,6 +144,24 @@
             <div class="close-button" id="joystick-tutorial-close-button">x</div>
         </div>
 
+        <div id="likert5-wrapper">
+            <form action="/p/quote.php" method="GET">
+              <div id="likert5-slider">
+                <input type="radio" name="likert5-checker" id="1" value="-2" required>
+                <label for="1" likert-scale-value="Strongly Disagree" id="strongly-disagree"></label>
+                <input type="radio" name="likert5-checker" id="2" value="-1" required>
+                <label for="2" likert-scale-value=""></label>
+                <input type="radio" name="likert5-checker" id="3" value="0" required>
+                <label for="3" likert-scale-value=""></label>
+                <input type="radio" name="likert5-checker" id="4" value="1" required>
+                <label for="4" likert-scale-value=""></label>
+                <input type="radio" name="likert5-checker" id="5" value="2" required>
+                <label for="5" likert-scale-value="Strongly Agree" id="strongly-agree"></label>
+                <div id="debt-amount-pos"></div>
+              </div>
+            </form>
+        </div>
+
         <div class="question-footer-container">
             <div class="control-container">
                 <button class="control-button" id="control-back-button"> &#x25C0 </button>

@@ -20,7 +20,7 @@ export function setLangId(id){
     langId = id;
 }
 let qArray = [
-    {   //1
+    {   //1     Country
         type : 'country',
         question : {
             en : 'In which country do you live ?',
@@ -30,7 +30,7 @@ let qArray = [
         },
         compulsory : true
     },
-    {   //2
+    {   //2     Province
         type : 'province',
         question : {
             en : 'In which area do you live ?',
@@ -40,7 +40,7 @@ let qArray = [
         },
         compulsory : false
     },
-    {   //3
+    {   //3     About
         type : 'about',
         question : {
             main:{
@@ -501,6 +501,48 @@ let qArray = [
             dv : 'Community'
         },
         compulsory: true
+    },
+    {   //10    Control over things
+        type : 'likert5',
+        question : {
+            en : 'I have little control over things that happen to me.',
+            si : 'ඔබ ඔබේ මවට කොතරම් සමීපද?',
+            ta : 'உங்கள் தாயிடம் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
+            dv : 'I have little control over things that happen to me.'
+        },
+        answers : [
+            {
+                en : 'answer1',
+                si : 'පිළිතුර1',
+                ta : 'பதில்1',
+                dv : 'answer1'
+            },
+            {
+                en : 'answer2',
+                si : 'පිළිතුර2',
+                ta : 'பதில்2',
+                dv : 'answer2'
+            },
+            {
+                en : 'answer3',
+                si : 'පිළිතුර3',
+                ta : 'பதில்3',
+                dv : 'answer3'
+            },
+            {
+                en : 'answer4',
+                si : 'පිළිතුර4',
+                ta : 'பதில்4',
+                dv : 'answer4'
+            },
+            {
+                en : 'answer5',
+                si : 'පිළිතුර5',
+                ta : 'பதில்5',
+                dv : 'answer5'
+            }
+        ],
+        compulsory: true
     }
 ]
 uiControl.setUiText()
@@ -742,12 +784,19 @@ var prevPlayerModel, prevOtherModel, prevCamera;
 let player = null;
 const characterText = document.getElementById('Character_name');
 const playerName = document.getElementById('Player_name');
+const playerNamesLang = {
+    en : 'You',
+    si : 'ඔබට',
+    ta : 'நீங்கள்',
+    dv : 'You'
+}
 
 //Takes a question object from the array above and updates UI with the info.
 //Implement updating models/ environment in respect to the question
 export function loadQuestion(questionIndex){
     if(player == null){
         player = assetLoader.getModel('playerCharacter');
+        playerName.innerText = playerNamesLang[langId];
     }
     sceneTransition.initializeData(player, joystickCamera, controls.getPlayerInitialPosition());
     controls.disablePlayerControl();
@@ -831,30 +880,22 @@ export function loadQuestion(questionIndex){
             case 'joystick':
                 scenes.resetCurrentSelectionScene();
                 uiControl.sliderHolder.hidden = true;
-                //setupJoystickScene(currentQuestion);  //Function to setup joystick scene, objects and environments
-
-                //uiControl.resetJoystickSlider();
-                //scenes.updateRingLocation(currentCenterModel)
-                //currentCenterModel.position.set(2, currentCenterModel.position.y, 0);
-                //currentCenterModel.rotation.set(0, -90,0);
-                //player.position.set(-1.5, -0.6, 0);
-                //player.rotation.set(0, 90,0);
 
                 var slideDirection = questionIndex - qId;
                 var dir = slideDirection > 0 ? 'right' : 'left';
-                if(prevQues == 'joystick'){     //If previos scene is joystick scene, then scene has to fadeout first then fadein to other scene
+                if(prevQues == 'joystick' || prevQues == 'likert5'){     //If previos scene is joystick scene, then scene has to fadeout first then fadein to other scene
                     UIUpdateNeeded = false;
                     sceneTransition.fadeOut(prevOtherModel, dir, function(){
                         setupJoystickScene(currentQuestion, player, questionIndex);
                         //updateSceneAndCamera(joystickScene, joystickCamera, true);
-                        sceneTransition.fadeIn(prevOtherModel, dir, null);
+                        sceneTransition.fadeIn(prevOtherModel, dir,true, null);
                     });
                 }
                 else{
                     if(questionIndex != 3){     //questionIndex 3 is mother scene
                         setupJoystickScene(currentQuestion, player, questionIndex);
                         updateSceneAndCamera(joystickScene, joystickCamera);
-                        sceneTransition.fadeIn(prevOtherModel, dir, null);
+                        sceneTransition.fadeIn(prevOtherModel, dir,true, null);
                     }
                     else{
                         setupJoystickScene(currentQuestion, player, questionIndex);
@@ -862,18 +903,45 @@ export function loadQuestion(questionIndex){
                         sceneTransition.jumpIn();
                     }
                 }
+                break;
+            case 'likert5':
+                var slideDirection = questionIndex - qId;
+                var dir = slideDirection > 0 ? 'right' : 'left';
+                if(prevQues == 'joystick'){
+                    UIUpdateNeeded = false;
+                    sceneTransition.fadeOut(prevOtherModel, dir, function(){
+                        scenes.resetCurrentSelectionScene();
+                        removeModelsFromScene(joystickScene, models);
+                        updateSceneAndCamera(joystickScene, joystickCamera);
+                        if(currentCenterModel)
+                            joystickScene.remove(currentCenterModel);
+                        currentCenterModel = null;
+                        player.position.set(0,-.6, 0);
+                        player.rotation.set(0,0,0);
+                        controls.disablePlayerControl();
+                        addModelToScene(joystickScene, player);
+                        controls.setOtherCharacter(null, null, null);
+                        uiControl.updateUI(questionType, questionText, answers);
+                        uiControl.setSurveyProgressMax(questionIndex);
 
-                // const fatherModel = assetLoader.getModel('father');
-                // if(fatherModel){
-                //     fatherModel.position.set(0,-0.6,0);
-                //     fatherModel.scale.set(1,1,1);
-                //     fatherModel.rotation.y = MathUtils.degToRad(0);
-                //     joystickScene.add(fatherModel);
-                // }
-                
-                //updateSceneAndCamera(joystickScene, joystickCamera)
-                //if(mainScript.isJoyStickTutorialDisplayed())
-                //controls.enablePlayerControl()
+                        sceneTransition.fadeIn(prevOtherModel, dir,false, null);
+                    });
+                }
+                else{
+                    scenes.resetCurrentSelectionScene();
+                    removeModelsFromScene(joystickScene, models);
+                    updateSceneAndCamera(joystickScene, joystickCamera);
+                    if(currentCenterModel)
+                        joystickScene.remove(currentCenterModel);
+                    currentCenterModel = null;
+                    player.position.set(0,-.6, 0);
+                    player.rotation.set(0,0,0);
+                    controls.disablePlayerControl();
+                    addModelToScene(joystickScene, player);
+                    controls.setOtherCharacter(null, null, null);
+
+                    sceneTransition.fadeIn(prevOtherModel, dir,false, null);
+                }
                 break;
         }
         
@@ -992,6 +1060,7 @@ function setupJoystickScene(currentQuestion, player, questionIndex){
 
         if(currentQuestion.characterName){
             characterText.innerText = currentQuestion.characterName[langId];
+            playerName.innerText = playerNamesLang[langId];
         }
 
         //uiTextCheck(centerModel);
@@ -1031,6 +1100,9 @@ function addModelsForThisScene(scene, modelsArray){
 }
 
 function removeModelsFromScene(scene, modelsArray){
+    if(modelsArray == null)
+        return;
+
     modelsArray.forEach(element => {
         var m = assetLoader.getModel(element.name);
         if(m != null)
@@ -1039,50 +1111,55 @@ function removeModelsFromScene(scene, modelsArray){
 }
 
 //#region Character name indicator position update
-export const EnableCharacterText = function(){
-    characterText.hidden = false;
+export const EnableCharacterText = function(isOtherCharacterAvailable){
+    characterText.hidden = !isOtherCharacterAvailable;
     playerName.hidden = false;
 }
 
 const objPos = new THREE.Vector3();
 export const updateNameIndicator = function(player, other){
     let pos = new THREE.Vector3();
-    other.getWorldPosition(objPos);
-    //emptyObject.position.y += 0.3;
-
-    pos.x = objPos.x;
-    pos.y = objPos.y + 0.5 ;
-    pos.z = objPos.z;
-
-    pos.project(joystickCamera);
-
     let widthHalf = window.innerWidth / 2;
     let heightHalf = window.innerHeight / 2;
 
-    pos.x = (pos.x * widthHalf) + widthHalf;
-    pos.y = - (pos.y * heightHalf) + heightHalf;
-    pos.z = 0;
+    if(other != null){
+        other.getWorldPosition(objPos);
+        //emptyObject.position.y += 0.3;
     
-    characterText.style.position = "absolute";
-    characterText.style.top = (pos.y - characterText.clientHeight * 0.5) + "px";
-    characterText.style.left = (pos.x - characterText.clientWidth * 0.5) + "px";
-
-    //For setting player name indicator
-    player.getWorldPosition(objPos);
-
-    pos.x = objPos.x;
-    pos.y = objPos.y + 0.5 ;
-    pos.z = objPos.z;
-
-    pos.project(joystickCamera);
-
-    pos.x = (pos.x * widthHalf) + widthHalf;
-    pos.y = - (pos.y * heightHalf) + heightHalf;
-    pos.z = 0;
+        pos.x = objPos.x;
+        pos.y = objPos.y + 0.5 ;
+        pos.z = objPos.z;
     
-    playerName.style.position = "absolute";
-    playerName.style.top = (pos.y - playerName.clientHeight * 0.5) + "px";
-    playerName.style.left = (pos.x - playerName.clientWidth * 0.5) + "px";
+        pos.project(joystickCamera);
+    
+    
+        pos.x = (pos.x * widthHalf) + widthHalf;
+        pos.y = - (pos.y * heightHalf) + heightHalf;
+        pos.z = 0;
+        
+        characterText.style.position = "absolute";
+        characterText.style.top = (pos.y - characterText.clientHeight * 0.5) + "px";
+        characterText.style.left = (pos.x - characterText.clientWidth * 0.5) + "px";
+    }
+
+    if(player != null){
+        //For setting player name indicator
+        player.getWorldPosition(objPos);
+        
+        pos.x = objPos.x;
+        pos.y = objPos.y + 0.5 ;
+        pos.z = objPos.z;
+        
+        pos.project(joystickCamera);
+        
+        pos.x = (pos.x * widthHalf) + widthHalf;
+        pos.y = - (pos.y * heightHalf) + heightHalf;
+        pos.z = 0;
+        
+        playerName.style.position = "absolute";
+        playerName.style.top = (pos.y - playerName.clientHeight * 0.5) + "px";
+        playerName.style.left = (pos.x - playerName.clientWidth * 0.5) + "px";
+    }
 
     //checkingBoundbox(other);
 }

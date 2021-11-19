@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import { getOtherCharacterInitialPosition, enablePlayerControl } from './character_controller/character_control';
 import { setUiText, sliderHolder } from './ui_controller/ui_controller';
 import { pointLight, joyDirLight } from './questions/scenes';
-import { MathUtils } from 'three';
+import { FlatShading, MathUtils } from 'three';
 
 var dataInitialized = false;
 var animate = false;
@@ -13,6 +13,8 @@ const styleFadeIn = 'fadein';
 const styleFadeOut = 'fadeout';
 const styleJumpIn = 'jumpin';
 const styleJumpOut = 'jumpout';
+let canEnableControls = true;   //true to enable controls on slider question after transition, false on likert question
+let needPlayerAdjustment = false;     //For offset adjustment on likert scene
 
 const takeOnFactor = 1.2; //prev 0.4
 const takeOffFactor = 0.2;   //prev 0.2
@@ -21,8 +23,8 @@ const playerTransitionDistance = 0.05;   //Prev 0.05
 const playerTransitionTime = 0.15;
 var jerkValue = takeOnFactor;  //Lerps the lerp value to make transition smoother
 
-const playerJumpDistance = 3;
-const jumpTransitionTime = 0.5;
+const playerJumpDistance = 3;   //Player Y travel distance on Jump in and Jump out transition
+const jumpTransitionTime = 0.5; //Player travel duration on Jump in and Jump out transition
 
 const cameraTransitionDistance = 10;     //prev 2
 var tempPlayerYpos = 0;
@@ -77,7 +79,7 @@ export function initializeData(_player, _camera, _playerInitPos)
     //console.log("Player = " + playerCharacter.name + ", Other = " + otherCharacter.name + ", camera = " + mainCamera.name);
 }
 
-export function fadeIn(_otherModel, switchDirection, _callFunction){
+export function fadeIn(_otherModel, switchDirection, _canEnableControls, _callFunction){
     if(_otherModel){
         otherCharacter = _otherModel;
         otherPos = otherCharacter.position.clone();
@@ -85,6 +87,8 @@ export function fadeIn(_otherModel, switchDirection, _callFunction){
 
     callBackFunction = _callFunction;
     transitionStyle = styleFadeIn;
+    canEnableControls = _canEnableControls;
+    needPlayerAdjustment = !_canEnableControls;
 
     initCameraPos = cameraPos.clone();
     //initPlayerPos = playerPos.clone();
@@ -124,6 +128,7 @@ export function fadeOut(_otherModel, switchDirection, _callFunction){
     }
     callBackFunction = _callFunction;
     transitionStyle = styleFadeOut;
+    // canEnableControls = true;
 
     initCameraPos = cameraPos.clone();
     //initPlayerPos = playerPos.clone();
@@ -165,7 +170,14 @@ const tick = () => {
                 transition(deltatime);
             }
             else{
-                playerMovement(deltatime);
+                if(canEnableControls)
+                    playerMovement(deltatime);
+                else{
+                    if(needPlayerAdjustment)
+                        adjustPlayerPosition(deltatime);
+                    else
+                        playerMovement(deltatime);
+                }
             }
         }
         else if(transitionStyle == styleFadeOut){
@@ -173,7 +185,10 @@ const tick = () => {
                 playerMovement(deltatime);
             }
             else{
-                transition(deltatime);
+                if(needPlayerAdjustment)
+                    adjustPlayerPosition(deltatime);
+                else
+                    transition(deltatime);
             }
         }
         
@@ -187,6 +202,30 @@ const tick = () => {
     window.requestAnimationFrame(tick);
 }
 tick();
+
+const adjustmentTime = 0.15;
+let targetXPosition = 0;
+let xPosAfterTransition = 0;
+
+const adjustPlayerPosition = function(deltatime){
+    lerpFactor += deltatime / adjustmentTime;
+
+    var tempPlayerXpos = 0;
+    if(transitionStyle == styleFadeIn){
+        tempPlayerXpos = (targetXPosition - xPosAfterTransition) * lerpFactor;
+        playerCharacter.position.x = xPosAfterTransition + tempPlayerXpos;
+    }
+    else if(transitionStyle == styleFadeOut){
+        tempPlayerXpos = (xPosAfterTransition - targetXPosition) * lerpFactor;
+        playerCharacter.position.x = targetXPosition + tempPlayerXpos;
+    }
+
+
+    if(lerpFactor >= 0.98){
+        lerpFactor = 0;
+        needPlayerAdjustment = false;
+    }
+}
 
 const playerMovement = function(deltatime){
     
@@ -205,9 +244,16 @@ const playerMovement = function(deltatime){
     
     if(lerpFactor >= 0.98){
         playerMoved = true;
+        if(transitionStyle == styleFadeOut){
+            if(canEnableControls == false){
+                needPlayerAdjustment = true;
+            }
+        }
+
         if(transitionStyle == styleFadeIn){
             animate = false;
-            enablePlayerControl();
+            if(canEnableControls)
+                enablePlayerControl();
         }
         lerpFactor = 0;
     }
@@ -318,6 +364,10 @@ const transition = function(deltatime){
         
         if(callBackFunction && transitionStyle == styleFadeOut){
             callBackFunction();
+        }
+
+        if(transitionStyle == styleFadeIn && canEnableControls == false){
+            xPosAfterTransition = finalPlayerPosition.x;
         }
     }
 }
