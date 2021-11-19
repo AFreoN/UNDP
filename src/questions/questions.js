@@ -906,7 +906,6 @@ export function loadQuestion(questionIndex){
                         sceneTransition.jumpIn();
                     }
                 }
-<<<<<<< HEAD
                 break;
             case 'likert5':
                 var slideDirection = questionIndex - qId;
@@ -946,19 +945,6 @@ export function loadQuestion(questionIndex){
 
                     sceneTransition.fadeIn(prevOtherModel, dir,false, null);
                 }
-=======
-                // const fatherModel = assetLoader.getModel('father');
-                // if(fatherModel){
-                //     fatherModel.position.set(0,-0.6,0);
-                //     fatherModel.scale.set(1,1,1);
-                //     fatherModel.rotation.y = MathUtils.degToRad(0);
-                //     joystickScene.add(fatherModel);
-                // }
-                
-                //updateSceneAndCamera(joystickScene, joystickCamera)
-                //if(mainScript.isJoyStickTutorialDisplayed())
-                //controls.enablePlayerControl()
->>>>>>> 05de0622fa0e177835c3ab01abfb30319b2ef3f0
                 break;
         }
         
