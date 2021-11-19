@@ -924,6 +924,13 @@ gltfloader.load(
 
         models['cloud1'] = model
 
+        let mesh = model.children[0].children[0].children[0].children[0];
+        var col = mesh.material.color;
+        var newMat = new THREE.MeshLambertMaterial( {color : col });
+        mesh.material = newMat;
+        mesh.material.transparent = true
+        model.material = mesh.material
+
         loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
         loadingBar.animate(loadedPercentage)
     }
@@ -944,6 +951,8 @@ gltfloader.load(
         var col = mesh.material.color;
         var newMat = new THREE.MeshLambertMaterial( {color : col });
         mesh.material = newMat;
+        mesh.material.transparent = true
+        model.material = mesh.material
 
         loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
         loadingBar.animate(loadedPercentage)
@@ -965,7 +974,8 @@ gltfloader.load(
         var col = mesh.material.color;
         var newMat = new THREE.MeshLambertMaterial( {color : col });
         mesh.material = newMat;
-
+        mesh.material.transparent = true
+        model.material = mesh.material
 
         model.children.forEach(child => {
             if(child.isMesh){
