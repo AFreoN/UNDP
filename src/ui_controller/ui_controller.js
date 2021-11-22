@@ -400,9 +400,36 @@ let joystickAnswerContainer = document.getElementById('joystick-answer-container
 let countryAnswerContainer = document.getElementById('country-answer-container')
 let regionAnswerContainer = document.getElementById('region-answer-container')
 let joystickTutorialContainer = document.getElementById('joystick-tutorial-frame')
+let likert5Container = document.getElementById('likert5-wrapper');
+let likert4Container = document.getElementById('likert4-wrapper');
+let likert7Container = document.getElementById('likert7-wrapper');
 joystickTutorialContainer.hidden = true
 
 let surveyProgressBar = document.getElementById("survey-progress-bar");
+
+var agrees = document.getElementsByName('likert5-checker');
+agrees.forEach(buttons => {
+    buttons.addEventListener('change', function(event){
+        enableConfirmation(event.target.value);
+        console.log("Agree value = ", event.target.value);
+    })
+});
+
+var agrees4 = document.getElementsByName('likert4-checker');
+agrees4.forEach(buttons => {
+    buttons.addEventListener('change', function(event){
+        enableConfirmation(event.target.value);
+        console.log("Agree value = ", event.target.value);
+    })
+});
+
+var agrees7 = document.getElementsByName('likert7-checker');
+agrees7.forEach(buttons => {
+    buttons.addEventListener('change', function(event){
+        enableConfirmation(event.target.value);
+        console.log("Agree value = ", event.target.value);
+    })
+});
 
 
 export function setSurveyProgressMax(maxValue){
@@ -543,6 +570,18 @@ let allTexts = {
         si:'තව බලන්න',
         ta:'மேலும் பார்க்க',
         dv:'See More',
+    },
+    stronglyDisagree : {
+        en : 'Strongly Disagree',
+        si : 'එකඟ නොවේ',
+        ta : 'முரண்படுகிறோம்',
+        dv : 'Strongly Disagree'
+    },
+    stronlgyAgree : {
+        en : 'Strongly Agree',
+        si : 'එකඟයි',
+        ta : 'ஒப்புக்கொள்கிறேன்',
+        dv : 'Strongly Agree'
     }
 
 }
@@ -551,6 +590,8 @@ let allTexts = {
 let otherRegionText = document.getElementById('country-skip-button');
 let sliderDistantText = document.getElementById('slidertext-distant');
 let sliderCloseText = document.getElementById('slidertext-close');
+let stronglyDisagreeText = document.getElementById('strongly-disagree');
+let stronglyAgreeText = document.getElementById('strongly-agree');
 
 export function setUiText(){
     // paginationDisplayText.innerText = allTexts.paginationDisplayText[langId];
@@ -564,6 +605,8 @@ export function setUiText(){
 
     document.getElementById('results-footer-text').innerHTML = allTexts.resultsConfirmationFooterText[langId]   
     resultsMoreButton.innerText = allTexts.resultsMoreButtonText[langId]
+    stronglyDisagreeText.setAttribute("likert-scale-value", allTexts.stronglyDisagree[langId]);
+    stronglyAgreeText.setAttribute("likert-scale-value", allTexts.stronlgyAgree[langId]);
 }
 
 //enabling/disabling control buttons
@@ -975,15 +1018,21 @@ vidQuestionScrollContainer.addEventListener('mousedown',mouseDownHandler)
 //Changes UI in respect to question type, sets the question text, and answers
 export function updateUI(questionType, questionText, answers){
 
-    if(questionType != 'joystick'){
-        document.body.style.background = defaultBackground;
+    if(questionType == 'joystick' || questionType == 'likert5' || questionType == 'likert4' || questionType == 'likert7'){
+        document.body.style.background = sliderSceneBackground;
     }
     else{
-        document.body.style.background = sliderSceneBackground;
+        document.body.style.background = defaultBackground;
     }
 
     questionContainer.style.display = ''
     questionContainer.innerText= questionText
+    //#region For Question Change Animation
+    questionContainer.style.animation = 'none'
+    questionContainer.offsetHeight;     //Resets animation
+    questionContainer.style.animation = null
+    //#endregion
+
     switch(questionType){
         case 'country':
             aboutAnswerContainer.style.display = 'none'
@@ -996,6 +1045,9 @@ export function updateUI(questionType, questionText, answers){
             countryAnswerContainer.innerText = ''
             regionSkipButton.style.display = ''
             sliderHolder.hidden = true
+            likert5Container.style.display = 'none' 
+            likert4Container.style.display = 'none'
+            likert7Container.style.display = 'none'
             break;
         case 'province':
             aboutAnswerContainer.style.display = 'none' 
@@ -1008,6 +1060,9 @@ export function updateUI(questionType, questionText, answers){
             regionAnswerContainer.innerText = ''
             regionSkipButton.style.display = 'none'
             sliderHolder.hidden = true
+            likert5Container.style.display = 'none'
+            likert4Container.style.display = 'none'
+            likert7Container.style.display = 'none'
             break;
         case 'about':
             aboutAnswerContainer.style.display = ''
@@ -1021,8 +1076,9 @@ export function updateUI(questionType, questionText, answers){
             // aboutAnswerContainer.innerHTML = ''
             // selectedMcqAnswer = null
             sliderHolder.hidden = true
-
-
+            likert5Container.style.display = 'none'
+            likert4Container.style.display = 'none'
+            likert7Container.style.display = 'none'
 
             enableConfirmation({
                 gender:genderSelectedItem.getAttribute('data-index'),
@@ -1032,7 +1088,7 @@ export function updateUI(questionType, questionText, answers){
             if(answers){
                 for (let i = 0; i < genderItems.length; i++) {
                     const genderItem = genderItems[i];
-                    console.log(parseInt(genderItem.getAttribute('data-index')));
+                    //console.log(parseInt(genderItem.getAttribute('data-index')));
                     let genderItemText = answers.gender[parseInt(genderItem.getAttribute('data-index'))][langId]
                     genderItem.innerText = ''
                     genderItem.innerText = genderItemText
@@ -1045,6 +1101,7 @@ export function updateUI(questionType, questionText, answers){
                 }
             }
 
+            //#region Previous answer radios
             // if(answers){
             //     for (let i = 0; i < answers.length; i++) {
             //         // creating a new answer box with text and radio buttons for each in answer for MCQs
@@ -1075,6 +1132,7 @@ export function updateUI(questionType, questionText, answers){
             //         aboutAnswerContainer.appendChild(answerBox)
             //     }
             // }
+            //#endregion
             break;
         case 'joystick':
             aboutAnswerContainer.style.display = 'none'
@@ -1085,18 +1143,70 @@ export function updateUI(questionType, questionText, answers){
             joystickTutorialContainer.style.display = 'none'
             regionSkipButton.style.display = 'none'
             // if(main.isJoyStickTutorialDisplayed() == false){
-            //     joystickTutorialContainer.style.display = ''    //Shows tutorial if it's not displayed before
-            //     main.displayTutorial();
-            //     disableBackButton();
-            //     disableNextButton();
-            //     disableConfirmation();
-            // }
-            // else{
-            //     joystickTutorialContainer.style.display = 'none'
-            // }
+                //     joystickTutorialContainer.style.display = ''    //Shows tutorial if it's not displayed before
+                //     main.displayTutorial();
+                //     disableBackButton();
+                //     disableNextButton();
+                //     disableConfirmation();
+                // }
+                // else{
+                    //     joystickTutorialContainer.style.display = 'none'
+                    // }
             joystickSlider.style.display = ''
             sliderHolder.hidden = false
+            likert5Container.style.display = 'none'
+            likert4Container.style.display = 'none'
+            likert7Container.style.display = 'none'
+            fadeInSliderContainer()
             enableConfirmation(joystickSlideValue);
+            break;
+        case 'likert5':
+            aboutAnswerContainer.style.display = 'none'
+            joystickAnswerContainer.style.display = 'none'
+            submitContainer.style.display = 'none'
+            countryAnswerContainer.style.display = 'none'
+            regionAnswerContainer.style.display = 'none'
+            joystickTutorialContainer.style.display = 'none'
+            regionSkipButton.style.display = 'none'
+            joystickSlider.style.display = 'none'
+            sliderHolder.hidden = true
+            likert5Container.style.display = ''
+            likert4Container.style.display = 'none'
+            likert7Container.style.display = 'none'
+            FadeInLiker5()
+            enableConfirmation(0)
+            break;
+        case 'likert4':
+            aboutAnswerContainer.style.display = 'none'
+            joystickAnswerContainer.style.display = 'none'
+            submitContainer.style.display = 'none'
+            countryAnswerContainer.style.display = 'none'
+            regionAnswerContainer.style.display = 'none'
+            joystickTutorialContainer.style.display = 'none'
+            regionSkipButton.style.display = 'none'
+            joystickSlider.style.display = 'none'
+            sliderHolder.hidden = true
+            likert5Container.style.display = 'none'
+            likert4Container.style.display = ''
+            likert7Container.style.display = 'none'
+            FadeInLikert4()
+            enableConfirmation(0)
+            break;
+        case 'likert7':
+            aboutAnswerContainer.style.display = 'none'
+            joystickAnswerContainer.style.display = 'none'
+            submitContainer.style.display = 'none'
+            countryAnswerContainer.style.display = 'none'
+            regionAnswerContainer.style.display = 'none'
+            joystickTutorialContainer.style.display = 'none'
+            regionSkipButton.style.display = 'none'
+            joystickSlider.style.display = 'none'
+            sliderHolder.hidden = true
+            likert5Container.style.display = 'none'
+            likert4Container.style.display = 'none'
+            likert7Container.style.display = ''
+            FadeInLikert7()
+            enableConfirmation(0)
             break;
     }
 }
@@ -1108,6 +1218,55 @@ export function enableSubmitPage(){
     enableSubmitScene()
     // removeModelsInLastScene()
 }
+const resetElementAnimation = function(element){
+    element.style.animation = 'none'
+    element.offsetHeight;
+    element.style.animation = ''
+}
+
+export const FadeInLiker5 = function(){
+    resetElementAnimation(likert5Container);
+    likert5Container.style.animation = 'likert5FadeIn 0.5s ease-in 0s 1 normal forwards';
+}
+
+export const FadeOutLiker5 = function(){
+    resetElementAnimation(likert5Container);
+    likert5Container.style.animation = 'likert5FadeOut 0.5s ease-in 0s 1 normal forwards'
+}
+
+export const FadeInLikert4 = function(){
+    resetElementAnimation(likert5Container);
+    likert4Container.style.animation = 'likert4FadeIn 0.5s ease-in 0s 1 normal forwards';
+}
+
+export const FadeOutLikert4 = function(){
+    resetElementAnimation(likert5Container);
+    likert4Container.style.animation = 'likert4FadeOut 0.5s ease-in 0s 1 normal forwards'
+}
+
+export const FadeInLikert7 = function(){
+    resetElementAnimation(likert5Container);
+    likert4Container.style.animation = 'likert7FadeIn 0.5s ease-in 0s 1 normal forwards';
+}
+
+export const FadeOutLikert7 = function(){
+    resetElementAnimation(likert5Container);
+    likert4Container.style.animation = 'likert7FadeOut 0.5s ease-in 0s 1 normal forwards'
+}
+
+export const fadeInSliderContainer = function(){
+    resetElementAnimation(sliderHolder);
+    sliderHolder.style.animation = 'sliderContainerFadeIn 0.4s ease-out';
+}
+
+export const fadeOutSliderContainer = function(){
+    resetElementAnimation(sliderHolder);
+    sliderHolder.style.animation = 'sliderContainerFadeOut 1s ease-out 0s 1 normal forwards'
+}
+
+// export function enableSubmitPage(){
+//     submitContainer.style.display = ''
+// }
 
 export function disableSubmitPage(){
     submitContainer.style.display = 'none'
@@ -1163,6 +1322,8 @@ submitBackButton.addEventListener('click',function(){
 languageSelectedButton.addEventListener('click', function(){
     // loadQuestion(0);
     setVidQuestionLang()
+    setUiText();
+    // loadQuestion(0);
     langSelectionUI.hidden = true;
 })
 

@@ -95,7 +95,7 @@ canvas.webgl{
     font-weight: bold;
     padding: 5px 20px;
     border: 0;
-    box-shadow: 3px 3px 10px #444444;
+    box-shadow: 3px 3px 16px rgba(0, 0, 0, 0.20);
     cursor: pointer;
 }
 
@@ -306,7 +306,7 @@ canvas.webgl{
     height: fit-content;
     margin: 10vh auto 0 auto;
     background: rgba(0, 0, 0, 0.2);
-
+    opacity: 1;
     /* border: 2px solid rgba(255, 255, 255, 0.2);
     box-sizing: border-box;
     border-radius: 2px; */
@@ -325,9 +325,14 @@ canvas.webgl{
     word-wrap: break-word;
 
     text-align: center;
-    
-    
+    /*animation: questionContainerBounce 0.5s ease-out;*/
 }
+
+@keyframes questionContainerBounce {
+    0% { opacity: 0; margin: 2vh auto 0 auto; }
+    80% { opacity: 1; margin: 12vh auto 0 auto; }
+    100% { opacity: 1; margin: 10vh auto 0 auto; }
+  }
 
 .country-skip-container{
     margin: 5px auto;
@@ -346,6 +351,7 @@ canvas.webgl{
     padding: 5px 30px;
     font-family: 'Rubik',sans-serif;
     font-size: 1.25em;
+    box-shadow: 3px 3px 16px rgba(0, 0, 0, 0.20);
 
 
     position: absolute;
@@ -405,7 +411,7 @@ canvas.webgl{
     font-size: 20px;
     font-weight: bold;
     padding: 5px 30px;
-    box-shadow: 3px 3px 10px #444444;
+    box-shadow: 3px 3px 16px rgba(0, 0, 0, 0.20);
     
 }
 
@@ -484,16 +490,28 @@ canvas.webgl{
 
 
     /* Slider position control */
-    bottom: 15%;
+    bottom: 20%;
     left: 10vw;
 
     font-family:  'Rubik', sans-serif;
+    animation: sliderContainerFadeIn 0.4s ease-out;
     /* padding-left: 20vw;
     padding-top: 70vh; */
     /* margin-left: 20vw;
     margin-top: 70vh; */
+}
 
-  }
+@keyframes sliderContainerFadeIn {
+    0% {bottom: 18%; opacity: 0.5; }
+    80% { bottom: 22%; opacity: 1; }
+    100% { bottom: 20%; opacity: 1; }
+}
+
+@keyframes sliderContainerFadeOut {
+    0% { bottom: 20%; opacity: 1; }
+    100% { bottom: 17%; opacity: 0; }
+}
+
 
 .slider {
     -webkit-appearance: none;
@@ -504,8 +522,9 @@ canvas.webgl{
     background: rgba(0, 0, 0, 0.493);
     outline: none;
     opacity: 0.8;
-    -webkit-transition: .2s;
-    transition: opacity .2s;
+    transition: opacity 0.5s ease-in-out;
+    -webkit-transition: opacity 0.5s ease-in-out;
+    
   }
 
   .slider-filler{
@@ -561,7 +580,8 @@ canvas.webgl{
 
       color: rgb(255, 255, 255);
       font-family: 'Rubik',sans-serif;
-      text-shadow: 0 0px 15px rgba(0, 0, 0);
+      text-shadow: 3px 3px 16px rgba(0, 0, 0.20);
+      
       
 
       /*
@@ -629,6 +649,625 @@ canvas.webgl{
     transform: translate(-50%, 50%);
 }
 
+/* #region Likert 5 */
+#likert5-wrapper {
+    position: absolute;
+    width: 100%;
+    top: 25vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 2;
+    animation: likert5FadeIn 0.5s ease-in 0s 1 normal forwards;
+  }
+
+  @keyframes likert5FadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+  }
+
+  @keyframes likert5FadeOut {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+  
+  form {
+    width: 90%;
+    max-width: 500px;
+  }
+  form #likert5-slider {
+    display: flex;
+    flex-direction: row;
+    align-content: stretch;
+    position: relative;
+    width: 100%;
+    height: 50px;
+    top: 50vh;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+  }
+  /* Center Line Style */
+  form #likert5-slider::before {
+    content: " ";
+    position: absolute;
+    height: 8px;
+    width: 100%;
+    width: calc(100% * (4 / 5));
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(49, 49, 49, 0.363);
+  }
+  form #likert5-slider input, form #likert5-slider label {
+    box-sizing: border-box;
+    flex: 1;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+    cursor: pointer;
+  }
+  form #likert5-slider label {
+    display: inline-block;
+    position: relative;
+    width: 20%;
+    height: 100%;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+  }
+  /* Label Text default style */
+  form #likert5-slider label::before {
+    content: attr(likert-scale-value);
+    position: absolute;
+    width: auto;
+    height: 80px;
+    overflow: hidden;
+    left: 50%;
+    padding-top: 10px;
+    transform: translate(-50%, -45px);
+    font-size: 14px;
+    text-align: center;
+    color: white;
+    letter-spacing: 0.4px;
+    font-weight: 400;
+    opacity: 0.85;
+    transition: all 0.15s ease-in-out;
+  }
+  /* Radio button style default */
+  form #likert5-slider label::after {
+    content: " ";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgb(255, 255, 255);
+    background: rgba(125, 39, 252, 1);
+    border-radius: 50%;
+    pointer-events: none;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+    z-index: 1;
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+  }
+/* #region Setting different circle size for each child */
+  form #likert5-slider #strongly-agree::after{
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+ }
+
+ form #likert5-slider #strongly-disagree::after{
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+ }
+
+ form #likert5-slider #disagree::after{
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+ }
+
+ form #likert5-slider #agree::after{
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+ }
+
+ form #likert5-slider #neutral::after{
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+ }
+/* #endregion */
+
+  /* Setting radio button size while hovering */
+  form #likert5-slider label:hover::after {
+    transform: translate(-50%, -50%) scale(1.25);
+  }
+  form #likert5-slider input {
+    display: none;
+  }
+  form #likert5-slider input:checked + label::before {
+    font-weight: 800;
+    opacity: 1;
+  }
+  /* Radio button style while checked */
+  form #likert5-slider input:checked + label::after {
+    border-width: 4px;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  form #likert5-slider input:checked ~ #likert5-pointer {
+    opacity: 1;
+  }
+  form #likert5-slider input:checked:nth-child(1) ~ #likert5-pointer {
+    left: 10%;
+    width: 25px;
+    height: 25px;
+  }
+  form #likert5-slider input:checked:nth-child(3) ~ #likert5-pointer {
+    left: 30%;
+    width: 18px;
+    height: 18px;
+  }
+  form #likert5-slider input:checked:nth-child(5) ~ #likert5-pointer {
+    left: 50%;
+    width: 15px;
+    height: 15px;
+  }
+  form #likert5-slider input:checked:nth-child(7) ~ #likert5-pointer {
+    left: 70%;
+    width: 18px;
+    height: 18px;
+  }
+  form #likert5-slider input:checked:nth-child(9) ~ #likert5-pointer {
+    left: 90%;
+    width: 25px;
+    height: 25px;
+  }
+
+  /* Checked Dot */
+  form #likert5-slider #likert5-pointer {   
+    display: block;
+    position: absolute;
+    top: 50%;
+    width: 15px;
+    height: 15px;
+    background: rgb(251, 255, 29);
+    border-radius: 50%;
+    transition: all 0.15s ease-in-out;
+    transform: translate(-50%, -50%);
+    border: 2px solid #fff;
+    opacity: 0;
+    z-index: 2;
+  }
+  /* Label Text while unchecked */
+  form:valid #likert5-slider input + label::before {
+    /* transform: translate(-50%, -45px) scale(0.9); */
+    transition: all 0.15s linear;
+  }
+  /* Label Text while on checked */
+  form:valid #likert5-slider input:checked + label::before {
+    /* transform: translate(-50%, -45px) scale(1.1); */
+    transition: all 0.15s linear;
+  }
+  
+/* #endregion */
+
+/* #region Likert 4 */
+#likert4-wrapper {
+    position: absolute;
+    width: 100%;
+    top: 25vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 2;
+    animation: likert4FadeIn 0.5s ease-in 0s 1 normal forwards;
+  }
+
+  @keyframes likert4FadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+  }
+
+  @keyframes likert4FadeOut {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+  
+  form {
+    width: 90%;
+    max-width: 500px;
+  }
+  form #likert4-slider {
+    display: flex;
+    flex-direction: row;
+    align-content: stretch;
+    position: relative;
+    width: 100%;
+    height: 50px;
+    top: 50vh;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+  }
+  /* Center Line Style */
+  form #likert4-slider::before {
+    content: " ";
+    position: absolute;
+    height: 8px;
+    width: 100%;
+    width: calc(100% * (3 / 4));
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(49, 49, 49, 0.363);
+  }
+  form #likert4-slider input, form #likert4-slider label {
+    box-sizing: border-box;
+    flex: 1;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+    cursor: pointer;
+  }
+  form #likert4-slider label {
+    display: inline-block;
+    position: relative;
+    width: 20%;
+    height: 100%;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+  }
+  /* Label Text default style */
+  form #likert4-slider label::before {
+    content: attr(likert4-scale-value);
+    position: absolute;
+    width: auto;
+    height: 80px;
+    overflow: hidden;
+    left: 50%;
+    padding-top: 10px;
+    transform: translate(-50%, -45px);
+    font-size: 14px;
+    text-align: center;
+    color: white;
+    letter-spacing: 0.4px;
+    font-weight: 400;
+    opacity: 0.85;
+    transition: all 0.15s ease-in-out;
+  }
+  /* Radio button style default */
+  form #likert4-slider label::after {
+    content: " ";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgb(255, 255, 255);
+    background: rgba(125, 39, 252, 1);
+    border-radius: 50%;
+    pointer-events: none;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+    z-index: 1;
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+  }
+
+  /* Setting radio button size while hovering */
+  form #likert4-slider label:hover::after {
+    transform: translate(-50%, -50%) scale(1.25);
+  }
+  form #likert4-slider input {
+    display: none;
+  }
+  form #likert4-slider input:checked + label::before {
+    font-weight: 800;
+    opacity: 1;
+  }
+  /* Radio button style while checked */
+  form #likert4-slider input:checked + label::after {
+    border-width: 4px;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  form #likert4-slider input:checked ~ #likert4-pointer {
+    opacity: 1;
+  }
+  form #likert4-slider input:checked:nth-child(1) ~ #likert4-pointer {
+    left: 12.5%;
+  }
+  form #likert4-slider input:checked:nth-child(3) ~ #likert4-pointer {
+    left: 37.5%;
+  }
+  form #likert4-slider input:checked:nth-child(5) ~ #likert4-pointer {
+    left: 62.5%;
+  }
+  form #likert4-slider input:checked:nth-child(7) ~ #likert4-pointer {
+    left: 87.5%;
+  }
+
+  /* Checked Dot */
+  form #likert4-slider #likert4-pointer {   
+    display: block;
+    position: absolute;
+    top: 50%;
+    width: 20px;
+    height: 20px;
+    background: rgb(251, 255, 29);
+    border-radius: 50%;
+    transition: all 0.15s ease-in-out;
+    transform: translate(-50%, -50%);
+    border: 2px solid #fff;
+    opacity: 0;
+    z-index: 2;
+  }
+  /* Label Text while unchecked */
+  form:valid #likert4-slider input + label::before {
+    transform: translate(-50%, -45px) scale(0.9);
+    transition: all 0.15s linear;
+  }
+  /* Label Text while on checked */
+  form:valid #likert4-slider input:checked + label::before {
+    transform: translate(-50%, -45px) scale(1.1);
+    transition: all 0.15s linear;
+  }
+  
+/* #endregion */
+
+/* #region Likert 7 */
+#likert7-wrapper {
+    position: absolute;
+    width: 100%;
+    top: 25vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 2;
+    animation: likert7FadeIn 0.5s ease-in 0s 1 normal forwards;
+  }
+
+  @keyframes likert7FadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+  }
+
+  @keyframes likert7FadeOut {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+  
+  form {
+    width: 90%;
+    max-width: 500px;
+  }
+  form #likert7-slider {
+    display: flex;
+    flex-direction: row;
+    align-content: stretch;
+    position: relative;
+    width: 100%;
+    height: 50px;
+    top: 50vh;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+  }
+  /* Center Line Style */
+  form #likert7-slider::before {
+    content: " ";
+    position: absolute;
+    height: 8px;
+    width: 100%;
+    width: calc(100% * (4 / 5));
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(49, 49, 49, 0.363);
+  }
+  form #likert7-slider input, form #likert7-slider label {
+    box-sizing: border-box;
+    flex: 1;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+    cursor: pointer;
+  }
+  form #likert7-slider label {
+    display: inline-block;
+    position: relative;
+    width: 20%;
+    height: 100%;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+  }
+  /* Label Text default style */
+  form #likert7-slider label::before {
+    content: attr(likert7-scale-value);
+    position: absolute;
+    width: auto;
+    height: 80px;
+    overflow: hidden;
+    left: 50%;
+    padding-top: 10px;
+    transform: translate(-50%, -45px);
+    font-size: 14px;
+    text-align: center;
+    color: white;
+    letter-spacing: 0.4px;
+    font-weight: 400;
+    opacity: 0.85;
+    transition: all 0.15s ease-in-out;
+  }
+  /* Radio button style default */
+  form #likert7-slider label::after {
+    content: " ";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgb(255, 255, 255);
+    background: rgba(125, 39, 252, 1);
+    border-radius: 50%;
+    pointer-events: none;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+    z-index: 1;
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+  }
+/* #region Setting different circle size for each child */
+  form #likert7-slider #L7-strongly-disagree::after{
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+ }
+
+ form #likert7-slider #L7-strongly-agree::after{
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+ }
+
+ form #likert7-slider #L7-disagree2::after{
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+ }
+
+ form #likert7-slider #L7-agree2::after{
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+ }
+
+ form #likert7-slider #L7-disagree1::after{
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+ }
+
+ form #likert7-slider #L7-agree1::after{
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+ }
+
+ form #likert7-slider #L7-neutral::after{
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+ }
+/* #endregion */
+
+  /* Setting radio button size while hovering */
+  form #likert7-slider label:hover::after {
+    transform: translate(-50%, -50%) scale(1.25);
+  }
+  form #likert7-slider input {
+    display: none;
+  }
+  form #likert7-slider input:checked + label::before {
+    font-weight: 800;
+    opacity: 1;
+  }
+  /* Radio button style while checked */
+  form #likert7-slider input:checked + label::after {
+    border-width: 4px;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  form #likert7-slider input:checked ~ #likert7-pointer {
+    opacity: 1;
+  }
+  form #likert7-slider input:checked:nth-child(1) ~ #likert7-pointer {
+    left: 7%;
+    width: 28px;
+    height: 28px;
+  }
+  form #likert7-slider input:checked:nth-child(3) ~ #likert7-pointer {
+    left: 21.33%;
+    width: 22px;
+    height: 22px;
+  }
+  form #likert7-slider input:checked:nth-child(5) ~ #likert7-pointer {
+    left: 35.67%;
+    width: 18px;
+    height: 18px;
+  }
+  form #likert7-slider input:checked:nth-child(7) ~ #likert7-pointer {
+    left: 50%;
+    width: 15px;
+    height: 15px;
+  }
+  form #likert7-slider input:checked:nth-child(9) ~ #likert7-pointer {
+    left: 64.33%;
+    width: 18px;
+    height: 18px;
+  }
+  form #likert7-slider input:checked:nth-child(11) ~ #likert7-pointer {
+    left: 78.7%;
+    width: 22px;
+    height: 22px;
+  }
+  form #likert7-slider input:checked:nth-child(13) ~ #likert7-pointer {
+    left: 93%;
+    width: 28px;
+    height: 28px;
+  }
+
+  /* Checked Dot */
+  form #likert7-slider #likert7-pointer {   
+    display: block;
+    position: absolute;
+    top: 50%;
+    width: 15px;
+    height: 15px;
+    background: rgb(251, 255, 29);
+    border-radius: 50%;
+    transition: all 0.15s ease-in-out;
+    transform: translate(-50%, -50%);
+    border: 2px solid #fff;
+    opacity: 0;
+    z-index: 2;
+  }
+  /* Label Text while unchecked */
+  form:valid #likert7-slider input + label::before {
+    /* transform: translate(-50%, -45px) scale(0.9); */
+    transition: all 0.15s linear;
+  }
+  /* Label Text while on checked */
+  form:valid #likert7-slider input:checked + label::before {
+    /* transform: translate(-50%, -45px) scale(1.1); */
+    transition: all 0.15s linear;
+  }
+  
+/* #endregion */
 .selector-container{
     position: absolute;
     width: 180px;
@@ -840,8 +1479,6 @@ transform: translate(-50%,-50%);
 .lang-text:hover{
     transition: opacity 0.1s;
     opacity: 1;
-
-    
 }
 
 .lang-text.selected{
@@ -859,7 +1496,7 @@ transform: translate(-50%,-50%);
     height: 28px;
     font-size: 25px;
     cursor: pointer;
-    box-shadow: 5px 5px 10px #222222;
+    box-shadow: 3px 3px 16px rgba(0, 0, 0, 0.20);
 
     text-align: center;
     justify-content: center;

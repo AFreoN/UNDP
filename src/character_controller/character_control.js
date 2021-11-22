@@ -49,10 +49,15 @@ export function enablePlayerControl(){
     sliderHolder.hidden = false;
 
     ring1.position.set(player.position.x, ringYPos, player.position.z);
-    if(otherCharacter)
-        ring2.position.set(otherCharacter.position.x, ringYPos + ringClearance, otherCharacter.position.z);
     joystickScene.add(ring1);
-    joystickScene.add(ring2);
+    if(otherCharacter != null){
+        ring2.position.set(otherCharacter.position.x, ringYPos + ringClearance, otherCharacter.position.z);
+        joystickScene.add(ring2);
+    }
+    else{
+        joystickScene.remove(ring2);
+        EnableCharacterText(false);
+    }
 }
 
 export function disablePlayerControl(){
@@ -142,6 +147,11 @@ export function setPlayer(playerModel, playerAnims, outline, outlineAnimation){
 
 const PlayerYPos = -0.6;
 export function setOtherCharacter(otherModel, _otherAnimation, _otherAnimationIds){
+    if(otherModel == null){
+        otherCharacter == null;
+        return;
+    }
+
     resetJoystickSlider();
     canControlOtherPlayer = false;
     otherIdle = 0;
@@ -384,31 +394,34 @@ function Movecharacter(){
     //#endregion
 
     //#region For setting other character position
-    if(!otherXpos) otherXpos = otherCharacter.position.clone().x;
-
-    if(canControlOtherPlayer)
+    if(otherCharacter != null){
+    
+        if(!otherXpos) otherXpos = otherCharacter.position.clone().x;
+        
+        if(canControlOtherPlayer)
         otherXpos = startX - stepValue * (joystickSlideValue + 50);
-    // else if(prevSlideValue != joystickSlideValue && onInputDelay == false){
-
-    //     prevSlideValue = joystickSlideValue;
-    //     targetTime = clock.getElapsedTime();
-    //     onInputDelay = true;
-    // }
-
-    curOtherPosition.lerp(new Vector3(otherXpos, otherYPos, 0), lerpSpeed);
-
-    otherCharacter.position.set(curOtherPosition.x, curOtherPosition.y, curOtherPosition.z);
-    updateNameIndicator(player,otherCharacter);
-    EnableCharacterText();
-
-    let minDis = 0.005;
-    var abs = Math.abs(otherXpos - otherCharacter.position.x);
-    if((abs) < minDis){
-        otherIdle = true;
-    }
-    else{
-        otherIdle = false;
-    }
+        // else if(prevSlideValue != joystickSlideValue && onInputDelay == false){
+            
+            //     prevSlideValue = joystickSlideValue;
+            //     targetTime = clock.getElapsedTime();
+            //     onInputDelay = true;
+            // }
+            
+            curOtherPosition.lerp(new Vector3(otherXpos, otherYPos, 0), lerpSpeed);
+            
+            otherCharacter.position.set(curOtherPosition.x, curOtherPosition.y, curOtherPosition.z);
+            updateNameIndicator(player,otherCharacter);
+            EnableCharacterText(true);
+            
+            let minDis = 0.005;
+            var abs = Math.abs(otherXpos - otherCharacter.position.x);
+            if((abs) < minDis){
+                otherIdle = true;
+            }
+            else{
+                otherIdle = false;
+            }
+        }
 //#endregion
 
     //#region For setting camera position
