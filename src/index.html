@@ -8,12 +8,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;500&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="loading-container" id="loading-container">
         <div class="loading-wrapper">
-            <div class="menu-container" id="menu-holder">
+            <div class="menu-container" id="loading-menu-holder">
                 <div class="logo-container">
                 </div>
                 <div class="hamburger-base">
@@ -49,7 +49,7 @@
     <div class="ui-container" id="ui-holder">
         <div class="question-header-container">
             
-            <div class="menu-container" id="menu-holder">
+            <div class="menu-container" id="questions-menu-holder">
                 <div class="logo-container">
                 </div>
                 <div class="hamburger-base">
@@ -179,8 +179,61 @@
         <div class="lang-selection-button" id="language-selected-button"><b>Next</b></div>
         <div id="lang-bottom-text"><b>Community Connectedness Quiz</b></div>
     </div>
+    <div class="video-question-container" id="video-question-container">
+         <div class="video-question-text-container" id="video-question-text-container">
+             Have you watched all extreme lives videos?
+         </div>
+        <div class="selector-container" id="selector-container-video-question" style="height: 30vh;">
+            <div class="selected-item-indicator" id="selected-item-indicator-video-question" ></div>
+            <div class="scroll-container" id="scroll-container-video-question" style="height: 30vh;" >
+                <div class="scroll-item scroll-item-video-question" id="scroll-item-video-question-1" data-value="true" style="height: 3vh;width: 180px;">Yes</div>
+                <div class="scroll-item scroll-item-video-question" id="scroll-item-video-question-2" data-value="false" style="height: 3vh;width: 180px;">No</div>
+                </div>
+        </div>
+
+         <div class="control-button" id="video-question-close-button"> Next </div>
+    </div>
     <div class="submit-container" id="submit-container">
-        <!-- <button class="submit-button" id="submit-button"> Submit</button> -->
+        <div class="menu-container" id="submit-menu-holder">
+            <div class="logo-container">
+            </div>
+            <div class="hamburger-base">
+                <div class="hamburger-line line-1"></div>
+                <div class="hamburger-line line-2"></div>
+                
+            </div>
+        </div>
+        <div class="submit-confirmation-container" id="submit-confirmation-container">
+            <div class="submit-text-container">
+                <div class="submit-title-text-container" id="submit-title-text-container"> You have completed the quiz</div>
+                <div class="submit-sub-text-container" id="submit-sub-text-container"> submit to see your results!</div>    
+            </div>
+            <div class="control-container submit-control-container">
+                <button class="control-button" id="submit-control-back-button"> &#x25C0 </button>
+                <!-- <button class="submit-button" id="submit-button"> Submit</button> -->
+                <!-- <button class="control-button" id="control-next-button"> Next </button> -->
+                <button class="control-button submit-button" id="submit-button"> Submit</button>
+            </div>
+    
+        </div>
+
+        <div class="submit-results-container" id="submit-results-container">
+            <div class="results-text-container">
+                <div class="results-header-container" id="results-header-container">Result header here</div>
+                <div class="results-subtext-container" id="results-subtext-container">Result subtext here</div>
+            </div>
+            <div class="results-footer-container">
+                <div class="results-footer-text" id="results-footer-text">
+                    Share with your friends! <br>
+                    And let them know...
+                </div>
+                <div class="results-footer-social">
+                    <div class="results-footer-social-icon facebook"></div>
+                    <div class="results-footer-social-icon twitter"></div>
+                </div>
+                <button class="control-button results-more-button" id="results-more-button"> See More </button>
+            </div>
+        </div>
     </div>
     <canvas class="webgl"></canvas>
 </body>

@@ -37,7 +37,7 @@ canvas.webgl{
     align-items: center;
     top: 0;
     left: 0;
-    z-index: 4;
+    z-index: 10;
     background: linear-gradient(to top , #5f27fc, #e827fc );
 
 }
@@ -172,16 +172,6 @@ canvas.webgl{
 .loading-footer-website{
     font-weight: 700;
     margin: 2vh 0;
-}
-
-.submit-button{
-    background: white;
-    font-weight: 600;
-    font-family: 'Rubik', sans-serif;
-    color: rgba(0, 0, 0, 1);
-    border-radius: 2px;
-    padding: 5px 22px;
-    border:none;
 }
 
 .ui-container{
@@ -415,7 +405,7 @@ canvas.webgl{
     font-size: 20px;
     font-weight: bold;
     padding: 5px 30px;
-    box-shadow: 3px 3px 10px #444444;;
+    box-shadow: 3px 3px 10px #444444;
     
 }
 
@@ -623,7 +613,7 @@ canvas.webgl{
     width: 100vw;
     height: 100vh;
     margin: auto;
-    z-index: 2;
+    z-index: 5;
     font-family: 'Rubik',sans-serif;
 }
 
@@ -796,6 +786,21 @@ canvas.webgl{
     opacity: 0%;
 }
 
+.scroll-item-video-question{
+    pointer-events: none;
+}
+
+#selected-item-indicator-video-question{
+    width: 15ch;
+    height: calc(2.4rem + 4px);
+}
+
+#selector-container-video-question{
+top: 50%;
+left: 50%;
+transform: translate(-50%,-50%);
+}
+
 /* #selected-item-indicator-gender{
     position: relative;
 } */
@@ -846,7 +851,7 @@ canvas.webgl{
     padding-bottom: 5px;
 }
 
-.lang-selection-button{      /* Next Button in language selection UI */
+.lang-selection-button, #video-question-close-button{      /* Next Button in language selection UI */
     position: absolute;
     color: #222222;
     background : #cbfa01;
@@ -890,6 +895,198 @@ canvas.webgl{
     bottom: 3vh;
     left: 8%;
 }
+
+.video-question-container{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: linear-gradient(to top , #5f27fc, #e827fc );
+    z-index: 4;
+}
+
+.video-question-text-container{
+    font-family: 'Rubik',sans-serif;
+    /* font-weight: 700;
+    font-size: 10vw;
+    margin: 20px auto 0 auto; */
+    
+    position: absolute;
+    color: #ffffff;
+    font-size: 24px;
+
+    text-align: center;
+    top: 15vh;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, 50%);
+}
+
+
+
+.submit-container{
+    /* display: none; */
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 3;
+}
+
+.submit-text-container{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 15vh;
+    text-align: center;
+    width: 80%;
+    margin: 0 auto;
+    text-shadow: black 0 0 15px;
+}
+
+.submit-title-text-container{
+    color: white;
+    font-weight: 700;
+    font-family: 'Rubik',sans-serif;
+    font-size: 3em;
+    width: 100%;
+}
+
+.submit-sub-text-container{
+    margin-top: 10px ;
+    color: white;
+    font-weight: 300;
+    font-family: 'Rubik',sans-serif;
+    font-size: 1em;
+    width: 100%;
+}
+
+.submit-control-container{
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    /* width: 100vw; */
+    margin-bottom: calc(1em + 10px);
+}
+
+
+.submit-button{
+    background: #cbfa01;
+    font-weight: 600;
+    font-family: 'Rubik', sans-serif;
+    color: rgba(0, 0, 0, 1);
+    /* border-radius: 2px; */
+    padding: 5px 22px;
+    border:none;
+    cursor: pointer;
+    /* position: absolute;
+    bottom: 5vh;
+    right: 10vw; */
+    font-size: 20px;
+    box-shadow: 3px 3px 10px #444444;
+}
+
+
+
+.results-text-container{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 15vh;
+    text-align: center;
+    width: 80%;
+    text-shadow: black 0 0 15px;
+}
+
+.results-header-container{
+    color: white;
+    font-weight: 700;
+    font-family: 'Rubik',sans-serif;
+    font-size: 3em;
+    width: 100%;
+}
+
+.results-subtext-container{
+    margin-top: 10px ;
+    color: white;
+    font-weight: 300;
+    font-family: 'Rubik',sans-serif;
+    font-size: 1em;
+    width: 100%;
+}
+
+.results-footer-container{
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.results-footer-text{
+    font-family: 'Rubik',sans-serif;
+    font-weight: 300;
+    color: white;
+    text-align: center;
+}
+
+.results-footer-social{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 10px auto 20px auto;
+}
+
+.results-footer-social-icon{
+    width: 18px;
+    margin: 0 0 0 5px;
+}
+
+.results-footer-social-icon.facebook{
+    content: url('../static/undp_fb_logo.png');
+
+}
+
+.results-footer-social-icon.twitter{
+    content: url('../static/undp_twitter_logo.png');
+}
+
+.results-more-button{
+    background: #cbfa01;
+    font-weight: 600;
+    font-family: 'Rubik', sans-serif;
+    color: rgba(0, 0, 0, 1);
+    padding: 5px 22px;
+    border:none;
+    cursor: pointer;
+
+    font-size: 20px;
+    box-shadow: 3px 3px 10px #444444;
+}
+
+/* #video-question-close-button{
+    background: #CBFA01;
+    color: black;
+    font-family: 'Rubik',sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 5px 30px;
+    box-shadow: 3px 3px 10px #444444;
+    
+    position: absolute;
+    bottom: 15vh;
+    left: 50%;
+    transform: translateX(-50%);
+} */
 
 #control-ok-button{
     position: absolute;
@@ -1005,7 +1202,7 @@ canvas.webgl{
         text-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
     }
     .submit-button:hover{
-        background: #cdf0ff;
+        /* background: #cdf0ff; */
     }
     /* div.pagination__dot:hover {
         background: #eeeeee;
@@ -1028,7 +1225,7 @@ canvas.webgl{
 }
 
 .submit-button:active{
-    background: #90bfd3;
+    /* background: #90bfd3; */
 }
 
 .control-button:disabled{
@@ -1073,7 +1270,9 @@ canvas.webgl{
         font-size: 2.8vw;
     }
 
-    .question-container, .submit-button{
+    .question-container
+    /* , .submit-button */
+    {
         font-size: 5vw;
 
     }
@@ -1122,7 +1321,9 @@ canvas.webgl{
         font-size: 2.25vw;
     }
     
-    .question-container, .submit-button{
+    .question-container
+    /* , .submit-button */
+    {
         font-size: 4vw;
 
     }
@@ -1165,7 +1366,9 @@ canvas.webgl{
         font-size: 1.9vw;
     }
 
-    .question-container, .submit-button{
+    .question-container
+    /* , .submit-button */
+    {
         font-size: 3.2vw;
     }
 
@@ -1208,7 +1411,9 @@ canvas.webgl{
         font-size: 1.6vw;
     }
 
-    .question-container, .submit-button{
+    .question-container
+    /* , .submit-button */
+    {
         font-size: 2.8vw;
     }
 
@@ -1251,7 +1456,9 @@ canvas.webgl{
         font-size: 1.2vw;
     }
 
-    .question-container, .submit-button{
+    .question-
+    /* , .submit-button */
+    {
         font-size: 2.2vw;
     }
 

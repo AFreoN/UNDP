@@ -646,6 +646,8 @@ const maldivesCamera = scenes.maldivesCamera
 const sriLankaScene = scenes.sriLankaScene
 const sriLankaCamera = scenes.sriLankaCamera
 
+const submitScene = scenes.submitScene
+const submitCamera = scenes.submitCamera
 
 //an empty scene to load when no country was selected
 const emptyScene = new THREE.Scene()
@@ -807,6 +809,7 @@ export function loadQuestion(questionIndex){
                 
                 break;
             case 'about':
+                console.log(player);
                 if(prevQues != 'joystick'){
                     scenes.resetCurrentSelectionScene()
                     updateSceneAndCamera(aboutScene, aboutCamera)
@@ -1048,6 +1051,19 @@ function removeModelsFromScene(scene, modelsArray){
     });
 }
 
+// export function removeModelsInLastScene(){
+//     if(currentCenterModel){
+//         joystickScene.remove(currentCenterModel)
+//     }
+//     if(mainScene === joystickScene){
+//         if(models){
+//             removeModelsFromScene(joystickScene, models)
+
+//         }
+//     }
+// }
+
+
 //#region Character name indicator position update
 export const EnableCharacterText = function(){
     characterText.hidden = false;
@@ -1151,4 +1167,31 @@ function animateClouds(deltaTime){
 
 }
 
+//Sets scene submit scene, enabled separately due to submit scene not being in the questions array
+export function enableSubmitScene(){
+    const player = assetLoader.getModel('playerCharacter')
+    console.log(player);
+
+
+    if(prevQues != 'joystick'){
+        updateSceneAndCamera(submitScene,submitCamera)
+        currentCenterModel = null
+        player.position.set(0,-.6, 2)
+        player.rotation.set(0,0,0)
+        controls.disablePlayerControl()
+        submitScene.add(player)
+    }
+    else{
+        sceneTransition.jumpOut(function() {
+            scenes.resetCurrentSelectionScene()
+            updateSceneAndCamera(submitScene,submitCamera)
+            currentCenterModel = null
+            player.position.set(0,-.6, 2)
+            player.rotation.set(0,0,0)
+            controls.disablePlayerControl()
+            submitScene.add(player)
+            prevQues = ''
+        });
+    }
+}
 //Calculating distance between player and the center model

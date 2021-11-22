@@ -870,6 +870,7 @@ const bgPointLight2 = new THREE.PointLight(0xea7ff9, 2, rimLightDistance - 2);
 bgPointLight2.position.y = -1;
 bgPointLight2.position.z = -rimLightDistance + 7;
 bgPointLight2.position.x = (rimLightDistance - 2) * 1.3;
+// console.log(joystickScene);
 //#endregion
 //joystickScene.add(bgPointLight2);
 
@@ -957,6 +958,62 @@ joystickScene.add(joystickPointLight)
 //
 //      end of Joystick scene
 */
+
+//      Submit scene
+//
+
+// export const submitScene = new THREE.Scene() 
+// export const submitCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100)
+// submitScene.add(submitCamera)
+
+export const submitScene = joystickScene.clone()
+export const submitCamera = submitScene.children[0]
+
+submitCamera.position.x = 0
+submitCamera.position.y = -0.3
+submitCamera.position.z = 3.5
+// submitCamera.rotation.set(Math.PI * 0, 0, 0)
+
+submitCamera.lookAt(0, -0.6, 0);
+
+
+// const submitPointLight = new THREE.PointLight(0xffffff, 3)
+
+// submitPointLight.position.x = 2
+// submitPointLight.position.y = 3
+// submitPointLight.position.z = 4
+// submitPointLight.intensity = 1.3
+
+// submitScene.add(submitPointLight)
+
+
+
+
+
+
+// const submitFloorSize = 100;
+// var submitFloorgeo = new THREE.PlaneGeometry(submitFloorSize,submitFloorSize);
+// // submitFloorgeo.computeBoundingBox();
+// //const submitFloorgeo = new THREE.CylinderGeometry(1000,1000,0.05, 256);
+// const submitFloorMaterial = new THREE.MeshToonMaterial( {color: 0x5331FF, fog:true});   //dark pink 801FCF    //prev new THREE.MeshToonMaterial( {color: 0x725FB3})
+
+// const submitFloor = new THREE.Mesh (submitFloorgeo, submitFloorMaterial); 
+// submitFloor.rotation.set(Math.PI / -2, 0, 0)
+// console.log(submitFloor);
+// submitFloor.position.z = - submitFloorSize / 4
+// submitFloor.position.y = -.6
+// submitFloor.position.x = 0
+// submitFloor.receiveShadow = true;
+// submitScene.add(submitFloor);
+
+// const submitFogColor = 0xfa76ff;
+
+// const submitFogDensity = 0.2; 
+// submitScene.fog = new THREE.FogExp2(submitFogColor, submitFogDensity);
+
+//
+//      end of Submit scene
+
 
 export function calculateDistance(currentCenterModel, answers){
     const player = assetLoader.getModel('playerCharacter')
