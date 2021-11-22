@@ -14,7 +14,7 @@ import { shaderMaterial, shaderUnlit } from '../fresnel'
 let models = {
     playerCharacter:null,
     playerOutline:null,
-    centerCharacter:null,
+    distantFriend:null,
     mother:null,
     Father:null,
     siblings:null,
@@ -48,7 +48,7 @@ let models = {
 let animations = {
     playerCharacter:null,
     playerOutline:null,
-    centerCharacter:null,
+    distantFriend:null,
     centerEmoji:null,
     father:null,
     mother:null,
@@ -73,7 +73,7 @@ let animationId = {
         'start':1,
         'stop':3
     },
-    centerCharacter:{
+    distantFriend:{
         'idle':0,
         'walk':2,
         'start':1,
@@ -305,12 +305,12 @@ gltfloader.load(
 )
 
 gltfloader.load(
-    'Models/Animation_V05.gltf',
+    'Models/DistantFriend.gltf',
     (gltf) =>
     {
-        animations['centerCharacter'] = gltf.animations
+        animations['distantFriend'] = gltf.animations
         let model = gltf.scene
-        model.name = 'centerCharacter'
+        model.name = 'distantFriend'
         model.scale.set(.3,.3,.3)
         model.position.set(0,-.6, 0)
 
@@ -322,7 +322,7 @@ gltfloader.load(
             }
         });
 
-        models['centerCharacter'] = model// test center model.
+        models['distantFriend'] = model// test center model.
         loadedPercentage += (1/numberOfAssets)
         loadingBar.animate(loadedPercentage)
     }

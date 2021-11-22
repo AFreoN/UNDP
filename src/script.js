@@ -76,7 +76,7 @@ export function loadNextQuestion(){
         questionIndex++
         questions.loadQuestion(questionIndex)
         console.log((questionIndex+1)+'/'+(numberOfQuestions));
-        console.log(confirmedAnswers);
+        //console.log(confirmedAnswers);
         // uiControl.paginate(questionIndex)
     }
     else if(questionIndex == numberOfQuestions - 1 ){

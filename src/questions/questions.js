@@ -432,7 +432,7 @@ let qArray = [
                 dv : 'answer7'
             }
         ],
-        centerModelKey:'centerCharacter',
+        centerModelKey:'distantFriend',       //distantFriend
         characterName:{
             en : 'Distant Friends',
             si : 'දුරස්ථ මිතුරන්',
@@ -506,6 +506,90 @@ let qArray = [
         type : 'likert5',
         question : {
             en : 'I have little control over things that happen to me.',
+            si : 'ඔබ ඔබේ මවට කොතරම් සමීපද?',
+            ta : 'உங்கள் தாயிடம் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
+            dv : 'I have little control over things that happen to me.'
+        },
+        answers : [
+            {
+                en : 'answer1',
+                si : 'පිළිතුර1',
+                ta : 'பதில்1',
+                dv : 'answer1'
+            },
+            {
+                en : 'answer2',
+                si : 'පිළිතුර2',
+                ta : 'பதில்2',
+                dv : 'answer2'
+            },
+            {
+                en : 'answer3',
+                si : 'පිළිතුර3',
+                ta : 'பதில்3',
+                dv : 'answer3'
+            },
+            {
+                en : 'answer4',
+                si : 'පිළිතුර4',
+                ta : 'பதில்4',
+                dv : 'answer4'
+            },
+            {
+                en : 'answer5',
+                si : 'පිළිතුර5',
+                ta : 'பதில்5',
+                dv : 'answer5'
+            }
+        ],
+        compulsory: true
+    },
+    {   //11    Likert 4 Testing
+        type : 'likert4',
+        question : {
+            en : '4 Options testing',
+            si : 'ඔබ ඔබේ මවට කොතරම් සමීපද?',
+            ta : 'உங்கள் தாயிடம் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
+            dv : 'I have little control over things that happen to me.'
+        },
+        answers : [
+            {
+                en : 'answer1',
+                si : 'පිළිතුර1',
+                ta : 'பதில்1',
+                dv : 'answer1'
+            },
+            {
+                en : 'answer2',
+                si : 'පිළිතුර2',
+                ta : 'பதில்2',
+                dv : 'answer2'
+            },
+            {
+                en : 'answer3',
+                si : 'පිළිතුර3',
+                ta : 'பதில்3',
+                dv : 'answer3'
+            },
+            {
+                en : 'answer4',
+                si : 'පිළිතුර4',
+                ta : 'பதில்4',
+                dv : 'answer4'
+            },
+            {
+                en : 'answer5',
+                si : 'පිළිතුර5',
+                ta : 'பதில்5',
+                dv : 'answer5'
+            }
+        ],
+        compulsory: true
+    },
+    {   //12    Likert 7 Testing
+        type : 'likert7',
+        question : {
+            en : '7 Options testing',
             si : 'ඔබ ඔබේ මවට කොතරම් සමීපද?',
             ta : 'உங்கள் தாயிடம் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
             dv : 'I have little control over things that happen to me.'
@@ -800,8 +884,8 @@ export function loadQuestion(questionIndex){
     if(player == null){
         player = assetLoader.getModel('playerCharacter');
         playerName.innerText = playerNamesLang[langId];
+        sceneTransition.initializeData(player, joystickCamera, controls.getPlayerInitialPosition());
     }
-    sceneTransition.initializeData(player, joystickCamera, controls.getPlayerInitialPosition());
     controls.disablePlayerControl();
     characterText.hidden = true;
     playerName.hidden = true;
@@ -886,19 +970,21 @@ export function loadQuestion(questionIndex){
 
                 var slideDirection = questionIndex - qId;
                 var dir = slideDirection > 0 ? 'right' : 'left';
-                if(prevQues == 'joystick' || prevQues == 'likert5'){     //If previos scene is joystick scene, then scene has to fadeout first then fadein to other scene
+                if(prevQues == 'joystick' || prevQues == 'likert5' || prevQues == 'likert4' || prevQues == 'likert7'){     //If previos scene is joystick scene, then scene has to fadeout first then fadein to other scene
                     UIUpdateNeeded = false;
+                    uiControl.FadeOutLiker5();
+                    uiControl.fadeOutSliderContainer();
                     sceneTransition.fadeOut(prevOtherModel, dir, function(){
                         setupJoystickScene(currentQuestion, player, questionIndex);
                         //updateSceneAndCamera(joystickScene, joystickCamera, true);
-                        sceneTransition.fadeIn(prevOtherModel, dir,true, null);
+                        sceneTransition.fadeIn(prevOtherModel, dir,true, null, controls.getPlayerInitialPosition().x);
                     });
                 }
                 else{
                     if(questionIndex != 3){     //questionIndex 3 is mother scene
                         setupJoystickScene(currentQuestion, player, questionIndex);
                         updateSceneAndCamera(joystickScene, joystickCamera);
-                        sceneTransition.fadeIn(prevOtherModel, dir,true, null);
+                        sceneTransition.fadeIn(prevOtherModel, dir,true, null, controls.getPlayerInitialPosition().x);
                     }
                     else{
                         setupJoystickScene(currentQuestion, player, questionIndex);
@@ -910,8 +996,12 @@ export function loadQuestion(questionIndex){
             case 'likert5':
                 var slideDirection = questionIndex - qId;
                 var dir = slideDirection > 0 ? 'right' : 'left';
-                if(prevQues == 'joystick'){
+                if(prevQues == 'joystick' || prevQues == 'likert5' || prevQues == 'likert4' || prevQues == 'likert7'){
                     UIUpdateNeeded = false;
+                    uiControl.FadeOutLikert4();
+                    uiControl.FadeOutLiker5();
+                    uiControl.fadeOutSliderContainer();
+
                     sceneTransition.fadeOut(prevOtherModel, dir, function(){
                         scenes.resetCurrentSelectionScene();
                         removeModelsFromScene(joystickScene, models);
@@ -927,7 +1017,7 @@ export function loadQuestion(questionIndex){
                         uiControl.updateUI(questionType, questionText, answers);
                         uiControl.setSurveyProgressMax(questionIndex);
 
-                        sceneTransition.fadeIn(prevOtherModel, dir,false, null);
+                        sceneTransition.fadeIn(prevOtherModel, dir,false, null, 0);
                     });
                 }
                 else{
@@ -943,7 +1033,91 @@ export function loadQuestion(questionIndex){
                     addModelToScene(joystickScene, player);
                     controls.setOtherCharacter(null, null, null);
 
-                    sceneTransition.fadeIn(prevOtherModel, dir,false, null);
+                    sceneTransition.fadeIn(prevOtherModel, dir,false, null, 0);
+                }
+                break;
+            case 'likert4':
+                var slideDirection = questionIndex - qId;
+                var dir = slideDirection > 0 ? 'right' : 'left';
+                if(prevQues == 'joystick' || prevQues == 'likert5' || prevQues == 'likert4' || prevQues == 'likert7'){
+                    UIUpdateNeeded = false;
+                    uiControl.FadeOutLikert4();
+                    uiControl.FadeOutLiker5();
+                    uiControl.fadeOutSliderContainer();
+                    sceneTransition.fadeOut(prevOtherModel, dir, function(){
+                        scenes.resetCurrentSelectionScene();
+                        removeModelsFromScene(joystickScene, models);
+                        updateSceneAndCamera(joystickScene, joystickCamera);
+                        if(currentCenterModel)
+                            joystickScene.remove(currentCenterModel);
+                        currentCenterModel = null;
+                        player.position.set(0,-.6, 0);
+                        player.rotation.set(0,0,0);
+                        controls.disablePlayerControl();
+                        addModelToScene(joystickScene, player);
+                        controls.setOtherCharacter(null, null, null);
+                        uiControl.updateUI(questionType, questionText, answers);
+                        uiControl.setSurveyProgressMax(questionIndex);
+
+                        sceneTransition.fadeIn(prevOtherModel, dir,false, null, 0);
+                    });
+                }
+                else{
+                    scenes.resetCurrentSelectionScene();
+                    removeModelsFromScene(joystickScene, models);
+                    updateSceneAndCamera(joystickScene, joystickCamera);
+                    if(currentCenterModel)
+                        joystickScene.remove(currentCenterModel);
+                    currentCenterModel = null;
+                    player.position.set(0,-.6, 0);
+                    player.rotation.set(0,0,0);
+                    controls.disablePlayerControl();
+                    addModelToScene(joystickScene, player);
+                    controls.setOtherCharacter(null, null, null);
+
+                    sceneTransition.fadeIn(prevOtherModel, dir,false, null, 0);
+                }
+                break;
+            case 'likert7':
+                var slideDirection = questionIndex - qId;
+                var dir = slideDirection > 0 ? 'right' : 'left';
+                if(prevQues == 'joystick' || prevQues == 'likert5' || prevQues == 'likert4' || prevQues == 'likert7'){
+                    UIUpdateNeeded = false;
+                    uiControl.FadeOutLikert4();
+                    uiControl.FadeOutLiker5();
+                    uiControl.fadeOutSliderContainer();
+                    sceneTransition.fadeOut(prevOtherModel, dir, function(){
+                        scenes.resetCurrentSelectionScene();
+                        removeModelsFromScene(joystickScene, models);
+                        updateSceneAndCamera(joystickScene, joystickCamera);
+                        if(currentCenterModel)
+                            joystickScene.remove(currentCenterModel);
+                        currentCenterModel = null;
+                        player.position.set(0,-.6, 0);
+                        player.rotation.set(0,0,0);
+                        controls.disablePlayerControl();
+                        addModelToScene(joystickScene, player);
+                        controls.setOtherCharacter(null, null, null);
+                        uiControl.updateUI(questionType, questionText, answers);
+                        uiControl.setSurveyProgressMax(questionIndex);
+
+                        sceneTransition.fadeIn(prevOtherModel, dir,false, null, 0);
+                    });
+                }
+                else{
+                    scenes.resetCurrentSelectionScene();
+                    removeModelsFromScene(joystickScene, models);
+                    updateSceneAndCamera(joystickScene, joystickCamera);
+                    if(currentCenterModel)
+                        joystickScene.remove(currentCenterModel);
+                    currentCenterModel = null;
+                    player.position.set(0,-.6, 0);
+                    player.rotation.set(0,0,0);
+                    controls.disablePlayerControl();
+                    addModelToScene(joystickScene, player);
+                    controls.setOtherCharacter(null, null, null);
+
+                    sceneTransition.fadeIn(prevOtherModel, dir,false, null, 0);
                 }
                 break;
         }
@@ -1087,7 +1261,7 @@ function setupJoystickScene(currentQuestion, player, questionIndex){
         addModelsForThisScene(joystickScene, models);
     }
     else{
-        console.log("No models array avaiable for this scene (Question index = ", questionIndex,")")
+        //console.log("No models array avaiable for this scene (Question index = ", questionIndex,")")
     }
 
     uiControl.updateUI(currentQuestion.type, currentQuestion.question[langId], currentQuestion.answers);
