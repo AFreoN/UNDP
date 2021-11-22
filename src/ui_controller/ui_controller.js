@@ -246,9 +246,18 @@ let joystickAnswerContainer = document.getElementById('joystick-answer-container
 let countryAnswerContainer = document.getElementById('country-answer-container')
 let regionAnswerContainer = document.getElementById('region-answer-container')
 let joystickTutorialContainer = document.getElementById('joystick-tutorial-frame')
+let likert5Container = document.getElementById('likert5-wrapper');
 joystickTutorialContainer.hidden = true
 
 let surveyProgressBar = document.getElementById("survey-progress-bar");
+
+var agrees = document.getElementsByName('likert5-checker');
+agrees.forEach(buttons => {
+    buttons.addEventListener('change', function(event){
+        enableConfirmation(event.target.value);
+        console.log("Agree value = ", event.target.value);
+    })
+});
 
 
 export function setSurveyProgressMax(maxValue){
@@ -361,6 +370,18 @@ let allTexts = {
         si : 'වසන්න',
         ta : 'அருகில்',
         dv : 'Close'
+    },
+    stronglyDisagree : {
+        en : 'Strongly Disagree',
+        si : 'එකඟ නොවේ',
+        ta : 'முரண்படுகிறோம்',
+        dv : 'Strongly Disagree'
+    },
+    stronlgyAgree : {
+        en : 'Strongly Agree',
+        si : 'එකඟයි',
+        ta : 'ஒப்புக்கொள்கிறேன்',
+        dv : 'Strongly Agree'
     }
 }
 
@@ -368,6 +389,8 @@ let allTexts = {
 let otherRegionText = document.getElementById('country-skip-button');
 let sliderDistantText = document.getElementById('slidertext-distant');
 let sliderCloseText = document.getElementById('slidertext-close');
+let stronglyDisagreeText = document.getElementById('strongly-disagree');
+let stronglyAgreeText = document.getElementById('strongly-agree');
 
 export function setUiText(){
     // paginationDisplayText.innerText = allTexts.paginationDisplayText[langId];
@@ -375,6 +398,8 @@ export function setUiText(){
     // submitButton.innerText = allTexts.submitButtonText[langId];
     sliderDistantText.innerText = allTexts.sliderDistantText[langId];
     sliderCloseText.innerText = allTexts.sliderCloseText[langId];
+    stronglyDisagreeText.setAttribute("likert-scale-value", allTexts.stronglyDisagree[langId]);
+    stronglyAgreeText.setAttribute("likert-scale-value", allTexts.stronlgyAgree[langId]);
 }
 
 //enabling/disabling control buttons
@@ -785,15 +810,21 @@ ageScrollContainer.addEventListener('mousedown',mouseDownHandler)
 //Changes UI in respect to question type, sets the question text, and answers
 export function updateUI(questionType, questionText, answers){
 
-    if(questionType != 'joystick'){
-        document.body.style.background = defaultBackground;
+    if(questionType == 'joystick' || questionType == 'likert5'){
+        document.body.style.background = sliderSceneBackground;
     }
     else{
-        document.body.style.background = sliderSceneBackground;
+        document.body.style.background = defaultBackground;
     }
 
     questionContainer.style.display = ''
     questionContainer.innerText= questionText
+    //#region For Question Change Animation
+    questionContainer.style.animation = 'none'
+    questionContainer.offsetHeight;     //Resets animation
+    questionContainer.style.animation = null
+    //#endregion
+
     switch(questionType){
         case 'country':
             aboutAnswerContainer.style.display = 'none'
@@ -803,6 +834,7 @@ export function updateUI(questionType, questionText, answers){
             regionAnswerContainer.style.display = 'none'
             joystickTutorialContainer.style.display = 'none'
             joystickSlider.style.display = 'none'
+            likert5Container.style.display = 'none' 
             countryAnswerContainer.innerText = ''
             regionSkipButton.style.display = ''
             sliderHolder.hidden = true
@@ -815,6 +847,7 @@ export function updateUI(questionType, questionText, answers){
             regionAnswerContainer.style.display = ''
             joystickTutorialContainer.style.display = 'none'
             joystickSlider.style.display = 'none'
+            likert5Container.style.display = 'none'
             regionAnswerContainer.innerText = ''
             regionSkipButton.style.display = 'none'
             sliderHolder.hidden = true
@@ -828,6 +861,7 @@ export function updateUI(questionType, questionText, answers){
             joystickTutorialContainer.style.display = 'none'
             joystickSlider.style.display = 'none'
             regionSkipButton.style.display = 'none'
+            likert5Container.style.display = 'none'
             // aboutAnswerContainer.innerHTML = ''
             // selectedMcqAnswer = null
             sliderHolder.hidden = true
@@ -894,6 +928,7 @@ export function updateUI(questionType, questionText, answers){
             regionAnswerContainer.style.display = 'none'
             joystickTutorialContainer.style.display = 'none'
             regionSkipButton.style.display = 'none'
+            likert5Container.style.display = 'none'
             // if(main.isJoyStickTutorialDisplayed() == false){
             //     joystickTutorialContainer.style.display = ''    //Shows tutorial if it's not displayed before
             //     main.displayTutorial();
@@ -907,6 +942,19 @@ export function updateUI(questionType, questionText, answers){
             joystickSlider.style.display = ''
             sliderHolder.hidden = false
             enableConfirmation(joystickSlideValue);
+            break;
+        case 'likert5':
+            aboutAnswerContainer.style.display = 'none'
+            joystickAnswerContainer.style.display = 'none'
+            submitContainer.style.display = 'none'
+            countryAnswerContainer.style.display = 'none'
+            regionAnswerContainer.style.display = 'none'
+            joystickTutorialContainer.style.display = 'none'
+            regionSkipButton.style.display = 'none'
+            likert5Container.style.display = ''
+            joystickSlider.style.display = 'none'
+            sliderHolder.hidden = true
+            enableConfirmation(0)
             break;
     }
 }
@@ -951,6 +999,7 @@ regionSkipButton.addEventListener('click',function(){
 
 
 languageSelectedButton.addEventListener('click', function(){
+    setUiText();
     loadQuestion(0);
     langSelectionUI.hidden = true;
     uiHolder.hidden = false;
