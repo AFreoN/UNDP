@@ -668,11 +668,11 @@ gltfloader.load(
         // scenes.sriLankaCube.add(countrySelectionModel)
 
         //Storing state colors as new properties
-        scenes.sriLankaCube.regionMaterial = countrySelectionModel.children[0].material//Material for all regions
+        // scenes.sriLankaCube.regionMaterial = countrySelectionModel.children[0].material//Material for all regions
 
-        scenes.sriLankaCube.standardColor = countrySelectionModel.children[0].material.color.clone()//standard color
-        scenes.sriLankaCube.hoveringColor =  new THREE.Color( 0xff0000 )//hovering color
-        scenes.sriLankaCube.selectedColor = new THREE.Color( 0x0000ff )//selected color
+        // scenes.sriLankaCube.standardColor = countrySelectionModel.children[0].material.color.clone()//standard color
+        // scenes.sriLankaCube.hoveringColor =  new THREE.Color( 0xff0000 )//hovering color
+        // scenes.sriLankaCube.selectedColor = new THREE.Color( 0x0000ff )//selected color
 
 
         //Setting up model for region selection
