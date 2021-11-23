@@ -1125,6 +1125,7 @@ export function GetModelIds(questionIndex){
                 rotation : new THREE.Vector3(0, 0, 0)
             }]
             break;
+
     }
 }
 

@@ -503,7 +503,7 @@ canvas.webgl{
     bottom: 20%;
     left: 10vw;
 
-    font-family:  'Rubik', sans-serif;
+    font-family:  'Rubik';
     animation: sliderContainerFadeIn 0.4s ease-out;
     /* padding-left: 20vw;
     padding-top: 70vh; */
@@ -512,14 +512,15 @@ canvas.webgl{
 }
 
 @keyframes sliderContainerFadeIn {
-    0% {bottom: 18%; opacity: 0.5; }
-    80% { bottom: 22%; opacity: 1; }
-    100% { bottom: 20%; opacity: 1; }
+    0% { opacity: 00; }
+    80% {  opacity: 1; }
+    100% {  opacity: 1; }
 }
 
 @keyframes sliderContainerFadeOut {
-    0% { bottom: 20%; opacity: 1; }
-    100% { bottom: 17%; opacity: 0; }
+    0% {  opacity: 1; }
+    80% {  opacity: 0.3; }
+    100% { opacity: 0; }
 }
 
 
