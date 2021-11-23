@@ -24,6 +24,7 @@ let models = {
     sriLankaMap:null,
     sriLankaProvincesMap:null,
     maldivesMap:null,
+    maldivesProvincesMap:null,
     Tree1:null,
     Tree2:null,
     Tree3:null,
@@ -549,7 +550,7 @@ gltfloader.load(
 
 //#region Loading province models
 gltfloader.load(
-    'New Sri Lankan Provinces.glb',
+    'srilanka_provinces_cartoon_map.glb',
     (gltf) =>
     {
         let model = gltf.scene
@@ -558,6 +559,7 @@ gltfloader.load(
 
         models['sriLankaProvincesMap'] = model
         
+        console.log(models['sriLankaProvincesMap']);
         //Setting up model for country selection
         // let countrySelectionModel = models['sriLankaProvincesMap'].clone(true)
         // countrySelectionModel.scale.set(0.35,0.35,0.35)
@@ -576,44 +578,45 @@ gltfloader.load(
         // scenes.sriLankaCube.selectedColor = new THREE.Color( 0x0000ff )//selected color
 
 
-        //Setting up model for region selection
-        let regionSelectionModel = models['sriLankaProvincesMap'].clone(true) 
-        regionSelectionModel.scale.set(0.5,0.5,0.5)
-        regionSelectionModel.position.set(-0.5, 0, 0.5)
+        // //Setting up model for region selection
+        // let regionSelectionModel = models['sriLankaProvincesMap'].clone(true) 
+        // regionSelectionModel.scale.set(0.5,0.5,0.5)
+        // regionSelectionModel.position.set(-0.5, 0, 0.5)
 
-        regionSelectionModel.children[10].castShadow = true
-        // console.log(regionSelectionModel);
-        scenes.sriLankaScene.add(regionSelectionModel)
+        // regionSelectionModel.children[10].castShadow = true
+        // // console.log(regionSelectionModel);
+        // scenes.sriLankaScene.add(regionSelectionModel)
 
-        //Setting up and filtering regions and setting up region state colors
-        let sriLankaRegions = regionSelectionModel.children.slice() //Region references
-        sriLankaRegions.splice(9,2)//Removes sealine and provincial divider from regions references
-        sriLankaRegions.forEach(region => {
-            region.name = region.name.replaceAll('_',' ')
+        // //Setting up and filtering regions and setting up region state colors
+        // let sriLankaRegions = regionSelectionModel.children.slice() //Region references
+        // sriLankaRegions.splice(9,2)//Removes sealine and provincial divider from regions references
+        // sriLankaRegions.forEach(region => {
+        //     region.name = region.name.replaceAll('_',' ')
+        //     region.name = region.name + ' Province'
 
-            region.standardMaterial = region.material.clone()//standard material
-            region.material = region.standardMaterial
+        //     region.standardMaterial = region.material.clone()//standard material
+        //     region.material = region.standardMaterial
 
-            region.hoveringMaterial = region.material.clone()//hovering material
-            region.hoveringMaterial.color = new THREE.Color( 0xff0000 )
+        //     region.hoveringMaterial = region.material.clone()//hovering material
+        //     region.hoveringMaterial.color = new THREE.Color( 0xff0000 )
 
-            region.selectedMaterial = region.material.clone()//selected material
-            region.selectedMaterial.color = new THREE.Color( 0x0000ff )
+        //     region.selectedMaterial = region.material.clone()//selected material
+        //     region.selectedMaterial.color = new THREE.Color( 0x0000ff )
 
 
-        });
+        // });
 
-        model.castShadow = true
-        model.receiveShadow = true
+        // model.castShadow = true
+        // model.receiveShadow = true
 
-        scenes.setSriLankaRegions(sriLankaRegions)
+        // scenes.setSriLankaRegions(sriLankaRegions)
 
-        loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
-        loadingBar.animate(loadedPercentage) // animate the progress bar
-        // if(loadedPercentage >= 1){ //if loadedPercentage is 1, then the survey can start.
-        //     //Call function to start the survey
-        //     main.startSurvey()
-        // }
+        // loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
+        // loadingBar.animate(loadedPercentage) // animate the progress bar
+        // // if(loadedPercentage >= 1){ //if loadedPercentage is 1, then the survey can start.
+        // //     //Call function to start the survey
+        // //     main.startSurvey()
+        // // }
     }
 )
 
@@ -625,24 +628,24 @@ gltfloader.load(
         model.scale.set(0.38,0.38,0.38)
         model.position.set(0, 0, 0)
 
-        models['maldivesMap'] = model
+        models['maldivesProvincesMap'] = model
         
         //Setting up model for country selection
-        let countrySelectionModel = models['maldivesMap'].clone(true)
-        countrySelectionModel.scale.set(0.2,0.2,0.2)
-        countrySelectionModel.position.set(0,0,0)
-        countrySelectionModel.children[4].castShadow = true
-        scenes.maldivesCube.add(countrySelectionModel)
+        // let countrySelectionModel = models['maldivesProvincesMap'].clone(true)
+        // countrySelectionModel.scale.set(0.2,0.2,0.2)
+        // countrySelectionModel.position.set(0,0,0)
+        // countrySelectionModel.children[4].castShadow = true
+        // scenes.maldivesCube.add(countrySelectionModel)
         
 
-        scenes.maldivesCube.regionMaterial = countrySelectionModel.children[0].material//Material for all regions
+        // scenes.maldivesCube.regionMaterial = countrySelectionModel.children[0].material//Material for all regions
 
-        scenes.maldivesCube.standardColor = countrySelectionModel.children[0].material.color.clone()//standard color
-        scenes.maldivesCube.hoveringColor = new THREE.Color( 0xff0000 )//hovering color
-        scenes.maldivesCube.selectedColor = new THREE.Color( 0x0000ff )//selected color
+        // scenes.maldivesCube.standardColor = countrySelectionModel.children[0].material.color.clone()//standard color
+        // scenes.maldivesCube.hoveringColor = new THREE.Color( 0xff0000 )//hovering color
+        // scenes.maldivesCube.selectedColor = new THREE.Color( 0x0000ff )//selected color
 
         //Setting up model for region selection
-        let regionSelectionModel = models['maldivesMap'].clone(true) 
+        let regionSelectionModel = models['maldivesProvincesMap'].clone(true) 
         regionSelectionModel.children[4].castShadow = true
         scenes.maldivesScene.add(regionSelectionModel)
 
@@ -727,7 +730,7 @@ gltfloader.load(
 
 
 
-        console.log(models['sriLankaMap']);
+        // console.log(models['sriLankaMap']);
         
         loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
         loadingBar.animate(loadedPercentage) // animate the progress bar
@@ -738,6 +741,62 @@ gltfloader.load(
     }
 )
 //#endregion
+
+
+gltfloader.load(
+    'maldives_cartoon_map.glb',
+    (gltf) =>
+    {
+        let model = gltf.scene
+
+        models['maldivesMap'] = model.children[0]
+        // console.log(models['maldivesMap']);
+        let countrySelectionModel = models['maldivesMap'].clone(true)
+        countrySelectionModel.scale.set(0.08,0.08,0.08)
+        countrySelectionModel.position.set(0.02,0,-0.5)
+        countrySelectionModel.children[3].castShadow = true
+        // console.log(countrySelectionModel);
+
+
+        scenes.maldivesCube.add(countrySelectionModel)
+
+
+        //Storing state colors as new properties
+        scenes.maldivesCube.regionMaterial = countrySelectionModel.children[0].material //Material for all regions
+        // countrySelectionModel.regionMaterial.needsUpdate = true
+
+        // scenes.maldivesCube.regionMaterial = countrySelectionModel.children[0].material//Material for all regions
+
+        scenes.maldivesCube.standardColor = countrySelectionModel.children[0].material.color.clone()//standard color
+        scenes.maldivesCube.hoveringColor = new THREE.Color( 0x7bbbf7 )//hovering color
+        scenes.maldivesCube.selectedColor = new THREE.Color( 0x3c5fff )//selected color
+
+        // scenes.maldivesCube.standardMap = new THREE.TextureLoader().load('maldives_standard.png')
+        // scenes.maldivesCube.standardMap.needsUpdate = true
+        // scenes.maldivesCube.standardMap.flipY = false
+        // scenes.maldivesCube.regionMaterial.map = scenes.maldivesCube.standardMap
+
+        // scenes.maldivesCube.hoveringMap =  new THREE.TextureLoader().load('maldives_hovering.png')
+        // scenes.maldivesCube.hoveringMap.needsUpdate = true
+        // scenes.maldivesCube.hoveringMap.flipY = false
+        
+        // scenes.maldivesCube.selectedMap = new THREE.TextureLoader().load('maldives_selected.png')
+        // scenes.maldivesCube.selectedMap.needsUpdate = true
+        // scenes.maldivesCube.selectedMap.flipY = false
+
+
+
+        // console.log(models['maldivesMap']);
+        
+        loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
+        loadingBar.animate(loadedPercentage) // animate the progress bar
+        // if(loadedPercentage >= 1){ //if loadedPercentage is 1, then the survey can start.
+        //     //Call function to start the survey
+        //     main.startSurvey()
+        // }
+    }
+)
+
 
 //#region Loading tree models
 gltfloader.load(

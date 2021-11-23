@@ -43,7 +43,7 @@ let questionIndex = 0 //indicates the question to be loaded
 let confirmedAnswers = [] //stores confirmed answers
 let uiHolder = document.getElementById('ui-holder');
 
-let hasWatchedVideos = false
+let hasWatchedVideos = true
 let resultKey = ''
 
 export function setHasWatchedVideos(boolVal){
@@ -159,12 +159,17 @@ export function skipCountrySelection(){
 async function submitAnswers(){
     console.log('answers submitted');
     console.log(confirmedAnswers);
+    const confirmedAnswersStartingPortion = confirmedAnswers.slice(0,2)
+    const confirmedAnswersConvertedAboutQuestion = [parseInt(confirmedAnswers[2].age) ,parseInt(confirmedAnswers[2].gender)]
+    const confirmedAnswersEndingPortion = confirmedAnswers.slice(3)
+    const modifiedConfirmedAnswers = confirmedAnswersStartingPortion.concat(confirmedAnswersConvertedAboutQuestion.concat(confirmedAnswersEndingPortion))
+    console.log(modifiedConfirmedAnswers);
     timeStamps.end = getCurrentTimeFormatted()
     try {
         const docRef = await addDoc(collection(db, "answers"), {
             hasWatchedVideos: hasWatchedVideos,
             timeStamps:timeStamps,
-            answers: confirmedAnswers
+            answers: modifiedConfirmedAnswers
         });
         console.log("Document written with ID: ", docRef.id);
       } catch (e) {
@@ -197,15 +202,19 @@ export function validateAnswers(){
 
 function getCurrentTimeFormatted(){
     const currentTime = new Date()
-    const date = currentTime.getDate()
-    const month = currentTime.getMonth()
+    const date = addZeroToSingleDigitNumber(currentTime.getDate())
+    const month = addZeroToSingleDigitNumber(currentTime.getMonth())
     const year = currentTime.getFullYear()
-    const hours = currentTime.getHours()
-    const minutes = currentTime.getMinutes()
-    const seconds = currentTime.getSeconds()
+    const hours = addZeroToSingleDigitNumber(currentTime.getHours())
+    const minutes = addZeroToSingleDigitNumber(currentTime.getMinutes())
+    const seconds = addZeroToSingleDigitNumber(currentTime.getSeconds())
 
-    const formattedTimeString  = `${date}/${month+1}/${year.toString().slice(2)} - ${hours}:${minutes}:${seconds}`
+    const formattedTimeString  = `${date}/${month}/${year.toString().slice(2)} - ${hours}:${minutes}:${seconds}`
     return formattedTimeString
+}
+
+function addZeroToSingleDigitNumber(number){
+    return ('0'+number).slice(-2);
 }
 
 //      Main JS Notes
