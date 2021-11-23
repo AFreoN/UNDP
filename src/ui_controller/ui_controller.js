@@ -1,11 +1,11 @@
 import * as main from '../script'
-import { langId, setLangId, loadQuestion } from '../questions/questions'
+import { langId, setLangId, loadQuestion, numberOfQuestions,enableSubmitScene } from '../questions/questions'
 import { doc } from '@firebase/firestore'
 
 
 //Ui control
 let uiHolder = document.getElementById('ui-holder');
-let menuHolder = document.getElementById('menu-holder');
+let menuHolder = document.getElementById('questions-menu-holder');
 menuHolder.hidden = false;
 
 //For language selection ui
@@ -234,7 +234,161 @@ function languageSelected(selectedLang){
             // tamilText.style.fontSize = minFontSize;
             break;
     }
+
+    setUiText()
 }
+
+let vidQuestionUI = document.getElementById('video-question-container')
+
+let vidQuestionScrollContainer = document.getElementById('scroll-container-video-question')
+let vidQuestionSelectionIndicator = document.getElementById('selected-item-indicator-video-question')
+
+let vidQuestionItems = document.getElementsByClassName('scroll-item-video-question')
+
+let vidQuestionFirstChildItem = vidQuestionItems[0]
+let vidQuestionLastChildItem = vidQuestionItems[vidQuestionItems.length - 1]
+
+
+let vidQuestionMiddleChildrenMargin = ((vidQuestionScrollContainer.offsetHeight/2) - vidQuestionFirstChildItem.offsetHeight * 3)
+
+// vidQuestionSelectorContainer.style.height = vidQuestionScrollContainer.clientHeight + 'px'
+
+for (let i = 0; i < vidQuestionItems.length; i++) {
+    const item = vidQuestionItems[i];
+    item.style.marginTop = vidQuestionMiddleChildrenMargin + "px"
+    resetVidQuestionItemStyle(item)
+}
+
+let vidQuestionEndChildrenMargin = (vidQuestionScrollContainer.clientHeight/2) - (vidQuestionFirstChildItem.offsetHeight/2)
+// console.log(`${vidQuestionScrollContainer.offsetHeight} /2 = ${vidQuestionScrollContainer.offsetHeight/2}` );
+// console.log( `${vidQuestionFirstChildItem.offsetHeight} *4 = ${vidQuestionFirstChildItem.offsetHeight*4}` );
+// console.log(vidQuestionMiddleChildrenMargin);
+
+
+vidQuestionFirstChildItem.style.marginTop = vidQuestionEndChildrenMargin + "px"
+vidQuestionLastChildItem.style.marginBottom = vidQuestionEndChildrenMargin + "px"
+
+let vidQuestionSelectionIndicatorMargin = (vidQuestionScrollContainer.clientHeight/2) - (vidQuestionSelectionIndicator.offsetHeight/2)
+// vidQuestionSelectionIndicator.style.marginTop = vidQuestionSelectionIndicatorMargin + "px"
+// console.log(`${vidQuestionScrollContainer.clientHeight} /2 = ${vidQuestionScrollContainer.clientHeight/2}` );
+// console.log( `${vidQuestionSelectionIndicator.offsetHeight} /2 = ${vidQuestionSelectionIndicator.offsetHeight/2}` );
+// console.log(vidQuestionSelectionIndicatorMargin);
+
+const vidQuestionItemOffset = vidQuestionMiddleChildrenMargin + vidQuestionFirstChildItem.offsetHeight 
+
+let vidQuestionCurrentItemIndex = 0
+let vidQuestionSelectedItem = vidQuestionItems[vidQuestionCurrentItemIndex]
+vidQuestionScrollContainer.scrollTop = 0
+setVidQuestionSelectedStyle(vidQuestionSelectedItem)
+setVidQuestionNearestStyle(vidQuestionItems[vidQuestionCurrentItemIndex + 1])
+
+
+var vidQuestionSelectionTimeout = null;
+function onScrollvidQuestion(){
+    vidQuestionCurrentItemIndex = Math.round(vidQuestionScrollContainer.scrollTop /vidQuestionItemOffset)  
+    vidQuestionSelectedItem = vidQuestionItems[vidQuestionCurrentItemIndex]
+    console.log(vidQuestionCurrentItemIndex);
+
+
+    for (let i = 0; i < vidQuestionItems.length; i++) {
+        const item = vidQuestionItems[i];
+        resetVidQuestionItemStyle(item)
+    }
+    setVidQuestionSelectedStyle(vidQuestionSelectedItem)
+
+    if(vidQuestionCurrentItemIndex === 0){
+        setVidQuestionNearestStyle(vidQuestionItems[vidQuestionCurrentItemIndex + 1])
+    }
+    else if(vidQuestionCurrentItemIndex === (vidQuestionItems.length - 1) ){
+        setVidQuestionNearestStyle(vidQuestionItems[vidQuestionCurrentItemIndex - 1])
+    }
+    else{
+        setVidQuestionNearestStyle(vidQuestionItems[vidQuestionCurrentItemIndex + 1])
+        setVidQuestionNearestStyle(vidQuestionItems[vidQuestionCurrentItemIndex - 1])
+    }
+
+
+    if(vidQuestionSelectionTimeout !== null) {
+        clearTimeout(vidQuestionSelectionTimeout);        
+    }
+    vidQuestionSelectionTimeout = setTimeout(function() {
+        let scrollValue = vidQuestionSelectedItem.offsetTop - vidQuestionFirstChildItem.offsetTop
+        console.log(vidQuestionSelectedItem.getAttribute('data-value'))
+        // vidQuestionSelected(vidQuestionSelectedItem.getAttribute('data-value'))
+        main.setHasWatchedVideos(convertStringToBool(vidQuestionSelectedItem.getAttribute('data-value')))
+        vidQuestionScrollContainer.scroll({
+            top:scrollValue,
+            behavior:'smooth'
+        })
+    }, 250);
+}
+
+vidQuestionScrollContainer.addEventListener('scroll',onScrollvidQuestion)
+
+function resetVidQuestionItemStyle(vidQuestionItem){
+    if(vidQuestionItem){
+        const itemClassList = vidQuestionItem.classList
+        itemClassList.remove('selected','nearest')
+        itemClassList.add('farthest')
+    }
+}
+
+function setVidQuestionSelectedStyle(selectedVidQuestionItem){
+    if(selectedVidQuestionItem){
+        const itemClassList = selectedVidQuestionItem.classList
+        itemClassList.remove('nearest','farthest')
+        itemClassList.add('selected')
+    }
+}
+
+function setVidQuestionNearestStyle(nearestVidQuestionItem){
+    if(nearestVidQuestionItem){
+        const itemClassList = nearestVidQuestionItem.classList
+        itemClassList.remove('selected','farthest')
+        itemClassList.add('nearest')
+    }
+}
+
+function convertStringToBool(string){
+    return string.toLowerCase() === 'true'
+}
+
+function setVidQuestionLang(){
+    const langTexts = {
+        question:{
+            en:'Have you watched all Extreme Lives videos?',
+            si:'ඔබ Extreme Lives වීඩියෝ සියල්ලම නරඹා තිබේද??',
+            ta:'Extreme Lives வீடியோக்கள் அனைத்தையும் பார்த்திருக்கிறீர்களா?',
+            dv:'Have you watched all extreme lives videos?',
+        },
+        answers:{
+            yes:{
+                en:'Yes',
+                si:'ඔව්',
+                ta:'ஆம்',
+                dv:'Yes',
+            },
+            no:{
+                en:'No',
+                si:'නැත',
+                ta:'இல்லை',
+                dv:'No',
+            }
+        }
+        
+    }
+    
+    document.getElementById('video-question-text-container').innerText =  langTexts.question[langId]
+    for (let i = 0; i < vidQuestionItems.length; i++) {
+        const item = vidQuestionItems[i];
+        if(item.getAttribute('data-value') === 'true'){
+            item.innerText = langTexts.answers.yes[langId]
+        } else{
+            item.innerText = langTexts.answers.no[langId]
+        }
+    }
+}
+
 
 //UI elements
 
@@ -316,7 +470,8 @@ export function SetFiller(sliderValue){
 
 let countrySkipContainer = document.getElementById('country-skip-container')
 let submitContainer = document.getElementById('submit-container') 
-
+let submitConfirmationContainer = document.getElementById('submit-confirmation-container')
+let resultsConfirmationContainer = document.getElementById('submit-results-container')
 
 export const joystickSlider = document.getElementById('sliderRange');
 export var joystickSlideValue = 0;
@@ -340,10 +495,13 @@ export function resetJoystickSlider(){
 
 //control buttons
 let languageSelectedButton = document.getElementById('language-selected-button')
+let vidQuestionButton = document.getElementById('video-question-close-button')
 let backButton = document.getElementById('control-back-button')
 let nextButton = document.getElementById('control-next-button')
 let regionSkipButton = document.getElementById('country-skip-button')
 let submitButton = document.getElementById('submit-button')
+let submitBackButton = document.getElementById('submit-control-back-button')
+let resultsMoreButton = document.getElementById('results-more-button')
 let joystickTutCloseButton = document.getElementById('joystick-tutorial-close-button');
 
 let surveyStartButton = document.getElementById('survey-start-button')
@@ -389,6 +547,30 @@ let allTexts = {
         ta : 'அருகில்',
         dv : 'Close'
     },
+    submitConfirmationTitleText: {
+        en:'You have completed the quiz',
+        si:'ඔබ ප්‍රශ්නාවලිය සම්පූර්ණ කර ඇත',
+        ta:'வினாடி வினாவை முடித்துவிட்டீர்கள்',
+        dv:'You have completed the quiz',
+    },
+    submitConfirmationSubText: {
+        en:'submit to see your results!',
+        si:'ඔබගේ ප්‍රතිඵල බැලීමට ඉදිරිපත් කරන්න!',
+        ta:'உங்கள் முடிவுகளைப் பார்க்க சமர்ப்பிக்கவும்!',
+        dv:'submit to see your results!',
+    },
+    resultsConfirmationFooterText:{
+        en:'Share with your friends! <br> And let them know...',
+        si:'ඔබේ මිතුරන් සමඟ බෙදාගන්න! <br> ඒ වගේම එයාලව දැනුවත් කරන්න...',
+        ta:'உங்கள் நண்பர்களுடன் பகிர்ந்து கொள்ளுங்கள்! <br> அவர்களுக்குத் தெரியப்படுத்துங்கள்...',
+        dv:'Share with your friends! <br> And let them know...',
+    },
+    resultsMoreButtonText:{
+        en:'See More',
+        si:'තව බලන්න',
+        ta:'மேலும் பார்க்க',
+        dv:'See More',
+    },
     stronglyDisagree : {
         en : 'Strongly Disagree',
         si : 'එකඟ නොවේ',
@@ -401,6 +583,7 @@ let allTexts = {
         ta : 'ஒப்புக்கொள்கிறேன்',
         dv : 'Strongly Agree'
     }
+
 }
 
 // let paginationDisplayText = document.getElementById('pagination-part-displaytext');
@@ -413,9 +596,15 @@ let stronglyAgreeText = document.getElementById('strongly-agree');
 export function setUiText(){
     // paginationDisplayText.innerText = allTexts.paginationDisplayText[langId];
     otherRegionText.innerText = allTexts.otherRegionText[langId];
-    // submitButton.innerText = allTexts.submitButtonText[langId];
+    submitButton.innerText = allTexts.submitButtonText[langId];
     sliderDistantText.innerText = allTexts.sliderDistantText[langId];
     sliderCloseText.innerText = allTexts.sliderCloseText[langId];
+    
+    document.getElementById('submit-title-text-container').innerText = allTexts.submitConfirmationTitleText[langId]
+    document.getElementById('submit-sub-text-container').innerText = allTexts.submitConfirmationSubText[langId]
+
+    document.getElementById('results-footer-text').innerHTML = allTexts.resultsConfirmationFooterText[langId]   
+    resultsMoreButton.innerText = allTexts.resultsMoreButtonText[langId]
     stronglyDisagreeText.setAttribute("likert-scale-value", allTexts.stronglyDisagree[langId]);
     stronglyAgreeText.setAttribute("likert-scale-value", allTexts.stronlgyAgree[langId]);
 }
@@ -824,6 +1013,7 @@ function mouseUpHandler(e){
 
 genderScrollContainer.addEventListener('mousedown',mouseDownHandler)
 ageScrollContainer.addEventListener('mousedown',mouseDownHandler)
+vidQuestionScrollContainer.addEventListener('mousedown',mouseDownHandler)
 
 //Changes UI in respect to question type, sets the question text, and answers
 export function updateUI(questionType, questionText, answers){
@@ -1021,6 +1211,13 @@ export function updateUI(questionType, questionText, answers){
     }
 }
 
+export function enableSubmitPage(){
+    submitContainer.style.display = ''
+    uiHolder.style.display = 'none'
+    disableResultsContainer()
+    enableSubmitScene()
+    // removeModelsInLastScene()
+}
 const resetElementAnimation = function(element){
     element.style.animation = 'none'
     element.offsetHeight;
@@ -1072,9 +1269,20 @@ export const fadeOutSliderContainer = function(){
 //     submitContainer.style.display = ''
 // }
 
-// export function disableSubmitPage(){
-//     submitContainer.style.display = 'none'
-// }
+export function disableSubmitPage(){
+    submitContainer.style.display = 'none'
+    uiHolder.style.display = ''
+}
+
+function enableResultsContainer(){
+    submitConfirmationContainer.style.display = 'none'
+    resultsConfirmationContainer.style.display = ''
+}
+
+function disableResultsContainer(){
+    submitConfirmationContainer.style.display = ''
+    resultsConfirmationContainer.style.display = 'none'
+}
 
 joystickTutCloseButton.addEventListener('click', function(){
     main.joystickTutorialEnded();
@@ -1102,21 +1310,32 @@ regionSkipButton.addEventListener('click',function(){
     main.skipCountrySelection()
 })
 
-// submitButton.addEventListener('click',function(){
-//     main.validateAnswers()
-// })
+submitButton.addEventListener('click',function(){
+    enableResultsContainer()
+    main.validateAnswers()
+})
 
+submitBackButton.addEventListener('click',function(){
+    disableSubmitPage()
+    loadQuestion(numberOfQuestions-1)
+})
 
 languageSelectedButton.addEventListener('click', function(){
+    // loadQuestion(0);
+    setVidQuestionLang()
     setUiText();
-    loadQuestion(0);
+    // loadQuestion(0);
     langSelectionUI.hidden = true;
-    uiHolder.hidden = false;
 })
 
 languageSelectedButton.addEventListener('onmousedown', function(){
     console.log("Button pressed");
 });
 
+vidQuestionButton.addEventListener('click',function(){
+    loadQuestion(0);
+    vidQuestionUI.style.display = 'none'
+    uiHolder.hidden = false;
+})
 
 

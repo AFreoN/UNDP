@@ -502,6 +502,257 @@ let qArray = [
         },
         compulsory: true
     },
+
+    {   //10    Different language
+        type : 'joystick',
+        question : {
+            en : 'How close do you feel to people that speak a different language ?',
+            si : 'වෙනත් භාෂාවක් කතා කරන පුද්ගලයින්ට ඔබට කෙතරම් සමීප බවක් දැනෙන්නේද?',
+            ta : 'உங்கள் உள்ளூர் சமூகத்துடன் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள்?',
+            dv : 'How close do you feel with your local community ?'
+        },
+        answers : [
+            {
+                en : 'answer1',
+                si : 'පිළිතුර1',
+                ta : 'பதில்1',
+                dv : 'answer1'
+            },
+            {
+                en : 'answer2',
+                si : 'පිළිතුර2',
+                ta : 'பதில்2',
+                dv : 'answer2'
+            },
+            {
+                en : 'answer3',
+                si : 'පිළිතුර3',
+                ta : 'பதில்3',
+                dv : 'answer3'
+            },
+            {
+                en : 'answer4',
+                si : 'පිළිතුර4',
+                ta : 'பதில்4',
+                dv : 'answer4'
+            },
+            {
+                en : 'answer5',
+                si : 'පිළිතුර5',
+                ta : 'பதில்5',
+                dv : 'answer5'
+            },
+            {
+                en : 'answer6',
+                si : 'පිළිතුර6',
+                ta : 'பதில்6',
+                dv : 'answer6'
+            },
+            {
+                en : 'answer7',
+                si : 'පිළිතුර7',
+                ta : 'பதில்7',
+                dv : 'answer7'
+            }
+        ],
+        centerModelKey:'dif_language',
+        characterName:{
+            en : 'Different Language',
+            si : 'ප්රජාව',
+            ta : 'சமூகம்',
+            dv : 'Community'
+        },
+        compulsory: true
+    },
+
+    {   //11     Home Country
+        type : 'joystick',
+        question : {
+            en : 'How close do you feel to your home country ?',
+            si : 'වෙනත් භාෂාවක් කතා කරන පුද්ගලයින්ට ඔබට කෙතරම් සමීප බවක් දැනෙන්නේද?',
+            ta : 'உங்கள் உள்ளூர் சமூகத்துடன் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள்?',
+            dv : 'How close do you feel with your local community ?'
+        },
+        answers : [
+            {
+                en : 'answer1',
+                si : 'පිළිතුර1',
+                ta : 'பதில்1',
+                dv : 'answer1'
+            },
+            {
+                en : 'answer2',
+                si : 'පිළිතුර2',
+                ta : 'பதில்2',
+                dv : 'answer2'
+            },
+            {
+                en : 'answer3',
+                si : 'පිළිතුර3',
+                ta : 'பதில்3',
+                dv : 'answer3'
+            },
+            {
+                en : 'answer4',
+                si : 'පිළිතුර4',
+                ta : 'பதில்4',
+                dv : 'answer4'
+            },
+            {
+                en : 'answer5',
+                si : 'පිළිතුර5',
+                ta : 'பதில்5',
+                dv : 'answer5'
+            },
+            {
+                en : 'answer6',
+                si : 'පිළිතුර6',
+                ta : 'பதில்6',
+                dv : 'answer6'
+            },
+            {
+                en : 'answer7',
+                si : 'පිළිතුර7',
+                ta : 'பதில்7',
+                dv : 'answer7'
+            }
+        ],
+        centerModelKey:'home_country',
+        characterName:{
+            en : 'Home Country',
+            si : 'ප්රජාව',
+            ta : 'சமூகம்',
+            dv : 'Community'
+        },
+        compulsory: true
+    },
+
+
+   { //12     Religious community
+    type : 'joystick',
+    question : {
+        en : 'How close do you feel to your local religious community ?',
+        si : 'වෙනත් භාෂාවක් කතා කරන පුද්ගලයින්ට ඔබට කෙතරම් සමීප බවක් දැනෙන්නේද?',
+        ta : 'உங்கள் உள்ளூர் சமூகத்துடன் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள்?',
+        dv : 'How close do you feel with your local community ?'
+    },
+    answers : [
+        {
+            en : 'answer1',
+            si : 'පිළිතුර1',
+            ta : 'பதில்1',
+            dv : 'answer1'
+        },
+        {
+            en : 'answer2',
+            si : 'පිළිතුර2',
+            ta : 'பதில்2',
+            dv : 'answer2'
+        },
+        {
+            en : 'answer3',
+            si : 'පිළිතුර3',
+            ta : 'பதில்3',
+            dv : 'answer3'
+        },
+        {
+            en : 'answer4',
+            si : 'පිළිතුර4',
+            ta : 'பதில்4',
+            dv : 'answer4'
+        },
+        {
+            en : 'answer5',
+            si : 'පිළිතුර5',
+            ta : 'பதில்5',
+            dv : 'answer5'
+        },
+        {
+            en : 'answer6',
+            si : 'පිළිතුර6',
+            ta : 'பதில்6',
+            dv : 'answer6'
+        },
+        {
+            en : 'answer7',
+            si : 'පිළිතුර7',
+            ta : 'பதில்7',
+            dv : 'answer7'
+        }
+    ],
+    centerModelKey:'temples',
+    characterName:{
+        en : 'Religious Community',
+        si : 'ප්රජාව',
+        ta : 'சமூகம்',
+        dv : 'Community'
+    },
+    compulsory: true
+},
+
+{ //12     Religious community
+    type : 'joystick',
+    question : {
+        en : 'How close do you feel to people with different religious beliefs ?',
+        si : 'වෙනත් භාෂාවක් කතා කරන පුද්ගලයින්ට ඔබට කෙතරම් සමීප බවක් දැනෙන්නේද?',
+        ta : 'உங்கள் உள்ளூர் சமூகத்துடன் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள்?',
+        dv : 'How close do you feel with your local community ?'
+    },
+    answers : [
+        {
+            en : 'answer1',
+            si : 'පිළිතුර1',
+            ta : 'பதில்1',
+            dv : 'answer1'
+        },
+        {
+            en : 'answer2',
+            si : 'පිළිතුර2',
+            ta : 'பதில்2',
+            dv : 'answer2'
+        },
+        {
+            en : 'answer3',
+            si : 'පිළිතුර3',
+            ta : 'பதில்3',
+            dv : 'answer3'
+        },
+        {
+            en : 'answer4',
+            si : 'පිළිතුර4',
+            ta : 'பதில்4',
+            dv : 'answer4'
+        },
+        {
+            en : 'answer5',
+            si : 'පිළිතුර5',
+            ta : 'பதில்5',
+            dv : 'answer5'
+        },
+        {
+            en : 'answer6',
+            si : 'පිළිතුර6',
+            ta : 'பதில்6',
+            dv : 'answer6'
+        },
+        {
+            en : 'answer7',
+            si : 'පිළිතුර7',
+            ta : 'பதில்7',
+            dv : 'answer7'
+        }
+    ],
+    centerModelKey:'religious_belief',
+    characterName:{
+        en : 'Different Religions',
+        si : 'ප්රජාව',
+        ta : 'சமூகம்',
+        dv : 'Community'
+    },
+    compulsory: true
+},
+
+
     {   //10    Control over things
         type : 'likert5',
         question : {
@@ -772,6 +1023,8 @@ const maldivesCamera = scenes.maldivesCamera
 const sriLankaScene = scenes.sriLankaScene
 const sriLankaCamera = scenes.sriLankaCamera
 
+const submitScene = scenes.submitScene
+const submitCamera = scenes.submitCamera
 
 //an empty scene to load when no country was selected
 const emptyScene = new THREE.Scene()
@@ -940,6 +1193,7 @@ export function loadQuestion(questionIndex){
                 
                 break;
             case 'about':
+                console.log(player);
                 if(prevQues != 'joystick'){
                     scenes.resetCurrentSelectionScene()
                     updateSceneAndCamera(aboutScene, aboutCamera)
@@ -1309,6 +1563,19 @@ function removeModelsFromScene(scene, modelsArray){
     });
 }
 
+// export function removeModelsInLastScene(){
+//     if(currentCenterModel){
+//         joystickScene.remove(currentCenterModel)
+//     }
+//     if(mainScene === joystickScene){
+//         if(models){
+//             removeModelsFromScene(joystickScene, models)
+
+//         }
+//     }
+// }
+
+
 //#region Character name indicator position update
 export const EnableCharacterText = function(isOtherCharacterAvailable){
     characterText.hidden = !isOtherCharacterAvailable;
@@ -1417,4 +1684,31 @@ function animateClouds(deltaTime){
 
 }
 
+//Sets scene submit scene, enabled separately due to submit scene not being in the questions array
+export function enableSubmitScene(){
+    const player = assetLoader.getModel('playerCharacter')
+    console.log(player);
+
+
+    if(prevQues != 'joystick'){
+        updateSceneAndCamera(submitScene,submitCamera)
+        currentCenterModel = null
+        player.position.set(0,-.6, 2)
+        player.rotation.set(0,0,0)
+        controls.disablePlayerControl()
+        submitScene.add(player)
+    }
+    else{
+        sceneTransition.jumpOut(function() {
+            scenes.resetCurrentSelectionScene()
+            updateSceneAndCamera(submitScene,submitCamera)
+            currentCenterModel = null
+            player.position.set(0,-.6, 2)
+            player.rotation.set(0,0,0)
+            controls.disablePlayerControl()
+            submitScene.add(player)
+            prevQues = ''
+        });
+    }
+}
 //Calculating distance between player and the center model

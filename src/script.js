@@ -2,7 +2,7 @@ import './style.css'
 import * as questions from './questions/questions' 
 import * as assetLoader from './assets_loader/assets_loader'
 import * as controls from './character_controller/character_control'
-//import * as uiControl from './ui_controller/ui_controller'
+import * as uiControl from './ui_controller/ui_controller'
 import { enableBackButton, enableConfirmation, enableNextButton } from './ui_controller/ui_controller'
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
@@ -43,6 +43,22 @@ let questionIndex = 0 //indicates the question to be loaded
 let confirmedAnswers = [] //stores confirmed answers
 let uiHolder = document.getElementById('ui-holder');
 
+let hasWatchedVideos = false
+let resultKey = ''
+
+export function setHasWatchedVideos(boolVal){
+    hasWatchedVideos = boolVal
+    console.log(hasWatchedVideos);
+}
+
+export function setResultKey(string){
+    resultKey = string
+}
+
+export function getResultKey(){
+    return resultKey 
+}
+
 const timeStamps = {
     start: null,
     end: null
@@ -80,8 +96,8 @@ export function loadNextQuestion(){
         // uiControl.paginate(questionIndex)
     }
     else if(questionIndex == numberOfQuestions - 1 ){
-        // uiControl.enableSubmitPage()
-        validateAnswers()
+        uiControl.enableSubmitPage()
+        // validateAnswers()
     }
 }
 
@@ -146,6 +162,7 @@ async function submitAnswers(){
     timeStamps.end = getCurrentTimeFormatted()
     try {
         const docRef = await addDoc(collection(db, "answers"), {
+            hasWatchedVideos: hasWatchedVideos,
             timeStamps:timeStamps,
             answers: confirmedAnswers
         });
@@ -163,7 +180,7 @@ export function validateAnswers(){
             if(answerIndex || answerIndex === 0){
                 continue
             }else{
-                // uiControl.disableSubmitPage()
+                uiControl.disableSubmitPage()
                 questionIndex = i
                 questions.loadQuestion(questionIndex)
                 console.log('not answered a compulsory question!');

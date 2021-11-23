@@ -24,6 +24,10 @@ let models = {
     sriLankaMap:null,
     sriLankaProvincesMap:null,
     maldivesMap:null,
+    dif_language: null,
+    home_country: null,
+    religious_belief: null,
+    temples:null,
     Tree1:null,
     Tree2:null,
     Tree3:null,
@@ -54,7 +58,8 @@ let animations = {
     mother:null,
     siblings:null,
     friends:null,
-    community:null
+    community:null,
+    dif_language: null
 }
 
 let animationId = {
@@ -445,6 +450,101 @@ gltfloader.load(
         // });
 
         models['community'] = model
+        loadedPercentage += (1/numberOfAssets)
+        loadingBar.animate(loadedPercentage)
+    }
+)
+
+gltfloader.load(
+    'Models/dif_language.gltf',
+    (gltf) =>
+    {
+        //animations['dif_language'] = gltf.animations
+        let model = gltf.scene
+        model.name = 'dif_language'
+        model.scale.set(.075,.075,.075)
+        model.position.set(0,-.6, 0)
+
+        model.traverse((child) => {
+            if (child.isMesh){
+                let toonMaterial = new THREE.MeshToonMaterial({ color : 0xFFC332, gradientMap : tex});
+                child.material = shaderMaterial;
+                child.castShadow = true;
+            }
+        });
+
+        console.log(gltf)
+        models['dif_language'] = model
+        loadedPercentage += (1/numberOfAssets)
+        loadingBar.animate(loadedPercentage)
+    }
+)
+
+gltfloader.load(
+    'Models/Home Country.gltf',
+    (gltf) =>
+    {
+        //animations['community'] = gltf.animations
+        let model = gltf.scene
+        model.name = 'home_country'
+        model.scale.set(.035,.035,.035)     //prev (.075,.075,.075)
+        model.position.set(0,-.6, 0)
+
+        // model.traverse((child) => {
+        //     if (child.isMesh){
+        //         child.material = shaderMaterial;
+        //         child.castShadow = true;
+        //     }
+        // });
+
+        models['home_country'] = model
+        loadedPercentage += (1/numberOfAssets)
+        loadingBar.animate(loadedPercentage)
+    }
+)
+
+
+gltfloader.load(
+    'Models/Temples.gltf',
+    (gltf) =>
+    {
+        //animations['community'] = gltf.animations
+        let model = gltf.scene
+        model.name = 'temples'
+        model.scale.set(.065,.065,.065)     //prev (.075,.075,.075)
+        model.position.set(0,-.6, 0)
+
+        // model.traverse((child) => {
+        //     if (child.isMesh){
+        //         child.material = shaderMaterial;
+        //         child.castShadow = true;
+        //     }
+        // });
+
+        models['temples'] = model
+        loadedPercentage += (1/numberOfAssets)
+        loadingBar.animate(loadedPercentage)
+    }
+)
+
+gltfloader.load(
+    'Models/religious belief.gltf',
+    (gltf) =>
+    {
+        //animations['community'] = gltf.animations
+        let model = gltf.scene
+        model.name = 'religious_belief'
+        model.scale.set(.035,.035,.035)     //prev (.075,.075,.075)
+        model.position.set(0, -0.4, 0)
+
+       /*  model.traverse((child) => {
+             if (child.isMesh){
+                 child.material = shaderMaterial;
+                 child.castShadow = true;
+             }
+         });*/
+
+        models['religious_belief'] = model
         loadedPercentage += (1/numberOfAssets)
         loadingBar.animate(loadedPercentage)
     }
