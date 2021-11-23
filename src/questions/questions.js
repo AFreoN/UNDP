@@ -951,6 +951,7 @@ export function loadQuestion(questionIndex){
                 }
                 else{
                     UIUpdateNeeded = false;
+                    fadeOutCurrentUI(prevQues)
                     sceneTransition.jumpOut(function() {
                         scenes.resetCurrentSelectionScene()
                         updateSceneAndCamera(aboutScene, aboutCamera)
@@ -972,8 +973,8 @@ export function loadQuestion(questionIndex){
                 var dir = slideDirection > 0 ? 'right' : 'left';
                 if(prevQues == 'joystick' || prevQues == 'likert5' || prevQues == 'likert4' || prevQues == 'likert7'){     //If previos scene is joystick scene, then scene has to fadeout first then fadein to other scene
                     UIUpdateNeeded = false;
-                    uiControl.FadeOutLiker5();
-                    uiControl.fadeOutSliderContainer();
+                    fadeOutCurrentUI(prevQues);
+
                     sceneTransition.fadeOut(prevOtherModel, dir, function(){
                         setupJoystickScene(currentQuestion, player, questionIndex);
                         //updateSceneAndCamera(joystickScene, joystickCamera, true);
@@ -998,9 +999,7 @@ export function loadQuestion(questionIndex){
                 var dir = slideDirection > 0 ? 'right' : 'left';
                 if(prevQues == 'joystick' || prevQues == 'likert5' || prevQues == 'likert4' || prevQues == 'likert7'){
                     UIUpdateNeeded = false;
-                    uiControl.FadeOutLikert4();
-                    uiControl.FadeOutLiker5();
-                    uiControl.fadeOutSliderContainer();
+                    fadeOutCurrentUI(prevQues);
 
                     sceneTransition.fadeOut(prevOtherModel, dir, function(){
                         scenes.resetCurrentSelectionScene();
@@ -1041,9 +1040,8 @@ export function loadQuestion(questionIndex){
                 var dir = slideDirection > 0 ? 'right' : 'left';
                 if(prevQues == 'joystick' || prevQues == 'likert5' || prevQues == 'likert4' || prevQues == 'likert7'){
                     UIUpdateNeeded = false;
-                    uiControl.FadeOutLikert4();
-                    uiControl.FadeOutLiker5();
-                    uiControl.fadeOutSliderContainer();
+                    fadeOutCurrentUI(prevQues);
+
                     sceneTransition.fadeOut(prevOtherModel, dir, function(){
                         scenes.resetCurrentSelectionScene();
                         removeModelsFromScene(joystickScene, models);
@@ -1083,9 +1081,8 @@ export function loadQuestion(questionIndex){
                 var dir = slideDirection > 0 ? 'right' : 'left';
                 if(prevQues == 'joystick' || prevQues == 'likert5' || prevQues == 'likert4' || prevQues == 'likert7'){
                     UIUpdateNeeded = false;
-                    uiControl.FadeOutLikert4();
-                    uiControl.FadeOutLiker5();
-                    uiControl.fadeOutSliderContainer();
+                    fadeOutCurrentUI(prevQues);
+
                     sceneTransition.fadeOut(prevOtherModel, dir, function(){
                         scenes.resetCurrentSelectionScene();
                         removeModelsFromScene(joystickScene, models);
@@ -1266,6 +1263,23 @@ function setupJoystickScene(currentQuestion, player, questionIndex){
 
     uiControl.updateUI(currentQuestion.type, currentQuestion.question[langId], currentQuestion.answers);
     uiControl.setSurveyProgressValue(questionIndex);
+}
+
+function fadeOutCurrentUI(questionType){
+    switch(questionType){
+        case 'joystick':
+            uiControl.fadeOutSliderContainer();
+            break;
+        case 'likert4':
+            uiControl.FadeOutLikert4();
+            break;
+        case 'likert5':
+            uiControl.FadeOutLiker5();
+            break;
+        case 'likert7':
+            uiControl.FadeOutLikert7();
+            break;
+    }
 }
 
 function addModelsForThisScene(scene, modelsArray){

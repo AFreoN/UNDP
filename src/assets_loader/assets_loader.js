@@ -59,13 +59,16 @@ let animations = {
 
 let animationId = {
     playerCharacter:{
-        'idle':0,
-        'startL':2,
-        'walkL':3,
-        'stopL':4,
-        'startR':5,
-        'walkR':6,
-        'stopR':7
+        'idle':0,   //0
+        'startL':5, //2
+        'walkL':6,  //3
+        'stopL':7,  //4 
+        'startR':8, //5
+        'walkR':9,  //6
+        'stopR':10, //7
+        'jumpStart':2,
+        'onJump':3,
+        'jumpStop':4
     },
     playerOutline:{
         'idle':0,
@@ -74,13 +77,10 @@ let animationId = {
         'stop':3
     },
     distantFriend:{
-        'idle':0,
-        'walk':2,
-        'start':1,
-        'stop':3
+        'idle':1
     },
     father:{
-        
+        'idle':1
     },
     mother:{
         'idle':1
@@ -208,7 +208,7 @@ tex.magFilter = THREE.NearestFilter;
 
 //Importing player character
 gltfloader.load(
-    'Models/Animation_V07.gltf',       //'Models/toonwalk_character.gltf'
+    'Models/Animation_V09.gltf',       //'Models/toonwalk_character.gltf'
     (gltf) =>
     {
         animations['playerCharacter'] = gltf.animations
@@ -305,7 +305,7 @@ gltfloader.load(
 )
 
 gltfloader.load(
-    'Models/DistantFriend.gltf',
+    'Models/Animation_V09.gltf',
     (gltf) =>
     {
         animations['distantFriend'] = gltf.animations
@@ -357,26 +357,23 @@ gltfloader.load(
     'Models/father.gltf',
     (gltf) =>
     {
-        //animations['father'] = gltf.animations
+        animations['father'] = gltf.animations
         let model = gltf.scene
         model.name = 'father'
-        model.scale.set(0.08,0.08,0.08)
+        model.scale.set(0.04,0.04,0.04)
         model.position.set(0,-.6, 0)
 
         //
         model.traverse((child) => {
             if (child.isMesh){
-                //group.add(child);
+                if(child.name == 'Father'){
+                    child.material = shaderMaterial;
+                    child.castShadow = true;
+                }
             }
         });
-        // console.log("Models length = ", group.length);
-        // let bb = new THREE.Box3().setFromObject(group);
-        // var size = new THREE.Vector3();
-        // bb.getSize(size);
-        // console.log("Father size = ", size);
 
-        models['father'] = model// test center model.
-
+        models['father'] = model
         loadedPercentage += (1/numberOfAssets)
         loadingBar.animate(loadedPercentage)
     }
