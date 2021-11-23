@@ -23,7 +23,10 @@ canvas.webgl{
     z-index: 1;
 }
 
-
+* { 
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -moz-tap-highlight-color: rgba(0, 0, 0, 0);
+}
 
 
 /* styling for loading page */
@@ -493,7 +496,7 @@ canvas.webgl{
     bottom: 20%;
     left: 10vw;
 
-    font-family:  'Rubik', sans-serif;
+    font-family:  'Rubik';
     animation: sliderContainerFadeIn 0.4s ease-out;
     /* padding-left: 20vw;
     padding-top: 70vh; */
@@ -502,14 +505,14 @@ canvas.webgl{
 }
 
 @keyframes sliderContainerFadeIn {
-    0% {bottom: 18%; opacity: 0.5; }
-    80% { bottom: 22%; opacity: 1; }
-    100% { bottom: 20%; opacity: 1; }
+    0% { opacity: 0; }    /* 0% {bottom: 18%; opacity: 0.5; }  */
+    /* 80% { opacity: 1; }      80% { bottom: 22%; opacity: 1; } */
+    100% { opacity: 1; }   /*   100% { bottom: 20%; opacity: 1; } */
 }
 
 @keyframes sliderContainerFadeOut {
-    0% { bottom: 20%; opacity: 1; }
-    100% { bottom: 17%; opacity: 0; }
+    0% { opacity: 1; }     /* 0% { bottom: 20%; opacity: 1; } */     
+    100% { opacity: 0; }   /*  100% { bottom: 17%; opacity: 0; } */
 }
 
 
@@ -791,9 +794,9 @@ canvas.webgl{
 /* #endregion */
 
   /* Setting radio button size while hovering */
-  form #likert5-slider label:hover::after {
+  /* form #likert5-slider label:hover::after {
     transform: translate(-50%, -50%) scale(1.25);
-  }
+  } */
   form #likert5-slider input {
     display: none;
   }
@@ -834,7 +837,6 @@ canvas.webgl{
     width: 25px;
     height: 25px;
   }
-
   /* Checked Dot */
   form #likert5-slider #likert5-pointer {   
     display: block;
@@ -1826,6 +1828,10 @@ transform: translate(-50%,-50%);
 }
 
 @media (hover: hover) {
+    form #likert5-slider label:hover::after {
+        transform: translate(-50%, -50%) scale(1.25);
+      }
+      
     .control-button:hover{
     }
     .answer-box:hover{

@@ -1,6 +1,7 @@
 import * as THREE from 'three'
-import { getOtherCharacterInitialPosition, enablePlayerControl } from './character_controller/character_control';
-import { setUiText, sliderHolder, enableBackButton, disableBackButton, enableNextButton, disableNextButton } from './ui_controller/ui_controller';
+import { getOtherCharacterInitialPosition, enablePlayerControl, playJumpStartAnimation, 
+    playJumpStopAnimation, playOnJumpAnimation, playIdleAnimation } from './character_controller/character_control';
+import { setUiText, sliderHolder, enableBackButton, disableBackButton, enableNextButton, disableNextButton, fadeOutSliderContainer } from './ui_controller/ui_controller';
 import { pointLight, joyDirLight } from './questions/scenes';
 import { FlatShading, MathUtils } from 'three';
 
@@ -20,11 +21,11 @@ const takeOnFactor = 1.2; //prev 0.4
 const takeOffFactor = 0.2;   //prev 0.2
 const takeSeparationFactor = 0.25;  //prev 0.35
 const playerTransitionDistance = 0.05;   //Prev 0.05
-const playerTransitionTime = 0.15;
+const playerTransitionTime = 0.27;      //prev 0.15
 var jerkValue = takeOnFactor;  //Lerps the lerp value to make transition smoother
 
 const playerJumpDistance = 3;   //Player Y travel distance on Jump in and Jump out transition
-const jumpTransitionTime = 0.5; //Player travel duration on Jump in and Jump out transition
+const jumpTransitionTime = 0.7; //Player travel duration on Jump in and Jump out transition
 
 const cameraTransitionDistance = 10;     //prev 2
 var tempPlayerYpos = 0;
@@ -106,6 +107,7 @@ export function fadeIn(_otherModel, switchDirection, _canEnableControls, _callFu
     const slideDirection = switchDirection == directionLeft ? 1 : -1;
     initCameraPos.x += slideDirection * cameraTransitionDistance;
     mainCamera.position.set(initCameraPos.x, initCameraPos.y, initCameraPos.z);
+    //initCameraPos = mainCamera.position.clone();
     
     //initPlayerPos.y += playerTransitionDistance;
     tempPlayerYpos = playerTransitionDistance;
@@ -132,6 +134,21 @@ export function fadeIn(_otherModel, switchDirection, _canEnableControls, _callFu
 }
 
 export function fadeOut(_otherModel, switchDirection, _callFunction){
+    disableBackButton();
+    disableNextButton();
+
+    playJumpStartAnimation();
+    timerJumpDelay = 0;
+    onJumpDelay = true;
+    delayedAction = function(){  
+    fadeOutAfterDelay(_otherModel, switchDirection, _callFunction);
+    } 
+}
+
+function fadeOutAfterDelay(_otherModel, switchDirection, _callFunction){
+    if(onJumpDelay)
+        return;
+
     if(_otherModel){
         otherCharacter = _otherModel;
         otherPos = otherCharacter.position;
@@ -139,11 +156,11 @@ export function fadeOut(_otherModel, switchDirection, _callFunction){
 
     callBackFunction = _callFunction;
     transitionStyle = styleFadeOut;
-    disableBackButton();
-    disableNextButton();
     // canEnableControls = true;
 
+    //initCameraPos = mainCamera.position.clone();
     initCameraPos = cameraPos.clone();
+
     let z = playerOffset.z;
     playerOffset = playerCharacter.position.clone();
     playerOffset.sub(mainCamera.position);
@@ -170,16 +187,46 @@ export function fadeOut(_otherModel, switchDirection, _callFunction){
             child.castShadow = false;
         }
     });   
+    //console.log("Take off");
     //jerkValue = takeOnFactor;
 }
 
 const clock = new THREE.Clock();
 let prevTime = clock.getElapsedTime();
 
+let onJumpDelay = false;
+const jumpDelay = 0.45;
+let timerJumpDelay = 0;
+let delayedAction;
+
+let onControlDelay = false;
+const controlDelay = 0.75;  //0.55
+let timerControlDelay = 0;
+let delayedControlAction;
+
 const tick = () => {
     const elapsedTime = clock.getElapsedTime();
     const deltatime = elapsedTime - prevTime;
     prevTime = elapsedTime;
+
+    if(onJumpDelay){
+        timerJumpDelay += deltatime;
+        if(timerJumpDelay >= jumpDelay){
+            onJumpDelay = false;
+            timerJumpDelay = 0;
+            playOnJumpAnimation();
+            delayedAction();
+        }
+    }
+
+    if(onControlDelay){
+        timerControlDelay += deltatime;
+        if(timerControlDelay >= controlDelay){
+            onControlDelay = false;
+            timerControlDelay = 0;
+            delayedControlAction();
+        }
+    }
 
     if(animate){
         if(transitionStyle == styleFadeIn){
@@ -239,6 +286,7 @@ const adjustPlayerPosition = function(deltatime){
     if(lerpFactor >= 0.98){
         lerpFactor = 0;
         needPlayerAdjustment = false;
+        playJumpStopAnimation();
     }
 }
 
@@ -257,6 +305,8 @@ const playerMovement = function(deltatime){
     var curPpos = playerCharacter.position.clone();
     curPpos.y = tempPlayerYpos + minPlayerYpos;
     playerCharacter.position.set(curPpos.x,curPpos.y,curPpos.z);
+
+    mainCamera.position.lerp(cameraPos, lerpFactor);
     
     if(lerpFactor >= 0.98){
         playerMoved = true;
@@ -265,15 +315,24 @@ const playerMovement = function(deltatime){
                 //needPlayerAdjustment = true;
             }
         }
-
+        
         if(transitionStyle == styleFadeIn){
             animate = false;
-            enableBackButton();
-            enableNextButton();
-            if(canEnableControls)
-                enablePlayerControl();
+            timerControlDelay = 0;
+            onControlDelay = true;
+            delayedControlAction = function(){
+                enableBackButton();
+                enableNextButton();
+                playIdleAnimation();
+                if(canEnableControls)
+                    enablePlayerControl();
+                else
+                    playIdleAnimation();
+            }
         }
         lerpFactor = 0;
+        // if(transitionStyle == styleFadeOut)
+            // console.log("Aired");
     }
 }
 
@@ -347,27 +406,30 @@ const transition = function(deltatime){
     var pOffsetPos = playerOffset.clone();
     pOffsetPos.add(mainCamera.position);
     pOffsetPos.y = tempPlayerYpos;
+    pOffsetPos.z = 0;
     
     //pOffsetPos.y = tempPlayerYpos + minPlayerYpos;
     
     if(transitionStyle == styleFadeIn){
         if(flowDirection == directionRight){
-            if(playerCharacter.position.x < targetXPosition)
+            if(pOffsetPos.x <= targetXPosition){
                 playerCharacter.position.set(pOffsetPos.x, pOffsetPos.y, pOffsetPos.z);
-            else
+            }
+            else{
                 playerCharacter.position.set(targetXPosition, pOffsetPos.y, pOffsetPos.z);
+            }
         }
         else if(flowDirection == directionLeft){
-            if(playerCharacter.position.x > targetXPosition)
+            if(pOffsetPos.x >= targetXPosition)
                 playerCharacter.position.set(pOffsetPos.x, pOffsetPos.y, pOffsetPos.z);
-            else
+            else{
                 playerCharacter.position.set(targetXPosition, pOffsetPos.y, pOffsetPos.z);
+            }
         }
     }
     else{
         playerCharacter.position.set(pOffsetPos.x, pOffsetPos.y, pOffsetPos.z);
     }
-    //console.log("player pos = ", playerCharacter.position.x, ", L =", lerpFactor);
 
     var curPointLightPos = pointOffset.clone();
     curPointLightPos.add(playerCharacter.position);
@@ -390,7 +452,7 @@ const transition = function(deltatime){
         if(transitionStyle == styleFadeIn){
             let dif = Math.abs(playerCharacter.position.x - targetXPosition);
             if(dif < 0.1){
-                playerCharacter.position.set(targetXPosition, tempPlayerYpos, finalPlayerPosition.z);
+                playerCharacter.position.set(targetXPosition, playerCharacter.position.y, finalPlayerPosition.z);
             }
             //enablePlayerControl();
         }
@@ -412,6 +474,7 @@ const transition = function(deltatime){
             }
             else{
                 needPlayerAdjustment = false;
+                playJumpStopAnimation();
             }
         }
         else{
@@ -427,15 +490,27 @@ const transition = function(deltatime){
 export const jumpIn = function(){
     playerCharacter.position.set(playerPos.x, minPlayerYpos + playerJumpDistance, playerPos.z);
     transitionStyle = styleJumpIn;
+    lerpFactor = 0;
     animate = true;
     disableBackButton();
     disableNextButton();
+    playJumpStopAnimation();
 }
 
 export const jumpOut = function(_callBack){
-    playerCharacter.position.set(playerPos.x, playerPos.y, playerPos.z);
+    //playerCharacter.position.set(playerPos.x, playerPos.y, playerPos.z);
+    playJumpStartAnimation();
+    disableBackButton();
+    disableNextButton();
+    delayedAction = function(){ delayedJumpOut(_callBack); };
+    onJumpDelay = true;
+    timerJumpDelay = 0;
+}
+
+const delayedJumpOut = function(_callBack){
     transitionStyle = styleJumpOut;
     callBackFunction = _callBack;
+    lerpFactor = 0;
     animate = true;
 }
 
@@ -464,7 +539,11 @@ const jumpTransition = function(deltatime){
         }
         if(transitionStyle == styleJumpOut){
             callBackFunction();
+            playIdleAnimation();
+            enableBackButton();
+            enableNextButton();
         }
         lerpFactor = 0;
+        //playIdleAnimation();
     }
 }

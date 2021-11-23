@@ -3,6 +3,7 @@ import { MathUtils, Vector3 } from 'three';
 import { joystickSlider,joystickSlideValue, SetSliderFillerAndAnswer, resetJoystickSlider, sliderHolder } from '../ui_controller/ui_controller';
 import {updateNameIndicator, EnableCharacterText} from '../questions/questions'
 import { joystickScene ,ring1, ring2} from '../questions/scenes'
+import * as assetLoader from '../assets_loader/assets_loader'
 //Character control
 
 
@@ -143,6 +144,8 @@ export function setPlayer(playerModel, playerAnims, outline, outlineAnimation){
     playerOutlineMixer.clipAction(playerOutlineAnimation[2]).stop();
     playerOutlineMixer.clipAction(playerOutlineAnimation[3]).stop();
     //joystickScene.add(playerOutline);
+
+    initializePlayerAnimationVariables();
 }
 
 const PlayerYPos = -0.6;
@@ -844,34 +847,54 @@ const endDuration = 0.1;    //prev 0.2
 const startFadeDuration = 0.08; //prev 0.15
 const endFadeDuration = 0.08;   //prev 0.15
 
-function resetAnimations(animArray){
+function resetAnimations(animArray, prevAction){
     animArray.forEach(action => {
-        action.reset(); 
+        if(action != prevAction){
+            action.reset(); 
+        }
         action.stop();
     });
 }
 
 var playerMoveEnded = true;
 
-function animatePlayerTHREE(){
-    const fadeDuration = 0.25;
-    //const idleId = 2, walkId = 4, startId = 1, endId = 0;
-    const idleId = 0, walkId = 2, startId = 1, endId = 3;
-    const IDwalkStartLeft = 2, IDwalkLeft = 3, IDwalkStopLeft = 4, IDwalkStartRight = 5, IDwalkRight = 6, IDwalkStopRight = 7;
-    const idleAction = playerMixer.clipAction(playerAnimations[idleId]);
-    const walkAction = playerMixer.clipAction(playerAnimations[walkId]);
-    const startAction = playerMixer.clipAction(playerAnimations[startId]);
-    const endAction = playerMixer.clipAction(playerAnimations[endId]);
-    const walkStartLeft = playerMixer.clipAction(playerAnimations[IDwalkStartLeft]);
-    const walkLeft = playerMixer.clipAction(playerAnimations[IDwalkLeft]);
-    const walkStopLeft = playerMixer.clipAction(playerAnimations[IDwalkStopLeft]);
-    const walkStartRight = playerMixer.clipAction(playerAnimations[IDwalkStartRight]);
-    const walkRight = playerMixer.clipAction(playerAnimations[IDwalkRight]);
-    const walkStopRight = playerMixer.clipAction(playerAnimations[IDwalkStopRight]);
+//#region Player animation variables
+let playerValueInitialized = false;
+let idleId,IDwalkStartLeft,IDwalkLeft,IDwalkStopLeft,IDwalkStartRight,IDwalkRight,IDwalkStopRight;
+let IDjumpStart,IDonJump, IDjumpStop;
+let jumpStartAction, onJumpAction, jumpStopAction;
+let idleAction,walkStartLeft,walkLeft,walkStopLeft,walkStartRight,walkRight,walkStopRight;
+let allAnims;
 
+function initializePlayerAnimationVariables(){
+    if(playerValueInitialized == false){
+        var ids = assetLoader.getAnimationIds('playerCharacter');
+        idleId = ids['idle'];
+        IDwalkStartLeft = ids['startL'], IDwalkLeft = ids['walkL'], IDwalkStopLeft = ids['stopL'], IDwalkStartRight = ids['startR'], IDwalkRight = ids['walkR'], IDwalkStopRight = ids['stopL'];
+        IDjumpStart = ids['jumpStart'], IDonJump = ids['onJump'], IDjumpStop = ids['jumpStop'];
+        idleAction = playerMixer.clipAction(playerAnimations[idleId]);
+        walkStartLeft = playerMixer.clipAction(playerAnimations[IDwalkStartLeft]);
+        walkLeft = playerMixer.clipAction(playerAnimations[IDwalkLeft]);
+        walkStopLeft = playerMixer.clipAction(playerAnimations[IDwalkStopLeft]);
+        walkStartRight = playerMixer.clipAction(playerAnimations[IDwalkStartRight]);
+        walkRight = playerMixer.clipAction(playerAnimations[IDwalkRight]);
+        walkStopRight = playerMixer.clipAction(playerAnimations[IDwalkStopRight]);
+        jumpStartAction = playerMixer.clipAction(playerAnimations[IDjumpStart]);
+        onJumpAction = playerMixer.clipAction(playerAnimations[IDonJump]);
+        jumpStopAction = playerMixer.clipAction(playerAnimations[IDjumpStop]);
+
+        allAnims = [idleAction, walkStartLeft, walkLeft, walkStopLeft,
+            walkStartRight, walkRight, walkStopRight, jumpStartAction, onJumpAction, jumpStopAction];
+        playerValueInitialized = true;
+    }
+}
+//#endregion
+
+const fadeDuration = 0.25;
+function animatePlayerTHREE(){
     
-    const allAnims = [idleAction, walkStartLeft, walkLeft, walkStopLeft,
-                        walkStartRight, walkRight, walkStopRight];
+    const walkId = 2, startId = 1, endId = 3;
+
 
     const outlineIdle = playerOutlineMixer.clipAction(playerOutlineAnimation[idleId]);
     const outlineWalk = playerOutlineMixer.clipAction(playerOutlineAnimation[walkId]);
@@ -879,6 +902,8 @@ function animatePlayerTHREE(){
     const outlineEnd = playerOutlineMixer.clipAction(playerOutlineAnimation[endId]);
 
     if(canControlPlayer){
+        if(animationIndex == -1)
+            animationIndex = idleId;
         const prevAnimation = playerMixer.clipAction(playerAnimations[animationIndex]);
         if(playerMixer == null)
             return;
@@ -889,14 +914,14 @@ function animatePlayerTHREE(){
     
                     idleAction.reset();
                     if(playerMovedRight){
-                        idleAction.crossFadeFrom(walkStopRight ,fadeDuration);
+                        idleAction.crossFadeFrom(prevAnimation ,fadeDuration);
                         allAnims.splice(allAnims.indexOf(walkStopRight), 1);
-                        resetAnimations(allAnims); 
+                        resetAnimations(allAnims, prevAnimation); 
                     }
                     else{
-                        idleAction.crossFadeFrom(walkStopLeft, fadeDuration);
+                        idleAction.crossFadeFrom(prevAnimation, fadeDuration);
                         allAnims.splice(allAnims.indexOf(walkStopLeft), 1);
-                        resetAnimations(allAnims); 
+                        resetAnimations(allAnims, prevAnimation); 
                     }
                     idleAction.play();
 
@@ -907,9 +932,11 @@ function animatePlayerTHREE(){
                 playerMoveEnded = true;
             }
             else if(stoppingTime < endDuration){
+                const stopPlayCondition = animationIndex != IDjumpStart && animationIndex != IDonJump && animationIndex != IDjumpStop;
                 if(playerMovedRight){
-                    if(animationIndex != IDwalkStopRight){
+                    if(animationIndex != IDwalkStopRight && stopPlayCondition){
                         animationIndex = IDwalkStopRight;
+                        resetAnimations(allAnims, prevAnimation);
     
                         walkStopRight.reset();
                         walkStopRight.crossFadeFrom(walkRight, endFadeDuration);
@@ -921,8 +948,9 @@ function animatePlayerTHREE(){
                     }
                 }
                 else{
-                    if(animationIndex != IDwalkStopRight){
+                    if(animationIndex != IDwalkStopRight && stopPlayCondition){
                         animationIndex = IDwalkStopLeft;
+                        resetAnimations(allAnims, prevAnimation);
     
                         walkStopLeft.reset();
                         walkStopLeft.crossFadeFrom(walkLeft, endFadeDuration);
@@ -941,6 +969,7 @@ function animatePlayerTHREE(){
                 if(playerMovedRight){
                     if(animationIndex != IDwalkStartRight){
                         animationIndex = IDwalkStartRight;
+                        resetAnimations(allAnims, prevAnimation);
     
                         walkStartRight.reset();
                         walkStartRight.crossFadeFrom(idleAction, startFadeDuration);
@@ -954,6 +983,7 @@ function animatePlayerTHREE(){
                 else{
                     if(animationIndex != IDwalkStartLeft){
                         animationIndex = IDwalkStartLeft;
+                        resetAnimations(allAnims, prevAnimation);
     
                         walkStartLeft.reset();
                         walkStartLeft.crossFadeFrom(idleAction, startFadeDuration);
@@ -970,6 +1000,7 @@ function animatePlayerTHREE(){
                 if(playerMovedRight){
                     if(animationIndex != IDwalkRight){
                         animationIndex = IDwalkRight;
+                        resetAnimations(allAnims, prevAnimation);
         
                         walkRight.reset();
                         walkRight.crossFadeFrom(prevAnimation, fadeDuration);
@@ -983,6 +1014,7 @@ function animatePlayerTHREE(){
                 else{
                     if(animationIndex != IDwalkLeft){
                         animationIndex = IDwalkLeft;
+                        resetAnimations(allAnims, prevAnimation);
         
                         walkLeft.reset();
                         walkLeft.crossFadeFrom(walkStartLeft, fadeDuration);
@@ -999,13 +1031,13 @@ function animatePlayerTHREE(){
             //Go to Idle
             if(animationIndex != idleId){
                 animationIndex = idleId;
+                resetAnimations(allAnims, prevAnimation);
 
                 //walkAction.stop();
-                idleAction.reset();
                 if(playerMovedRight)
-                    idleAction.crossFadeFrom(walkRight ,endFadeDuration);
+                    idleAction.crossFadeFrom(prevAnimation ,endFadeDuration);
                 else
-                    idleAction.crossFadeFrom(walkLeft, endFadeDuration);
+                    idleAction.crossFadeFrom(prevAnimation, endFadeDuration);
                 idleAction.play();
 
                 outlineIdle.reset();
@@ -1013,6 +1045,61 @@ function animatePlayerTHREE(){
                 outlineIdle.play();
             }
     }
+}
+
+export const playJumpStartAnimation =function(){
+    if(animationIndex == IDjumpStart)
+        return;
+
+    const prevAnimation = playerMixer.clipAction(playerAnimations[animationIndex]);
+    resetAnimations(allAnims, prevAnimation);
+    onInputDelay = false;
+    jumpStartAction.reset();
+    jumpStartAction.crossFadeFrom(prevAnimation, fadeDuration);
+    jumpStartAction.play();
+    animationIndex = IDjumpStart;
+}
+
+export const playJumpStopAnimation = function(){
+    if(animationIndex == IDjumpStop)
+        return;
+
+    if(animationIndex >= 0){
+        const prevAnimation = playerMixer.clipAction(playerAnimations[animationIndex]);
+        //resetAnimations(allAnims, prevAnimation);
+        jumpStopAction.reset();
+        jumpStopAction.crossFadeFrom(prevAnimation, fadeDuration);
+        jumpStopAction.play();
+        animationIndex = IDjumpStop;
+    }
+    else{
+        jumpStopAction.play();
+        animationIndex = IDjumpStop;
+    }
+}
+
+export const playOnJumpAnimation = function(){
+    if(animationIndex == IDonJump)
+        return;
+
+    const prevAnimation = playerMixer.clipAction(playerAnimations[animationIndex]);
+    resetAnimations(allAnims, prevAnimation);
+    onJumpAction.reset();
+    onJumpAction.crossFadeFrom(prevAnimation, fadeDuration);
+    onJumpAction.play();
+    animationIndex = IDonJump;
+}
+
+export const playIdleAnimation = function(){
+    if(animationIndex == idleId)
+        return;
+
+    const prevAnimation = playerMixer.clipAction(playerAnimations[animationIndex]);
+    resetAnimations(allAnims, prevAnimation);
+    idleAction.reset();
+    idleAction.crossFadeFrom(prevAnimation, fadeDuration);
+    idleAction.play();
+    animationIndex = idleId;
 }
 
 var otherMovingTime = 0;
@@ -1131,7 +1218,8 @@ const tick = () =>
 
     if(playerMixer != null){
         playerMixer.update(deltatime)
-        animatePlayerTHREE()
+        if(canControlPlayer)
+            animatePlayerTHREE()
     }
     
     
@@ -1186,11 +1274,12 @@ const tick = () =>
         else if(onboardDirection == 2){
             onboardTimer += deltatime * maxOnboardValue / (onBoardDuration / 2);
             joystickSlider.value =  MathUtils.lerp(joystickSlider.value, onboardTimer, Lspeed);
-            SetSliderFillerAndAnswer();
             if(onboardTimer >= 0){
                 isOnboarding = false;
                 s.textContent = thumbTransparent;
+                joystickSlider.value = 0;
             }
+            SetSliderFillerAndAnswer();
         }
     }
 

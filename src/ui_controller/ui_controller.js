@@ -411,7 +411,7 @@ var agrees = document.getElementsByName('likert5-checker');
 agrees.forEach(buttons => {
     buttons.addEventListener('change', function(event){
         enableConfirmation(event.target.value);
-        console.log("Agree value = ", event.target.value);
+        //console.log("Agree value = ", event.target.value);
     })
 });
 
@@ -419,7 +419,7 @@ var agrees4 = document.getElementsByName('likert4-checker');
 agrees4.forEach(buttons => {
     buttons.addEventListener('change', function(event){
         enableConfirmation(event.target.value);
-        console.log("Agree value = ", event.target.value);
+        //console.log("Agree value = ", event.target.value);
     })
 });
 
@@ -427,7 +427,7 @@ var agrees7 = document.getElementsByName('likert7-checker');
 agrees7.forEach(buttons => {
     buttons.addEventListener('change', function(event){
         enableConfirmation(event.target.value);
-        console.log("Agree value = ", event.target.value);
+        //console.log("Agree value = ", event.target.value);
     })
 });
 
@@ -1248,22 +1248,23 @@ export const FadeOutLikert4 = function(){
 
 export const FadeInLikert7 = function(){
     resetElementAnimation(likert5Container);
-    likert4Container.style.animation = 'likert7FadeIn 0.5s ease-in 0s 1 normal forwards';
+    likert7Container.style.animation = 'likert7FadeIn 0.5s ease-in 0s 1 normal forwards';
 }
 
 export const FadeOutLikert7 = function(){
     resetElementAnimation(likert5Container);
-    likert4Container.style.animation = 'likert7FadeOut 0.5s ease-in 0s 1 normal forwards'
+    likert7Container.style.animation = 'likert7FadeOut 0.5s ease-in 0s 1 normal forwards';
 }
 
 export const fadeInSliderContainer = function(){
     resetElementAnimation(sliderHolder);
-    sliderHolder.style.animation = 'sliderContainerFadeIn 0.4s ease-out';
+    sliderHolder.style.animation = 'sliderContainerFadeIn 0.5s ease-out';
 }
 
 export const fadeOutSliderContainer = function(){
     resetElementAnimation(sliderHolder);
-    sliderHolder.style.animation = 'sliderContainerFadeOut 1s ease-out 0s 1 normal forwards'
+    sliderHolder.style.animation = 'sliderContainerFadeOut 0.5s ease-out 0s 1 normal forwards';
+    sliderHolder.hidden = false;
 }
 
 // export function enableSubmitPage(){
