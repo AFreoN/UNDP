@@ -647,7 +647,7 @@ gltfloader.load(
 
 //#region Loading province models
 gltfloader.load(
-    'srilanka_provinces_cartoon_map.glb',
+    'New Sri Lankan Provinces.glb',
     (gltf) =>
     {
         let model = gltf.scene
@@ -667,53 +667,53 @@ gltfloader.load(
 
         // scenes.sriLankaCube.add(countrySelectionModel)
 
-        // //Storing state colors as new properties
-        // scenes.sriLankaCube.regionMaterial = countrySelectionModel.children[0].material//Material for all regions
+        //Storing state colors as new properties
+        scenes.sriLankaCube.regionMaterial = countrySelectionModel.children[0].material//Material for all regions
 
-        // scenes.sriLankaCube.standardColor = countrySelectionModel.children[0].material.color.clone()//standard color
-        // scenes.sriLankaCube.hoveringColor =  new THREE.Color( 0xff0000 )//hovering color
-        // scenes.sriLankaCube.selectedColor = new THREE.Color( 0x0000ff )//selected color
-
-
-        // //Setting up model for region selection
-        // let regionSelectionModel = models['sriLankaProvincesMap'].clone(true) 
-        // regionSelectionModel.scale.set(0.5,0.5,0.5)
-        // regionSelectionModel.position.set(-0.5, 0, 0.5)
-
-        // regionSelectionModel.children[10].castShadow = true
-        // // console.log(regionSelectionModel);
-        // scenes.sriLankaScene.add(regionSelectionModel)
-
-        // //Setting up and filtering regions and setting up region state colors
-        // let sriLankaRegions = regionSelectionModel.children.slice() //Region references
-        // sriLankaRegions.splice(9,2)//Removes sealine and provincial divider from regions references
-        // sriLankaRegions.forEach(region => {
-        //     region.name = region.name.replaceAll('_',' ')
-        //     region.name = region.name + ' Province'
-
-        //     region.standardMaterial = region.material.clone()//standard material
-        //     region.material = region.standardMaterial
-
-        //     region.hoveringMaterial = region.material.clone()//hovering material
-        //     region.hoveringMaterial.color = new THREE.Color( 0xff0000 )
-
-        //     region.selectedMaterial = region.material.clone()//selected material
-        //     region.selectedMaterial.color = new THREE.Color( 0x0000ff )
+        scenes.sriLankaCube.standardColor = countrySelectionModel.children[0].material.color.clone()//standard color
+        scenes.sriLankaCube.hoveringColor =  new THREE.Color( 0xff0000 )//hovering color
+        scenes.sriLankaCube.selectedColor = new THREE.Color( 0x0000ff )//selected color
 
 
-        // });
+        //Setting up model for region selection
+        let regionSelectionModel = models['sriLankaProvincesMap'].clone(true) 
+        regionSelectionModel.scale.set(0.5,0.5,0.5)
+        regionSelectionModel.position.set(-0.5, 0, 0.5)
 
-        // model.castShadow = true
-        // model.receiveShadow = true
+        regionSelectionModel.children[10].castShadow = true
+        // console.log(regionSelectionModel);
+        scenes.sriLankaScene.add(regionSelectionModel)
 
-        // scenes.setSriLankaRegions(sriLankaRegions)
+        //Setting up and filtering regions and setting up region state colors
+        let sriLankaRegions = regionSelectionModel.children.slice() //Region references
+        sriLankaRegions.splice(9,2)//Removes sealine and provincial divider from regions references
+        sriLankaRegions.forEach(region => {
+            region.name = region.name.replaceAll('_',' ')
+            region.name = region.name + ' Province'
 
-        // loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
-        // loadingBar.animate(loadedPercentage) // animate the progress bar
-        // // if(loadedPercentage >= 1){ //if loadedPercentage is 1, then the survey can start.
-        // //     //Call function to start the survey
-        // //     main.startSurvey()
-        // // }
+            region.standardMaterial = region.material.clone()//standard material
+            region.material = region.standardMaterial
+
+            region.hoveringMaterial = region.material.clone()//hovering material
+            region.hoveringMaterial.color = new THREE.Color( 0xff0000 )
+
+            region.selectedMaterial = region.material.clone()//selected material
+            region.selectedMaterial.color = new THREE.Color( 0x0000ff )
+
+
+        });
+
+        model.castShadow = true
+        model.receiveShadow = true
+
+        scenes.setSriLankaRegions(sriLankaRegions)
+
+        loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
+        loadingBar.animate(loadedPercentage) // animate the progress bar
+        // if(loadedPercentage >= 1){ //if loadedPercentage is 1, then the survey can start.
+        //     //Call function to start the survey
+        //     main.startSurvey()
+        // }
     }
 )
 
