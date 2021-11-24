@@ -7,6 +7,7 @@ import {getSelectedCountry} from '../script'
 import { Camera, MathUtils } from 'three'
 import * as sceneTransition from '../SceneTransition'
 import { clamp } from 'three/src/math/mathutils'
+import { Questions } from './QuestionArray'
 
 //import main from 'progressbar.js'
 //import * as mainScript from '../script.js'
@@ -19,948 +20,8 @@ export function setLangId(id){
     if(id == null) return;  
     langId = id;
 }
-let qArray = [
-    {   //1     Country
-        type : 'country',
-        question : {
-            en : 'In which country do you live ?',
-            si : 'ඔබ ජීවත් වන්නේ කුමන රටේද?',
-            ta : 'நீங்கள் எந்த நாட்டில் வாழ்கிறீர்கள் ?',
-            dv : 'In which country do you live ?'
-        },
-        compulsory : true
-    },
-    {   //2     Province
-        type : 'province',
-        question : {
-            en : 'In which area do you live ?',
-            si : 'ඔබ ජීවත් වන්නේ කුමන ප්‍රදේශයේද?',
-            ta : 'நீங்கள் எந்த பகுதியில் வசிக்கிறீர்கள் ?',
-            dv : 'In which area do you live ?'
-        },
-        compulsory : false
-    },
-    {   //3     About
-        type : 'about',
-        question : {
-            main:{
-                en : 'About you',
-                si : 'ඔයාගේ වයස කීය ද ?',
-                ta : 'உங்களுக்கு எவ்வளவு வயது ?',
-                dv : 'How old are you ?'
-            },
-            age:{
-                en : 'How old are you ?',
-                si : 'ඔයාගේ වයස කීය ද ?',
-                ta : 'உங்களுக்கு எவ்வளவு வயது ?',
-                dv : 'How old are you ?'
-            },
-            gender:{
-                en : 'What is your gender ?',
-                si : 'ඔබේ ලිංගය කුමක්ද?',
-                ta : 'உங்கள் பாலினம் என்ன ?',
-                dv : 'What is your gender ?'
-            }
-        },
-        answers :{
-            age:[
-                {
-                    en : 'Under 18',
-                    si : '18 ට අඩු',
-                    ta : '18 வயதுக்குட்பட்டவர்',
-                    dv : 'Under 18'
-                },
-                {
-                    en : '18-25',
-                    si : '18-25',
-                    ta : '18-25',
-                    dv : '18-25'
-                },
-                {
-                    en : '26-35',
-                    si : '26-35',
-                    ta : '26-35',
-                    dv : '26-35'
-                },
-                {
-                    en : '35+',
-                    si : '35+',
-                    ta : '35+',
-                    dv : '35'
-                },
-                {
-                    en : 'Prefer not to Say',
-                    si : 'නොකියන්න කැමති',
-                    ta : 'சொல்ல விரும்பவில்லை',
-                    dv : 'Prefer not to Say'
-                }
-            ], 
-            gender:[
-                {
-                    en : 'Man',
-                    si : 'මිනිසා',
-                    ta : 'ஆண்',
-                    dv : 'Man'
-                },
-                {
-                    en : 'Woman',
-                    si : 'කාන්තාවක්',
-                    ta : 'பெண்',
-                    dv : 'Woman'
-                },
-                {
-                    en : 'Intersex',
-                    si : 'අන්තර් ලිංගික',
-                    ta : 'இருபால்',
-                    dv : 'Intersex'
-                },
-                {
-                    en : 'Non-binary',
-                    si : 'ද්විමය නොවන',
-                    ta : 'ஒரு பாலினம் அல்ல',
-                    dv : 'Non-binary'
-                },
-                {
-                    en : 'Other',
-                    si : 'වෙනත්',
-                    ta : 'மற்றவை',
-                    dv : 'Other'
-                },
-                {
-                    en : 'Prefer not to Say',
-                    si : 'නොකියන්න කැමති',
-                    ta : 'சொல்ல விரும்பவில்லை',
-                    dv : 'Prefer not to Say'
-                }
-            ]
-        },
-        compulsory : false
-    },
-    {   //4     Mother
-        type : 'joystick',
-        question : {
-            en : 'How close do you feel to your mother ?',
-            si : 'ඔබ ඔබේ මවට කොතරම් සමීපද?',
-            ta : 'உங்கள் தாயிடம் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
-            dv : 'How close do you feel to your mother ?'
-        },
-        answers : [
-            {
-                en : 'answer1',
-                si : 'පිළිතුර1',
-                ta : 'பதில்1',
-                dv : 'answer1'
-            },
-            {
-                en : 'answer2',
-                si : 'පිළිතුර2',
-                ta : 'பதில்2',
-                dv : 'answer2'
-            },
-            {
-                en : 'answer3',
-                si : 'පිළිතුර3',
-                ta : 'பதில்3',
-                dv : 'answer3'
-            },
-            {
-                en : 'answer4',
-                si : 'පිළිතුර4',
-                ta : 'பதில்4',
-                dv : 'answer4'
-            },
-            {
-                en : 'answer5',
-                si : 'පිළිතුර5',
-                ta : 'பதில்5',
-                dv : 'answer5'
-            },
-            {
-                en : 'answer6',
-                si : 'පිළිතුර6',
-                ta : 'பதில்6',
-                dv : 'answer6'
-            },
-            {
-                en : 'answer7',
-                si : 'පිළිතුර7',
-                ta : 'பதில்7',
-                dv : 'answer7'
-            }
-        ],
-        centerModelKey:'mother',
-        characterName: {
-            en : 'Mother',
-            si : 'මව',
-            ta : 'அம்மா',
-            dv : 'Mother'
-        },
-        compulsory: true
-    },
-    {   //5     Father
-        type : 'joystick',
-        question : {
-            en : 'How close do you feel to your father ?',
-            si : 'ඔබ ඔබේ පියාට කොතරම් සමීපද?',
-            ta : 'உங்கள் தந்தையிடம் நீங்கள் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
-            dv : 'How close do you feel to your father ?'
-        },
-        answers : [
-            {
-                en : 'answer1',
-                si : 'පිළිතුර1',
-                ta : 'பதில்1',
-                dv : 'answer1'
-            },
-            {
-                en : 'answer2',
-                si : 'පිළිතුර2',
-                ta : 'பதில்2',
-                dv : 'answer2'
-            },
-            {
-                en : 'answer3',
-                si : 'පිළිතුර3',
-                ta : 'பதில்3',
-                dv : 'answer3'
-            },
-            {
-                en : 'answer4',
-                si : 'පිළිතුර4',
-                ta : 'பதில்4',
-                dv : 'answer4'
-            },
-            {
-                en : 'answer5',
-                si : 'පිළිතුර5',
-                ta : 'பதில்5',
-                dv : 'answer5'
-            },
-            {
-                en : 'answer6',
-                si : 'පිළිතුර6',
-                ta : 'பதில்6',
-                dv : 'answer6'
-            },
-            {
-                en : 'answer7',
-                si : 'පිළිතුර7',
-                ta : 'பதில்7',
-                dv : 'answer7'
-            }
-        ],
-        centerModelKey:'father',
-        characterName:{
-            en : 'Father',
-            si : 'පියා',
-            ta : 'தந்தை',
-            dv : 'Father'
-        },
-        compulsory: true
-    },
-    {   //6     Siblings
-        type : 'joystick',
-        question : {
-            en : 'How close are you to you siblings?',
-            si : 'ඔබ සහෝදර සහෝදරියන් සමඟ කෙතරම් සමීපද?',
-            ta : 'நீங்கள் உடன்பிறந்தவர்களுடன் எவ்வளவு நெருக்கமாக இருக்கிறீர்கள்?',
-            dv : 'How close are you to you siblings?'
-        },
-        answers : [
-            {
-                en : 'answer1',
-                si : 'පිළිතුර1',
-                ta : 'பதில்1',
-                dv : 'answer1'
-            },
-            {
-                en : 'answer2',
-                si : 'පිළිතුර2',
-                ta : 'பதில்2',
-                dv : 'answer2'
-            },
-            {
-                en : 'answer3',
-                si : 'පිළිතුර3',
-                ta : 'பதில்3',
-                dv : 'answer3'
-            },
-            {
-                en : 'answer4',
-                si : 'පිළිතුර4',
-                ta : 'பதில்4',
-                dv : 'answer4'
-            },
-            {
-                en : 'answer5',
-                si : 'පිළිතුර5',
-                ta : 'பதில்5',
-                dv : 'answer5'
-            },
-            {
-                en : 'answer6',
-                si : 'පිළිතුර6',
-                ta : 'பதில்6',
-                dv : 'answer6'
-            },
-            {
-                en : 'answer7',
-                si : 'පිළිතුර7',
-                ta : 'பதில்7',
-                dv : 'answer7'
-            }
-        ],
-        centerModelKey:'siblings',
-        characterName:{
-            en : 'Siblings',
-            si : 'සහෝදර සහෝදරියන්',
-            ta : 'உடன்பிறந்தவர்கள்',
-            dv : 'Siblings'
-        },
-        compulsory: true
-    },
-    {   //7     Closest Friends
-        type : 'joystick',
-        question : {
-            en : 'How close are you to your closest friends?',
-            si : 'ඔබේ සමීපතම මිතුරන්ට ඔබ කෙතරම් සමීපද?',
-            ta : 'உங்கள் நெருங்கிய நண்பர்களுடன் நீங்கள் எவ்வளவு நெருக்கமாக இருக்கிறீர்கள்?',
-            dv : 'How close are you to your closest friends?'
-        },
-        answers : [
-            {
-                en : 'answer1',
-                si : 'පිළිතුර1',
-                ta : 'பதில்1',
-                dv : 'answer1'
-            },
-            {
-                en : 'answer2',
-                si : 'පිළිතුර2',
-                ta : 'பதில்2',
-                dv : 'answer2'
-            },
-            {
-                en : 'answer3',
-                si : 'පිළිතුර3',
-                ta : 'பதில்3',
-                dv : 'answer3'
-            },
-            {
-                en : 'answer4',
-                si : 'පිළිතුර4',
-                ta : 'பதில்4',
-                dv : 'answer4'
-            },
-            {
-                en : 'answer5',
-                si : 'පිළිතුර5',
-                ta : 'பதில்5',
-                dv : 'answer5'
-            },
-            {
-                en : 'answer6',
-                si : 'පිළිතුර6',
-                ta : 'பதில்6',
-                dv : 'answer6'
-            },
-            {
-                en : 'answer7',
-                si : 'පිළිතුර7',
-                ta : 'பதில்7',
-                dv : 'answer7'
-            }
-        ],
-        centerModelKey:'friends',
-        characterName:{
-            en : 'Closest Friends',
-            si : 'සමීපතම මිතුරන්',
-            ta : 'நெருங்கிய நண்பர்கள்',
-            dv : 'Closest Friends'
-        },
-        compulsory: true
-    },
-    {   //8     Distant Friends
-        type : 'joystick',
-        question : {
-            en : 'How close are you to your distant friends?',
-            si : 'ඔබේ දුරස්ථ මිතුරන්ට ඔබ කෙතරම් සමීපද?',
-            ta : 'உங்கள் தொலைதூர நண்பர்களுடன் நீங்கள் எவ்வளவு நெருக்கமாக இருக்கிறீர்கள்?',
-            dv : 'How close are you to your distant friends?'
-        },
-        answers : [
-            {
-                en : 'answer1',
-                si : 'පිළිතුර1',
-                ta : 'பதில்1',
-                dv : 'answer1'
-            },
-            {
-                en : 'answer2',
-                si : 'පිළිතුර2',
-                ta : 'பதில்2',
-                dv : 'answer2'
-            },
-            {
-                en : 'answer3',
-                si : 'පිළිතුර3',
-                ta : 'பதில்3',
-                dv : 'answer3'
-            },
-            {
-                en : 'answer4',
-                si : 'පිළිතුර4',
-                ta : 'பதில்4',
-                dv : 'answer4'
-            },
-            {
-                en : 'answer5',
-                si : 'පිළිතුර5',
-                ta : 'பதில்5',
-                dv : 'answer5'
-            },
-            {
-                en : 'answer6',
-                si : 'පිළිතුර6',
-                ta : 'பதில்6',
-                dv : 'answer6'
-            },
-            {
-                en : 'answer7',
-                si : 'පිළිතුර7',
-                ta : 'பதில்7',
-                dv : 'answer7'
-            }
-        ],
-        centerModelKey:'distantFriend',       //distantFriend
-        characterName:{
-            en : 'Distant Friends',
-            si : 'දුරස්ථ මිතුරන්',
-            ta : 'தொலைதூர நண்பர்கள்',
-            dv : 'Distant Friends'
-        },
-        compulsory: true
-    },
-    {   //9     Local Community
-        type : 'joystick',
-        question : {
-            en : 'How close do you feel with your local community ?',
-            si : 'ඔබේ ප්‍රාදේශීය ප්‍රජාව සමඟ ඔබට කෙතරම් සමීප බවක් දැනෙන්නේද?',
-            ta : 'உங்கள் உள்ளூர் சமூகத்துடன் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள்?',
-            dv : 'How close do you feel with your local community ?'
-        },
-        answers : [
-            {
-                en : 'answer1',
-                si : 'පිළිතුර1',
-                ta : 'பதில்1',
-                dv : 'answer1'
-            },
-            {
-                en : 'answer2',
-                si : 'පිළිතුර2',
-                ta : 'பதில்2',
-                dv : 'answer2'
-            },
-            {
-                en : 'answer3',
-                si : 'පිළිතුර3',
-                ta : 'பதில்3',
-                dv : 'answer3'
-            },
-            {
-                en : 'answer4',
-                si : 'පිළිතුර4',
-                ta : 'பதில்4',
-                dv : 'answer4'
-            },
-            {
-                en : 'answer5',
-                si : 'පිළිතුර5',
-                ta : 'பதில்5',
-                dv : 'answer5'
-            },
-            {
-                en : 'answer6',
-                si : 'පිළිතුර6',
-                ta : 'பதில்6',
-                dv : 'answer6'
-            },
-            {
-                en : 'answer7',
-                si : 'පිළිතුර7',
-                ta : 'பதில்7',
-                dv : 'answer7'
-            }
-        ],
-        centerModelKey:'community',
-        characterName:{
-            en : 'Community',
-            si : 'ප්රජාව',
-            ta : 'சமூகம்',
-            dv : 'Community'
-        },
-        compulsory: true
-    },
-
-    {   //10    Different language
-        type : 'joystick',
-        question : {
-            en : 'How close do you feel to people that speak a different language ?',
-            si : 'වෙනත් භාෂාවක් කතා කරන පුද්ගලයින්ට ඔබට කෙතරම් සමීප බවක් දැනෙන්නේද?',
-            ta : 'உங்கள் உள்ளூர் சமூகத்துடன் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள்?',
-            dv : 'How close do you feel with your local community ?'
-        },
-        answers : [
-            {
-                en : 'answer1',
-                si : 'පිළිතුර1',
-                ta : 'பதில்1',
-                dv : 'answer1'
-            },
-            {
-                en : 'answer2',
-                si : 'පිළිතුර2',
-                ta : 'பதில்2',
-                dv : 'answer2'
-            },
-            {
-                en : 'answer3',
-                si : 'පිළිතුර3',
-                ta : 'பதில்3',
-                dv : 'answer3'
-            },
-            {
-                en : 'answer4',
-                si : 'පිළිතුර4',
-                ta : 'பதில்4',
-                dv : 'answer4'
-            },
-            {
-                en : 'answer5',
-                si : 'පිළිතුර5',
-                ta : 'பதில்5',
-                dv : 'answer5'
-            },
-            {
-                en : 'answer6',
-                si : 'පිළිතුර6',
-                ta : 'பதில்6',
-                dv : 'answer6'
-            },
-            {
-                en : 'answer7',
-                si : 'පිළිතුර7',
-                ta : 'பதில்7',
-                dv : 'answer7'
-            }
-        ],
-        centerModelKey:'dif_language',
-        characterName:{
-            en : 'Different Language',
-            si : 'ප්රජාව',
-            ta : 'சமூகம்',
-            dv : 'Community'
-        },
-        compulsory: true
-    },
-
-    {   //11     Home Country
-        type : 'joystick',
-        question : {
-            en : 'How close do you feel to your home country ?',
-            si : 'වෙනත් භාෂාවක් කතා කරන පුද්ගලයින්ට ඔබට කෙතරම් සමීප බවක් දැනෙන්නේද?',
-            ta : 'உங்கள் உள்ளூர் சமூகத்துடன் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள்?',
-            dv : 'How close do you feel with your local community ?'
-        },
-        answers : [
-            {
-                en : 'answer1',
-                si : 'පිළිතුර1',
-                ta : 'பதில்1',
-                dv : 'answer1'
-            },
-            {
-                en : 'answer2',
-                si : 'පිළිතුර2',
-                ta : 'பதில்2',
-                dv : 'answer2'
-            },
-            {
-                en : 'answer3',
-                si : 'පිළිතුර3',
-                ta : 'பதில்3',
-                dv : 'answer3'
-            },
-            {
-                en : 'answer4',
-                si : 'පිළිතුර4',
-                ta : 'பதில்4',
-                dv : 'answer4'
-            },
-            {
-                en : 'answer5',
-                si : 'පිළිතුර5',
-                ta : 'பதில்5',
-                dv : 'answer5'
-            },
-            {
-                en : 'answer6',
-                si : 'පිළිතුර6',
-                ta : 'பதில்6',
-                dv : 'answer6'
-            },
-            {
-                en : 'answer7',
-                si : 'පිළිතුර7',
-                ta : 'பதில்7',
-                dv : 'answer7'
-            }
-        ],
-        centerModelKey:'home_country',
-        characterName:{
-            en : 'Home Country',
-            si : 'ප්රජාව',
-            ta : 'சமூகம்',
-            dv : 'Community'
-        },
-        compulsory: true
-    },
-
-
-   { //12     Religious community
-    type : 'joystick',
-    question : {
-        en : 'How close do you feel to your local religious community ?',
-        si : 'වෙනත් භාෂාවක් කතා කරන පුද්ගලයින්ට ඔබට කෙතරම් සමීප බවක් දැනෙන්නේද?',
-        ta : 'உங்கள் உள்ளூர் சமூகத்துடன் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள்?',
-        dv : 'How close do you feel with your local community ?'
-    },
-    answers : [
-        {
-            en : 'answer1',
-            si : 'පිළිතුර1',
-            ta : 'பதில்1',
-            dv : 'answer1'
-        },
-        {
-            en : 'answer2',
-            si : 'පිළිතුර2',
-            ta : 'பதில்2',
-            dv : 'answer2'
-        },
-        {
-            en : 'answer3',
-            si : 'පිළිතුර3',
-            ta : 'பதில்3',
-            dv : 'answer3'
-        },
-        {
-            en : 'answer4',
-            si : 'පිළිතුර4',
-            ta : 'பதில்4',
-            dv : 'answer4'
-        },
-        {
-            en : 'answer5',
-            si : 'පිළිතුර5',
-            ta : 'பதில்5',
-            dv : 'answer5'
-        },
-        {
-            en : 'answer6',
-            si : 'පිළිතුර6',
-            ta : 'பதில்6',
-            dv : 'answer6'
-        },
-        {
-            en : 'answer7',
-            si : 'පිළිතුර7',
-            ta : 'பதில்7',
-            dv : 'answer7'
-        }
-    ],
-    centerModelKey:'temples',
-    characterName:{
-        en : 'Religious Community',
-        si : 'ප්රජාව',
-        ta : 'சமூகம்',
-        dv : 'Community'
-    },
-    compulsory: true
-},
-
-{ //12     Religious community
-    type : 'joystick',
-    question : {
-        en : 'How close do you feel to people with different religious beliefs ?',
-        si : 'වෙනත් භාෂාවක් කතා කරන පුද්ගලයින්ට ඔබට කෙතරම් සමීප බවක් දැනෙන්නේද?',
-        ta : 'உங்கள் உள்ளூர் சமூகத்துடன் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள்?',
-        dv : 'How close do you feel with your local community ?'
-    },
-    answers : [
-        {
-            en : 'answer1',
-            si : 'පිළිතුර1',
-            ta : 'பதில்1',
-            dv : 'answer1'
-        },
-        {
-            en : 'answer2',
-            si : 'පිළිතුර2',
-            ta : 'பதில்2',
-            dv : 'answer2'
-        },
-        {
-            en : 'answer3',
-            si : 'පිළිතුර3',
-            ta : 'பதில்3',
-            dv : 'answer3'
-        },
-        {
-            en : 'answer4',
-            si : 'පිළිතුර4',
-            ta : 'பதில்4',
-            dv : 'answer4'
-        },
-        {
-            en : 'answer5',
-            si : 'පිළිතුර5',
-            ta : 'பதில்5',
-            dv : 'answer5'
-        },
-        {
-            en : 'answer6',
-            si : 'පිළිතුර6',
-            ta : 'பதில்6',
-            dv : 'answer6'
-        },
-        {
-            en : 'answer7',
-            si : 'පිළිතුර7',
-            ta : 'பதில்7',
-            dv : 'answer7'
-        }
-    ],
-    centerModelKey:'religious_belief',
-    characterName:{
-        en : 'Different Religions',
-        si : 'ප්රජාව',
-        ta : 'சமூகம்',
-        dv : 'Community'
-    },
-    compulsory: true
-},
-
-
-    {   //10    Control over things
-        type : 'likert5',
-        question : {
-            en : 'I have little control over things that happen to me.',
-            si : 'ඔබ ඔබේ මවට කොතරම් සමීපද?',
-            ta : 'உங்கள் தாயிடம் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
-            dv : 'I have little control over things that happen to me.'
-        },
-        answers : [
-            {
-                en : 'answer1',
-                si : 'පිළිතුර1',
-                ta : 'பதில்1',
-                dv : 'answer1'
-            },
-            {
-                en : 'answer2',
-                si : 'පිළිතුර2',
-                ta : 'பதில்2',
-                dv : 'answer2'
-            },
-            {
-                en : 'answer3',
-                si : 'පිළිතුර3',
-                ta : 'பதில்3',
-                dv : 'answer3'
-            },
-            {
-                en : 'answer4',
-                si : 'පිළිතුර4',
-                ta : 'பதில்4',
-                dv : 'answer4'
-            },
-            {
-                en : 'answer5',
-                si : 'පිළිතුර5',
-                ta : 'பதில்5',
-                dv : 'answer5'
-            }
-        ],
-        compulsory: true
-    },
-    {   //11    Likert 4 Testing
-        type : 'likert4',
-        question : {
-            en : '4 Options testing',
-            si : 'ඔබ ඔබේ මවට කොතරම් සමීපද?',
-            ta : 'உங்கள் தாயிடம் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
-            dv : 'I have little control over things that happen to me.'
-        },
-        answers : [
-            {
-                en : 'answer1',
-                si : 'පිළිතුර1',
-                ta : 'பதில்1',
-                dv : 'answer1'
-            },
-            {
-                en : 'answer2',
-                si : 'පිළිතුර2',
-                ta : 'பதில்2',
-                dv : 'answer2'
-            },
-            {
-                en : 'answer3',
-                si : 'පිළිතුර3',
-                ta : 'பதில்3',
-                dv : 'answer3'
-            },
-            {
-                en : 'answer4',
-                si : 'පිළිතුර4',
-                ta : 'பதில்4',
-                dv : 'answer4'
-            },
-            {
-                en : 'answer5',
-                si : 'පිළිතුර5',
-                ta : 'பதில்5',
-                dv : 'answer5'
-            }
-        ],
-        compulsory: true
-    },
-    {   //12    Likert 7 Testing
-        type : 'likert7',
-        question : {
-            en : '7 Options testing',
-            si : 'ඔබ ඔබේ මවට කොතරම් සමීපද?',
-            ta : 'உங்கள் தாயிடம் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
-            dv : 'I have little control over things that happen to me.'
-        },
-        answers : [
-            {
-                en : 'answer1',
-                si : 'පිළිතුර1',
-                ta : 'பதில்1',
-                dv : 'answer1'
-            },
-            {
-                en : 'answer2',
-                si : 'පිළිතුර2',
-                ta : 'பதில்2',
-                dv : 'answer2'
-            },
-            {
-                en : 'answer3',
-                si : 'පිළිතුර3',
-                ta : 'பதில்3',
-                dv : 'answer3'
-            },
-            {
-                en : 'answer4',
-                si : 'පිළිතුර4',
-                ta : 'பதில்4',
-                dv : 'answer4'
-            },
-            {
-                en : 'answer5',
-                si : 'පිළිතුර5',
-                ta : 'பதில்5',
-                dv : 'answer5'
-            }
-        ],
-        compulsory: true
-    }
-]
+export const qArray = Questions;
 uiControl.setUiText()
-
-export let questionArray = [
-    /* Code snippet for question structure. Each object has a single question and a set of answers
-    {
-        type: 'mcq | joystick', //Type of the question, Can be used for changing UI
-        question: 'Question text', //Question text, which will be displayed on UI
-        answers: [ //Answers should be written in a meaningful order to be easy to calculate LOC(eg- Not Close being first and Very Close being last etc...)
-            'answer1',
-            'answer2'
-        ],
-        centerModelKey: 'modelKey', //If available
-        compulsory: true // is the question compulsory
-    } 
-    */
-    {
-        type: 'country', //Type of the question, Can be used for changing UI
-        question: 'In which country do you live ?', //Question text, which will be displayed on UI
-        compulsory: true
-    },
-    {
-        type: 'province', //Type of the question, Can be used for changing UI
-        question: 'In which area do you live ?', //Question text, which will be displayed on UI
-        compulsory: false
-    },
-    {
-        type: 'mcq', //Type of the question, Can be used for changing UI
-        question: 'How old are you ?', //Question text, which will be displayed on UI
-        answers: [ //Answers should be written in a meaningful order to be easy to calculate LOC(eg- Not Close being first and Very Close being last etc...)
-            'Under 18',
-            '18-25',
-            '26-35',
-            '35+',
-            'Prefer Not to Say'
-        ],
-        compulsory: false
-    },
-    {
-        type: 'mcq', //Type of the question, Can be used for changing UI
-        question: 'What is your gender ?', //Question text, which will be displayed on UI
-        answers: [ //Answers should be written in a meaningful order to be easy to calculate LOC(eg- Not Close being first and Very Close being last etc...)
-            'Man',
-            'Woman',
-            'Intersex',
-            'Non-binary',
-            'Other',
-            'Prefer not to Say'
-        ],
-        compulsory: false
-    },
-    {
-        type: 'joystick', //Type of the question, Can be used for changing UI
-        question: 'How close do you feel to your mother ?', //Question text, which will be displayed on UI
-        answers: [ //Answers should be written in a meaningful order to be easy to calculate LOC(eg- Not Close being first and Very Close being last etc...)
-            'answer1',
-            'answer2',
-            'answer3',
-            'answer4',
-            'answer5',
-            'answer6',
-            'answer7'
-        ],
-        centerModelKey:'centerCharacter',
-        compulsory: true
-    },
-    {
-        type: 'joystick', //Type of the question, Can be used for changing UI
-        question: 'How close do you feel to your father ?', //Question text, which will be displayed on UI
-        answers: [ //Answers should be written in a meaningful order to be easy to calculate LOC(eg- Not Close being first and Very Close being last etc...)
-            'answer1',
-            'answer2',
-            'answer3',
-            'answer4',
-            'answer5',
-            'answer6',
-            'answer7'
-        ],
-        centerModelKey:'centerCharacter',       //prev 'centerEmoji'
-        compulsory: true
-    }
-]
 
 export const numberOfQuestions = qArray.length
 uiControl.setSurveyProgressMax(numberOfQuestions)
@@ -1022,6 +83,9 @@ const maldivesCamera = scenes.maldivesCamera
 
 const sriLankaScene = scenes.sriLankaScene
 const sriLankaCamera = scenes.sriLankaCamera
+
+const stage3Scene = scenes.stage3Scene
+const stage3Camera = scenes.stage3Camera
 
 const submitScene = scenes.submitScene
 const submitCamera = scenes.submitCamera
@@ -1135,15 +199,16 @@ const playerNamesLang = {
 //Implement updating models/ environment in respect to the question
 export function loadQuestion(questionIndex){
     if(player == null){
-        player = assetLoader.getModel('playerCharacter');
-        playerName.innerText = playerNamesLang[langId];
-        sceneTransition.initializeData(player, joystickCamera, controls.getPlayerInitialPosition());
+        player = assetLoader.getModel('playerCharacter')
+        playerName.innerText = playerNamesLang[langId]
+        sceneTransition.initializeData(player, joystickCamera, controls.getPlayerInitialPosition())
     }
-    controls.disablePlayerControl();
-    characterText.hidden = true;
-    playerName.hidden = true;
+    controls.disablePlayerControl()
+    characterText.hidden = true
+    playerName.hidden = true
 
-    var UIUpdateNeeded = true;
+    var UIUpdateNeeded = true
+    const transitionCondition = prevQues == 'joystick' || prevQues == 'likert5' || prevQues == 'likert4' || prevQues == 'likert7'
     currentQuestion = qArray[questionIndex]
 
     if(currentQuestion){
@@ -1225,21 +290,21 @@ export function loadQuestion(questionIndex){
 
                 var slideDirection = questionIndex - qId;
                 var dir = slideDirection > 0 ? 'right' : 'left';
-                if(prevQues == 'joystick' || prevQues == 'likert5' || prevQues == 'likert4' || prevQues == 'likert7'){     //If previos scene is joystick scene, then scene has to fadeout first then fadein to other scene
+                if(transitionCondition){     //If previos scene is joystick scene, then scene has to fadeout first then fadein to other scene
                     UIUpdateNeeded = false;
                     fadeOutCurrentUI(prevQues);
 
                     sceneTransition.fadeOut(prevOtherModel, dir, function(){
                         setupJoystickScene(currentQuestion, player, questionIndex);
                         //updateSceneAndCamera(joystickScene, joystickCamera, true);
-                        sceneTransition.fadeIn(prevOtherModel, dir,true, null, controls.getPlayerInitialPosition().x);
+                        sceneTransition.fadeIn(prevOtherModel, dir,true, null, controls.getPlayerInitialPosition().x, joystickCamera);
                     });
                 }
                 else{
                     if(questionIndex != 3){     //questionIndex 3 is mother scene
                         setupJoystickScene(currentQuestion, player, questionIndex);
                         updateSceneAndCamera(joystickScene, joystickCamera);
-                        sceneTransition.fadeIn(prevOtherModel, dir,true, null, controls.getPlayerInitialPosition().x);
+                        sceneTransition.fadeIn(prevOtherModel, dir,true, null, controls.getPlayerInitialPosition().x, joystickCamera);
                     }
                     else{
                         setupJoystickScene(currentQuestion, player, questionIndex);
@@ -1251,7 +316,7 @@ export function loadQuestion(questionIndex){
             case 'likert5':
                 var slideDirection = questionIndex - qId;
                 var dir = slideDirection > 0 ? 'right' : 'left';
-                if(prevQues == 'joystick' || prevQues == 'likert5' || prevQues == 'likert4' || prevQues == 'likert7'){
+                if(transitionCondition){
                     UIUpdateNeeded = false;
                     fadeOutCurrentUI(prevQues);
 
@@ -1268,9 +333,12 @@ export function loadQuestion(questionIndex){
                         addModelToScene(joystickScene, player);
                         controls.setOtherCharacter(null, null, null);
                         uiControl.updateUI(questionType, questionText, answers);
-                        uiControl.setSurveyProgressMax(questionIndex);
+                        uiControl.setSurveyProgressValue(questionIndex);
+                        if(currentQuestion.options){
+                            uiControl.setLikert5Options(currentQuestion.options);
+                        }
 
-                        sceneTransition.fadeIn(prevOtherModel, dir,false, null, 0);
+                        sceneTransition.fadeIn(prevOtherModel, dir,false, null, 0, joystickCamera);
                     });
                 }
                 else{
@@ -1285,14 +353,17 @@ export function loadQuestion(questionIndex){
                     controls.disablePlayerControl();
                     addModelToScene(joystickScene, player);
                     controls.setOtherCharacter(null, null, null);
+                    if(currentQuestion.options){
+                        uiControl.setLikert5Options(currentQuestion.options);
+                    }
 
-                    sceneTransition.fadeIn(prevOtherModel, dir,false, null, 0);
+                    sceneTransition.fadeIn(prevOtherModel, dir,false, null, 0, joystickCamera);
                 }
                 break;
             case 'likert4':
                 var slideDirection = questionIndex - qId;
                 var dir = slideDirection > 0 ? 'right' : 'left';
-                if(prevQues == 'joystick' || prevQues == 'likert5' || prevQues == 'likert4' || prevQues == 'likert7'){
+                if(transitionCondition){
                     UIUpdateNeeded = false;
                     fadeOutCurrentUI(prevQues);
 
@@ -1309,9 +380,11 @@ export function loadQuestion(questionIndex){
                         addModelToScene(joystickScene, player);
                         controls.setOtherCharacter(null, null, null);
                         uiControl.updateUI(questionType, questionText, answers);
-                        uiControl.setSurveyProgressMax(questionIndex);
+                        uiControl.setSurveyProgressValue(questionIndex);
+                        if(currentQuestion.options)
+                            uiControl.setLikert4Options(currentQuestion.options);
 
-                        sceneTransition.fadeIn(prevOtherModel, dir,false, null, 0);
+                        sceneTransition.fadeIn(prevOtherModel, dir,false, null, 0,joystickCamera);
                     });
                 }
                 else{
@@ -1326,49 +399,55 @@ export function loadQuestion(questionIndex){
                     controls.disablePlayerControl();
                     addModelToScene(joystickScene, player);
                     controls.setOtherCharacter(null, null, null);
+                    if(currentQuestion.options)
+                        uiControl.setLikert4Options(currentQuestion.options);
 
-                    sceneTransition.fadeIn(prevOtherModel, dir,false, null, 0);
+                    sceneTransition.fadeIn(prevOtherModel, dir,false, null, 0,joystickCamera);
                 }
                 break;
             case 'likert7':
                 var slideDirection = questionIndex - qId;
                 var dir = slideDirection > 0 ? 'right' : 'left';
-                if(prevQues == 'joystick' || prevQues == 'likert5' || prevQues == 'likert4' || prevQues == 'likert7'){
+                if(transitionCondition){
                     UIUpdateNeeded = false;
                     fadeOutCurrentUI(prevQues);
 
-                    sceneTransition.fadeOut(prevOtherModel, dir, function(){
+                    sceneTransition.fadeOut(prevOtherModel, dir, function(){ 
                         scenes.resetCurrentSelectionScene();
                         removeModelsFromScene(joystickScene, models);
-                        updateSceneAndCamera(joystickScene, joystickCamera);
+                        updateSceneAndCamera(stage3Scene, stage3Camera);
                         if(currentCenterModel)
-                            joystickScene.remove(currentCenterModel);
+                        joystickScene.remove(currentCenterModel);
                         currentCenterModel = null;
                         player.position.set(0,-.6, 0);
                         player.rotation.set(0,0,0);
                         controls.disablePlayerControl();
-                        addModelToScene(joystickScene, player);
+                        addModelToScene(stage3Scene, player);
+                        
+                        const landModel = assetLoader.getModel('landstage3');
+                        addModelToScene(stage3Scene, landModel);
                         controls.setOtherCharacter(null, null, null);
                         uiControl.updateUI(questionType, questionText, answers);
-                        uiControl.setSurveyProgressMax(questionIndex);
-
-                        sceneTransition.fadeIn(prevOtherModel, dir,false, null, 0);
-                    });
+                        uiControl.setSurveyProgressValue(questionIndex);
+                        sceneTransition.fadeIn(prevOtherModel, dir,false, null, 0,stage3Camera);
+                    })
                 }
                 else{
                     scenes.resetCurrentSelectionScene();
                     removeModelsFromScene(joystickScene, models);
-                    updateSceneAndCamera(joystickScene, joystickCamera);
+                    updateSceneAndCamera(stage3Scene, stage3Camera);
                     if(currentCenterModel)
                         joystickScene.remove(currentCenterModel);
                     currentCenterModel = null;
                     player.position.set(0,-.6, 0);
                     player.rotation.set(0,0,0);
                     controls.disablePlayerControl();
-                    addModelToScene(joystickScene, player);
-                    controls.setOtherCharacter(null, null, null);
+                    addModelToScene(stage3Scene, player);
 
-                    sceneTransition.fadeIn(prevOtherModel, dir,false, null, 0);
+                    const landModel = assetLoader.getModel('landstage3');
+                    addModelToScene(stage3Scene, landModel);
+                    controls.setOtherCharacter(null, null, null);
+                    sceneTransition.fadeIn(prevOtherModel, dir,false, null, 0, stage3Camera);
                 }
                 break;
         }

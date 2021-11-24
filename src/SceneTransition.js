@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { getOtherCharacterInitialPosition, enablePlayerControl, playJumpStartAnimation, 
-    playJumpStopAnimation, playOnJumpAnimation, playIdleAnimation } from './character_controller/character_control';
+    playJumpStopAnimation, playOnJumpAnimation, playIdleAnimation, disablePlayerControl } from './character_controller/character_control';
 import { setUiText, sliderHolder, enableBackButton, disableBackButton, enableNextButton, disableNextButton, fadeOutSliderContainer } from './ui_controller/ui_controller';
 import { pointLight, joyDirLight } from './questions/scenes';
 import { FlatShading, MathUtils } from 'three';
@@ -83,7 +83,7 @@ export function initializeData(_player, _camera, _playerInitPos)
     //console.log("Player = " + playerCharacter.name + ", Other = " + otherCharacter.name + ", camera = " + mainCamera.name);
 }
 
-export function fadeIn(_otherModel, switchDirection, _canEnableControls, _callFunction, _targetXpos){
+export function fadeIn(_otherModel, switchDirection, _canEnableControls, _callFunction, _targetXpos, _camera){
     if(_otherModel){
         otherCharacter = _otherModel;
         otherPos = otherCharacter.position.clone();
@@ -93,7 +93,8 @@ export function fadeIn(_otherModel, switchDirection, _canEnableControls, _callFu
     transitionStyle = styleFadeIn;
     canEnableControls = _canEnableControls;
     flowDirection = switchDirection;
-    //needPlayerAdjustment = !_canEnableControls;
+    mainCamera = _camera;
+
     if(_targetXpos != null)
         targetXPosition = _targetXpos;
     else
@@ -130,6 +131,8 @@ export function fadeIn(_otherModel, switchDirection, _canEnableControls, _callFu
             child.castShadow = false;
         }
     });
+    disableBackButton();
+    disableNextButton();
     //jerkValue = takeOffFactor;
 }
 

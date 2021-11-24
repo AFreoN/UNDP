@@ -728,10 +728,12 @@ canvas.webgl{
     position: absolute;
     width: auto;
     height: 80px;
+    display: flex;  /* */
+    align-items: flex-end;  /* */
     overflow: hidden;
     left: 50%;
     padding-top: 10px;
-    transform: translate(-50%, -45px);
+    transform: translate(-50%, -85px);  /* -45px */
     font-size: 14px;
     text-align: center;
     color: white;
@@ -801,7 +803,7 @@ canvas.webgl{
     display: none;
   }
   form #likert5-slider input:checked + label::before {
-    font-weight: 800;
+    font-weight: 700;
     opacity: 1;
   }
   /* Radio button style while checked */
@@ -869,7 +871,7 @@ canvas.webgl{
 #likert4-wrapper {
     position: absolute;
     width: 100%;
-    top: 25vh;
+    top: 25vh;  /* 25vh */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -941,10 +943,12 @@ canvas.webgl{
     position: absolute;
     width: auto;
     height: 80px;
+    display: flex;
+    align-items: flex-end;
     overflow: hidden;
     left: 50%;
     padding-top: 10px;
-    transform: translate(-50%, -45px);
+    transform: translate(-50%, -85px);  /* -45px */
     font-size: 14px;
     text-align: center;
     color: white;
@@ -983,7 +987,7 @@ canvas.webgl{
     display: none;
   }
   form #likert4-slider input:checked + label::before {
-    font-weight: 800;
+    font-weight: 700;
     opacity: 1;
   }
   /* Radio button style while checked */
@@ -1024,12 +1028,12 @@ canvas.webgl{
   }
   /* Label Text while unchecked */
   form:valid #likert4-slider input + label::before {
-    transform: translate(-50%, -45px) scale(0.9);
+    transform: translate(-50%, -85px) scale(1);   /* -45px */
     transition: all 0.15s linear;
   }
   /* Label Text while on checked */
   form:valid #likert4-slider input:checked + label::before {
-    transform: translate(-50%, -45px) scale(1.1);
+    transform: translate(-50%, -93px) scale(1.1);   /* -45px */
     transition: all 0.15s linear;
   }
   
@@ -1145,13 +1149,13 @@ canvas.webgl{
     transition: all 0.15s ease-in-out;
   }
 /* #region Setting different circle size for each child */
-  form #likert7-slider #L7-strongly-disagree::after{
+  form #likert7-slider #Likert7_negativeThree::after{
     width: 28px;
     height: 28px;
     border-radius: 50%;
  }
 
- form #likert7-slider #L7-strongly-agree::after{
+ form #likert7-slider #Likert7_positiveThree::after{
     width: 28px;
     height: 28px;
     border-radius: 50%;
@@ -1196,7 +1200,7 @@ canvas.webgl{
     display: none;
   }
   form #likert7-slider input:checked + label::before {
-    font-weight: 800;
+    font-weight: 700;
     opacity: 1;
   }
   /* Radio button style while checked */
