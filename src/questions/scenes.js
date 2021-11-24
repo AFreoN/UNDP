@@ -394,6 +394,7 @@ export function resetMaldivesSelection(){
 
     hoveringMaldivesRegion = null
     selectedMaldivesRegion = null
+    uiControl.disableNextButton()
     
 }
 
@@ -467,6 +468,7 @@ function onMaldivesRegionClick(){
             selectedMaldivesRegion.regionMaterial.color = selectedMaldivesRegion.selectedColor
             const regionIndex = maldivesRegionBoxes.indexOf(selectedMaldivesRegion)
             // console.log(regionIndex);
+            uiControl.enableNextButton()
             uiControl.enableConfirmation(regionIndex)
             uiControl.setRegionName(selectedMaldivesRegion.name)
         }
@@ -501,6 +503,7 @@ function onMaldivesRegionTouch(event){
             setMeshAnimProperties(selectedMaldivesRegion,0,0.3)
             selectedMaldivesRegion.regionMaterial.color = selectedMaldivesRegion.selectedColor
             const regionIndex = maldivesRegionBoxes.indexOf(selectedMaldivesRegion)
+            uiControl.enableNextButton()
             uiControl.enableConfirmation(regionIndex)
             uiControl.setRegionName(selectedMaldivesRegion.name)
         }
@@ -563,6 +566,8 @@ export function resetSriLankaSelection(){
 
     hoveringSriLankaRegion = null
     selectedSriLankaRegion = null
+    
+    uiControl.disableNextButton()
 }
 
 var hoveringSriLankaRegion
@@ -642,6 +647,7 @@ function onSriLankaRegionClick(){
             setMeshAnimProperties(selectedSriLankaRegion,0.15,0.25)
             selectedSriLankaRegion.material = selectedSriLankaRegion.selectedMaterial
             const regionIndex = sriLankaRegions.indexOf(selectedSriLankaRegion)
+            uiControl.enableNextButton()
             uiControl.enableConfirmation(regionIndex)
             uiControl.setRegionName(selectedSriLankaRegion.name)
         }
@@ -676,6 +682,7 @@ function onSriLankaRegionTouch(event){
             selectedSriLankaRegion.material = selectedSriLankaRegion.selectedMaterial
             const regionIndex = sriLankaRegions.indexOf(selectedSriLankaRegion)
             // console.log(regionIndex);
+            uiControl.enableNextButton()
             uiControl.enableConfirmation(regionIndex)
             uiControl.setRegionName(selectedSriLankaRegion.name)
             // uiControl.hideRegionAnswerContainer(false)

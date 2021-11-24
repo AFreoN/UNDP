@@ -483,7 +483,9 @@ joystickSlider.oninput = function(){
 export function SetSliderFillerAndAnswer(){
     joystickSlideValue = joystickSlider.value;
     SetFiller(joystickSlideValue)
-    enableConfirmation(parseInt(joystickSlideValue))
+    let convertedValue = Math.round((parseInt(joystickSlideValue)+50)/14.2857) 
+    enableConfirmation(convertedValue)
+    console.log(`${(parseInt(joystickSlideValue)+50)} / 14.2857 = ${convertedValue}`);
 }
 
 
