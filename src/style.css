@@ -764,31 +764,31 @@ canvas.webgl{
     transition: all 0.15s ease-in-out;
   }
 /* #region Setting different circle size for each child */
-  form #likert5-slider #strongly-agree::after{
+  form #likert5-slider #likert5_negativeTwo::after{
     width: 25px;
     height: 25px;
     border-radius: 50%;
  }
 
- form #likert5-slider #strongly-disagree::after{
+ form #likert5-slider #likert5_positiveTwo::after{
     width: 25px;
     height: 25px;
     border-radius: 50%;
  }
 
- form #likert5-slider #disagree::after{
+ form #likert5-slider #likert5_negativeOne::after{
     width: 18px;
     height: 18px;
     border-radius: 50%;
  }
 
- form #likert5-slider #agree::after{
+ form #likert5-slider #likert5_positiveOne::after{
     width: 18px;
     height: 18px;
     border-radius: 50%;
  }
 
- form #likert5-slider #neutral::after{
+ form #likert5-slider #likert5_neutral::after{
     width: 15px;
     height: 15px;
     border-radius: 50%;
