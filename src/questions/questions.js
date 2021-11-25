@@ -126,7 +126,21 @@ window.addEventListener('resize', () =>
     // Update renderer
     renderer.setSize(sizes.width, sizes.height)
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+
+    document.getElementsByTagName('body')[0].style.height = window.innerHeight + "px" 
+    document.getElementsByTagName('html')[0].style.height = window.innerHeight + "px" 
+
+    console.log(window.innerHeight);
+    console.log(window.outerHeight);
+    console.log(document.getElementsByTagName('body')[0].clientHeight)
 })
+
+document.getElementsByTagName('body')[0].style.height = window.innerHeight + "px" 
+document.getElementsByTagName('html')[0].style.height = window.innerHeight + "px" 
+
+console.log(window.innerHeight);
+console.log(window.outerHeight);
+console.log(document.getElementsByTagName('body')[0].clientHeight)
 //
 //      end of Enabling responsiveness for 3D scene
 
