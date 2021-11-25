@@ -489,7 +489,7 @@ gltfloader.load(
             }
         });
 
-        //console.log(gltf)
+        // console.log(gltf)
         models['dif_language'] = model
         loadedPercentage += (1/numberOfAssets)
         loadingBar.animate(loadedPercentage)
@@ -677,7 +677,7 @@ gltfloader.load(
 
 //#region Loading province models
 gltfloader.load(
-    'New Sri Lankan Provinces.glb',
+    'srilanka_provinces_cartoon_map.glb',
     (gltf) =>
     {
         let model = gltf.scene
@@ -686,7 +686,7 @@ gltfloader.load(
 
         models['sriLankaProvincesMap'] = model
         
-        //console.log(models['sriLankaProvincesMap']);
+        // console.log(models['sriLankaProvincesMap']);
         //Setting up model for country selection
         // let countrySelectionModel = models['sriLankaProvincesMap'].clone(true)
         // countrySelectionModel.scale.set(0.35,0.35,0.35)
@@ -707,36 +707,62 @@ gltfloader.load(
 
         //Setting up model for region selection
         let regionSelectionModel = models['sriLankaProvincesMap'].clone(true) 
-        regionSelectionModel.scale.set(0.5,0.5,0.5)
-        regionSelectionModel.position.set(-0.5, 0, 0.5)
+        regionSelectionModel.scale.set(0.15,0.15,0.15)
+        regionSelectionModel.position.set(-5, 0, 0.5)
 
-        regionSelectionModel.children[10].castShadow = true
+        regionSelectionModel.children[9].castShadow = true
+        // console.log(regionSelectionModel);
         // console.log(regionSelectionModel);
         scenes.sriLankaScene.add(regionSelectionModel)
 
         //Setting up and filtering regions and setting up region state colors
         let sriLankaRegions = regionSelectionModel.children.slice() //Region references
-        sriLankaRegions.splice(9,2)//Removes sealine and provincial divider from regions references
-        sriLankaRegions.forEach(region => {
-            region.name = region.name.replaceAll('_',' ')
-            region.name = region.name + ' Province'
+        sriLankaRegions.splice(9,1)//Removes sealine and provincial divider from regions references
+        // console.log(sriLankaRegions);
+        // sriLankaRegions[0].position.y = 5
+        let sriLankanRegionsMeshes = sriLankaRegions.map((region) => {
 
-            region.standardMaterial = region.material.clone()//standard material
-            region.material = region.standardMaterial
+            const regionChildMesh = region.children[0]
 
-            region.hoveringMaterial = region.material.clone()//hovering material
-            region.hoveringMaterial.color = new THREE.Color( 0xff0000 )
-
-            region.selectedMaterial = region.material.clone()//selected material
-            region.selectedMaterial.color = new THREE.Color( 0x0000ff )
+            regionChildMesh.name = region.name.replaceAll('_',' ')
+            regionChildMesh.name = regionChildMesh.name + ' Province'
 
 
+            // console.log(regionChildMesh)
+
+            regionChildMesh.regionMaterial = regionChildMesh.material.clone()//standard material
+            regionChildMesh.regionMaterial.needsUpdate = true
+            // console.log(regionChildMesh.regionMaterial);
+            regionChildMesh.material = regionChildMesh.regionMaterial
+            // console.log(regionChildMesh.material);
+
+            regionChildMesh.standardMap = new THREE.TextureLoader().load('sri_lanka_provinces_standard.png')
+            regionChildMesh.standardMap.needsUpdate = true
+            regionChildMesh.standardMap.flipY = false
+            regionChildMesh.regionMaterial.map = regionChildMesh.standardMap
+
+            regionChildMesh.hoveringMap =  new THREE.TextureLoader().load('sri_lanka_provinces_hovering.png')
+            regionChildMesh.hoveringMap.needsUpdate = true
+            regionChildMesh.hoveringMap.flipY = false
+            
+            regionChildMesh.selectedMap = new THREE.TextureLoader().load('sri_lanka_provinces_selected.png')
+            regionChildMesh.selectedMap.needsUpdate = true
+            regionChildMesh.selectedMap.flipY = false
+            
+            // region.hoveringMaterial = region.material.clone()//hovering material
+            // region.hoveringMaterial.color = new THREE.Color( 0xff0000 )
+
+            // region.selectedMaterial = region.material.clone()//selected material
+            // region.selectedMaterial.color = new THREE.Color( 0x0000ff )
+
+            return regionChildMesh
         });
+        // console.log(sriLankanRegionsMeshes);
 
-        model.castShadow = true
-        model.receiveShadow = true
+        // model.castShadow = true
+        // model.receiveShadow = true
 
-        scenes.setSriLankaRegions(sriLankaRegions)
+        scenes.setSriLankaRegions(sriLankanRegionsMeshes)
 
         loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
         loadingBar.animate(loadedPercentage) // animate the progress bar
@@ -748,15 +774,17 @@ gltfloader.load(
 )
 
 gltfloader.load(
-    'Maldives provinces.glb',
+    'maldives_provinces_cartoon_map.glb',
     (gltf) =>
     {
         let model = gltf.scene
-        model.scale.set(0.38,0.38,0.38)
+        // model.scale.set(0.38,0.38,0.38)
+        // model.scale.set(0.3,0.3,0.3)
         model.position.set(0, 0, 0)
 
         models['maldivesProvincesMap'] = model
-        
+        console.log(model);
+        // console.log(model);
         //Setting up model for country selection
         // let countrySelectionModel = models['maldivesProvincesMap'].clone(true)
         // countrySelectionModel.scale.set(0.2,0.2,0.2)
@@ -771,43 +799,69 @@ gltfloader.load(
         // scenes.maldivesCube.hoveringColor = new THREE.Color( 0xff0000 )//hovering color
         // scenes.maldivesCube.selectedColor = new THREE.Color( 0x0000ff )//selected color
 
+        //Uncomment From here -----------------------------------------------------------
         //Setting up model for region selection
         let regionSelectionModel = models['maldivesProvincesMap'].clone(true) 
-        regionSelectionModel.children[4].castShadow = true
+        // regionSelectionModel.scale.set(0.15,0.15,0.15)
+        // regionSelectionModel.scale.set(0.1,0.1,0.1)
+        regionSelectionModel.scale.set(0.38,0.38,0.38)
+        regionSelectionModel.children[0].castShadow = true
         scenes.maldivesScene.add(regionSelectionModel)
+        // console.log(regionSelectionModel);
+
 
         //Setting up and filtering regions and setting up region state colors
         let maldivesRegions = regionSelectionModel.children.slice() //Region references
-        maldivesRegions.splice(4,1)//Removes sealine from regions references
-        
+        let base = maldivesRegions.splice(0,1)//Removes sealine from regions references
+        // base.position.y = -0.5
+        console.log(regionSelectionModel);
+        console.log(maldivesRegions);
 
         for (let i = 0; i < maldivesRegions.length; i++) {
             const region = maldivesRegions[i];
+            
+
             region.name = region.name.replaceAll('_',' ')
+            region.name = region.name + ' Province'
+
+            // scenes.maldivesRegionBoxes[i].position.y = i * -5   
             scenes.maldivesRegionBoxes[i].name = region.name
-            scenes.maldivesRegionBoxes[i].position.copy(region.position)
+            scenes.maldivesRegionBoxes[i].position.copy( region.position )
+
+            console.log(region.position);
+            console.log(regionSelectionModel.position);
+            const worldPos = new THREE.Vector3()
+            region.getWorldPosition(worldPos)
+            // console.log(region.localToWorld(region.position));
+            console.log(worldPos);
+            // console.log(worldPos.multiplyScalar(1.9));
+            // scenes.maldivesRegionBoxes[i].position.copy( worldPos )
 
             // scenes.maldivesRegionBoxes[i].add(region)
             // region.position.set(0,0,0)
+            // region.scale.set(0.3,0.3,0.3)
+
+            // console.log(region.position);
+            // console.log(scenes.maldivesRegionBoxes[i].position);
 
 
-            // region.standardMaterial = region.material.clone()//standard material
-            // region.material = region.standardMaterial
+            // region.standardMaterial = region.children[0].material.clone()//standard material
+            // console.log(region.standardMaterial);
+            // region.children[0].material = region.standardMaterial
 
-            scenes.maldivesRegionBoxes[i].regionMaterial = region.material.clone()
+            scenes.maldivesRegionBoxes[i].regionMaterial = region.children[0].material.clone()
             scenes.maldivesRegionBoxes[i].regionPosition = region.position
-            region.material = scenes.maldivesRegionBoxes[i].regionMaterial
+            region.children[0].material = scenes.maldivesRegionBoxes[i].regionMaterial
 
             scenes.maldivesRegionBoxes[i].standardColor = scenes.maldivesRegionBoxes[i].regionMaterial.color
-            scenes.maldivesRegionBoxes[i].hoveringColor = new THREE.Color( 0xff0000 )
-
-            scenes.maldivesRegionBoxes[i].selectedColor = new THREE.Color( 0x0000ff )
+            scenes.maldivesRegionBoxes[i].hoveringColor = new THREE.Color( 0x7bbbf7 )
+            scenes.maldivesRegionBoxes[i].selectedColor = new THREE.Color( 0x3c5fff )
             
         }
         
 
-        model.castShadow = true
-        model.receiveShadow = true
+        // model.castShadow = true
+        // model.receiveShadow = true
 
         // scenes.setMaldivesRegions(maldivesRegions)
 
