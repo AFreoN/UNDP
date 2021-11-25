@@ -1602,7 +1602,7 @@ transform: translate(-50%,-50%);
 
 .submit-title-text-container{
     color: white;
-    font-weight: 300;
+    font-weight: 600;
     font-family: 'Rubik',sans-serif;
     font-size: 2em;
     width: 100%;
@@ -1659,7 +1659,7 @@ transform: translate(-50%,-50%);
 
 .results-header-container{
     color: white;
-    font-weight: 350;
+    font-weight: 600;
     font-family: 'Rubik',sans-serif;
     font-size: 2em;
     width: 100%;
