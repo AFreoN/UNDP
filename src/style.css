@@ -1639,11 +1639,8 @@ transform: translate(-50%,-50%);
     color: white;
     font-weight: 600;
     font-family: 'Rubik',sans-serif;
-<<<<<<< HEAD
     font-size: calc(1.5em + 1.5vw);
-=======
-    font-size: 2em;
->>>>>>> bc667c0a5cde61f8dd7547a68ad1dc8f3ebe2e39
+    /* font-size: 2em; */
     width: 100%;
     text-shadow: black 0 0 50px;
 }
@@ -1708,15 +1705,12 @@ transform: translate(-50%,-50%);
     color: white;
     font-weight: 600;
     font-family: 'Rubik',sans-serif;
-<<<<<<< HEAD
     /* font-size: 3em; */
     width: 100%;
     font-size: calc(1.5em + 1.5vw);
-=======
-    font-size: 2em;
+    /* font-size: 2em; */
     width: 100%;
     text-shadow:  black 0 0 50px;
->>>>>>> bc667c0a5cde61f8dd7547a68ad1dc8f3ebe2e39
 }
 
 .results-subtext-container{
@@ -1726,11 +1720,8 @@ transform: translate(-50%,-50%);
     font-family: 'Rubik',sans-serif;
     /* font-size: 1em; */
     width: 100%;
-<<<<<<< HEAD
     font-size: calc(0.7em + 0.5vw);
-=======
     text-shadow:  black 0 0 50px;
->>>>>>> bc667c0a5cde61f8dd7547a68ad1dc8f3ebe2e39
 }
 
 .results-footer-container{
