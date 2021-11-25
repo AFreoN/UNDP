@@ -440,9 +440,10 @@ let joystickAnswerContainer = document.getElementById('joystick-answer-container
 let countryAnswerContainer = document.getElementById('country-answer-container')
 let regionAnswerContainer = document.getElementById('region-answer-container')
 let joystickTutorialContainer = document.getElementById('joystick-tutorial-frame')
-let likert5Container = document.getElementById('likert5-wrapper');
-let likert4Container = document.getElementById('likert4-wrapper');
-let likert7Container = document.getElementById('likert7-wrapper');
+let likert5Container = document.getElementById('likert5-wrapper')
+let likert4Container = document.getElementById('likert4-wrapper')
+let likert7Container = document.getElementById('likert7-wrapper')
+let resultTitle = document.getElementById('results-header-container')
 joystickTutorialContainer.hidden = true
 
 let surveyProgressBar = document.getElementById("survey-progress-bar");
@@ -450,7 +451,8 @@ let surveyProgressBar = document.getElementById("survey-progress-bar");
 const agrees = document.getElementsByName('likert5-checker');
 agrees.forEach(buttons => {
     buttons.addEventListener('change', function(event){
-        enableConfirmation(event.target.value);
+        main.saveCurrentAnswer(event.target.value)
+        enableConfirmation(event.target.value)
         //console.log("Agree value = ", event.target.value);
     })
 });
@@ -458,7 +460,8 @@ agrees.forEach(buttons => {
 const agrees4 = document.getElementsByName('likert4-checker');
 agrees4.forEach(buttons => {
     buttons.addEventListener('change', function(event){
-        enableConfirmation(event.target.value);
+        main.saveCurrentAnswer(event.target.value)
+        enableConfirmation(event.target.value)
         //console.log("Agree value = ", event.target.value);
     })
 });
@@ -466,7 +469,8 @@ agrees4.forEach(buttons => {
 const agrees7 = document.getElementsByName('likert7-checker');
 agrees7.forEach(buttons => {
     buttons.addEventListener('change', function(event){
-        enableConfirmation(event.target.value);
+        main.saveCurrentAnswer(event.target.value)
+        enableConfirmation(event.target.value)
         //console.log("Agree value = ", event.target.value);
     })
 });
@@ -624,14 +628,34 @@ let allTexts = {
         si : 'එකඟයි',
         ta : 'ஒப்புக்கொள்கிறேன்',
         dv : 'Strongly Agree'
-    }
-
+    },
+    resultTitle : [
+        {
+            en : 'You are the Change Seeker or You are the Palm Reader',
+            si : 'ඔබ තමයි වෙනස්කම් නිර්මාණය කරන්නා  or ඔබ තමයි අනාගතය දකින්නා',
+            ta : 'நீங்கள்தான் ஒரு மாற்றத்தை உருவாக்குபவர்  or நீங்கள்தான் எதிர்காலத்தை கணிக்கக்கூடியவர்',
+            dv : ''
+        },
+        {
+            en : 'You are the Map Maker',
+            si : 'ඔබ තමයි සිතියම් සකසන්නා ',
+            ta : 'நீங்கள்தான் ஒரு வரைபட வகுப்பாளர்',
+            dv : ''
+        },
+        {
+            en : 'You are the Adventurer',
+            si : 'ඔබ තමයි සූරයා',
+            ta : 'நீங்கள்தான் ஒரு விநோத விரும்பி ',
+            dv : ''
+        }
+    ]
 }
 
 // let paginationDisplayText = document.getElementById('pagination-part-displaytext');
 let otherRegionText = document.getElementById('country-skip-button');
 let sliderDistantText = document.getElementById('slidertext-distant');
 let sliderCloseText = document.getElementById('slidertext-close');
+
 let likert5_negativeTwo_Text = document.getElementById('likert5_negativeTwo');
 let likert5_positiveTwo_Text = document.getElementById('likert5_positiveTwo');
 
@@ -654,6 +678,11 @@ export function setUiText(){
     resultsMoreButton.innerText = allTexts.resultsMoreButtonText[langId]
     likert5_negativeTwo_Text.setAttribute("likert-scale-value", allTexts.stronglyDisagree[langId]);
     likert5_positiveTwo_Text.setAttribute("likert-scale-value", allTexts.stronlgyAgree[langId]);
+}
+
+export function updateResultTitle(lod){
+    console.log("Result update called");
+    resultTitle.innerText = allTexts.resultTitle[parseInt(lod)][langId];
 }
 
 export function setLikert5Options(options){
@@ -685,6 +714,11 @@ export function disableQuestionControl(){
 export function enableConfirmation(selectedAnswer){
     canConfirmAnswer = true
     selectedAnswerIndex = selectedAnswer
+
+    if(currentQuestionType){
+        if(currentQuestionType == 'likert4' || currentQuestionType == 'likert5' || currentQuestionType == 'likert7')
+            enableNextButton()
+    }
 }
 
 export function disableConfirmation(){
@@ -701,6 +735,11 @@ export function disableBackButton(){
 }
 
 export function enableNextButton(){
+    if(currentQuestionType){
+        const stageScenes = currentQuestionType == 'likert5' || currentQuestionType == 'likert4' || currentQuestionType == 'likert7'
+        if(stageScenes && main.confirmedAnswers[main.questionIndex] == null)
+            return;
+    }
     nextButton.disabled = false
 }
 
@@ -1118,9 +1157,10 @@ genderScrollContainer.addEventListener('mousedown',mouseDownHandler)
 ageScrollContainer.addEventListener('mousedown',mouseDownHandler)
 vidQuestionScrollContainer.addEventListener('mousedown',mouseDownHandler)
 
+let currentQuestionType;
 //Changes UI in respect to question type, sets the question text, and answers
 export function updateUI(questionType, questionText, answers){
-
+    currentQuestionType = questionType;
     if(questionType == 'joystick' || questionType == 'likert5' || questionType == 'likert4' || questionType == 'likert7'){
         document.body.style.background = sliderSceneBackground;
     }
@@ -1131,9 +1171,9 @@ export function updateUI(questionType, questionText, answers){
     questionContainer.style.display = ''
     questionContainer.innerText= questionText
     //#region For Question Change Animation
-    questionContainer.style.animation = 'none'
-    questionContainer.offsetHeight;     //Resets animation
-    questionContainer.style.animation = null
+    // questionContainer.style.animation = 'none'
+    // questionContainer.offsetHeight;     //Resets animation
+    // questionContainer.style.animation = null
     //#endregion
 
     switch(questionType){
@@ -1280,7 +1320,7 @@ export function updateUI(questionType, questionText, answers){
             likert4Container.style.display = 'none'
             likert7Container.style.display = 'none'
             FadeInLiker5()
-            enableConfirmation(0)
+            //enableConfirmation(0)
             break;
         case 'likert4':
             aboutAnswerContainer.style.display = 'none'
@@ -1296,7 +1336,7 @@ export function updateUI(questionType, questionText, answers){
             likert4Container.style.display = ''
             likert7Container.style.display = 'none'
             FadeInLikert4()
-            enableConfirmation(0)
+            //enableConfirmation(0)
             break;
         case 'likert7':
             aboutAnswerContainer.style.display = 'none'
@@ -1312,7 +1352,7 @@ export function updateUI(questionType, questionText, answers){
             likert4Container.style.display = 'none'
             likert7Container.style.display = ''
             FadeInLikert7()
-            enableConfirmation(0)
+            //enableConfirmation(0)
             break;
     }
 }

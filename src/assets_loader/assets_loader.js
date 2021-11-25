@@ -367,7 +367,7 @@ gltfloader.load(
         animations['father'] = gltf.animations
         let model = gltf.scene
         model.name = 'father'
-        model.scale.set(0.045,0.045,0.045)     //prev (0.04,0.04,0.04)
+        model.scale.set(0.045,0.045,0.045)     //prev (0.04,0.04,0.04) = player size
         model.position.set(0,-.6, 0)
 
         //

@@ -3,11 +3,13 @@ import * as assetLoader from '../assets_loader/assets_loader'
 import * as controls from '../character_controller/character_control'
 import * as uiControl from '../ui_controller/ui_controller'
 import * as scenes from './scenes'
-import {getSelectedCountry} from '../script'
+import {getSelectedCountry, confirmedAnswers} from '../script'
 import { Camera, MathUtils } from 'three'
 import * as sceneTransition from '../SceneTransition'
 import { clamp } from 'three/src/math/mathutils'
 import { Questions } from './QuestionArray'
+import * as answerUpdater from '../ui_controller/answerUIupdater'
+import * as stage3Transition from '../ui_controller/stage3Transition'
 
 //import main from 'progressbar.js'
 //import * as mainScript from '../script.js'
@@ -222,7 +224,7 @@ export function loadQuestion(questionIndex){
     playerName.hidden = true
 
     var UIUpdateNeeded = true
-    const transitionCondition = prevQues == 'joystick' || prevQues == 'likert5' || prevQues == 'likert4' || prevQues == 'likert7'
+    const transitionCondition = prevQues == 'joystick' || prevQues == 'likert5' || prevQues == 'likert4'// || prevQues == 'likert7'
     currentQuestion = qArray[questionIndex]
 
     if(currentQuestion){
@@ -348,6 +350,7 @@ export function loadQuestion(questionIndex){
                         controls.setOtherCharacter(null, null, null);
                         uiControl.updateUI(questionType, questionText, answers);
                         uiControl.setSurveyProgressValue(questionIndex);
+                        answerUpdater.updateLikert5(confirmedAnswers[questionIndex])
                         if(currentQuestion.options){
                             uiControl.setLikert5Options(currentQuestion.options);
                         }
@@ -367,6 +370,7 @@ export function loadQuestion(questionIndex){
                     controls.disablePlayerControl();
                     addModelToScene(joystickScene, player);
                     controls.setOtherCharacter(null, null, null);
+                    answerUpdater.updateLikert5(confirmedAnswers[questionIndex])
                     if(currentQuestion.options){
                         uiControl.setLikert5Options(currentQuestion.options);
                     }
@@ -395,6 +399,7 @@ export function loadQuestion(questionIndex){
                         controls.setOtherCharacter(null, null, null);
                         uiControl.updateUI(questionType, questionText, answers);
                         uiControl.setSurveyProgressValue(questionIndex);
+                        answerUpdater.updateLikert4(confirmedAnswers[questionIndex])
                         if(currentQuestion.options)
                             uiControl.setLikert4Options(currentQuestion.options);
 
@@ -413,6 +418,7 @@ export function loadQuestion(questionIndex){
                     controls.disablePlayerControl();
                     addModelToScene(joystickScene, player);
                     controls.setOtherCharacter(null, null, null);
+                    answerUpdater.updateLikert4(confirmedAnswers[questionIndex])
                     if(currentQuestion.options)
                         uiControl.setLikert4Options(currentQuestion.options);
 
@@ -420,33 +426,60 @@ export function loadQuestion(questionIndex){
                 }
                 break;
             case 'likert7':
+                //#region Old Code with scene transition
+                // var slideDirection = questionIndex - qId;
+                // var dir = slideDirection > 0 ? 'right' : 'left';
+                // if(transitionCondition){
+                //     UIUpdateNeeded = false;
+                //     fadeOutCurrentUI(prevQues);
+
+                //     sceneTransition.fadeOut(prevOtherModel, dir, function(){ 
+                //         scenes.resetCurrentSelectionScene();
+                //         removeModelsFromScene(joystickScene, models);
+                //         updateSceneAndCamera(stage3Scene, stage3Camera);
+                //         if(currentCenterModel)
+                //         joystickScene.remove(currentCenterModel);
+                //         currentCenterModel = null;
+                //         player.position.set(0,-.6, 0);
+                //         player.rotation.set(0,0,0);
+                //         controls.disablePlayerControl();
+                //         addModelToScene(stage3Scene, player);
+                        
+                //         const landModel = assetLoader.getModel('landstage3');
+                //         addModelToScene(stage3Scene, landModel);
+                //         controls.setOtherCharacter(null, null, null);
+                //         uiControl.updateUI(questionType, questionText, answers);
+                //         uiControl.setSurveyProgressValue(questionIndex);
+                //         answerUpdater.updateLikert7(confirmedAnswers[questionIndex])
+                //         sceneTransition.fadeIn(prevOtherModel, dir,false, null, 0,stage3Camera);
+                //     })
+                // }
+                // else{
+                //     scenes.resetCurrentSelectionScene();
+                //     removeModelsFromScene(joystickScene, models);
+                //     updateSceneAndCamera(stage3Scene, stage3Camera);
+                //     if(currentCenterModel)
+                //         joystickScene.remove(currentCenterModel);
+                //     currentCenterModel = null;
+                //     player.position.set(0,-.6, 0);
+                //     player.rotation.set(0,0,0);
+                //     controls.disablePlayerControl();
+                //     addModelToScene(stage3Scene, player);
+
+                //     const landModel = assetLoader.getModel('landstage3');
+                //     addModelToScene(stage3Scene, landModel);
+                //     controls.setOtherCharacter(null, null, null);
+                //     answerUpdater.updateLikert7(confirmedAnswers[questionIndex])
+                //     sceneTransition.fadeIn(prevOtherModel, dir,false, null, 0, stage3Camera);
+                // }
+                //#endregion
                 var slideDirection = questionIndex - qId;
                 var dir = slideDirection > 0 ? 'right' : 'left';
-                if(transitionCondition){
-                    UIUpdateNeeded = false;
-                    fadeOutCurrentUI(prevQues);
+                fadeOutCurrentUI(prevQues);
+                if(prevQues != 'likert7'){
+                    UIUpdateNeeded = true;
+                    console.log("Likert 7")
 
-                    sceneTransition.fadeOut(prevOtherModel, dir, function(){ 
-                        scenes.resetCurrentSelectionScene();
-                        removeModelsFromScene(joystickScene, models);
-                        updateSceneAndCamera(stage3Scene, stage3Camera);
-                        if(currentCenterModel)
-                        joystickScene.remove(currentCenterModel);
-                        currentCenterModel = null;
-                        player.position.set(0,-.6, 0);
-                        player.rotation.set(0,0,0);
-                        controls.disablePlayerControl();
-                        addModelToScene(stage3Scene, player);
-                        
-                        const landModel = assetLoader.getModel('landstage3');
-                        addModelToScene(stage3Scene, landModel);
-                        controls.setOtherCharacter(null, null, null);
-                        uiControl.updateUI(questionType, questionText, answers);
-                        uiControl.setSurveyProgressValue(questionIndex);
-                        sceneTransition.fadeIn(prevOtherModel, dir,false, null, 0,stage3Camera);
-                    })
-                }
-                else{
                     scenes.resetCurrentSelectionScene();
                     removeModelsFromScene(joystickScene, models);
                     updateSceneAndCamera(stage3Scene, stage3Camera);
@@ -457,11 +490,51 @@ export function loadQuestion(questionIndex){
                     player.rotation.set(0,0,0);
                     controls.disablePlayerControl();
                     addModelToScene(stage3Scene, player);
-
+                    
                     const landModel = assetLoader.getModel('landstage3');
-                    addModelToScene(stage3Scene, landModel);
+                    if(questionIndex < 36){
+                        addModelToScene(stage3Scene, landModel);
+                        stage3Scene.getObjectByName('floor').position.set(0,-0.72,0);
+                    }
+                    else{
+                        stage3Scene.remove(landModel);
+                        stage3Scene.getObjectByName('floor').position.set(0,-0.6,0);
+                    }
                     controls.setOtherCharacter(null, null, null);
-                    sceneTransition.fadeIn(prevOtherModel, dir,false, null, 0, stage3Camera);
+                    //uiControl.updateUI(questionType, questionText, answers);
+                    //uiControl.setSurveyProgressValue(questionIndex);
+                    answerUpdater.updateLikert7(confirmedAnswers[questionIndex])
+                    stage3Transition.startFadeIn()
+                }
+                else{
+                    UIUpdateNeeded = false;
+                    stage3Transition.startFadeOut(function(){
+
+                        scenes.resetCurrentSelectionScene();
+                        removeModelsFromScene(joystickScene, models);
+                        updateSceneAndCamera(stage3Scene, stage3Camera);
+                        if(currentCenterModel)
+                            joystickScene.remove(currentCenterModel);
+                        currentCenterModel = null;
+                        player.position.set(0,-.6, 0);
+                        player.rotation.set(0,0,0);
+                        controls.disablePlayerControl();
+                        addModelToScene(stage3Scene, player);
+                        
+                        const landModel = assetLoader.getModel('landstage3');
+                        if(questionIndex < 36){
+                            addModelToScene(stage3Scene, landModel);
+                            stage3Scene.getObjectByName('floor').position.set(0,-0.72,0);
+                        }
+                        else{
+                            stage3Scene.remove(landModel);
+                            stage3Scene.getObjectByName('floor').position.set(0,-0.6,0);
+                        }
+                        controls.setOtherCharacter(null, null, null);
+                        uiControl.updateUI(questionType, questionText, answers);
+                        uiControl.setSurveyProgressValue(questionIndex);
+                        answerUpdater.updateLikert7(confirmedAnswers[questionIndex])
+                    })
                 }
                 break;
         }
