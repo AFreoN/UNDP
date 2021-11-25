@@ -783,7 +783,7 @@ gltfloader.load(
         model.position.set(0, 0, 0)
 
         models['maldivesProvincesMap'] = model
-        console.log(model);
+        // console.log(model);
         // console.log(model);
         //Setting up model for country selection
         // let countrySelectionModel = models['maldivesProvincesMap'].clone(true)
@@ -814,8 +814,8 @@ gltfloader.load(
         let maldivesRegions = regionSelectionModel.children.slice() //Region references
         let base = maldivesRegions.splice(0,1)//Removes sealine from regions references
         // base.position.y = -0.5
-        console.log(regionSelectionModel);
-        console.log(maldivesRegions);
+        // console.log(regionSelectionModel);
+        // console.log(maldivesRegions);
 
         for (let i = 0; i < maldivesRegions.length; i++) {
             const region = maldivesRegions[i];
@@ -828,12 +828,12 @@ gltfloader.load(
             scenes.maldivesRegionBoxes[i].name = region.name
             scenes.maldivesRegionBoxes[i].position.copy( region.position )
 
-            console.log(region.position);
-            console.log(regionSelectionModel.position);
+            // console.log(region.position);
+            // console.log(regionSelectionModel.position);
             const worldPos = new THREE.Vector3()
             region.getWorldPosition(worldPos)
             // console.log(region.localToWorld(region.position));
-            console.log(worldPos);
+            // console.log(worldPos);
             // console.log(worldPos.multiplyScalar(1.9));
             // scenes.maldivesRegionBoxes[i].position.copy( worldPos )
 

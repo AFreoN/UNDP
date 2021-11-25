@@ -61,33 +61,52 @@ let languageItems = document.getElementsByClassName('scroll-item-language')
 let languageFirstChildItem = languageItems[0]
 let languageLastChildItem = languageItems[languageItems.length - 1]
 
+let languageItemOffset
+function languageCalculateMargins(){
+    let languageMiddleChildrenMargin = ((languageScrollContainer.offsetHeight/2) - languageFirstChildItem.offsetHeight * 4)/3
 
-let languageMiddleChildrenMargin = ((languageScrollContainer.offsetHeight/2) - languageFirstChildItem.offsetHeight * 4)/3
+    // languageSelectorContainer.style.height = languageScrollContainer.clientHeight + 'px'
+    
+    for (let i = 0; i < languageItems.length; i++) {
+        const item = languageItems[i];
+        item.style.marginTop = languageMiddleChildrenMargin + "px"
+        resetLanguageItemStyle(item)
+    }
+    
+    let languageEndChildrenMargin = (languageScrollContainer.clientHeight/2) - (languageFirstChildItem.offsetHeight/2)
+    // console.log(`${languageScrollContainer.offsetHeight} /2 = ${languageScrollContainer.offsetHeight/2}` );
+    // console.log( `${languageFirstChildItem.offsetHeight} *4 = ${languageFirstChildItem.offsetHeight*4}` );
+    // console.log(languageMiddleChildrenMargin);
+    
+    
+    languageFirstChildItem.style.marginTop = languageEndChildrenMargin + "px"
+    languageLastChildItem.style.marginBottom = languageEndChildrenMargin + "px"
+    
+    let languageSelectionIndicatorMargin = (languageScrollContainer.clientHeight/2) - (languageSelectionIndicator.offsetHeight/2)
+    // languageSelectionIndicator.style.marginTop = languageSelectionIndicatorMargin + "px"
+    // console.log(`${languageScrollContainer.clientHeight} /2 = ${languageScrollContainer.clientHeight/2}` );
+    // console.log( `${languageSelectionIndicator.offsetHeight} /2 = ${languageSelectionIndicator.offsetHeight/2}` );
+    // console.log(languageSelectionIndicatorMargin);
+    
+    languageItemOffset = languageMiddleChildrenMargin + languageFirstChildItem.offsetHeight
 
-// languageSelectorContainer.style.height = languageScrollContainer.clientHeight + 'px'
+    for (let i = 0; i < languageItems.length; i++) {
+        const item = languageItems[i];
+        resetLanguageItemStyle(item)
+    }
 
-for (let i = 0; i < languageItems.length; i++) {
-    const item = languageItems[i];
-    item.style.marginTop = languageMiddleChildrenMargin + "px"
-    resetLanguageItemStyle(item)
+    setLanguageSelectedStyle(languageItems[0])
+    setLanguageNearestStyle(languageItems[1])
+
+    languageScrollContainer.scroll({
+        top:0,
+        behavior:'smooth'
+    })
+
+
 }
 
-let languageEndChildrenMargin = (languageScrollContainer.clientHeight/2) - (languageFirstChildItem.offsetHeight/2)
-// console.log(`${languageScrollContainer.offsetHeight} /2 = ${languageScrollContainer.offsetHeight/2}` );
-// console.log( `${languageFirstChildItem.offsetHeight} *4 = ${languageFirstChildItem.offsetHeight*4}` );
-// console.log(languageMiddleChildrenMargin);
-
-
-languageFirstChildItem.style.marginTop = languageEndChildrenMargin + "px"
-languageLastChildItem.style.marginBottom = languageEndChildrenMargin + "px"
-
-let languageSelectionIndicatorMargin = (languageScrollContainer.clientHeight/2) - (languageSelectionIndicator.offsetHeight/2)
-// languageSelectionIndicator.style.marginTop = languageSelectionIndicatorMargin + "px"
-// console.log(`${languageScrollContainer.clientHeight} /2 = ${languageScrollContainer.clientHeight/2}` );
-// console.log( `${languageSelectionIndicator.offsetHeight} /2 = ${languageSelectionIndicator.offsetHeight/2}` );
-// console.log(languageSelectionIndicatorMargin);
-
-const languageItemOffset = languageMiddleChildrenMargin + languageFirstChildItem.offsetHeight 
+languageCalculateMargins()
 
 let languageCurrentItemIndex = 0
 let languageSelectedItem = languageItems[languageCurrentItemIndex]
@@ -177,6 +196,7 @@ function updateAspectLanguageUI(){
 window.addEventListener('load',updateAspectLanguageUI)
 
 window.addEventListener('resize',updateAspectLanguageUI)
+window.addEventListener('resize',languageCalculateMargins)
 
 // export function addLangugageButtonEvents(){
 //     // englishText.addEventListener('click', languageSelected('en'));
@@ -248,33 +268,50 @@ let vidQuestionItems = document.getElementsByClassName('scroll-item-video-questi
 let vidQuestionFirstChildItem = vidQuestionItems[0]
 let vidQuestionLastChildItem = vidQuestionItems[vidQuestionItems.length - 1]
 
+let vidQuestionItemOffset 
+function vidQuestionCalculateMargins(){
+    let vidQuestionMiddleChildrenMargin = ((vidQuestionScrollContainer.offsetHeight/2) - vidQuestionFirstChildItem.offsetHeight * 3)
 
-let vidQuestionMiddleChildrenMargin = ((vidQuestionScrollContainer.offsetHeight/2) - vidQuestionFirstChildItem.offsetHeight * 3)
+    // vidQuestionSelectorContainer.style.height = vidQuestionScrollContainer.clientHeight + 'px'
+    
+    for (let i = 0; i < vidQuestionItems.length; i++) {
+        const item = vidQuestionItems[i];
+        item.style.marginTop = vidQuestionMiddleChildrenMargin + "px"
+        resetVidQuestionItemStyle(item)
+    }
+    
+    let vidQuestionEndChildrenMargin = (vidQuestionScrollContainer.clientHeight/2) - (vidQuestionFirstChildItem.offsetHeight/2)
+    // console.log(`${vidQuestionScrollContainer.offsetHeight} /2 = ${vidQuestionScrollContainer.offsetHeight/2}` );
+    // console.log( `${vidQuestionFirstChildItem.offsetHeight} *4 = ${vidQuestionFirstChildItem.offsetHeight*4}` );
+    // console.log(vidQuestionMiddleChildrenMargin);
+    
+    
+    vidQuestionFirstChildItem.style.marginTop = vidQuestionEndChildrenMargin + "px"
+    vidQuestionLastChildItem.style.marginBottom = vidQuestionEndChildrenMargin + "px"
+    
+    let vidQuestionSelectionIndicatorMargin = (vidQuestionScrollContainer.clientHeight/2) - (vidQuestionSelectionIndicator.offsetHeight/2)
+    // vidQuestionSelectionIndicator.style.marginTop = vidQuestionSelectionIndicatorMargin + "px"
+    // console.log(`${vidQuestionScrollContainer.clientHeight} /2 = ${vidQuestionScrollContainer.clientHeight/2}` );
+    // console.log( `${vidQuestionSelectionIndicator.offsetHeight} /2 = ${vidQuestionSelectionIndicator.offsetHeight/2}` );
+    // console.log(vidQuestionSelectionIndicatorMargin);
+    
+    vidQuestionItemOffset = vidQuestionMiddleChildrenMargin + vidQuestionFirstChildItem.offsetHeight 
 
-// vidQuestionSelectorContainer.style.height = vidQuestionScrollContainer.clientHeight + 'px'
+    for (let i = 0; i < vidQuestionItems.length; i++) {
+        const item = vidQuestionItems[i];
+        resetVidQuestionItemStyle(item)
+    }
 
-for (let i = 0; i < vidQuestionItems.length; i++) {
-    const item = vidQuestionItems[i];
-    item.style.marginTop = vidQuestionMiddleChildrenMargin + "px"
-    resetVidQuestionItemStyle(item)
+    setVidQuestionSelectedStyle(vidQuestionItems[0])
+    setVidQuestionNearestStyle(vidQuestionItems[1])
+
+    vidQuestionScrollContainer.scroll({
+        top:0,
+        behavior:'smooth'
+    })
 }
+vidQuestionCalculateMargins()
 
-let vidQuestionEndChildrenMargin = (vidQuestionScrollContainer.clientHeight/2) - (vidQuestionFirstChildItem.offsetHeight/2)
-// console.log(`${vidQuestionScrollContainer.offsetHeight} /2 = ${vidQuestionScrollContainer.offsetHeight/2}` );
-// console.log( `${vidQuestionFirstChildItem.offsetHeight} *4 = ${vidQuestionFirstChildItem.offsetHeight*4}` );
-// console.log(vidQuestionMiddleChildrenMargin);
-
-
-vidQuestionFirstChildItem.style.marginTop = vidQuestionEndChildrenMargin + "px"
-vidQuestionLastChildItem.style.marginBottom = vidQuestionEndChildrenMargin + "px"
-
-let vidQuestionSelectionIndicatorMargin = (vidQuestionScrollContainer.clientHeight/2) - (vidQuestionSelectionIndicator.offsetHeight/2)
-// vidQuestionSelectionIndicator.style.marginTop = vidQuestionSelectionIndicatorMargin + "px"
-// console.log(`${vidQuestionScrollContainer.clientHeight} /2 = ${vidQuestionScrollContainer.clientHeight/2}` );
-// console.log( `${vidQuestionSelectionIndicator.offsetHeight} /2 = ${vidQuestionSelectionIndicator.offsetHeight/2}` );
-// console.log(vidQuestionSelectionIndicatorMargin);
-
-const vidQuestionItemOffset = vidQuestionMiddleChildrenMargin + vidQuestionFirstChildItem.offsetHeight 
 
 let vidQuestionCurrentItemIndex = 0
 let vidQuestionSelectedItem = vidQuestionItems[vidQuestionCurrentItemIndex]
@@ -324,6 +361,9 @@ function onScrollvidQuestion(){
 }
 
 vidQuestionScrollContainer.addEventListener('scroll',onScrollvidQuestion)
+window.addEventListener('resize',vidQuestionCalculateMargins)
+
+
 
 function resetVidQuestionItemStyle(vidQuestionItem){
     if(vidQuestionItem){
@@ -766,32 +806,52 @@ let genderItems = document.getElementsByClassName('scroll-item-gender')
 let genderFirstChildItem = genderItems[0]
 let genderLastChildItem = genderItems[genderItems.length - 1]
 
+let genderItemOffset
 
-let genderMiddleChildrenMargin = ((genderScrollContainer.offsetHeight/2) - genderFirstChildItem.offsetHeight * 3)/2
+function genderCalculateMargins(){
+    
+    let genderMiddleChildrenMargin = ((genderScrollContainer.offsetHeight/2) - genderFirstChildItem.offsetHeight * 3)/2
 
-// genderSelectorContainer.style.height = genderScrollContainer.clientHeight + 'px'
+    // genderSelectorContainer.style.height = genderScrollContainer.clientHeight + 'px'
 
-for (let i = 0; i < genderItems.length; i++) {
-    const item = genderItems[i];
-    item.style.marginTop = genderMiddleChildrenMargin + "px"
-    resetGenderItemStyle(item)
+    for (let i = 0; i < genderItems.length; i++) {
+        const item = genderItems[i];
+        item.style.marginTop = genderMiddleChildrenMargin + "px"
+        resetGenderItemStyle(item)
+    }
+
+    let genderEndChildrenMargin = (genderScrollContainer.clientHeight/2) - (genderFirstChildItem.offsetHeight/2)
+    // console.log(`${genderScrollContainer.offsetHeight} /2 = ${genderScrollContainer.offsetHeight/2}` );
+    // console.log( `${genderFirstChildItem.offsetHeight} *4 = ${genderFirstChildItem.offsetHeight*4}` );
+    // console.log(genderMiddleChildrenMargin);
+
+
+    genderFirstChildItem.style.marginTop = genderEndChildrenMargin + "px"
+    genderLastChildItem.style.marginBottom = genderEndChildrenMargin + "px"
+
+    let genderSelectionIndicatorMargin = (genderScrollContainer.clientHeight/2) - (genderSelectionIndicator.offsetHeight/2)
+    // console.log(`${genderScrollContainer.clientHeight} /2 = ${genderScrollContainer.clientHeight/2}` );
+    // console.log( `${genderSelectionIndicator.offsetHeight} /2 = ${genderSelectionIndicator.offsetHeight/2}` );
+    // console.log(genderSelectionIndicatorMargin);
+
+    genderItemOffset = genderMiddleChildrenMargin + genderFirstChildItem.offsetHeight 
+
+    for (let i = 0; i < genderItems.length; i++) {
+        const item = genderItems[i];
+        resetGenderItemStyle(item)
+    }
+
+    setGenderSelectedStyle(genderItems[0])
+    setGenderNearestStyle(genderItems[1])
+    setGenderFarthestStyle(genderItems[2])
+
+    genderScrollContainer.scroll({
+        top:0,
+        behavior:'smooth'
+    })
 }
 
-let genderEndChildrenMargin = (genderScrollContainer.clientHeight/2) - (genderFirstChildItem.offsetHeight/2)
-// console.log(`${genderScrollContainer.offsetHeight} /2 = ${genderScrollContainer.offsetHeight/2}` );
-// console.log( `${genderFirstChildItem.offsetHeight} *4 = ${genderFirstChildItem.offsetHeight*4}` );
-// console.log(genderMiddleChildrenMargin);
-
-
-genderFirstChildItem.style.marginTop = genderEndChildrenMargin + "px"
-genderLastChildItem.style.marginBottom = genderEndChildrenMargin + "px"
-
-let genderSelectionIndicatorMargin = (genderScrollContainer.clientHeight/2) - (genderSelectionIndicator.offsetHeight/2)
-// console.log(`${genderScrollContainer.clientHeight} /2 = ${genderScrollContainer.clientHeight/2}` );
-// console.log( `${genderSelectionIndicator.offsetHeight} /2 = ${genderSelectionIndicator.offsetHeight/2}` );
-// console.log(genderSelectionIndicatorMargin);
-
-const genderItemOffset = genderMiddleChildrenMargin + genderFirstChildItem.offsetHeight 
+genderCalculateMargins()
 
 let genderCurrentItemIndex = 0
 let genderSelectedItem = genderItems[genderCurrentItemIndex]
@@ -859,6 +919,8 @@ function onScrollGender(){
 }
 
 genderScrollContainer.addEventListener('scroll',onScrollGender)
+window.addEventListener('resize',genderCalculateMargins)
+
 
 function resetGenderItemStyle(genderItem){
     if(genderItem){
@@ -892,6 +954,7 @@ function setGenderFarthestStyle(farthestGenderItem){
     }
 }
 
+
 // Age selector setup
 let ageScrollContainer = document.getElementById('scroll-container-age')
 let ageSelectorHeader = document.getElementById('selector-header-age')
@@ -903,32 +966,52 @@ let ageItems = document.getElementsByClassName('scroll-item-age')
 let ageFirstChildItem = ageItems[0]
 let ageLastChildItem = ageItems[ageItems.length - 1]
 
+let ageItemOffset
+function ageCalculateMargins(){
+    let ageMiddleChildrenMargin = ((ageScrollContainer.offsetHeight/2) - ageFirstChildItem.offsetHeight * 3)/2
 
-let ageMiddleChildrenMargin = ((ageScrollContainer.offsetHeight/2) - ageFirstChildItem.offsetHeight * 3)/2
+    // ageSelectorContainer.style.height = ageScrollContainer.clientHeight + 'px'
+    
+    for (let i = 0; i < ageItems.length; i++) {
+        const item = ageItems[i];
+        item.style.marginTop = ageMiddleChildrenMargin + "px"
+        resetAgeItemStyle(item)
+    }
+    
+    let ageEndChildrenMargin = (ageScrollContainer.clientHeight/2) - (ageFirstChildItem.offsetHeight/2)
+    // console.log(`${ageScrollContainer.offsetHeight} /2 = ${ageScrollContainer.offsetHeight/2}` );
+    // console.log( `${ageFirstChildItem.offsetHeight} *4 = ${ageFirstChildItem.offsetHeight*4}` );
+    // console.log(ageMiddleChildrenMargin);
+    // console.log(ageEndChildrenMargin);
+    
+    
+    ageFirstChildItem.style.marginTop = ageEndChildrenMargin + "px"
+    ageLastChildItem.style.marginBottom = ageEndChildrenMargin + "px"
+    
+    let ageSelectionIndicatorMargin = (ageScrollContainer.clientHeight/2) - (ageSelectionIndicator.offsetHeight/2)
+    // console.log(`${ageScrollContainer.clientHeight} /2 = ${ageScrollContainer.clientHeight/2}` );
+    // console.log( `${ageSelectionIndicator.offsetHeight} /2 = ${ageSelectionIndicator.offsetHeight/2}` );
+    // console.log(ageSelectionIndicatorMargin);
+    
+    ageItemOffset = ageMiddleChildrenMargin + ageFirstChildItem.offsetHeight 
 
-// ageSelectorContainer.style.height = ageScrollContainer.clientHeight + 'px'
+    for (let i = 0; i < ageItems.length; i++) {
+        const item = ageItems[i];
+        resetAgeItemStyle(item)
+    }
 
-for (let i = 0; i < ageItems.length; i++) {
-    const item = ageItems[i];
-    item.style.marginTop = ageMiddleChildrenMargin + "px"
-    resetAgeItemStyle(item)
+    setAgeSelectedStyle(ageItems[0])
+    setAgeNearestStyle(ageItems[1])
+    setAgeFarthestStyle(ageItems[2])
+
+    ageScrollContainer.scroll({
+        top:0,
+        behavior:'smooth'
+    })
+
 }
 
-let ageEndChildrenMargin = (ageScrollContainer.clientHeight/2) - (ageFirstChildItem.offsetHeight/2)
-// console.log(`${ageScrollContainer.offsetHeight} /2 = ${ageScrollContainer.offsetHeight/2}` );
-// console.log( `${ageFirstChildItem.offsetHeight} *4 = ${ageFirstChildItem.offsetHeight*4}` );
-// console.log(ageMiddleChildrenMargin);
-
-
-ageFirstChildItem.style.marginTop = ageEndChildrenMargin + "px"
-ageLastChildItem.style.marginBottom = ageEndChildrenMargin + "px"
-
-let ageSelectionIndicatorMargin = (ageScrollContainer.clientHeight/2) - (ageSelectionIndicator.offsetHeight/2)
-// console.log(`${ageScrollContainer.clientHeight} /2 = ${ageScrollContainer.clientHeight/2}` );
-// console.log( `${ageSelectionIndicator.offsetHeight} /2 = ${ageSelectionIndicator.offsetHeight/2}` );
-// console.log(ageSelectionIndicatorMargin);
-
-const ageItemOffset = ageMiddleChildrenMargin + ageFirstChildItem.offsetHeight 
+ageCalculateMargins()
 
 let ageCurrentItemIndex = 0
 let ageSelectedItem = ageItems[ageCurrentItemIndex]
@@ -991,6 +1074,7 @@ function onScrollAge(){
 }
 
 ageScrollContainer.addEventListener('scroll',onScrollAge)
+window.addEventListener('resize',ageCalculateMargins)
 
 function resetAgeItemStyle(ageItem){
     if(ageItem){
@@ -1138,6 +1222,9 @@ export function updateUI(questionType, questionText, answers){
             likert5Container.style.display = 'none'
             likert4Container.style.display = 'none'
             likert7Container.style.display = 'none'
+
+            ageCalculateMargins()
+            genderCalculateMargins()
 
             enableConfirmation({
                 gender:genderSelectedItem.getAttribute('data-index'),

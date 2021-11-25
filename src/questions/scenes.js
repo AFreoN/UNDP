@@ -321,7 +321,7 @@ const maldivesRegionBboxGroup = new THREE.Group()
 maldivesRegionBboxGroup.scale.set(0.375,0.375,0.375)
 maldivesScene.add(maldivesRegionBboxGroup)
 
-const bboxMat = new THREE.MeshLambertMaterial({color: 0x03d7fc, wireframe: true, visible: false})
+const bboxMat = new THREE.MeshLambertMaterial({color: 0x03d7fc, wireframe: true, visible: true})
 
 const upperNorthCube = new THREE.Mesh(new THREE.BoxGeometry(3.5,0.5,3),bboxMat )
 maldivesRegionBboxGroup.add(upperNorthCube)
@@ -343,11 +343,11 @@ const upperSouthCube = new THREE.Mesh(new THREE.BoxGeometry(3,0.5,2.8), bboxMat)
 maldivesRegionBboxGroup.add(upperSouthCube)
 upperSouthCube.name = 'Upper South province'
 
-const southCentralCube = new THREE.Mesh(new THREE.BoxGeometry(3.1,0.5,2.9), bboxMat)
+const southCentralCube = new THREE.Mesh(new THREE.BoxGeometry(3.1,0.5,2.7), bboxMat)
 maldivesRegionBboxGroup.add(southCentralCube)
 southCentralCube.name = 'South Central province'
 
-const southCube = new THREE.Mesh(new THREE.BoxGeometry(2,0.5,1), bboxMat)
+const southCube = new THREE.Mesh(new THREE.BoxGeometry(2,0.5,1.5), bboxMat)
 maldivesRegionBboxGroup.add(southCube)
 southCube.name = 'South province'
 
