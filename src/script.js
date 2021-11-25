@@ -38,9 +38,9 @@ let showingTutorial = false;
 
 let joystickTutorialShown = false;
 
-let questionIndex = 0 //indicates the question to be loaded
+export let questionIndex = 0 //indicates the question to be loaded
  
-let confirmedAnswers = [] //stores confirmed answers
+export let confirmedAnswers = [] //stores confirmed answers
 let uiHolder = document.getElementById('ui-holder');
 
 let hasWatchedVideos = true
@@ -196,6 +196,32 @@ export function validateAnswers(){
                 confirmedAnswers[i] = null
             }
         }
+    }
+
+    const noOfQuestionForLod = 7;
+    let currentQuestionID = 28;
+    let lodArray = []
+    for(let i = 0; i < noOfQuestionForLod; i++){
+        const answerIndex = confirmedAnswers[currentQuestionID+i];
+        lodArray[i] = answerIndex;
+        console.log("Stage 3, Question ", (parseInt(i) + 1), " -> answer = ", answerIndex);
+    }
+    var finalValue = parseInt(lodArray[0]) + parseInt(lodArray[1]) + parseInt(lodArray[2]) + 
+                        parseInt(lodArray[3]) + parseInt(lodArray[4]) 
+                        - parseInt(lodArray[5]) - parseInt(lodArray[6]) + 16;
+    //console.log("Final value = ", finalValue);
+    console.log("LOD formula = ", "a1 + a2 + a3 + a4 + a5 - a6 - a7 + 16");
+    console.log("LOD = ", lodArray[0],"+",lodArray[1],"+",lodArray[2],"+",lodArray[3],"+",
+                    lodArray[4],"-",lodArray[5],"-",lodArray[6],"+",16," = ", finalValue);
+
+    if(finalValue >= 42 && finalValue <= 49){
+        uiControl.updateResultTitle(2);
+    }
+    else if(finalValue >= 15 && finalValue < 42){
+        uiControl.updateResultTitle(1);
+    }
+    else if(finalValue < 15){
+        uiControl.updateResultTitle(0);
     }
     submitAnswers()
 }

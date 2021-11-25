@@ -1,6 +1,6 @@
 export const Questions = [
-    //#region Stage 1
-    {   //1     Country
+
+    {   //~     1   Country
         type : 'country',
         question : {
             en : 'In which country do you live ?',
@@ -10,7 +10,7 @@ export const Questions = [
         },
         compulsory : true
     },
-    {   //2     Province
+    {   //~     2   Province
         type : 'province',
         question : {
             en : 'In which area do you live ?',
@@ -20,7 +20,7 @@ export const Questions = [
         },
         compulsory : false
     },
-    {   //3     About
+    {   //~     3   About
         type : 'about',
         question : {
             main:{
@@ -116,7 +116,8 @@ export const Questions = [
         },
         compulsory : false
     },
-    {   //1     Mother
+    //#region Stage 1
+    {   //1     4   Mother
         type : 'joystick',
         question : {
             en : 'How close do you feel to your mother ?',
@@ -177,7 +178,7 @@ export const Questions = [
         },
         compulsory: true
     },
-    {   //2     Father
+    {   //2     5   Father
         type : 'joystick',
         question : {
             en : 'How close do you feel to your father ?',
@@ -238,7 +239,7 @@ export const Questions = [
         },
         compulsory: true
     },
-    {   //3     Siblings
+    {   //3     6   Siblings
         type : 'joystick',
         question : {
             en : 'How close are you to your siblings?',
@@ -299,7 +300,7 @@ export const Questions = [
         },
         compulsory: true
     },
-    {   //4     Closest Friends
+    {   //4     7   Closest Friends
         type : 'joystick',
         question : {
             en : 'How close are you to your closest friends?',
@@ -360,7 +361,7 @@ export const Questions = [
         },
         compulsory: true
     },
-    {   //5     Distant Friends
+    {   //5     8   Distant Friends
         type : 'joystick',
         question : {
             en : 'How close are you to your distant friends?',
@@ -421,7 +422,7 @@ export const Questions = [
         },
         compulsory: true
     },
-    {   //6     Local Community
+    {   //6     9   Local Community
         type : 'joystick',
         question : {
             en : 'How close do you feel with your local community ?',
@@ -482,7 +483,7 @@ export const Questions = [
         },
         compulsory: true
     },
-    {   //7     Local Religious community
+    {   //7     10  Local Religious community
         type : 'joystick',
         question : {
             en : 'How close do you feel to your local religious community ?',
@@ -543,7 +544,7 @@ export const Questions = [
         },
         compulsory: true
     },
-    {   //8     Speak a Different language
+    {   //8     11  Speak a Different language
         type : 'joystick',
         question : {
             en : 'How close do you feel to people that speak a different language ?',
@@ -604,7 +605,7 @@ export const Questions = [
         },
         compulsory: true
     },
-    {   //9     Different religious and beliefs
+    {   //9     12  Different religious and beliefs
         type : 'joystick',
         question : {
             en : 'How close do you feel to people with different religious beliefs ?',
@@ -665,7 +666,7 @@ export const Questions = [
         },
         compulsory: true
     },
-    {   //10    Home Country
+    {   //10    13  Home Country
         type : 'joystick',
         question : {
             en : 'How close do you feel to your home country ?',
@@ -728,7 +729,7 @@ export const Questions = [
     },
 //#endregion
     //#region Stage 2
-    {   //1    Feel close to your friends
+    {   //1     14    Feel close to your friends
         type : 'likert5',
         question : {
             en : 'Do you feel close to your friends(not including those in your family)? ',
@@ -784,7 +785,7 @@ export const Questions = [
         },
         compulsory: true
     },
-    {   //2    Easy to find people to socialize with
+    {   //2     15    Easy to find people to socialize with
         type : 'likert5',
         question : {
             en : 'If you feel like having company, do you find it easy to find people to socialize with?',
@@ -840,7 +841,7 @@ export const Questions = [
         },
         compulsory: true
     },
-    {   //3    Easy to make friends
+    {   //3     16    Easy to make friends
         type : 'likert5',
         question : {
             en : 'Do you find it easy to make new friends?',
@@ -896,7 +897,7 @@ export const Questions = [
         },
         compulsory: true
     },
-    {   //4    Well supported by people you know
+    {   //4     17    Well supported by people you know
         type : 'likert5',
         question : {
             en : 'Do you feel well supported by the people you know?',
@@ -952,7 +953,7 @@ export const Questions = [
         },
         compulsory: true
     },
-    {   //5    Happy last month
+    {   //5     18    Happy last month
         type : 'likert5',
         question : {
             en : 'How happy have you been over the last month?',
@@ -1008,7 +1009,7 @@ export const Questions = [
         },
         compulsory: true
     },
-    {   //6    feel a sense of belonging in my local community
+    {   //6     19    Feel a sense of belonging in my local community
         type : 'likert5',
         question : {
             en : 'To what extent do you agree with the statement ‘I feel a sense of belonging in my local community’?',
@@ -1064,7 +1065,7 @@ export const Questions = [
         },
         compulsory: true
     },
-    {   //7    Trusted or can't be too careful
+    {   //7     20    Trusted or can't be too careful
         type : 'likert4',
         question : {
             en : 'Do you think that, in general, most people can be trusted, or that you can’t be too careful in dealing with people?',
@@ -1132,7 +1133,7 @@ export const Questions = [
         },
         compulsory: true
     },
-    {   //8    People have the best intentions
+    {   //8     21    People have the best intentions
         type : 'likert5',
         question : {
             en : 'To what extent do you agree with the statement ‘I assume that people have the best intentions’?',
@@ -1188,10 +1189,10 @@ export const Questions = [
         },
         compulsory: true
     },
-    {   //9    Neighbourhood can be trusted
+    {   //9     22    Neighbourhood can be trusted
         type : 'likert5',
         question : {
-            en : 'To what extent do you agree with the statement ‘most people in my home neighbourhood can be trusted’?(Home neighbourhood means 15-20 minutes walking distance from where you currently live.)',
+            en : 'To what extent do you agree with the statement ‘most people in my home neighbourhood can be trusted’? (Home neighbourhood means 15-20 minutes walking distance from where you currently live.)',
             si : 'ඔබ ඔබේ මවට කොතරම් සමීපද?',
             ta : 'உங்கள் தாயிடம் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
             dv : 'How happy have you been over the last month?'
@@ -1244,7 +1245,7 @@ export const Questions = [
         },
         compulsory: true
     },
-    {   //10   Generally Neighbourhood can be trusted
+    {   //10    23    Generally Neighbourhood can be trusted
         type : 'likert5',
         question : {
             en : 'To what extent do you agree with the statement ‘most people in my home neighbourhood generally can be trusted?',
@@ -1300,7 +1301,7 @@ export const Questions = [
         },
         compulsory: true
     },
-    {   //11   Feel safe where I currently live
+    {   //11    24    Feel safe where I currently live
         type : 'likert5',
         question : {
             en : 'To what extent do you agree with the statement ‘I feel safe where I currently live’?',
@@ -1356,7 +1357,7 @@ export const Questions = [
         },
         compulsory: true
     },
-    {   //12   Talk to each day on phone/internet
+    {   //12    25    Talk to each day on phone/internet
         type : 'likert4',
         question : {
             en : 'How many people do you typically talk to each day on the phone/internet?',
@@ -1424,7 +1425,7 @@ export const Questions = [
         },
         compulsory: true
     },
-    {   //13   How many people can you go to for help
+    {   //13    26    How many people can you go to for help
         type : 'likert4',
         question : {
             en : 'When in need, how many people can you go to for help (e.g.practical, relationships, emotional,financial, etc.)?',
@@ -1492,7 +1493,7 @@ export const Questions = [
         },
         compulsory: true
     },
-    {   //14   How many people you call on to socialize
+    {   //14    27    How many people you call on to socialize
         type : 'likert4',
         question : {
             en : 'How many people can you typically call on if you want to socialize?',
@@ -1560,7 +1561,7 @@ export const Questions = [
         },
         compulsory: true
     },
-    {   //15   How many people you call on in emergency
+    {   //15    28    How many people you call on in emergency
         type : 'likert4',
         question : {
             en : 'How many people do you know who you can call on in an emergency?',
@@ -1630,7 +1631,7 @@ export const Questions = [
     },
 //#endregion
     //#region Stage 3
-    {   //1    Control over things happen to me
+    {   //1     29    Control over things happen to me
         type : 'likert7',
         question : {
             en : 'I have little control over the things that happen to me',
@@ -1672,7 +1673,7 @@ export const Questions = [
         ],
         compulsory: true
     },
-    {   //2    No way I can solve problems
+    {   //2     30    No way I can solve problems
         type : 'likert7',
         question : {
             en : 'There is really no way I can solve some of the problems I have',
@@ -1714,7 +1715,7 @@ export const Questions = [
         ],
         compulsory: true
     },
-    {   //3    Little I can do to change important things in my life
+    {   //3     31    Little I can do to change important things in my life
         type : 'likert7',
         question : {
             en : 'There is little I can do to change many of the important things in my life',
@@ -1756,7 +1757,7 @@ export const Questions = [
         ],
         compulsory: true
     },
-    {   //4    Feel helpless in dealing with problems of life
+    {   //4     32    Feel helpless in dealing with problems of life
         type : 'likert7',
         question : {
             en : 'I often feel helpless in dealing with the problems of life',
@@ -1798,7 +1799,7 @@ export const Questions = [
         ],
         compulsory: true
     },
-    {   //5    Being pushed around in life
+    {   //5     33    Being pushed around in life
         type : 'likert7',
         question : {
             en : 'Sometimes I feel that I’m being pushed around in life',
@@ -1840,7 +1841,7 @@ export const Questions = [
         ],
         compulsory: true
     },
-    {   //6    What happens to me in the future mostly depends on me
+    {   //6     34    What happens to me in the future mostly depends on me
         type : 'likert7',
         question : {
             en : 'What happens to me in the future mostly depends on me',
@@ -1882,7 +1883,7 @@ export const Questions = [
         ],
         compulsory: true
     },
-    {   //7    Do anything I set my mind to do
+    {   //7     35    Do anything I set my mind to do
         type : 'likert7',
         question : {
             en : 'I can do just about anything I really set my mind to do',
@@ -1924,7 +1925,7 @@ export const Questions = [
         ],
         compulsory: true
     },
-    {   //8    Friends talk about problems and issues they face
+    {   //8     36    Friends talk about problems and issues they face
         type : 'likert7',
         question : {
             en : 'People in my circle of friends are able to talk about problems and tough issues that they face',
@@ -1966,7 +1967,7 @@ export const Questions = [
         ],
         compulsory: true
     },
-    {   //9    Take a risk in circle of friends
+    {   //9     37    Take a risk in circle of friends
         type : 'likert7',
         question : {
             en : 'I feel safe to take a risk in my circle of friends',
@@ -2008,7 +2009,7 @@ export const Questions = [
         ],
         compulsory: true
     },
-    {   //10   Difficult to ask my circle of friends for help
+    {   //10    38    Difficult to ask my circle of friends for help
         type : 'likert7',
         question : {
             en : 'It is difficult to ask my circle of friends for help',
@@ -2050,7 +2051,7 @@ export const Questions = [
         ],
         compulsory: true
     },
-    {   //11   No one in cicle of friends act to hurt my study or work
+    {   //11    39    No one in cicle of friends act to hurt my study or work
         type : 'likert7',
         question : {
             en : 'No one in my circle of friends would intentionally act in a way to hurt my study or work',
@@ -2092,7 +2093,7 @@ export const Questions = [
         ],
         compulsory: true
     },
-    {   //12   Skills and talents are valued and utilized
+    {   //12    40    Skills and talents are valued and utilized
         type : 'likert7',
         question : {
             en : 'Within my circle of friends, my unique skills and talents are valued and utilized',
@@ -2134,7 +2135,7 @@ export const Questions = [
         ],
         compulsory: true
     },
-    {   //13   Mistake held against me by my circle of friends
+    {   //13    41    Mistake held against me by my circle of friends
         type : 'likert7',
         question : {
             en : 'If I make a mistake, it is often held against me by my circle of friends',
@@ -2176,7 +2177,7 @@ export const Questions = [
         ],
         compulsory: true
     },
-    {   //14   Friends reject others for being different
+    {   //14    42    Friends reject others for being different
         type : 'likert7',
         question : {
             en : 'People in my circle of friends sometimes reject others for being different',

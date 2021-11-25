@@ -367,7 +367,7 @@ gltfloader.load(
         animations['father'] = gltf.animations
         let model = gltf.scene
         model.name = 'father'
-        model.scale.set(0.045,0.045,0.045)     //prev (0.04,0.04,0.04)
+        model.scale.set(0.045,0.045,0.045)     //prev (0.04,0.04,0.04) = player size
         model.position.set(0,-.6, 0)
 
         //
@@ -489,7 +489,7 @@ gltfloader.load(
             }
         });
 
-        console.log(gltf)
+        //console.log(gltf)
         models['dif_language'] = model
         loadedPercentage += (1/numberOfAssets)
         loadingBar.animate(loadedPercentage)
@@ -686,7 +686,7 @@ gltfloader.load(
 
         models['sriLankaProvincesMap'] = model
         
-        console.log(models['sriLankaProvincesMap']);
+        //console.log(models['sriLankaProvincesMap']);
         //Setting up model for country selection
         // let countrySelectionModel = models['sriLankaProvincesMap'].clone(true)
         // countrySelectionModel.scale.set(0.35,0.35,0.35)
