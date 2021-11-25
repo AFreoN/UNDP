@@ -258,7 +258,7 @@ window.addEventListener('mousemove', (event) =>
 
 //touch events
 //document.addEventListener('touchstart', onDocumentTouchStart)
-//document.addEventListener('touchmove', onDocumenttouchMove, preventDefault)
+document.addEventListener('touchmove', function(e){ e.preventDefault();})
 //document.addEventListener('touchend', onDocumentTouchEnd)
 //document.addEventListener('touchcancel', onDocumentTouchEnd)
 

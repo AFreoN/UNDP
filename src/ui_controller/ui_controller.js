@@ -542,6 +542,7 @@ export function resetJoystickSlider(){
 //control buttons
 let languageSelectedButton = document.getElementById('language-selected-button')
 let vidQuestionButton = document.getElementById('video-question-close-button')
+let vidQuestionBackButton = document.getElementById('video-question-back-button')
 let backButton = document.getElementById('control-back-button')
 let nextButton = document.getElementById('control-next-button')
 let regionSkipButton = document.getElementById('country-skip-button')
@@ -1365,6 +1366,19 @@ export function enableSubmitPage(){
     enableSubmitScene()
     // removeModelsInLastScene()
 }
+
+export function disableSubmitPage(){
+    submitContainer.style.display = 'none'
+    uiHolder.style.display = ''
+}
+
+export function enableVidQuestionPage(){
+    vidQuestionUI.style.display = ''
+    uiHolder.style.display = 'none';
+}
+
+
+
 const resetElementAnimation = function(element){
     element.style.animation = 'none'
     element.offsetHeight;
@@ -1412,14 +1426,6 @@ export const fadeOutSliderContainer = function(){
     sliderHolder.hidden = false;
 }
 
-// export function enableSubmitPage(){
-//     submitContainer.style.display = ''
-// }
-
-export function disableSubmitPage(){
-    submitContainer.style.display = 'none'
-    uiHolder.style.display = ''
-}
 
 function enableResultsContainer(){
     submitConfirmationContainer.style.display = 'none'
@@ -1435,6 +1441,11 @@ joystickTutCloseButton.addEventListener('click', function(){
     main.joystickTutorialEnded();
     joystickTutorialContainer.style.display = 'none';
     main.enablePlayerControl();
+})
+
+vidQuestionBackButton.addEventListener('click',function(){
+    langSelectionUI.hidden = false;
+    vidQuestionUI.style.display = 'none'
 })
 
 backButton.addEventListener('click',function(){
@@ -1473,6 +1484,7 @@ languageSelectedButton.addEventListener('click', function(){
     setUiText();
     // loadQuestion(0);
     langSelectionUI.hidden = true;
+    vidQuestionUI.style.display = ''
 })
 
 languageSelectedButton.addEventListener('onmousedown', function(){
@@ -1483,6 +1495,7 @@ vidQuestionButton.addEventListener('click',function(){
     loadQuestion(0);
     vidQuestionUI.style.display = 'none'
     uiHolder.hidden = false;
+    uiHolder.style.display = '';
 })
 
 

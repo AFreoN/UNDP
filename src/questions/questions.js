@@ -135,6 +135,8 @@ window.addEventListener('resize', () =>
     console.log(window.innerHeight);
     console.log(window.outerHeight);
     console.log(document.getElementsByTagName('body')[0].clientHeight)
+
+    window.scrollTo(0,0)
 })
 
 document.getElementsByTagName('body')[0].style.height = window.innerHeight + "px" 
@@ -228,15 +230,16 @@ export function loadQuestion(questionIndex){
     currentQuestion = qArray[questionIndex]
 
     if(currentQuestion){
-        if(questionIndex <= 0 ){
-            uiControl.disableBackButton()
-        }else{
-            uiControl.enableBackButton()
-        }
+        // if(questionIndex <= 0 ){
+        //     uiControl.disableBackButton()
+        // }else{
+        //     uiControl.enableBackButton()
+        // }
         // if(questionIndex >= numberOfQuestions - 1){
         //     // uiControl.disableNextButton()
         // }else{
-            uiControl.enableNextButton()
+        uiControl.enableBackButton()
+        uiControl.enableNextButton()
         // }
         uiControl.disableConfirmation()
 

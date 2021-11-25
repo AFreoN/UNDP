@@ -3,20 +3,20 @@ export const Questions = [
     {   //~     1   Country
         type : 'country',
         question : {
-            en : 'In which country do you live ?',
+            en : 'In which country do you live?',
             si : 'ඔබ ජීවත් වන්නේ කුමන රටේද?',
-            ta : 'நீங்கள் எந்த நாட்டில் வாழ்கிறீர்கள் ?',
-            dv : 'In which country do you live ?'
+            ta : 'நீங்கள் எந்த நாட்டில் வாழ்கிறீர்கள்?',
+            dv : 'In which country do you live?'
         },
         compulsory : true
     },
     {   //~     2   Province
         type : 'province',
         question : {
-            en : 'In which area do you live ?',
+            en : 'In which area do you live?',
             si : 'ඔබ ජීවත් වන්නේ කුමන ප්‍රදේශයේද?',
-            ta : 'நீங்கள் எந்த பகுதியில் வசிக்கிறீர்கள் ?',
-            dv : 'In which area do you live ?'
+            ta : 'நீங்கள் எந்த பகுதியில் வசிக்கிறீர்கள்?',
+            dv : 'In which area do you live?'
         },
         compulsory : false
     },

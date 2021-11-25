@@ -9,6 +9,8 @@ import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
 import { collection, addDoc } from "firebase/firestore"; 
 
+import backButtonImg from '../static/arrow_back.png'
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -109,6 +111,8 @@ export function loadLastQuestion(){
         questions.loadQuestion(questionIndex)
         console.log((questionIndex+1)+'/'+(numberOfQuestions));
         // uiControl.paginate(questionIndex)
+    }else if (questionIndex === 0){
+        uiControl.enableVidQuestionPage()
     }
 }
 

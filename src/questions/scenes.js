@@ -555,7 +555,7 @@ export function resetSriLankaSelection(){
     currentSelectionScene = 'srilanka'
     for (let i = 0; i < sriLankaRegions.length; i++) {
         const element = sriLankaRegions[i];
-        setMeshAnimProperties(element,0,0)
+        setMeshAnimProperties(element.parent,0,0)
         element.position.y = 0
     }
 

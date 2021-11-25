@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, height=device-height , initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, height=device-height , initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Community Connectedness Survey</title>
     <link rel="icon" href="../static/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -146,7 +146,9 @@
 
         <div class="question-footer-container">
             <div class="control-container">
-                <button class="control-button" id="control-back-button"> &#x25C0 </button>
+                <button class="control-button back-button" id="control-back-button"> 
+                    <!-- <img src="{../static/arrow_back.png}" alt="backButton"> -->
+                </button>
                 <!-- <button class="submit-button" id="submit-button"> Submit</button> -->
                 <button class="control-button" id="control-next-button"> Next </button>
             </div>
@@ -191,7 +193,14 @@
                 </div>
         </div>
 
-         <div class="control-button" id="video-question-close-button"> Next </div>
+        <div class="control-container video-question-control-container">
+            <button class="control-button back-button" id="video-question-back-button"></button>
+            <!-- <button class="submit-button" id="submit-button"> Submit</button> -->
+            <!-- <button class="control-button" id="control-next-button"> Next </button> -->
+            <!-- <button class="control-button submit-button" id="submit-button"> Submit</button> -->
+            <button class="control-button" id="video-question-close-button"> Next </button>
+        </div>
+
     </div>
     <div class="submit-container" id="submit-container">
         <div class="menu-container" id="submit-menu-holder">
@@ -209,7 +218,7 @@
                 <div class="submit-sub-text-container" id="submit-sub-text-container"> submit to see your results!</div>    
             </div>
             <div class="control-container submit-control-container">
-                <button class="control-button" id="submit-control-back-button"> &#x25C0 </button>
+                <button class="control-button back-button" id="submit-control-back-button"></button>
                 <!-- <button class="submit-button" id="submit-button"> Submit</button> -->
                 <!-- <button class="control-button" id="control-next-button"> Next </button> -->
                 <button class="control-button submit-button" id="submit-button"> Submit</button>
