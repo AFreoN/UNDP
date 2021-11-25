@@ -799,8 +799,7 @@ aboutScene.add(aboutPointLight)
 //
 //      end of MCQ scene
 
-//      Joystick scene
-//
+//#region Joystick scene setup
 export const joystickScene = new THREE.Scene() 
 
 let aspect = window.innerWidth / window.innerHeight;
@@ -834,19 +833,20 @@ const sliderBG = "linear-gradient(to bottom, #bb56ff 0%,#ed81f9 35%)";
 //Setting up level
 
 //add floor
-const floorSize = 100;
-var floorgeo = new THREE.PlaneGeometry(floorSize,floorSize);
-floorgeo.computeBoundingBox();
+const floorSize = 100
+var floorgeo = new THREE.PlaneGeometry(floorSize,floorSize)
+floorgeo.computeBoundingBox()
 //const floorgeo = new THREE.CylinderGeometry(1000,1000,0.05, 256);
-const floorMaterial = new THREE.MeshToonMaterial( {color: 0x5331FF});   //dark pink 801FCF    //prev new THREE.MeshToonMaterial( {color: 0x725FB3})
+const floorMaterial = new THREE.MeshToonMaterial( {color: 0x5331FF})   //dark pink 801FCF    //prev new THREE.MeshToonMaterial( {color: 0x725FB3})
 const RingMaterial = new THREE.MeshBasicMaterial({color: 0xf5eddc}) 
 
-const floor = new THREE.Mesh (floorgeo, floorMaterial); 
+const floor = new THREE.Mesh (floorgeo, floorMaterial);
+floor.name = "floor"
 floor.rotation.set(Math.PI / -2, 0, 0)
 floor.position.z = - floorSize / 4
 floor.position.y = -.6
-floor.receiveShadow = true;
-joystickScene.add(floor);
+floor.receiveShadow = true
+joystickScene.add(floor)
 
 //#region Characters ring
 const rRadius = 0.5;
@@ -887,13 +887,11 @@ const bgPointLight2 = new THREE.PointLight(0xea7ff9, 2, rimLightDistance - 2);
 bgPointLight2.position.y = -1;
 bgPointLight2.position.z = -rimLightDistance + 7;
 bgPointLight2.position.x = (rimLightDistance - 2) * 1.3;
+//joystickScene.add(bgPointLight2);
 // console.log(joystickScene);
 //#endregion
-//joystickScene.add(bgPointLight2);
+//#endregion
 
-
-//Adding rings
-//Highlight material
 //#region Radius Cylinders
 /*
 const rad1Material = new THREE.MeshBasicMaterial( { color: 0xfcf8ed } );
@@ -961,24 +959,16 @@ cylinder7.position.set(0,yPos,0);
 */
 //#endregion
 
-/*
-//Adding light
-const joystickPointLight = new THREE.PointLight(0xffffff, 3)
+//#region Stage 3 scene
+export const stage3Scene = joystickScene.clone()
+export const stage3Camera = stage3Scene.children[0]
 
-joystickPointLight.position.x = 2
-joystickPointLight.position.y = 3
-joystickPointLight.position.z = 4
-joystickPointLight.intensity = 1.3
-joystickPointLight.castShadow = true;
+const stage3Floor = stage3Scene.getObjectByName("floor")
+stage3Floor.position.y -= 0.12
 
-joystickScene.add(joystickPointLight)
-//
-//      end of Joystick scene
-*/
+//#endregion
 
-//      Submit scene
-//
-
+//#region Submit Scene
 // export const submitScene = new THREE.Scene() 
 // export const submitCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100)
 // submitScene.add(submitCamera)
@@ -1002,7 +992,7 @@ submitCamera.lookAt(0, -0.6, 0);
 // submitPointLight.intensity = 1.3
 
 // submitScene.add(submitPointLight)
-
+//#endregion
 
 
 

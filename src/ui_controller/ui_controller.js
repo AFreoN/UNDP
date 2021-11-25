@@ -407,7 +407,7 @@ joystickTutorialContainer.hidden = true
 
 let surveyProgressBar = document.getElementById("survey-progress-bar");
 
-var agrees = document.getElementsByName('likert5-checker');
+const agrees = document.getElementsByName('likert5-checker');
 agrees.forEach(buttons => {
     buttons.addEventListener('change', function(event){
         enableConfirmation(event.target.value);
@@ -415,7 +415,7 @@ agrees.forEach(buttons => {
     })
 });
 
-var agrees4 = document.getElementsByName('likert4-checker');
+const agrees4 = document.getElementsByName('likert4-checker');
 agrees4.forEach(buttons => {
     buttons.addEventListener('change', function(event){
         enableConfirmation(event.target.value);
@@ -423,7 +423,7 @@ agrees4.forEach(buttons => {
     })
 });
 
-var agrees7 = document.getElementsByName('likert7-checker');
+const agrees7 = document.getElementsByName('likert7-checker');
 agrees7.forEach(buttons => {
     buttons.addEventListener('change', function(event){
         enableConfirmation(event.target.value);
@@ -592,8 +592,13 @@ let allTexts = {
 let otherRegionText = document.getElementById('country-skip-button');
 let sliderDistantText = document.getElementById('slidertext-distant');
 let sliderCloseText = document.getElementById('slidertext-close');
-let stronglyDisagreeText = document.getElementById('strongly-disagree');
-let stronglyAgreeText = document.getElementById('strongly-agree');
+let likert5_negativeTwo_Text = document.getElementById('likert5_negativeTwo');
+let likert5_positiveTwo_Text = document.getElementById('likert5_positiveTwo');
+
+let likert4_value1_Text = document.getElementById('likert4_value1');
+let likert4_value2_Text = document.getElementById('likert4_value2');
+let likert4_value3_Text = document.getElementById('likert4_value3');
+let likert4_value4_Text = document.getElementById('likert4_value4');
 
 export function setUiText(){
     // paginationDisplayText.innerText = allTexts.paginationDisplayText[langId];
@@ -607,8 +612,20 @@ export function setUiText(){
 
     document.getElementById('results-footer-text').innerHTML = allTexts.resultsConfirmationFooterText[langId]   
     resultsMoreButton.innerText = allTexts.resultsMoreButtonText[langId]
-    stronglyDisagreeText.setAttribute("likert-scale-value", allTexts.stronglyDisagree[langId]);
-    stronglyAgreeText.setAttribute("likert-scale-value", allTexts.stronlgyAgree[langId]);
+    likert5_negativeTwo_Text.setAttribute("likert-scale-value", allTexts.stronglyDisagree[langId]);
+    likert5_positiveTwo_Text.setAttribute("likert-scale-value", allTexts.stronlgyAgree[langId]);
+}
+
+export function setLikert5Options(options){
+    likert5_negativeTwo_Text.setAttribute("likert-scale-value", options.negativeTwo[langId]);
+    likert5_positiveTwo_Text.setAttribute("likert-scale-value", options.positiveTwo[langId]);
+}
+
+export function setLikert4Options(options){
+    likert4_value1_Text.setAttribute("likert4-scale-value", options.value1[langId]);
+    likert4_value2_Text.setAttribute("likert4-scale-value", options.value2[langId]);
+    likert4_value3_Text.setAttribute("likert4-scale-value", options.value3[langId]);
+    likert4_value4_Text.setAttribute("likert4-scale-value", options.value4[langId]);
 }
 
 //enabling/disabling control buttons
@@ -1216,6 +1233,7 @@ export function updateUI(questionType, questionText, answers){
 export function enableSubmitPage(){
     submitContainer.style.display = ''
     uiHolder.style.display = 'none'
+    FadeOutLikert7()
     disableResultsContainer()
     enableSubmitScene()
     // removeModelsInLastScene()

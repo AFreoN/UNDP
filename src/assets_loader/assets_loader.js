@@ -29,6 +29,7 @@ let models = {
     home_country: null,
     religious_belief: null,
     temples:null,
+    landstage3:null,
     Tree1:null,
     Tree2:null,
     Tree3:null,
@@ -366,7 +367,7 @@ gltfloader.load(
         animations['father'] = gltf.animations
         let model = gltf.scene
         model.name = 'father'
-        model.scale.set(0.04,0.04,0.04)
+        model.scale.set(0.045,0.045,0.045)     //prev (0.04,0.04,0.04)
         model.position.set(0,-.6, 0)
 
         //
@@ -375,6 +376,20 @@ gltfloader.load(
                 if(child.name == 'Father'){
                     child.material = shaderMaterial;
                     child.castShadow = true;
+                }
+                // else if(child.name == 'EyeGlass001'){
+                //     var glassMat = new THREE.MeshLambertMaterial({color: 0xFFFFFF, transparent : true, opacity : 0.5});
+                //     child.material = glassMat;
+                //     child.castShadow = true;
+                // }
+                // else if(child.name == 'Moustache'){
+                //     var moustacheMat = new THREE.MeshToonMaterial({color: 0xafafaf, gradientMap: tex});
+                //     child.material = moustacheMat;
+                //     child.castShadow = true;
+                // }
+                else{
+                    var transparentMat = new THREE.MeshBasicMaterial({transparent: true, opacity: 0});
+                    child.material = transparentMat;
                 }
             }
         });
@@ -621,6 +636,21 @@ gltfloader.load(
         model.position.set(0,-0.6, 0)
 
         models['letter'] = model
+        loadedPercentage += (1/numberOfAssets)
+        loadingBar.animate(loadedPercentage)
+    }
+)
+
+gltfloader.load(
+    'Models/LandStage3.gltf',
+    (gltf) =>
+    {
+        let model = gltf.scene
+        model.name = 'landstage3'
+        model.scale.set(.075,.075,.075)
+        model.position.set(0,-0.72, 0)
+
+        models['landstage3'] = model
         loadedPercentage += (1/numberOfAssets)
         loadingBar.animate(loadedPercentage)
     }

@@ -132,7 +132,7 @@ export function joystickTutorialEnded(){
     if(questionIndex > 0){
         enableBackButton();
     }
-    if(questionIndex < questions.questionArray.length - 1){
+    if(questionIndex < questions.qArray.length - 1){
         enableNextButton();
     }
     showingTutorial = false;
