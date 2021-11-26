@@ -28,6 +28,17 @@ canvas.webgl{
     -moz-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+#questionID{
+    position: absolute;
+    width: 46px;
+    height: 40px;
+    left: 50%;
+    top: 10px;
+    z-index: 2;
+    opacity: 0.5;
+    transform: translate(-50%,0%);
+    touch-action: none;
+}
 
 /* styling for loading page */
 .loading-container{

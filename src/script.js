@@ -36,11 +36,15 @@ const db = getFirestore();
 //
 
 export let surveyStarted = false //other modules can read this value to see if the survey has started
-let showingTutorial = false;
+export let isDebugging = true
+let showingTutorial = false
 
 let joystickTutorialShown = false;
 
 export let questionIndex = 0 //indicates the question to be loaded
+export function setQuestionIndex(value){
+    questionIndex = value
+}
  
 export let confirmedAnswers = [] //stores confirmed answers
 let uiHolder = document.getElementById('ui-holder');
@@ -80,6 +84,9 @@ export function startSurvey(){//call this function when loading is complete
     questions.loadQuestion(questionIndex)
     timeStamps.start = getCurrentTimeFormatted()
     console.log(timeStamps);
+
+    if(isDebugging == false)
+        uiControl.qInputField.style.display = 'none'
     //uiControl.addLangugageButtonEvents();
     //Call any functions related to starting the survey (setting up the first scene etc..)
 }

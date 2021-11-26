@@ -198,6 +198,22 @@ window.addEventListener('load',updateAspectLanguageUI)
 window.addEventListener('resize',updateAspectLanguageUI)
 window.addEventListener('resize',languageCalculateMargins)
 
+export const qInputField = document.getElementById('questionID')
+document.addEventListener('keydown', function(event) {
+    if(event.key == "l") {
+        if(main.isDebugging == false)
+            return
+
+        if(main.questionIndex >= 3){
+            const q = parseInt(qInputField.value) - 1
+            if(q >= 3 && q <= 42){
+                main.setQuestionIndex(q)
+                loadQuestion(q)
+            }
+        }
+    }
+})
+
 // export function addLangugageButtonEvents(){
 //     // englishText.addEventListener('click', languageSelected('en'));
 //     // sinhalaText.addEventListener('click', languageSelected('si'));
@@ -529,7 +545,7 @@ export function SetSliderFillerAndAnswer(){
     SetFiller(joystickSlideValue)
     let convertedValue = Math.round((parseInt(joystickSlideValue)+50)/14.2857) 
     enableConfirmation(convertedValue)
-    console.log(`${(parseInt(joystickSlideValue)+50)} / 14.2857 = ${convertedValue}`);
+    //console.log(`${(parseInt(joystickSlideValue)+50)} / 14.2857 = ${convertedValue}`);
 }
 
 
