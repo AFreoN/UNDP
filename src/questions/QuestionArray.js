@@ -25,20 +25,21 @@ export const Questions = [
         question : {
             main:{
                 en : 'About you',
-                si : 'ඔයාගේ වයස කීය ද ?',
+                si : 'ඔබ ගැන',
+                //translations need to be added  extra not on doc
                 ta : 'உங்களுக்கு எவ்வளவு வயது ?',
                 dv : 'How old are you ?'
             },
             age:{
                 en : 'How old are you ?',
-                si : 'ඔයාගේ වයස කීය ද ?',
-                ta : 'உங்களுக்கு எவ்வளவு வயது ?',
+                si : 'ඔබගේ වයස ?',
+                ta : 'உங்களுடைய வயது என்ன ?',                  
                 dv : 'How old are you ?'
             },
             gender:{
                 en : 'What is your gender ?',
-                si : 'ඔබේ ලිංගය කුමක්ද?',
-                ta : 'உங்கள் பாலினம் என்ன ?',
+                si : 'ස්ත්‍රී පුරුෂ සමාජභාවය ?',
+                ta : 'உங்களுடைய பால்நிலை என்ன ?',
                 dv : 'What is your gender ?'
             }
         },
@@ -46,8 +47,8 @@ export const Questions = [
             age:[
                 {
                     en : 'Under 18',
-                    si : '18 ට අඩු',
-                    ta : '18 வயதுக்குட்பட்டவர்',
+                    si : '18ට අඩු',
+                    ta : '18 வயதிற்கு கீழ்',
                     dv : 'Under 18'
                 },
                 {
@@ -66,50 +67,50 @@ export const Questions = [
                     en : '35+',
                     si : '35+',
                     ta : '35+',
-                    dv : '35'
+                    dv : '35+'
                 },
                 {
                     en : 'Prefer not to Say',
-                    si : 'නොකියන්න කැමති',
-                    ta : 'சொல்ல விரும்பவில்லை',
+                    si : 'කීමට අකැමැතියි',
+                    ta : 'குறிப்பிட விரும்பவில்லை',
                     dv : 'Prefer not to Say'
                 }
             ], 
             gender:[
                 {
                     en : 'Man',
-                    si : 'මිනිසා',
+                    si : 'පිරිමි',
                     ta : 'ஆண்',
                     dv : 'Man'
                 },
                 {
                     en : 'Woman',
-                    si : 'කාන්තාවක්',
+                    si : 'කාන්තා',
                     ta : 'பெண்',
                     dv : 'Woman'
                 },
                 {
                     en : 'Intersex',
                     si : 'අන්තර් ලිංගික',
-                    ta : 'இருபால்',
+                    ta : 'இடைப்பாலினம்',
                     dv : 'Intersex'
                 },
                 {
                     en : 'Non-binary',
-                    si : 'ද්විමය නොවන',
-                    ta : 'ஒரு பாலினம் அல்ல',
+                    si : 'ද්වි නොවන',
+                    ta : 'மாற்றுப்பாலினம் (binary)',
                     dv : 'Non-binary'
                 },
                 {
                     en : 'Other',
                     si : 'වෙනත්',
-                    ta : 'மற்றவை',
+                    ta : 'வேறு',
                     dv : 'Other'
                 },
                 {
                     en : 'Prefer not to Say',
-                    si : 'නොකියන්න කැමති',
-                    ta : 'சொல்ல விரும்பவில்லை',
+                    si : 'කීමට අකැමැතියි',
+                    ta : 'குறிப்பிட விரும்பவில்லை',
                     dv : 'Prefer not to Say'
                 }
             ]
@@ -120,9 +121,9 @@ export const Questions = [
     {   //1     4   Mother
         type : 'joystick',
         question : {
-            en : 'How close do you feel to your mother ?',
-            si : 'ඔබ ඔබේ මවට කොතරම් සමීපද?',
-            ta : 'உங்கள் தாயிடம் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
+            en : 'How close do you feel to your mother?',
+            si : 'ඔබ ඔබගේ මව සමග කෙතරම් දුරට සමීපද?',
+            ta : 'உங்கள் தாயுடன் நீங்கள் எவ்வளவு நெருக்கமாக இருக்கிறீர்கள்?',
             dv : 'How close do you feel to your mother ?'
         },
         answers : [
@@ -181,9 +182,9 @@ export const Questions = [
     {   //2     5   Father
         type : 'joystick',
         question : {
-            en : 'How close do you feel to your father ?',
-            si : 'ඔබ ඔබේ පියාට කොතරම් සමීපද?',
-            ta : 'உங்கள் தந்தையிடம் நீங்கள் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
+            en : 'How close do you feel to your father?',
+            si : 'ඔබ ඔබගේ පියා සමග කෙතරම් දුරට සමීපද?',
+            ta : 'நீங்கள் உங்கள் தந்தையுடன் எவ்வளவு நெருக்கமாக இருக்கிறீர்கள்?',
             dv : 'How close do you feel to your father ?'
         },
         answers : [
@@ -243,8 +244,8 @@ export const Questions = [
         type : 'joystick',
         question : {
             en : 'How close are you to your siblings?',
-            si : 'ඔබ සහෝදර සහෝදරියන් සමඟ කෙතරම් සමීපද?',
-            ta : 'நீங்கள் உடன்பிறந்தவர்களுடன் எவ்வளவு நெருக்கமாக இருக்கிறீர்கள்?',
+            si : 'ඔබ ඔබගේ සහෝදර සහෝදරියන් සමග කෙතරම් දුරට සමීපද?',
+            ta : 'உங்கள் உடன்பிறந்தவர்களுடன் நீங்கள் எவ்வளவு நெருக்கமாக இருக்கிறீர்கள்?',
             dv : 'How close are you to your siblings?'
         },
         answers : [
@@ -304,7 +305,7 @@ export const Questions = [
         type : 'joystick',
         question : {
             en : 'How close are you to your closest friends?',
-            si : 'ඔබේ සමීපතම මිතුරන්ට ඔබ කෙතරම් සමීපද?',
+            si : 'ඔබ ඔබගේ සමීප මිතුරන් සමග කෙතරම් දුරට සමීපද?',
             ta : 'உங்கள் நெருங்கிய நண்பர்களுடன் நீங்கள் எவ்வளவு நெருக்கமாக இருக்கிறீர்கள்?',
             dv : 'How close are you to your closest friends?'
         },
@@ -365,7 +366,7 @@ export const Questions = [
         type : 'joystick',
         question : {
             en : 'How close are you to your distant friends?',
-            si : 'ඔබේ දුරස්ථ මිතුරන්ට ඔබ කෙතරම් සමීපද?',
+            si : 'ඔබ ඔබගේ දුරස්ථ මිතුරන් සමග කෙතරම් දුරට සමීපද?',
             ta : 'உங்கள் தொலைதூர நண்பர்களுடன் நீங்கள் எவ்வளவு நெருக்கமாக இருக்கிறீர்கள்?',
             dv : 'How close are you to your distant friends?'
         },
@@ -426,8 +427,8 @@ export const Questions = [
         type : 'joystick',
         question : {
             en : 'How close do you feel with your local community ?',
-            si : 'ඔබේ ප්‍රාදේශීය ප්‍රජාව සමඟ ඔබට කෙතරම් සමීප බවක් දැනෙන්නේද?',
-            ta : 'உங்கள் உள்ளூர் சமூகத்துடன் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள்?',
+            si : 'ඔබ ඔබගේ ප්‍රදේශයේ ප්‍රජාව සමග කෙතරම් දුරට සමීප යයි හැඟේද?',
+            ta : 'உங்கள் உள்ளூர் சமூகத்துடன் நீங்கள் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள்?',
             dv : 'How close do you feel with your local community ?'
         },
         answers : [
@@ -487,8 +488,8 @@ export const Questions = [
         type : 'joystick',
         question : {
             en : 'How close do you feel to your local religious community ?',
-            si : 'වෙනත් භාෂාවක් කතා කරන පුද්ගලයින්ට ඔබට කෙතරම් සමීප බවක් දැනෙන්නේද?',
-            ta : 'உங்கள் உள்ளூர் சமூகத்துடன் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள்?',
+            si : 'ඔබ ඔබගේ ප්‍රදේශයේ ආගමික ප්‍රජාව සමග කෙතරම් දුරට සමීප යය හැඟේද?',
+            ta : 'உங்கள் உள்ளூர் மத சமூகத்துடன் நீங்கள் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள்?',
             dv : 'How close do you feel with your local community ?'
         },
         answers : [
@@ -548,8 +549,8 @@ export const Questions = [
         type : 'joystick',
         question : {
             en : 'How close do you feel to people that speak a different language ?',
-            si : 'වෙනත් භාෂාවක් කතා කරන පුද්ගලයින්ට ඔබට කෙතරම් සමීප බවක් දැනෙන්නේද?',
-            ta : 'உங்கள் உள்ளூர் சமூகத்துடன் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள்?',
+            si : 'ඔබ වෙනත් භාෂාවක් කතාකරන මිනිසුන් සමග කෙතරම් දුරට සමීප යය හැඟේද?',
+            ta : 'வேறொரு மொழியைப் பேசும் மக்களுடன் நீங்கள் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள்?',
             dv : 'How close do you feel with your local community ?'
         },
         answers : [
@@ -609,8 +610,8 @@ export const Questions = [
         type : 'joystick',
         question : {
             en : 'How close do you feel to people with different religious beliefs ?',
-            si : 'වෙනත් භාෂාවක් කතා කරන පුද්ගලයින්ට ඔබට කෙතරම් සමීප බවක් දැනෙන්නේද?',
-            ta : 'உங்கள் உள்ளூர் சமூகத்துடன் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள்?',
+            si : 'ඔබ වෙනස් ආගම් හා විශ්වාසයන් සහිත ප්‍රජාවන් සමග කෙතරම් දුරට සමීප යයි හැඟේද?',
+            ta : 'வெவ்வேறு மதம் மற்றும் நம்பிக்கைகளைக் கொண்டவர்களுடன் நீங்கள் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள்?',
             dv : 'How close do you feel with your local community ?'
         },
         answers : [
@@ -670,8 +671,8 @@ export const Questions = [
         type : 'joystick',
         question : {
             en : 'How close do you feel to your home country ?',
-            si : 'වෙනත් භාෂාවක් කතා කරන පුද්ගලයින්ට ඔබට කෙතරම් සමීප බවක් දැනෙන්නේද?',
-            ta : 'உங்கள் உள்ளூர் சமூகத்துடன் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள்?',
+            si : 'ඔබ ඔබගේ මව්රටට කෙතරම් දුරට සමීප යයි හැඟේද?',
+            ta : 'உங்கள் தாய்நாட்டுடன் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள்?',
             dv : 'How close do you feel with your local community ?'
         },
         answers : [
@@ -733,8 +734,8 @@ export const Questions = [
         type : 'likert5',
         question : {
             en : 'Do you feel close to your friends(not including those in your family)? ',
-            si : 'ඔබ ඔබේ මවට කොතරම් සමීපද?',
-            ta : 'உங்கள் தாயிடம் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
+            si : 'ඔබ ඔබගේ මිතුරන් සමග සමීප යයි ඔබට හැඟේද? (ඔබේ පවුලේ අය අදාළ නොවේ)',
+            ta : 'உங்கள் நண்பர்களுடன் நெருக்கமாக உணர்கிறீர்களா (உங்கள் குடும்ப உறுப்பினர்கள் தவிர்ந்த)?',
             dv : 'I have little control over things that happen to me.'
         },
         answers : [
@@ -789,8 +790,8 @@ export const Questions = [
         type : 'likert5',
         question : {
             en : 'If you feel like having company, do you find it easy to find people to socialize with?',
-            si : 'ඔබ ඔබේ මවට කොතරම් සමීපද?',
-            ta : 'உங்கள் தாயிடம் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
+            si : 'ඔබ මිතුරු ඇසුරට කැමති නම්, සමාජගත වීම සඳහා පුද්ගලයන් සොයාගැනීම පහසු යයි ඔබට හැඟේද?',
+            ta : 'நீங்கள் சகபாடிகளை கொண்டுள்ளதாக உணர்ந்தால் அவர்களுடன் பழகுவது இலகுவானதாக இருக்கின்றதா?',
             dv : 'I have little control over things that happen to me.'
         },
         answers : [
@@ -845,8 +846,8 @@ export const Questions = [
         type : 'likert5',
         question : {
             en : 'Do you find it easy to make new friends?',
-            si : 'ඔබ ඔබේ මවට කොතරම් සමීපද?',
-            ta : 'உங்கள் தாயிடம் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
+            si : 'අලුත් මිතුරන් සොයාගැනීම පහසු යයි ඔබට සිතේද?',
+            ta : 'உங்களுக்கு புதிய நண்பர்களை உருவாக்குவது இலகுவாக இருக்கின்றதா?',
             dv : 'I have little control over things that happen to me.'
         },
         answers : [
@@ -901,8 +902,8 @@ export const Questions = [
         type : 'likert5',
         question : {
             en : 'Do you feel well supported by the people you know?',
-            si : 'ඔබ ඔබේ මවට කොතරම් සමීපද?',
-            ta : 'உங்கள் தாயிடம் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
+            si : 'ඔබ දන්නා අයගෙන් ඔබට මනා සහයෝගයක් ලැබේ යයි ඔබ සිතනවාද?',
+            ta : 'உங்களுக்கு தெரிந்தவர்களால் நன்றாக ஆதரிக்கப்படுவதாக உணர்கின்றீர்களா?',
             dv : 'I have little control over things that happen to me.'
         },
         answers : [
@@ -957,8 +958,8 @@ export const Questions = [
         type : 'likert5',
         question : {
             en : 'How happy have you been over the last month?',
-            si : 'ඔබ ඔබේ මවට කොතරම් සමීපද?',
-            ta : 'உங்கள் தாயிடம் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
+            si : 'පසුගිය මාසය තුළ ඔබ කෙතරම් සතුටින් කාලය ගතකළාද?',
+            ta : 'கடந்த மாதம் எந்தளவு மகிழ்ச்சியாக இருந்தீர்கள்?',
             dv : 'How happy have you been over the last month?'
         },
         answers : [
@@ -1013,8 +1014,8 @@ export const Questions = [
         type : 'likert5',
         question : {
             en : 'To what extent do you agree with the statement ‘I feel a sense of belonging in my local community’?',
-            si : 'ඔබ ඔබේ මවට කොතරම් සමීපද?',
-            ta : 'உங்கள் தாயிடம் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
+            si : '‘මා මගේ ප්‍රජාවට අයත් යයි මට හැඟේ’ යන ප්‍රකාශය සමග ඔබ කොයි තරම් දුරට එකඟ වෙනවාද?',
+            ta : '‘எனது உள்ளூர் சமூகத்தைச் சேர்ந்தவன் என்ற உணர்வை உணர்கிறேன்’ என்ற கூற்றை நீங்கள் எந்த அளவிற்கு ஏற்றுக்கொள்கிறீர்கள்?',
             dv : 'How happy have you been over the last month?'
         },
         answers : [
@@ -1069,8 +1070,8 @@ export const Questions = [
         type : 'likert4',
         question : {
             en : 'Do you think that, in general, most people can be trusted, or that you can’t be too careful in dealing with people?',
-            si : 'ඔබ ඔබේ මවට කොතරම් සමීපද?',
-            ta : 'உங்கள் தாயிடம் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
+            si : 'සාමාන්‍යයෙන් ගත් කල බොහෝ මිනිසුන් විශ්වාස කළ හැකි යයි ඔබ සිතනවාද? නැතිනම්, මිනිසුන් සමග කටයුතු කිරීමේදී ඕනෑවට වඩා පරිස්සම් වීම අනවශ්‍ය යයි ඔබ සිතනවාද?',
+            ta : 'பொதுவாக, பெரும்பாலான மக்களை நம்பலாம், அல்லது மக்களுடன் பழகுவதில் நீங்கள் மிகவும் கவனமாக இருக்க முடியாது என்று நினைக்கின்றீர்களா?',
             dv : 'How happy have you been over the last month?'
         },
         answers : [
@@ -1137,8 +1138,8 @@ export const Questions = [
         type : 'likert5',
         question : {
             en : 'To what extent do you agree with the statement ‘I assume that people have the best intentions’?',
-            si : 'ඔබ ඔබේ මවට කොතරම් සමීපද?',
-            ta : 'உங்கள் தாயிடம் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
+            si : '‘මිනිසුන්ගේ අභිලාෂයන් හොඳ යයි මම පිළිගනිමි’ යන ප්‍රකාශය සමග ඔබ කොයි තරම් දුරට එකඟ වෙනවාද?',
+            ta : 'மக்களுக்கு சிறந்த நோக்கங்கள் இருப்பதாக நான் கருதுகிறேன் என்ற கூற்றை நீங்கள் எந்த அளவிற்கு ஏற்றுக்கொள்கிறீர்கள்?',
             dv : 'How happy have you been over the last month?'
         },
         answers : [
@@ -1193,8 +1194,8 @@ export const Questions = [
         type : 'likert5',
         question : {
             en : 'To what extent do you agree with the statement ‘most people in my home neighbourhood can be trusted’? (Home neighbourhood means 15-20 minutes walking distance from where you currently live.)',
-            si : 'ඔබ ඔබේ මවට කොතරම් සමීපද?',
-            ta : 'உங்கள் தாயிடம் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
+            si : '‘මගේ නිවස ආසන්න ප්‍රදේශයේ අසල්වැසියන් වැඩිදෙනෙකු විශ්වාස කළ හැකිය’ යන ප්‍රකාශය සමග ඔබ කොයි තරම් දුරට එකඟද? (නිවස ආසන්න ප්‍රදේශයේ අසල්වැසියන් යන්නෙන් අදහස් කරනු ලබන්නේ ඔබ වර්තමානයේ ජීවත්වන තැන සිට විනාඩි 15-20 අතර කාලයකින් යා හැකි දුරයි)',
+            ta : '‘எனது வீட்டு அயலிலுள்ள பெரும்பாலான மக்களை நம்பலாம்’ என்ற கூற்றை நீங்கள் எந்த அளவிற்கு ஏற்றுக்கொள்கிறீர்கள்? (வீட்டு அயல் என்பது நீங்கள் தற்போது வசிக்கும் இடத்திலிருந்து 15-20 நிமிட நடை தூரம் ஆகும்.',
             dv : 'How happy have you been over the last month?'
         },
         answers : [
@@ -1249,8 +1250,8 @@ export const Questions = [
         type : 'likert5',
         question : {
             en : 'To what extent do you agree with the statement ‘most people in my home neighbourhood generally can be trusted?',
-            si : 'ඔබ ඔබේ මවට කොතරම් සමීපද?',
-            ta : 'உங்கள் தாயிடம் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
+            si : '‘මගේ නිවස ආසන්න ප්‍රදේශයේ අසල්වැසියන් වැඩිදෙනෙකු සාමාන්‍යයෙන් විශ්වාස කළ හැකිය’ යන ප්‍රකාශය සමග ඔබ කොයි තරම් දුරට එකඟද?',
+            ta : '‘எனது வீட்டு அயலிலுள்ள பெரும்பாலான மக்களை பொதுவாக நம்பலாம்?’ என்ற கூற்றை நீங்கள் எந்த அளவிற்கு ஏற்றுக்கொள்கிறீர்கள்?',
             dv : 'How happy have you been over the last month?'
         },
         answers : [
@@ -1305,8 +1306,8 @@ export const Questions = [
         type : 'likert5',
         question : {
             en : 'To what extent do you agree with the statement ‘I feel safe where I currently live’?',
-            si : 'ඔබ ඔබේ මවට කොතරම් සමීපද?',
-            ta : 'உங்கள் தாயிடம் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
+            si : '‘මා වර්තමානයේදී ජීවත්වන පරිසරය තුළ මට ආරක්ෂිත හැඟීමක් දැනේ’ යන ප්‍රකාශය සමග ඔබ කොයි තරම් දුරට එකඟද?',
+            ta : '‘நான் தற்போது வசிக்கும் இடத்தில் பாதுகாப்பாக உணர்கிறேன்’ என்ற கூற்றை நீங்கள் எந்த அளவிற்கு ஏற்றுக்கொள்கிறீர்கள்?',
             dv : 'How happy have you been over the last month?'
         },
         answers : [
@@ -1361,8 +1362,8 @@ export const Questions = [
         type : 'likert4',
         question : {
             en : 'How many people do you typically talk to each day on the phone/internet?',
-            si : 'ඔබ ඔබේ මවට කොතරම් සමීපද?',
-            ta : 'உங்கள் தாயிடம் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
+            si : 'සෑම දිනකම සාමාන්‍යයෙන් ඔබ දුරකථනයෙන්/අන්තර්ජාලයෙන් පුද්ගලයන් කීදෙනෙකු සමග සාකච්ඡා කරනවාද?',
+            ta : 'தொலைபேசி/இணையத்தில் ஒவ்வொரு நாளும் எத்தனை பேருடன் பொதுவாகப் பேசுவீர்கள்?',
             dv : 'How happy have you been over the last month?'
         },
         answers : [
@@ -1429,8 +1430,8 @@ export const Questions = [
         type : 'likert4',
         question : {
             en : 'When in need, how many people can you go to for help (e.g.practical, relationships, emotional,financial, etc.)?',
-            si : 'ඔබ ඔබේ මවට කොතරම් සමීපද?',
-            ta : 'உங்கள் தாயிடம் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
+            si : 'ඔබට අවශ්‍ය විටදී, ඔබට පුද්ගලයන් කීදෙනෙකුගෙන් උපකාර ලබාගත හැකිද? (උදා: ප්‍රායෝගික, සම්බන්ධතා,චිත්තවේගී, මූල්‍ය)',
+            ta : 'தேவைப்படும் போது, நீங்கள் எத்தனை பேரிடம் உதவிக்கு செல்லலாம் (உதா-நடைமுறை, உறவு, உணர்ச்சி, நிதி போன்றவை)?',
             dv : 'How happy have you been over the last month?'
         },
         answers : [
@@ -1497,8 +1498,8 @@ export const Questions = [
         type : 'likert4',
         question : {
             en : 'How many people can you typically call on if you want to socialize?',
-            si : 'ඔබ ඔබේ මවට කොතරම් සමීපද?',
-            ta : 'உங்கள் தாயிடம் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
+            si : 'ඔබට සමාජගත වීමට අවශ්‍ය නම්, ඔබට සාමාන්‍යයෙන් පුද්ගලයන් කීදෙනෙකුට කතාකළ හැකිද?',
+            ta : 'நீங்கள் பழக விரும்பினால் பொதுவாக எத்தனை பேரை அழைக்கலாம்?',
             dv : 'How happy have you been over the last month?'
         },
         answers : [
@@ -1565,8 +1566,8 @@ export const Questions = [
         type : 'likert4',
         question : {
             en : 'How many people do you know who you can call on in an emergency?',
-            si : 'ඔබ ඔබේ මවට කොතරම් සමීපද?',
-            ta : 'உங்கள் தாயிடம் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
+            si : 'හදිසි අවස්ථාවකදී ඔබට කතා කළ හැකි පුද්ගලයන් කීදෙනෙකු ගැන ඔබ දන්නවාද?',
+            ta : 'அவசரநிலைமையில் நீங்கள் அழைக்கலாம் என்று எத்தனை பேரை நீங்கள் அறிவீர்கள்?',
             dv : 'How happy have you been over the last month?'
         },
         answers : [
@@ -1635,8 +1636,8 @@ export const Questions = [
         type : 'likert7',
         question : {
             en : 'I have little control over the things that happen to me',
-            si : 'ඔබ ඔබේ මවට කොතරම් සමීපද?',
-            ta : 'உங்கள் தாயிடம் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
+            si : 'මට සිදුවන දේ සම්බන්ධයෙන් මට තිබෙන්නේ අවම පාලනයකි.',
+            ta : 'எனக்கு நடக்கும் விடயங்களில் எனக்கு சிறிதும் கட்டுப்பாடு இல்லை',
             dv : 'I have little control over things that happen to me.'
         },
         answers : [
@@ -1677,8 +1678,8 @@ export const Questions = [
         type : 'likert7',
         question : {
             en : 'There is really no way I can solve some of the problems I have',
-            si : 'ඔබ ඔබේ මවට කොතරම් සමීපද?',
-            ta : 'உங்கள் தாயிடம் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
+            si : 'මට තිබෙන ඇතැම් ප්‍රශ්න විසඳාගැනීමට මට මාර්ගයක් නැත.',
+            ta : 'எனக்கு இருக்கும் சில பிரச்சனைகளை என்னால் தீர்ப்பதற்கு எந்த வழியும் இல்லை',
             dv : 'I have little control over things that happen to me.'
         },
         answers : [
@@ -1719,8 +1720,8 @@ export const Questions = [
         type : 'likert7',
         question : {
             en : 'There is little I can do to change many of the important things in my life',
-            si : 'ඔබ ඔබේ මවට කොතරම් සමීපද?',
-            ta : 'உங்கள் தாயிடம் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
+            si : 'මගේ ජීවිතයේ බොහෝ වැදගත් දේ වෙනස් කිරීමට මට කළ හැක්කේ අවම දෙයකි.',
+            ta : 'என் வாழ்க்கையில் பல முக்கியமான விடயங்களை மாற்றுவதற்கு நான் செய்யக்கூடியது மிகக் குறைவு',
             dv : 'I have little control over things that happen to me.'
         },
         answers : [
@@ -1761,8 +1762,8 @@ export const Questions = [
         type : 'likert7',
         question : {
             en : 'I often feel helpless in dealing with the problems of life',
-            si : 'ඔබ ඔබේ මවට කොතරම් සමීපද?',
-            ta : 'உங்கள் தாயிடம் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
+            si : 'ජීවිතයේ ගැටලුවලට මුහුණදෙන විට මට බොහෝවිට අසරණ හැඟීමක් දැනේ.',
+            ta : 'வாழ்க்கையின் பிரச்சினைகளைக் கையாள்வதில் நான் அடிக்கடி உதவியற்றவனாக உணர்கிறேன்',
             dv : 'I have little control over things that happen to me.'
         },
         answers : [
@@ -1803,8 +1804,8 @@ export const Questions = [
         type : 'likert7',
         question : {
             en : 'Sometimes I feel that I’m being pushed around in life',
-            si : 'ඔබ ඔබේ මවට කොතරම් සමීපද?',
-            ta : 'உங்கள் தாயிடம் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
+            si : 'ඇතැම් විට මා ජීවිතයේ අතරමං වී ඇති බවක් දැනේ.',
+            ta : 'சில நேரங்களில் நான் வாழ்க்கையில் தள்ளப்பட்டதாக உணர்கிறேன்',
             dv : 'I have little control over things that happen to me.'
         },
         answers : [
@@ -1845,8 +1846,8 @@ export const Questions = [
         type : 'likert7',
         question : {
             en : 'What happens to me in the future mostly depends on me',
-            si : 'ඔබ ඔබේ මවට කොතරම් සමීපද?',
-            ta : 'உங்கள் தாயிடம் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
+            si : 'මට අනාගතයේදී සිදුවන දෙය බොහෝවිට රඳාපවතින්නේ මා මතය.',
+            ta : 'எதிர்காலத்தில் எனக்கு என்ன நடக்கும் என்பது என்னைப் பொறுத்ததாகும்',
             dv : 'I have little control over things that happen to me.'
         },
         answers : [
@@ -1887,8 +1888,8 @@ export const Questions = [
         type : 'likert7',
         question : {
             en : 'I can do just about anything I really set my mind to do',
-            si : 'ඔබ ඔබේ මවට කොතරම් සමීපද?',
-            ta : 'உங்கள் தாயிடம் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
+            si : 'මට මා සිතන ඕනෑ දෙයක් කළ හැකිය',
+            ta : 'நான் உண்மையிலேயே செய்ய நினைத்த எதையும் என்னால் செய்ய முடியும்',
             dv : 'I have little control over things that happen to me.'
         },
         answers : [
@@ -1929,8 +1930,8 @@ export const Questions = [
         type : 'likert7',
         question : {
             en : 'People in my circle of friends are able to talk about problems and tough issues that they face',
-            si : 'ඔබ ඔබේ මවට කොතරම් සමීපද?',
-            ta : 'உங்கள் தாயிடம் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
+            si : 'මගේ මිතුරු සමාජය තුළ සිටින මිනිසුන්ට ප්‍රශ්න සහ ඔවුන් මුහුණදෙන බරපතල ගැටලු පිළිබඳ සාකච්ඡා කළ හැකිය.',
+            ta : 'எனது நட்பு வட்டத்தில் உள்ளவர்கள் தாங்கள் எதிர்கொள்ளும் பிரச்சினைகள் மற்றும் கடினமான சிக்கல்கள் பற்றி பேச முடியும்',
             dv : 'I have little control over things that happen to me.'
         },
         answers : [
@@ -1971,8 +1972,8 @@ export const Questions = [
         type : 'likert7',
         question : {
             en : 'I feel safe to take a risk in my circle of friends',
-            si : 'ඔබ ඔබේ මවට කොතරම් සමීපද?',
-            ta : 'உங்கள் தாயிடம் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
+            si : 'මගේ මිතුරු කවය තුළදී අවදානම් ගැනීම මට ආරක්ෂිතය.',
+            ta : 'எனது நட்பு வட்டத்தில் அபாயத்தை கையாள்வதில் நான் பாதுகாப்பாக உணர்கிறேன்',
             dv : 'I have little control over things that happen to me.'
         },
         answers : [
@@ -2013,8 +2014,8 @@ export const Questions = [
         type : 'likert7',
         question : {
             en : 'It is difficult to ask my circle of friends for help',
-            si : 'ඔබ ඔබේ මවට කොතරම් සමීපද?',
-            ta : 'உங்கள் தாயிடம் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
+            si : 'මගේ මිතුරු කවයෙන් උපකාරයක් ලබාගැනීම දුෂ්කරය.',
+            ta : 'என் நட்பு வட்டத்தில் உதவி கேட்பது கடினம்',
             dv : 'I have little control over things that happen to me.'
         },
         answers : [
@@ -2055,8 +2056,8 @@ export const Questions = [
         type : 'likert7',
         question : {
             en : 'No one in my circle of friends would intentionally act in a way to hurt my study or work',
-            si : 'ඔබ ඔබේ මවට කොතරම් සමීපද?',
-            ta : 'உங்கள் தாயிடம் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
+            si : 'මගේ මිතුරු කවයේ කිසිවකු මගේ අධ්‍යයන හෝ කාර්යයන්ට එරෙහිව සිතාමතාම ක්‍රියාකරන්නේ නැත.',
+            ta : 'எனது நண்பர்கள் வட்டத்தில் உள்ள யாரும் வேண்டுமென்றே எனது கல்வியையோ​​ அல்லது வேலையையோ காயப்படுத்தும் வகையில் செயற்பட மாட்டார்கள்',
             dv : 'I have little control over things that happen to me.'
         },
         answers : [
@@ -2097,8 +2098,8 @@ export const Questions = [
         type : 'likert7',
         question : {
             en : 'Within my circle of friends, my unique skills and talents are valued and utilized',
-            si : 'ඔබ ඔබේ මවට කොතරම් සමීපද?',
-            ta : 'உங்கள் தாயிடம் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
+            si : 'මගේ මිතුරු කවය තුළ, මගේ සුවිශේෂ කුසලතාවන් හා සහජ හැකියාවන් ඇගයීමට ලක්වේ.',
+            ta : 'எனது நண்பர்கள் வட்டத்திற்குள், எனது தனிப்பட்ட திறன்கள் மற்றும் திறமைகள் பெறுமதியாக்கப்பட்டு  பயன்படுத்தப்படுகின்றன',
             dv : 'I have little control over things that happen to me.'
         },
         answers : [
@@ -2139,8 +2140,8 @@ export const Questions = [
         type : 'likert7',
         question : {
             en : 'If I make a mistake, it is often held against me by my circle of friends',
-            si : 'ඔබ ඔබේ මවට කොතරම් සමීපද?',
-            ta : 'உங்கள் தாயிடம் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
+            si : 'මට වරදක් සිදුවුවහොත්, මගේ මිතුරුසමාජය විසින් එය මට එරෙහිව භාවිතා කරනු ලැබේ.',
+            ta : 'நான் தவறு செய்தால், என் நட்பு வட்டத்தில் அது அநேகமாக எனக்கு எதிரானதாக இருக்கும்',
             dv : 'I have little control over things that happen to me.'
         },
         answers : [
@@ -2181,8 +2182,8 @@ export const Questions = [
         type : 'likert7',
         question : {
             en : 'People in my circle of friends sometimes reject others for being different',
-            si : 'ඔබ ඔබේ මවට කොතරම් සමීපද?',
-            ta : 'உங்கள் தாயிடம் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள் ?',
+            si : 'මගේ මිතුරු කවයේ සිටින පුද්ගලයෝ ඇතැම්විට වෙනස් නිසා සෙසු අය ප්‍රතික්ෂේප කරති.',
+            ta : 'எனது நட்பு வட்டத்தில் உள்ளவர்கள் சில சமயங்களில் வித்தியாசமானவர்கள் என்பதற்காக மற்றவர்களை நிராகரிக்கிறார்கள்',
             dv : 'I have little control over things that happen to me.'
         },
         answers : [
