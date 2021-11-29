@@ -34,13 +34,13 @@ export const Questions = [
                 en : 'How old are you ?',
                 si : 'ඔබගේ වයස ?',
                 ta : 'உங்களுடைய வயது என்ன ?',                  
-                dv : 'How old are you ?'
+                dv : 'ތިބާގެ އުމުރަކީ ކިހާވަރެއް؟'
             },
             gender:{
                 en : 'What is your gender ?',
                 si : 'ස්ත්‍රී පුරුෂ සමාජභාවය ?',
                 ta : 'உங்களுடைய பால்நிலை என்ன ?',
-                dv : 'What is your gender ?'
+                dv : 'ތިބާގެ ޖިންސަކީ ކޮބާ؟'
             }
         },
         answers :{
@@ -49,7 +49,7 @@ export const Questions = [
                     en : 'Under 18',
                     si : '18ට අඩු',
                     ta : '18 வயதிற்கு கீழ்',
-                    dv : 'Under 18'
+                    dv : '18 އަހަރުން ދަށް'
                 },
                 {
                     en : '18-25',
@@ -73,7 +73,7 @@ export const Questions = [
                     en : 'Prefer not to Say',
                     si : 'කීමට අකැමැතියි',
                     ta : 'குறிப்பிட விரும்பவில்லை',
-                    dv : 'Prefer not to Say'
+                    dv : 'ބޮޑަށް ބޭނުންވަނީ ހާމަނުކުރަން'
                 }
             ], 
             gender:[
@@ -81,37 +81,37 @@ export const Questions = [
                     en : 'Man',
                     si : 'පිරිමි',
                     ta : 'ஆண்',
-                    dv : 'Man'
+                    dv : 'ފިރިހެން'
                 },
                 {
                     en : 'Woman',
                     si : 'කාන්තා',
                     ta : 'பெண்',
-                    dv : 'Woman'
+                    dv : 'އަންހެން'
                 },
                 {
                     en : 'Intersex',
                     si : 'අන්තර් ලිංගික',
                     ta : 'இடைப்பாலினம்',
-                    dv : 'Intersex'
+                    dv : 'އިންޓަރސެކްސް'
                 },
                 {
                     en : 'Non-binary',
                     si : 'ද්වි නොවන',
                     ta : 'மாற்றுப்பாலினம் (binary)',
-                    dv : 'Non-binary'
+                    dv : 'ނޮން-ބައިނަރީ'
                 },
                 {
                     en : 'Other',
                     si : 'වෙනත්',
                     ta : 'வேறு',
-                    dv : 'Other'
+                    dv : 'އެހެނިހެން'
                 },
                 {
                     en : 'Prefer not to Say',
                     si : 'කීමට අකැමැතියි',
                     ta : 'குறிப்பிட விரும்பவில்லை',
-                    dv : 'Prefer not to Say'
+                    dv : 'ބޮޑަށް ބޭނުންވަނީ ހާމަނުކުރަން'
                 }
             ]
         },
@@ -124,7 +124,7 @@ export const Questions = [
             en : 'How close do you feel to your mother?',
             si : 'ඔබ ඔබගේ මව සමග කෙතරම් දුරට සමීපද?',
             ta : 'உங்கள் தாயுடன் நீங்கள் எவ்வளவு நெருக்கமாக இருக்கிறீர்கள்?',
-            dv : 'How close do you feel to your mother ?'
+            dv : 'ތިބާގެ މަންމައާ ތިބާއާ މެދު އޮންނަނީ ކިހާ ގާތް ގުޅުމެއް؟'
         },
         answers : [
             {
@@ -185,7 +185,7 @@ export const Questions = [
             en : 'How close do you feel to your father?',
             si : 'ඔබ ඔබගේ පියා සමග කෙතරම් දුරට සමීපද?',
             ta : 'நீங்கள் உங்கள் தந்தையுடன் எவ்வளவு நெருக்கமாக இருக்கிறீர்கள்?',
-            dv : 'How close do you feel to your father ?'
+            dv : 'ތިބާގެ ބައްޕައާ ތިބާއާ މެދު އޮންނަނީ ކިހާ ގާތް ގުޅުމެއް؟'
         },
         answers : [
             {
@@ -246,7 +246,7 @@ export const Questions = [
             en : 'How close are you to your siblings?',
             si : 'ඔබ ඔබගේ සහෝදර සහෝදරියන් සමග කෙතරම් දුරට සමීපද?',
             ta : 'உங்கள் உடன்பிறந்தவர்களுடன் நீங்கள் எவ்வளவு நெருக்கமாக இருக்கிறீர்கள்?',
-            dv : 'How close are you to your siblings?'
+            dv : 'ތިބާގެ އެއްބަނޑު އެއްބަފާ ކުދިންނާ ތިބާއާ ދެމެދު އޮންނަނީ ކިހާ ގާތް ގުޅުމެއް؟'
         },
         answers : [
             {
@@ -307,7 +307,7 @@ export const Questions = [
             en : 'How close are you to your closest friends?',
             si : 'ඔබ ඔබගේ සමීප මිතුරන් සමග කෙතරම් දුරට සමීපද?',
             ta : 'உங்கள் நெருங்கிய நண்பர்களுடன் நீங்கள் எவ்வளவு நெருக்கமாக இருக்கிறீர்கள்?',
-            dv : 'How close are you to your closest friends?'
+            dv : 'ތިބާގެ އެންމެ ގާތް ރަހުމަތްތެރިންނާއި ތިބާއާ ދެމެދު އޮންނަނީ ކިހާ ގާތް ގުޅުމެއް؟'
         },
         answers : [
             {
@@ -368,7 +368,7 @@ export const Questions = [
             en : 'How close are you to your distant friends?',
             si : 'ඔබ ඔබගේ දුරස්ථ මිතුරන් සමග කෙතරම් දුරට සමීපද?',
             ta : 'உங்கள் தொலைதூர நண்பர்களுடன் நீங்கள் எவ்வளவு நெருக்கமாக இருக்கிறீர்கள்?',
-            dv : 'How close are you to your distant friends?'
+            dv : 'ތިބާގެ ދުރު ރަހުމަތްތެރިންނާއި ތިބާއާ ދެމެދު އޮންނަނީ ކިހާ ގާތް ގުޅުމެއް؟'
         },
         answers : [
             {
@@ -429,7 +429,7 @@ export const Questions = [
             en : 'How close do you feel with your local community ?',
             si : 'ඔබ ඔබගේ ප්‍රදේශයේ ප්‍රජාව සමග කෙතරම් දුරට සමීප යයි හැඟේද?',
             ta : 'உங்கள் உள்ளூர் சமூகத்துடன் நீங்கள் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள்?',
-            dv : 'How close do you feel with your local community ?'
+            dv : 'ތިބާގެ މުޖުތަމައާ ދެމެދު ތިބާއަށް ކިހާ ގާތްކަމެއް އިހުސާސްކުރެވޭ؟'
         },
         answers : [
             {
@@ -490,7 +490,7 @@ export const Questions = [
             en : 'How close do you feel to your local religious community ?',
             si : 'ඔබ ඔබගේ ප්‍රදේශයේ ආගමික ප්‍රජාව සමග කෙතරම් දුරට සමීප යය හැඟේද?',
             ta : 'உங்கள் உள்ளூர் மத சமூகத்துடன் நீங்கள் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள்?',
-            dv : 'How close do you feel with your local community ?'
+            dv : 'ތިބާގެ މުޖުތަމަގެ ދީނީ ޖަމާއަތްތަކާ ދެމެދު ތިބާއަށް ކިހާ ގާތްކަމެއް އިހުސާސްކުރެވޭ؟'
         },
         answers : [
             {
@@ -551,7 +551,7 @@ export const Questions = [
             en : 'How close do you feel to people that speak a different language ?',
             si : 'ඔබ වෙනත් භාෂාවක් කතාකරන මිනිසුන් සමග කෙතරම් දුරට සමීප යය හැඟේද?',
             ta : 'வேறொரு மொழியைப் பேசும் மக்களுடன் நீங்கள் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள்?',
-            dv : 'How close do you feel with your local community ?'
+            dv : 'އެހެން ބަހަކުން ވާހަކަދައްކާ މީހުންނާމެދު ތިބާއަށް ކިހާ ގާތްކަމެއް އިހުސާސްކުރެވޭ؟'
         },
         answers : [
             {
@@ -612,7 +612,7 @@ export const Questions = [
             en : 'How close do you feel to people with different religious beliefs ?',
             si : 'ඔබ වෙනස් ආගම් හා විශ්වාසයන් සහිත ප්‍රජාවන් සමග කෙතරම් දුරට සමීප යයි හැඟේද?',
             ta : 'வெவ்வேறு மதம் மற்றும் நம்பிக்கைகளைக் கொண்டவர்களுடன் நீங்கள் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள்?',
-            dv : 'How close do you feel with your local community ?'
+            dv : 'އެހެން ދީންތަކާއި ގަބޫލުކުރުންތައް ގެންގުޅޭ މީހުންނާ ދެމެދު ތިބާއަށް ކިހާ ގާތްކަމެއް އިހުސާސްކުރެވޭ؟'
         },
         answers : [
             {
@@ -673,7 +673,7 @@ export const Questions = [
             en : 'How close do you feel to your home country ?',
             si : 'ඔබ ඔබගේ මව්රටට කෙතරම් දුරට සමීප යයි හැඟේද?',
             ta : 'உங்கள் தாய்நாட்டுடன் எவ்வளவு நெருக்கமாக உணர்கிறீர்கள்?',
-            dv : 'How close do you feel with your local community ?'
+            dv : 'ތިބާގެ އުފަން ގައުމާމެދު ތިބާއަށް ކިހާ ގާތްކަމެއް އިހުސާސްކުރެވޭ؟'
         },
         answers : [
             {
@@ -736,7 +736,7 @@ export const Questions = [
             en : 'Do you feel close to your friends(not including those in your family)? ',
             si : 'ඔබ ඔබගේ මිතුරන් සමග සමීප යයි ඔබට හැඟේද? (ඔබේ පවුලේ අය අදාළ නොවේ)',
             ta : 'உங்கள் நண்பர்களுடன் நெருக்கமாக உணர்கிறீர்களா (உங்கள் குடும்ப உறுப்பினர்கள் தவிர்ந்த)?',
-            dv : 'I have little control over things that happen to me.'
+            dv : 'ތިބާގެ ރަހުމަތްތެރިންނާ ގާތްކަން އިހުސާސްކުރެވޭތަ؟ (އާއިލީ މެންބަރުން ނުހިމެނޭ ގޮތަށް)'
         },
         answers : [
             {
@@ -773,15 +773,15 @@ export const Questions = [
         options : {
             positiveTwo : {
                 en : 'Extremely Close',
-                si : 'Extremely Close',
-                ta : 'மிக நெருக்கமானது',
-                dv : 'Extremely Close'
+                si : 'ඉතාම සමීපයි',
+                ta : 'மிக அதிகமான நெருக்கம்',
+                dv : 'ވަރަށް ބޮޑަށް ގާތް'
             },
             negativeTwo : {
                 en : 'Not at all close',
-                si : 'Not at all close',
-                ta : 'நெருங்கவே இல்லை',
-                dv : 'Not at all close'
+                si : 'කිසි සේත්ම සමීප නැත',
+                ta : 'நெருக்கமில்லை',
+                dv : 'އެއްވެސް މިންވަރަކަށް ގާތެއް ނޫން'
             }
         },
         compulsory: true
@@ -792,7 +792,7 @@ export const Questions = [
             en : 'If you feel like having company, do you find it easy to find people to socialize with?',
             si : 'ඔබ මිතුරු ඇසුරට කැමති නම්, සමාජගත වීම සඳහා පුද්ගලයන් සොයාගැනීම පහසු යයි ඔබට හැඟේද?',
             ta : 'நீங்கள் சகபாடிகளை கொண்டுள்ளதாக உணர்ந்தால் அவர்களுடன் பழகுவது இலகுவானதாக இருக்கின்றதா?',
-            dv : 'I have little control over things that happen to me.'
+            dv : 'ބަޔަކާ ބައްދަލުވެލަން ބޭނުންވުމުން، ގުޅުން ބަދަހިކޮށްލާނެ ބަޔަކު ހޯދަން ފަސޭހަކަމަށް އިހުސާސްވޭތަ؟'
         },
         answers : [
             {
@@ -829,15 +829,15 @@ export const Questions = [
         options : {
             positiveTwo : {
                 en : 'Extremely easy',
-                si : 'Extremely easy',
-                ta : 'மிகவும் எளிதானது',
+                si : 'ඉතාම පහසුයි පහසුයි',
+                ta : 'மிக அதிகளவில் இலகுவானது',
                 dv : 'Extremely easy'
             },
             negativeTwo : {
                 en : 'Not at all easy',
-                si : 'Not at all easy',
-                ta : 'எளிதல்ல',
-                dv : 'Not at all easy'
+                si : 'කිසි සේත්ම පහසු නැත',
+                ta : 'கடினமானது',
+                dv : 'އެއްވެސް މިންވަރަކަށް ފަސޭހައެއް ނޫން'
             }
         },
         compulsory: true
@@ -848,7 +848,7 @@ export const Questions = [
             en : 'Do you find it easy to make new friends?',
             si : 'අලුත් මිතුරන් සොයාගැනීම පහසු යයි ඔබට සිතේද?',
             ta : 'உங்களுக்கு புதிய நண்பர்களை உருவாக்குவது இலகுவாக இருக்கின்றதா?',
-            dv : 'I have little control over things that happen to me.'
+            dv : 'އައު ރަހުމަތްތެރިން ހޯދަން ތިބާއަށް ފަސޭހަތަ؟'
         },
         answers : [
             {
@@ -885,15 +885,15 @@ export const Questions = [
         options : {
             positiveTwo : {
                 en : 'Extremely easy',
-                si : 'Extremely easy',
-                ta : 'மிகவும் எளிதானது',
-                dv : 'Extremely easy'
+                si : 'ඉතාම පහසුයි',
+                ta : 'மிக அதிகளவில் இலகுவானது',
+                dv : 'ވަރަށް ބޮޑަށް ފަސޭހަ'
             },
             negativeTwo : {
                 en : 'Not at all easy',
-                si : 'Not at all easy',
-                ta : 'எளிதல்ல',
-                dv : 'Not at all easy'
+                si : 'ඉතාම පහසුයි',
+                ta : 'கடினமானது',
+                dv : 'އެއްވެސް މިންވަރަކަށް ފަސޭހައެއް ނޫން'
             }
         },
         compulsory: true
@@ -904,7 +904,7 @@ export const Questions = [
             en : 'Do you feel well supported by the people you know?',
             si : 'ඔබ දන්නා අයගෙන් ඔබට මනා සහයෝගයක් ලැබේ යයි ඔබ සිතනවාද?',
             ta : 'உங்களுக்கு தெரிந்தவர்களால் நன்றாக ஆதரிக்கப்படுவதாக உணர்கின்றீர்களா?',
-            dv : 'I have little control over things that happen to me.'
+            dv : 'ދަންނަ މީހުންގެ ފަރާތުން އެއްބާރުލުން ލިބޭކަމުގެ އިހުސާސް ކުރެވޭތަ؟'
         },
         answers : [
             {
@@ -941,15 +941,15 @@ export const Questions = [
         options : {
             positiveTwo : {
                 en : 'Extremely well-supported',
-                si : 'Extremely well-supported',
-                ta : 'Extremely well-supported',
-                dv : 'Extremely well-supported'
+                si : 'ඉතාම',
+                ta : 'மிக அதிகளவில்',
+                dv : 'ވަރަށް ބޮޑަށް ކުރެވޭ'
             },
             negativeTwo : {
                 en : 'Not at all well-supported',
-                si : 'Not at all well-supported',
-                ta : 'Not at all well-supported',
-                dv : 'Not at all well-supported'
+                si : 'කිසි සේත්ම සහයෝගී නැත',
+                ta : 'ஆதரிக்கப்படுவதேயில்லை',
+                dv : 'އެއްގޮތަކަށްވެސް ނުކުރެވޭ'
             }
         },
         compulsory: true
@@ -960,7 +960,7 @@ export const Questions = [
             en : 'How happy have you been over the last month?',
             si : 'පසුගිය මාසය තුළ ඔබ කෙතරම් සතුටින් කාලය ගතකළාද?',
             ta : 'கடந்த மாதம் எந்தளவு மகிழ்ச்சியாக இருந்தீர்கள்?',
-            dv : 'How happy have you been over the last month?'
+            dv : 'ވޭތުވެދިޔަ މަސްދުވަސް ތިބާއަށް އިހުސާސްކުރެވުނީ ކިހާ އުފާވެރިކޮށް؟'
         },
         answers : [
             {
@@ -997,15 +997,15 @@ export const Questions = [
         options : {
             positiveTwo : {
                 en : 'Very happy',
-                si : 'Very happy',
-                ta : 'Very happy',
-                dv : 'Very happy'
+                si : 'ඉතාම සතුටින්',
+                ta : 'மிக்க மகிழ்ச்சி',
+                dv : 'ވަރަށް އުފާވި'
             },
             negativeTwo : {
                 en : ' Very unhappy',
-                si : ' Very unhappy',
-                ta : ' Very unhappy',
-                dv : ' Very unhappy'
+                si : ' ඉතා අසතුටින් ',
+                ta : ' மிக்க மகிழ்ச்சியின்மை',
+                dv : ' އެއްވެސް މިންވަރަކަށް އުފަލެއް ނުވޭ'
             }
         },
         compulsory: true
@@ -1016,7 +1016,7 @@ export const Questions = [
             en : 'To what extent do you agree with the statement ‘I feel a sense of belonging in my local community’?',
             si : '‘මා මගේ ප්‍රජාවට අයත් යයි මට හැඟේ’ යන ප්‍රකාශය සමග ඔබ කොයි තරම් දුරට එකඟ වෙනවාද?',
             ta : '‘எனது உள்ளூர் சமூகத்தைச் சேர்ந்தவன் என்ற உணர்வை உணர்கிறேன்’ என்ற கூற்றை நீங்கள் எந்த அளவிற்கு ஏற்றுக்கொள்கிறீர்கள்?',
-            dv : 'How happy have you been over the last month?'
+            dv : '[އަހަރެންގެ މުޖުއަމައާ ގުޅުން އޮތްކަމުގެ އިހުސާސް ކުރެވޭ] ކަމަށް ބުނާ ބުނުމާމެދު އެއްބަސްވަނީ ކިހާ މިންވަރަކަށް؟'
         },
         answers : [
             {
@@ -1053,15 +1053,15 @@ export const Questions = [
         options : {
             positiveTwo : {
                 en : 'Strongly agree',
-                si : 'Strongly agree',
-                ta : 'Strongly agree',
-                dv : 'Strongly agree'
+                si : 'දැඩිව එකඟයි',
+                ta : 'உறுதியாக ஏற்கின்றேன்',
+                dv : 'ވަރަށް ބޮޑަށް އެއްބަސްވަން'
             },
             negativeTwo : {
                 en : 'Strongly disagree',
-                si : 'Strongly disagree',
-                ta : 'Strongly disagree',
-                dv : 'Strongly disagree'
+                si : 'දැඩිවම විරුද්ධයි',
+                ta : 'உறுதியாக நிராகரிக்கின்றேன்',
+                dv : 'ވަރަށް ބޮޑަށް ދެބަސްވަން'
             }
         },
         compulsory: true
@@ -1072,7 +1072,7 @@ export const Questions = [
             en : 'Do you think that, in general, most people can be trusted, or that you can’t be too careful in dealing with people?',
             si : 'සාමාන්‍යයෙන් ගත් කල බොහෝ මිනිසුන් විශ්වාස කළ හැකි යයි ඔබ සිතනවාද? නැතිනම්, මිනිසුන් සමග කටයුතු කිරීමේදී ඕනෑවට වඩා පරිස්සම් වීම අනවශ්‍ය යයි ඔබ සිතනවාද?',
             ta : 'பொதுவாக, பெரும்பாலான மக்களை நம்பலாம், அல்லது மக்களுடன் பழகுவதில் நீங்கள் மிகவும் கவனமாக இருக்க முடியாது என்று நினைக்கின்றீர்களா?',
-            dv : 'How happy have you been over the last month?'
+            dv : 'އާންމުގޮތެއްގައި މީހުންނަށް އިތުބާރުކުރެވޭނެކަމަށް ގަބޫލުކުރަންތަ؟ ނޫނީ މީހުންނާ މުއާމަލާތްކުރާއިރު ވަރަށް ފަރުވާތެރި ވާންޖެހޭނެކަމަށް ގަބޫލުކުރަންތަ؟'
         },
         answers : [
             {
@@ -1109,27 +1109,27 @@ export const Questions = [
         options : {
             value1 : {
                 en : 'Most people can be trusted',
-                si : 'Most people can be trusted',
-                ta : 'Most people can be trusted',
-                dv : 'Most people can be trusted'
+                si : 'බොහෝ මිනිසුන් විශ්වාස කළ හැකිය',
+                ta : 'மிகவும் கவனமாக இருக்க',
+                dv : 'ގިނަ މީހުންނަށް އިތުބާރުކުރެވޭނެ'
             },
             value2 : {
                 en : 'You can’t be too careful',
-                si : 'You can’t be too careful',
-                ta : 'You can’t be too careful',
-                dv : 'You can’t be too careful'
+                si : 'ඕනෑවට වඩා පරිස්සම් වීම අනවශ්‍යය',
+                ta : 'முடியாது',
+                dv : 'ވަރަށް ފަރުވާތެރި ވާންޖެހޭނެ'
             },
             value3 : {
                 en : 'It depends',
-                si : 'It depends',
-                ta : 'It depends',
-                dv : 'It depends'
+                si : 'එය තීරණය වන්නේ තත්වය අනුවයි ',
+                ta : 'இது நபர்களைப் பொறுத்தது',
+                dv : 'ބައެއް ފަހަރު'
             },
             value4 : {
                 en : 'Don’t know',
-                si : 'Don’t know',
-                ta : 'Don’t know',
-                dv : 'Don’t know'
+                si : 'නොදනිමි',
+                ta : 'தெரியாது',
+                dv : 'ނޭނގެ'
             }
         },
         compulsory: true
@@ -1140,7 +1140,7 @@ export const Questions = [
             en : 'To what extent do you agree with the statement ‘I assume that people have the best intentions’?',
             si : '‘මිනිසුන්ගේ අභිලාෂයන් හොඳ යයි මම පිළිගනිමි’ යන ප්‍රකාශය සමග ඔබ කොයි තරම් දුරට එකඟ වෙනවාද?',
             ta : 'மக்களுக்கு சிறந்த நோக்கங்கள் இருப்பதாக நான் கருதுகிறேன் என்ற கூற்றை நீங்கள் எந்த அளவிற்கு ஏற்றுக்கொள்கிறீர்கள்?',
-            dv : 'How happy have you been over the last month?'
+            dv : '[މީހުންގެ ރަނގަޅު ނިޔަތް އޮންނާނެކަމަށް ބެލެވޭ] މި ބުނުމާމެދު ތިބާ އެއްބަސްވަނީ ކިހާ މިންވަރަކަށް؟'
         },
         answers : [
             {
@@ -1177,15 +1177,15 @@ export const Questions = [
         options : {
             positiveTwo : {
                 en : 'Strongly agree',
-                si : 'Strongly agree',
-                ta : 'Strongly agree',
-                dv : 'Strongly agree'
+                si : 'දැඩිව එකඟයි',
+                ta : 'உறுதியாக ஏற்கின்றேன்',
+                dv : 'ވަރަށް ބޮޑަށް އެއްބަސްވަން'
             },
             negativeTwo : {
                 en : 'Strongly disagree',
-                si : 'Strongly disagree',
-                ta : 'Strongly disagree',
-                dv : 'Strongly disagree'
+                si : 'දැඩිවම විරුද්ධයි',
+                ta : 'உறுதியாக நிராகரிக்கின்றேன்',
+                dv : 'ވަރަށް ބޮޑަށް ދެބަސްވަން'
             }
         },
         compulsory: true
@@ -1196,7 +1196,7 @@ export const Questions = [
             en : 'To what extent do you agree with the statement ‘most people in my home neighbourhood can be trusted’? (Home neighbourhood means 15-20 minutes walking distance from where you currently live.)',
             si : '‘මගේ නිවස ආසන්න ප්‍රදේශයේ අසල්වැසියන් වැඩිදෙනෙකු විශ්වාස කළ හැකිය’ යන ප්‍රකාශය සමග ඔබ කොයි තරම් දුරට එකඟද? (නිවස ආසන්න ප්‍රදේශයේ අසල්වැසියන් යන්නෙන් අදහස් කරනු ලබන්නේ ඔබ වර්තමානයේ ජීවත්වන තැන සිට විනාඩි 15-20 අතර කාලයකින් යා හැකි දුරයි)',
             ta : '‘எனது வீட்டு அயலிலுள்ள பெரும்பாலான மக்களை நம்பலாம்’ என்ற கூற்றை நீங்கள் எந்த அளவிற்கு ஏற்றுக்கொள்கிறீர்கள்? (வீட்டு அயல் என்பது நீங்கள் தற்போது வசிக்கும் இடத்திலிருந்து 15-20 நிமிட நடை தூரம் ஆகும்.',
-            dv : 'How happy have you been over the last month?'
+            dv : '[ގޭދޮށުގައި އުޅޭ ގިނަ މީހުންނަށް އިތުބާރުކުރެވޭނެ] ކަމަށް ބުނާ ބުނުމާމެދު ތިބާ އެއްބަސްވަނީ ކިހާ މިންވަރަކަށް؟ (ގޭދޮށު ކަމަށް ބުނެފައި އެވަނީ ތިބާ މިހާރު ދިރިއުޅޭ ތަނުން 15-20 މިނެޓުން ހިނގާފައި ދެވޭ ހިސާބަށް)'
         },
         answers : [
             {
@@ -1233,15 +1233,15 @@ export const Questions = [
         options : {
             positiveTwo : {
                 en : 'Strongly agree',
-                si : 'Strongly agree',
-                ta : 'Strongly agree',
-                dv : 'Strongly agree'
+                si : 'දැඩිව එකඟයි',
+                ta : 'உறுதியாக ஏற்கின்றேன்',
+                dv : 'ވަރަށް ބޮޑަށް އެއްބަސްވަން'
             },
             negativeTwo : {
                 en : 'Strongly disagree',
-                si : 'Strongly disagree',
-                ta : 'Strongly disagree',
-                dv : 'Strongly disagree'
+                si : 'දැඩිවම විරුද්ධයි',
+                ta : 'உறுதியாக நிராகரிக்கின்றேன்',
+                dv : 'ވަރަށް ބޮޑަށް ދެބަސްވަން'
             }
         },
         compulsory: true
@@ -1252,8 +1252,9 @@ export const Questions = [
             en : 'To what extent do you agree with the statement ‘most people in my home neighbourhood generally can be trusted?',
             si : '‘මගේ නිවස ආසන්න ප්‍රදේශයේ අසල්වැසියන් වැඩිදෙනෙකු සාමාන්‍යයෙන් විශ්වාස කළ හැකිය’ යන ප්‍රකාශය සමග ඔබ කොයි තරම් දුරට එකඟද?',
             ta : '‘எனது வீட்டு அயலிலுள்ள பெரும்பாலான மக்களை பொதுவாக நம்பலாம்?’ என்ற கூற்றை நீங்கள் எந்த அளவிற்கு ஏற்றுக்கொள்கிறீர்கள்?',
-            dv : 'How happy have you been over the last month?'
+            dv : '[ގޭދޮށުގައި އުޅޭ ގިނަ މީހުންނަށް އާންމު ގޮތެއްގައި އިތުބާރުކުރެވޭނެ] ކަމަށް ބުނާ ބުނުމާމެދު ތިބާ އެއްބަސްވަނީ ކިހާ މިންވަރަކަށް؟'
         },
+
         answers : [
             {
                 en : 'answer1',
@@ -1289,15 +1290,15 @@ export const Questions = [
         options : {
             positiveTwo : {
                 en : 'Strongly agree',
-                si : 'Strongly agree',
-                ta : 'Strongly agree',
-                dv : 'Strongly agree'
+                si : 'දැඩිව එකඟයි',
+                ta : 'உறுதியாக ஏற்கின்றேன்',
+                dv : 'ވަރަށް ބޮޑަށް އެއްބަސްވަން'
             },
             negativeTwo : {
                 en : 'Strongly disagree',
-                si : 'Strongly disagree',
-                ta : 'Strongly disagree',
-                dv : 'Strongly disagree'
+                si : 'දැඩිවම විරුද්ධයි',
+                ta : 'உறுதியாக நிராகரிக்கின்றேன்',
+                dv : 'ވަރަށް ބޮޑަށް ދެބަސްވަން'
             }
         },
         compulsory: true
@@ -1308,7 +1309,7 @@ export const Questions = [
             en : 'To what extent do you agree with the statement ‘I feel safe where I currently live’?',
             si : '‘මා වර්තමානයේදී ජීවත්වන පරිසරය තුළ මට ආරක්ෂිත හැඟීමක් දැනේ’ යන ප්‍රකාශය සමග ඔබ කොයි තරම් දුරට එකඟද?',
             ta : '‘நான் தற்போது வசிக்கும் இடத்தில் பாதுகாப்பாக உணர்கிறேன்’ என்ற கூற்றை நீங்கள் எந்த அளவிற்கு ஏற்றுக்கொள்கிறீர்கள்?',
-            dv : 'How happy have you been over the last month?'
+            dv : '[އަހަރެން މިހާރު ދިރިއުޅޭ ތަން ރައްކާތެރިކަމަށް އިހުސާސްކުރެވޭ] މި ބުނުމާމެދު ތިބާ އެއްބަސްވަނީ ކިހާ މިންވަރަކަށް؟'
         },
         answers : [
             {
@@ -1345,15 +1346,15 @@ export const Questions = [
         options : {
             positiveTwo : {
                 en : 'Strongly agree',
-                si : 'Strongly agree',
-                ta : 'Strongly agree',
-                dv : 'Strongly agree'
+                si : 'දැඩිව එකඟයි',
+                ta : 'உறுதியாக ஏற்கின்றேன்',
+                dv : 'ވަރަށް ބޮޑަށް އެއްބަސްވަން'
             },
             negativeTwo : {
                 en : 'Strongly disagree',
-                si : 'Strongly disagree',
-                ta : 'Strongly disagree',
-                dv : 'Strongly disagree'
+                si : 'දැඩිවම විරුද්ධයි',
+                ta : 'உறுதியாக நிராகரிக்கின்றேன்',
+                dv : 'ވަރަށް ބޮޑަށް ދެބަސްވަން'
             }
         },
         compulsory: true
@@ -1364,7 +1365,7 @@ export const Questions = [
             en : 'How many people do you typically talk to each day on the phone/internet?',
             si : 'සෑම දිනකම සාමාන්‍යයෙන් ඔබ දුරකථනයෙන්/අන්තර්ජාලයෙන් පුද්ගලයන් කීදෙනෙකු සමග සාකච්ඡා කරනවාද?',
             ta : 'தொலைபேசி/இணையத்தில் ஒவ்வொரு நாளும் எத்தனை பேருடன் பொதுவாகப் பேசுவீர்கள்?',
-            dv : 'How happy have you been over the last month?'
+            dv : 'ކޮންމެ ދުވަހަކު ފޯނު/އިންޓަރނެޓުން ތިބާ ވާހަކަ ދައްކަނީ ކިތައް މީހުންނާ؟'
         },
         answers : [
             {
@@ -1432,7 +1433,7 @@ export const Questions = [
             en : 'When in need, how many people can you go to for help (e.g.practical, relationships, emotional,financial, etc.)?',
             si : 'ඔබට අවශ්‍ය විටදී, ඔබට පුද්ගලයන් කීදෙනෙකුගෙන් උපකාර ලබාගත හැකිද? (උදා: ප්‍රායෝගික, සම්බන්ධතා,චිත්තවේගී, මූල්‍ය)',
             ta : 'தேவைப்படும் போது, நீங்கள் எத்தனை பேரிடம் உதவிக்கு செல்லலாம் (உதா-நடைமுறை, உறவு, உணர்ச்சி, நிதி போன்றவை)?',
-            dv : 'How happy have you been over the last month?'
+            dv : 'ބޭނުމެއް ޖެހުމުން، އެހީއަށް އެދި ތިބާއަށް ދެވޭނީ ކިތައް މީހުން ގާތަށް؟ (މިސާލަކަށް: މާލީ، ދޭދޭ ގުޅުންތައް، އިހުސާސްތައް)'
         },
         answers : [
             {
@@ -1500,7 +1501,7 @@ export const Questions = [
             en : 'How many people can you typically call on if you want to socialize?',
             si : 'ඔබට සමාජගත වීමට අවශ්‍ය නම්, ඔබට සාමාන්‍යයෙන් පුද්ගලයන් කීදෙනෙකුට කතාකළ හැකිද?',
             ta : 'நீங்கள் பழக விரும்பினால் பொதுவாக எத்தனை பேரை அழைக்கலாம்?',
-            dv : 'How happy have you been over the last month?'
+            dv : 'ގުޅުން ބަދަހިކުރަން ބޭނުންނަމަ ތިބާއަށް އާންމުކޮށް ގުޅާލެވޭނީ ކިތައް މީހުންނަށް؟'
         },
         answers : [
             {
@@ -1568,7 +1569,7 @@ export const Questions = [
             en : 'How many people do you know who you can call on in an emergency?',
             si : 'හදිසි අවස්ථාවකදී ඔබට කතා කළ හැකි පුද්ගලයන් කීදෙනෙකු ගැන ඔබ දන්නවාද?',
             ta : 'அவசரநிலைமையில் நீங்கள் அழைக்கலாம் என்று எத்தனை பேரை நீங்கள் அறிவீர்கள்?',
-            dv : 'How happy have you been over the last month?'
+            dv : 'ކުއްލި ހާލަތެއް ދިމާވެއްޖެނަމަ ތިބާއަށް ގުޅާލެވޭނެ ކިތައް މީހުން ދަންނަންތަ؟'
         },
         answers : [
             {
@@ -1638,7 +1639,7 @@ export const Questions = [
             en : 'I have little control over the things that happen to me',
             si : 'මට සිදුවන දේ සම්බන්ධයෙන් මට තිබෙන්නේ අවම පාලනයකි.',
             ta : 'எனக்கு நடக்கும் விடயங்களில் எனக்கு சிறிதும் கட்டுப்பாடு இல்லை',
-            dv : 'I have little control over things that happen to me.'
+            dv : 'އަހަރެންނަށް ކުރިމަތިވާ ކަންކަމާމެދު އަހަރެންނަށް ބާރު ފޯރުވެނީ ވަރަށް ކުޑަކޮށް'
         },
         answers : [
             {
@@ -1680,7 +1681,7 @@ export const Questions = [
             en : 'There is really no way I can solve some of the problems I have',
             si : 'මට තිබෙන ඇතැම් ප්‍රශ්න විසඳාගැනීමට මට මාර්ගයක් නැත.',
             ta : 'எனக்கு இருக்கும் சில பிரச்சனைகளை என்னால் தீர்ப்பதற்கு எந்த வழியும் இல்லை',
-            dv : 'I have little control over things that happen to me.'
+            dv : 'އަހަރެންގެ ހުރި ބައެއް މައްސަލަތައް ހައްލުކުރެވޭނެ އެއްވެސް ގޮތެއް ނެތް'
         },
         answers : [
             {
@@ -1722,7 +1723,7 @@ export const Questions = [
             en : 'There is little I can do to change many of the important things in my life',
             si : 'මගේ ජීවිතයේ බොහෝ වැදගත් දේ වෙනස් කිරීමට මට කළ හැක්කේ අවම දෙයකි.',
             ta : 'என் வாழ்க்கையில் பல முக்கியமான விடயங்களை மாற்றுவதற்கு நான் செய்யக்கூடியது மிகக் குறைவு',
-            dv : 'I have little control over things that happen to me.'
+            dv : 'އަހަރެންގެ ހަޔާތުގައި ހުރި މުހިންމު ކަންކަން ބަދަލުކުރުމަށް އަހަރެންނަށް މާ ބޮޑު ކަމެއް ނުކުރެވޭނެ'
         },
         answers : [
             {
@@ -1764,7 +1765,7 @@ export const Questions = [
             en : 'I often feel helpless in dealing with the problems of life',
             si : 'ජීවිතයේ ගැටලුවලට මුහුණදෙන විට මට බොහෝවිට අසරණ හැඟීමක් දැනේ.',
             ta : 'வாழ்க்கையின் பிரச்சினைகளைக் கையாள்வதில் நான் அடிக்கடி உதவியற்றவனாக உணர்கிறேன்',
-            dv : 'I have little control over things that happen to me.'
+            dv : 'ހަޔާތުގައި ދިމާވާ މައްސަލަތަކާ ކުރިމަތިލާއިރު ވަރަށް ގިނަފަހަރު އަހަރެންނަށް ގޮތް ހުސްވެއްޖެކަމުގެ އިހުސާސްކުރެވޭ '
         },
         answers : [
             {
@@ -1806,7 +1807,7 @@ export const Questions = [
             en : 'Sometimes I feel that I’m being pushed around in life',
             si : 'ඇතැම් විට මා ජීවිතයේ අතරමං වී ඇති බවක් දැනේ.',
             ta : 'சில நேரங்களில் நான் வாழ்க்கையில் தள்ளப்பட்டதாக உணர்கிறேன்',
-            dv : 'I have little control over things that happen to me.'
+            dv : 'ހަޔާތުގައި އަހަރެން އަމާޒެއްނެތި ދާހެން ބައެއްފަހަރު ހީވޭ'
         },
         answers : [
             {
@@ -1848,7 +1849,7 @@ export const Questions = [
             en : 'What happens to me in the future mostly depends on me',
             si : 'මට අනාගතයේදී සිදුවන දෙය බොහෝවිට රඳාපවතින්නේ මා මතය.',
             ta : 'எதிர்காலத்தில் எனக்கு என்ன நடக்கும் என்பது என்னைப் பொறுத்ததாகும்',
-            dv : 'I have little control over things that happen to me.'
+            dv : 'މުސްތަގުބަލުގައި އަހަރެންނަށް ވާނެ ގޮތް ބޮޑަށް އޮތީ އަހަރެންގެ އަތް މަތީގައި'
         },
         answers : [
             {
@@ -1890,7 +1891,7 @@ export const Questions = [
             en : 'I can do just about anything I really set my mind to do',
             si : 'මට මා සිතන ඕනෑ දෙයක් කළ හැකිය',
             ta : 'நான் உண்மையிலேயே செய்ய நினைத்த எதையும் என்னால் செய்ய முடியும்',
-            dv : 'I have little control over things that happen to me.'
+            dv : 'އަހަރެން ކުރަން ވިސްނާ ހުރިހާ ކަމެއްހެން އަހަރެންނަށް ކުރެވޭނެ'
         },
         answers : [
             {
@@ -1932,7 +1933,7 @@ export const Questions = [
             en : 'People in my circle of friends are able to talk about problems and tough issues that they face',
             si : 'මගේ මිතුරු සමාජය තුළ සිටින මිනිසුන්ට ප්‍රශ්න සහ ඔවුන් මුහුණදෙන බරපතල ගැටලු පිළිබඳ සාකච්ඡා කළ හැකිය.',
             ta : 'எனது நட்பு வட்டத்தில் உள்ளவர்கள் தாங்கள் எதிர்கொள்ளும் பிரச்சினைகள் மற்றும் கடினமான சிக்கல்கள் பற்றி பேச முடியும்',
-            dv : 'I have little control over things that happen to me.'
+            dv : 'އަހަރެންގެ ގާތް ތަހުމަތްތެރިންގެ މެދުގައި އެމީހުންނަށް ކުރިމަތިވާ މައްސަލަތަކާއި، ދަތި އުނދަގޫ ކަންތައްތަކުގެ ވާހަކަ ފަސޭހައިން ދެކެވޭ'
         },
         answers : [
             {
@@ -1974,7 +1975,7 @@ export const Questions = [
             en : 'I feel safe to take a risk in my circle of friends',
             si : 'මගේ මිතුරු කවය තුළදී අවදානම් ගැනීම මට ආරක්ෂිතය.',
             ta : 'எனது நட்பு வட்டத்தில் அபாயத்தை கையாள்வதில் நான் பாதுகாப்பாக உணர்கிறேன்',
-            dv : 'I have little control over things that happen to me.'
+            dv : 'އަހަރެންގެ ގާތް ތަހުމަތްތެރިންގެ މެދުގައި ހިރާސް ނަގަން އަހަރެންނަށް ކެރޭ'
         },
         answers : [
             {
@@ -2016,7 +2017,7 @@ export const Questions = [
             en : 'It is difficult to ask my circle of friends for help',
             si : 'මගේ මිතුරු කවයෙන් උපකාරයක් ලබාගැනීම දුෂ්කරය.',
             ta : 'என் நட்பு வட்டத்தில் உதவி கேட்பது கடினம்',
-            dv : 'I have little control over things that happen to me.'
+            dv : 'އަހަރެންގެ ގާތް ތަހުމަތްތެރިންގެ ކިބައިން އެހީއަށް އެދެން އުނދަގޫވޭ'
         },
         answers : [
             {
@@ -2058,7 +2059,7 @@ export const Questions = [
             en : 'No one in my circle of friends would intentionally act in a way to hurt my study or work',
             si : 'මගේ මිතුරු කවයේ කිසිවකු මගේ අධ්‍යයන හෝ කාර්යයන්ට එරෙහිව සිතාමතාම ක්‍රියාකරන්නේ නැත.',
             ta : 'எனது நண்பர்கள் வட்டத்தில் உள்ள யாரும் வேண்டுமென்றே எனது கல்வியையோ​​ அல்லது வேலையையோ காயப்படுத்தும் வகையில் செயற்பட மாட்டார்கள்',
-            dv : 'I have little control over things that happen to me.'
+            dv : 'އަހަރެންގެ ގާތް ތަހުމަތްތެރިން ގަސްދުގައި އަހަރެންގެ ކިޔެވުން ނުވަތަ މަސައްކަތަށް ނޭދެވޭ އަސަރުކުރާނެފަދަ ކަމެއް ނުކުރާނެ'
         },
         answers : [
             {
@@ -2100,7 +2101,7 @@ export const Questions = [
             en : 'Within my circle of friends, my unique skills and talents are valued and utilized',
             si : 'මගේ මිතුරු කවය තුළ, මගේ සුවිශේෂ කුසලතාවන් හා සහජ හැකියාවන් ඇගයීමට ලක්වේ.',
             ta : 'எனது நண்பர்கள் வட்டத்திற்குள், எனது தனிப்பட்ட திறன்கள் மற்றும் திறமைகள் பெறுமதியாக்கப்பட்டு  பயன்படுத்தப்படுகின்றன',
-            dv : 'I have little control over things that happen to me.'
+            dv : 'އަހަރެންގެ ގާތް ތަހުމަތްތެރިންގެ މެދުގައި އަހަރެންގެ ޚާއްސަ ހުނަރާއި ފަންނު ބަލައިގަނެ ބޭނުންކުރޭ'
         },
         answers : [
             {
@@ -2142,7 +2143,7 @@ export const Questions = [
             en : 'If I make a mistake, it is often held against me by my circle of friends',
             si : 'මට වරදක් සිදුවුවහොත්, මගේ මිතුරුසමාජය විසින් එය මට එරෙහිව භාවිතා කරනු ලැබේ.',
             ta : 'நான் தவறு செய்தால், என் நட்பு வட்டத்தில் அது அநேகமாக எனக்கு எதிரானதாக இருக்கும்',
-            dv : 'I have little control over things that happen to me.'
+            dv : 'އަހަރެންނަށް ގޯހެއް ހެދިއްޖެނަމަ އަހަރެންގެ ގާތް ތަހުމަތްތެރި އެކަން އަހަރެންނާ ދެކޮޅަށް ބޭނުންކުރޭ'
         },
         answers : [
             {
@@ -2184,7 +2185,7 @@ export const Questions = [
             en : 'People in my circle of friends sometimes reject others for being different',
             si : 'මගේ මිතුරු කවයේ සිටින පුද්ගලයෝ ඇතැම්විට වෙනස් නිසා සෙසු අය ප්‍රතික්ෂේප කරති.',
             ta : 'எனது நட்பு வட்டத்தில் உள்ளவர்கள் சில சமயங்களில் வித்தியாசமானவர்கள் என்பதற்காக மற்றவர்களை நிராகரிக்கிறார்கள்',
-            dv : 'I have little control over things that happen to me.'
+            dv : 'އެހެން މީހުންގެ ހުންނަ ތަފާތުތަކެއްގެ ސަބަބުން އަހަރެންގެ ގާތް ތަހުމަތްތެރިންގެ ތެރެއިން ބައެއް މީހުން، އެމީހުން ބާކީކޮށްލާ'
         },
         answers : [
             {
