@@ -413,7 +413,7 @@ function setVidQuestionLang(){
     const langTexts = {
         question:{
             en:'Have you watched all Extreme Lives videos?',
-            si:'ඔබ Extreme Lives වීඩියෝ සියල්ලම නරඹා තිබේද??',
+            si:'ඔබ Extreme Lives වීඩියෝ සියල්ලම නරඹා තිබේද?',
             ta:'Extreme Lives வீடியோக்கள் அனைத்தையும் பார்த்திருக்கிறீர்களா?',
             dv:'Have you watched all extreme lives videos?',
         },
@@ -446,6 +446,70 @@ function setVidQuestionLang(){
 }
 
 
+//set language text for link page 
+function setLinksPageLang(){
+    const langTexts = {
+        emailPlaceholder:{
+            en:'Your Email',
+            si:'ඔබේ විද්යුත් තැපැල් ලිපිනය',
+            ta:'உங்கள் மின்னஞ்சல்',
+            dv:'your email',
+        },
+        moreResources:{
+            en:'More Resources',
+            si:'තවත් සම්පත්',
+            ta:'மேலும் வளங்கள்',
+            dv:'More Resources',
+        },
+        additionalResources:{
+            en:'Additional resources that may help you',
+            si:'ඔබට උපකාර විය හැකි අමතර සම්පත්',
+            ta:'உங்களுக்கு உதவக்கூடிய கூடுதல் வளங்கள்',
+            dv:'Additional resources that may help you',
+        },
+        submit:{
+            en:'submit',
+            si:'ඉදිරිපත් කරන්න',
+            ta:'சமர்ப்பிக்க',
+            dv:'submit',
+        },
+        addResource1:{
+            en:'How to check if your friends are doing OK?',
+            si:'ඔබේ මිතුරන් හොඳින් දැයි පරීක්ෂා කරන්නේ කෙසේද?',
+            ta:'உங்கள் நண்பர்கள் நன்றாக இருக்கிறார்களா என்பதை எப்படிச் சரிபார்க்கலாம்?',
+            dv:'How to check if your friends are doing OK?',
+        },
+        addResource2:{
+            en:'How to have a difficult conversation and get the desired end results',
+            si:'දුෂ්කර සංවාදයක් පවත්වා අපේක්ෂිත අවසාන ප්රතිඵල ලබා ගන්නේ කෙසේද',
+            ta:'கடினமான உரையாடலை நடத்துவது மற்றும் விரும்பிய முடிவைப் பெறுவது எப்படி',
+            dv:'How to have a difficult conversation and get the desired end results',
+        },
+        addResource3:{
+            en:'Affirmation and self-help, meditation and mindfulness',
+            si:'තහවුරු කිරීම සහ ස්වයං උපකාරය, භාවනාව සහ සිහිය',
+            ta:'உறுதிப்பாடு மற்றும் சுய உதவி, தியானம் மற்றும் நினைவாற்றல்',
+            dv:'Affirmation and self-help, meditation and mindfulness',
+        },
+        addResource4:{
+            en:'How to get involved in volunteering',
+            si:'ස්වේච්ඡා සේවයට සම්බන්ධ වන්නේ කෙසේද?',
+            ta:'தன்னார்வத் தொண்டுகளில் ஈடுபடுவது எப்படி',
+            dv:'How to get involved in volunteering',
+        },
+    }
+
+    document.getElementById('links-email-input').placeholder = langTexts.emailPlaceholder[langId]
+    document.getElementById('additional-resources-grid-header').innerText = langTexts.moreResources[langId]
+    document.getElementById('additional-resources-list-header').innerText = langTexts.additionalResources[langId]
+    document.getElementById('links-email-submit-button').innerText = langTexts.submit[langId]
+    document.getElementById('additional-resources-list-item-text-1').innerText = langTexts.addResource1[langId]
+    document.getElementById('additional-resources-list-item-text-2').innerText = langTexts.addResource2[langId]
+    document.getElementById('additional-resources-list-item-text-3').innerText = langTexts.addResource3[langId]
+    document.getElementById('additional-resources-list-item-text-4').innerText = langTexts.addResource4[langId]
+
+}
+
 //UI elements
 
 
@@ -460,6 +524,7 @@ let likert5Container = document.getElementById('likert5-wrapper')
 let likert4Container = document.getElementById('likert4-wrapper')
 let likert7Container = document.getElementById('likert7-wrapper')
 let resultTitle = document.getElementById('results-header-container')
+let linkResultTitle = document.getElementById('links-result-header-container')
 joystickTutorialContainer.hidden = true
 
 let surveyProgressBar = document.getElementById("survey-progress-bar");
@@ -532,7 +597,7 @@ let countrySkipContainer = document.getElementById('country-skip-container')
 let submitContainer = document.getElementById('submit-container') 
 let submitConfirmationContainer = document.getElementById('submit-confirmation-container')
 let resultsConfirmationContainer = document.getElementById('submit-results-container')
-console.log("URL = ", document.URL)
+let linksPageContainer = document.getElementById("links-page-container")
 
 export const joystickSlider = document.getElementById('sliderRange');
 export var joystickSlideValue = 0;
@@ -649,9 +714,9 @@ let allTexts = {
     },
     resultTitle : [
         {
-            en : 'You are the Change Seeker or You are the Palm Reader',
-            si : 'ඔබ තමයි වෙනස්කම් නිර්මාණය කරන්නා  or ඔබ තමයි අනාගතය දකින්නා',
-            ta : 'நீங்கள்தான் ஒரு மாற்றத்தை உருவாக்குபவர்  or நீங்கள்தான் எதிர்காலத்தை கணிக்கக்கூடியவர்',
+            en : 'You are the Change Seeker',
+            si : 'ඔබ තමයි වෙනස්කම් නිර්මාණය කරන්නා',
+            ta : 'நீங்கள்தான் ஒரு மாற்றத்தை உருவாக்குபவர்',
             dv : ''
         },
         {
@@ -705,6 +770,7 @@ const image_Loc3 = "https://www.gstatic.com/webp/gallery/3.jpg";
 export function updateResultTitle(loc){     //LOC 2 = High, 1 = Middle, 0 = Low
     console.log("Loc calculated = ", loc);
     resultTitle.innerText = allTexts.resultTitle[parseInt(loc)][langId];
+    linkResultTitle.innerText = allTexts.resultTitle[parseInt(loc)][langId];
 
     document.getElementsByTagName('meta')["og:url"].content = document.URL;
     document.getElementsByTagName('meta')["twitter:domain"].content = document.URL;
@@ -1531,9 +1597,16 @@ submitBackButton.addEventListener('click',function(){
     loadQuestion(numberOfQuestions-1)
 })
 
+resultsMoreButton.addEventListener('click',function(){
+    disableSubmitPage()
+    uiHolder.style.display = 'none'
+    linksPageContainer.style.display = 'initial'
+})
+
 languageSelectedButton.addEventListener('click', function(){
     // loadQuestion(0);
     setVidQuestionLang()
+    setLinksPageLang();
     setUiText();
     // loadQuestion(0);
     langSelectionUI.hidden = true;
