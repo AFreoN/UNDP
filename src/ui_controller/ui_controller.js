@@ -532,6 +532,7 @@ let countrySkipContainer = document.getElementById('country-skip-container')
 let submitContainer = document.getElementById('submit-container') 
 let submitConfirmationContainer = document.getElementById('submit-confirmation-container')
 let resultsConfirmationContainer = document.getElementById('submit-results-container')
+console.log("URL = ", document.URL)
 
 export const joystickSlider = document.getElementById('sliderRange');
 export var joystickSlideValue = 0;
@@ -697,9 +698,45 @@ export function setUiText(){
     likert5_positiveTwo_Text.setAttribute("likert-scale-value", allTexts.stronlgyAgree[langId]);
 }
 
-export function updateResultTitle(lod){
-    console.log("Result update called");
-    resultTitle.innerText = allTexts.resultTitle[parseInt(lod)][langId];
+const image_Loc1 = "https://www.gstatic.com/webp/gallery/1.jpg";
+const image_Loc2 = "https://www.gstatic.com/webp/gallery/2.jpg";
+const image_Loc3 = "https://www.gstatic.com/webp/gallery/3.jpg";
+
+export function updateResultTitle(loc){     //LOC 2 = High, 1 = Middle, 0 = Low
+    console.log("Loc calculated = ", loc);
+    resultTitle.innerText = allTexts.resultTitle[parseInt(loc)][langId];
+
+    document.getElementsByTagName('meta')["og:url"].content = document.URL;
+    document.getElementsByTagName('meta')["twitter:domain"].content = document.URL;
+
+    var FB_URL = "https://www.facebook.com/sharer/sharer.php?u=" + document.URL + "&quote=" + "I am the Change Seeker or the Palm Reader";
+    var twitter_URL = "https://twitter.com/intent/tweet?text=" + "I am the Change Seeker or the Palm Reader. " + "Do you want to take a test? " + "Link :- " + document.URL;
+    switch(loc){
+        case 0:
+            document.getElementsByTagName('meta')["og:image"].content = image_Loc1;
+            document.getElementsByTagName('meta')["twitter:image"].content = image_Loc1;
+            document.getElementById('facebook-share').setAttribute("href", FB_URL);
+            document.getElementById('twitter-share').setAttribute("href", twitter_URL);
+            break;
+        case 1:
+            document.getElementsByTagName('meta')["og:image"].content = image_Loc2;
+            document.getElementsByTagName('meta')["twitter:image"].content = image_Loc2;
+            FB_URL = "https://www.facebook.com/sharer/sharer.php?u=" + document.URL + "&quote=" + "I am the map maker";
+            document.getElementById('facebook-share').setAttribute("href", FB_URL);
+
+            twitter_URL = "https://twitter.com/intent/tweet?text=" + "I am the map maker. " + "Do you want to take a test? " + "Link :- " + document.URL;
+            document.getElementById('twitter-share').setAttribute("href", twitter_URL);
+            break;
+        case 2:
+            document.getElementsByTagName('meta')["og:image"].content = image_Loc3;
+            document.getElementsByTagName('meta')["twitter:image"].content = image_Loc3;
+            FB_URL = "https://www.facebook.com/sharer/sharer.php?u=" + document.URL + "&quote=" + "I am the adventurer";
+            document.getElementById('facebook-share').setAttribute("href", FB_URL);
+
+            twitter_URL = "https://twitter.com/intent/tweet?text=" + "I am the adventurer. " + "Do you want to take a test? " + "Link :- " + document.URL;
+            document.getElementById('twitter-share').setAttribute("href", twitter_URL);
+            break;
+    }
 }
 
 export function setLikert5Options(options){

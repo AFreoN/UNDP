@@ -11,6 +11,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;500&display=swap" rel="stylesheet">
 </head>
 <body>
+    <meta property="og:url"   name="og:url" content="http://192.168.1.5:8080/" />
+    <meta property="og:type"    name="og:type"        content="article" />
+    <meta property="og:title"   name="og:title"       content="Community Connectedness Survey" />
+    <meta property="og:description" name="og:description" content="Do you want to take a survey?" />
+    <meta property="og:image"   name="og:image"       content="https://www.gstatic.com/webp/gallery/1.jpg" />
+
+    <meta property="twitter:card" name="twitter:card" content="summary_large_image">
+    <!-- <meta name="twitter:site" content="UNDP Survey"> -->
+    <meta property="twitter:title" name="twitter:title" content="Community Connectedness Survey">
+    <!-- <meta name="twitter:description" content="Up than 200 characters."> -->
+    <!-- <meta name="twitter:creator" content="@creator_username"> -->
+    <meta property="twitter:image" name="twitter:image" content="http://placekitten.com/250/250">
+    <meta property="twitter:domain" name="twitter:domain" content="YourDomain.com">
+
     <div class="loading-container" id="loading-container">
         <div class="loading-wrapper">
             <div class="menu-container" id="loading-menu-holder">
@@ -237,8 +251,8 @@
                     And let them know...
                 </div>
                 <div class="results-footer-social">
-                    <div class="results-footer-social-icon facebook"></div>
-                    <div class="results-footer-social-icon twitter"></div>
+                    <a id="facebook-share" class="results-footer-social-icon facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://192.168.1.5:8080/&quote=Testing_FB_Share" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank" title="Share on Facebook"></a>
+                    <a id="twitter-share" class="results-footer-social-icon twitter"  href="https://twitter.com/intent/tweet?text=Hello%20world" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank" title="Share on Twitter"></a>
                 </div>
                 <button class="control-button results-more-button" id="results-more-button"> See More </button>
             </div>
@@ -303,6 +317,8 @@
     <form>
         <input type="number" name="questionID" placeholder="Q.No" id="questionID" maxlength="2">
     </form>
+    <!-- <a id="facebookshare" href="https://www.facebook.com/sharer/sharer.php?u=https://developers.facebook.com/docs/sharing/webmasters/&t=Testing FB share" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank" title="Share on Facebook"></a> -->
+    <!-- <a id="facebookshare" href="https://twitter.com/intent/tweet?text=Hello%20world" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" target="_blank" title="Share on Twitter"></a> -->
 
     <canvas class="webgl"></canvas>
 </body>

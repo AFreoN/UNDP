@@ -40,6 +40,14 @@ canvas.webgl{
     touch-action: none;
 }
 
+#facebookshare{
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    z-index: 25;
+    background: grey;
+}
+
 /* styling for loading page */
 .loading-container{
     width: 100vw;
