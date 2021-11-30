@@ -90,10 +90,12 @@ export function startSurvey(){//call this function when loading is complete
     //uiControl.addLangugageButtonEvents();
     //Call any functions related to starting the survey (setting up the first scene etc..)
 }
+console.log("url = ", document.URL + "adventurer.html")
 
 export function isSurveyStarted(){
     return surveyStarted;
 }
+
 //document.getElementsByTagName('meta')["og:image"].content = url('../static/undp_fb_logo.png');
 
 export function loadNextQuestion(){
