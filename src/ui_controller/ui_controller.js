@@ -1341,7 +1341,7 @@ export function updateResultTitle(loc){     //LOC 2 = High, 1 = Middle, 0 = Low
     const changeSeekerHtml = "changeseeker.html";
     const mapMakerHtml = "mapmaker.html";
     const adventurerHtml = "adventurer.html";
-    const finalHtml = 0;
+    var finalHtml = 0;
     if(loc == 0){
         finalHtml = changeSeekerHtml;
     }
