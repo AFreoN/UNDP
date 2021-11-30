@@ -94,6 +94,7 @@ export function startSurvey(){//call this function when loading is complete
 export function isSurveyStarted(){
     return surveyStarted;
 }
+//document.getElementsByTagName('meta')["og:image"].content = url('../static/undp_fb_logo.png');
 
 export function loadNextQuestion(){
     const numberOfQuestions = questions.numberOfQuestions
