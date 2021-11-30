@@ -772,11 +772,12 @@ export function updateResultTitle(loc){     //LOC 2 = High, 1 = Middle, 0 = Low
     resultTitle.innerText = allTexts.resultTitle[parseInt(loc)][langId];
     linkResultTitle.innerText = allTexts.resultTitle[parseInt(loc)][langId];
 
-    document.getElementsByTagName('meta')["og:url"].content = document.URL;
-    document.getElementsByTagName('meta')["twitter:domain"].content = document.URL;
+    //document.getElementsByTagName('meta')["og:url"].content = document.URL;
+    //document.getElementsByTagName('meta')["twitter:domain"].content = document.URL;
 
-    var FB_URL = "https://www.facebook.com/sharer/sharer.php?u=" + document.URL + "&quote=" + "I am the Change Seeker or the Palm Reader";
-    var twitter_URL = "https://twitter.com/intent/tweet?text=" + "I am the Change Seeker or the Palm Reader. " + "Do you want to take a test? " + "Link :- " + document.URL;
+    var lodURL = "http://quiz-extremelives.tk/" + "adventurer.html";
+    var FB_URL = "https://www.facebook.com/sharer/sharer.php?u=" + lodURL + "&quote=" + "I am the Change Seeker. Do you want to take a test?";
+    var twitter_URL = "https://twitter.com/intent/tweet?text=" + "I am the Change Seeker or the Palm Reader. " + "Do you want to take a test? " + "Link :- " + lodURL;
     switch(loc){
         case 0:
             document.getElementsByTagName('meta')["og:image"].content = image_Loc1;
@@ -787,19 +788,19 @@ export function updateResultTitle(loc){     //LOC 2 = High, 1 = Middle, 0 = Low
         case 1:
             document.getElementsByTagName('meta')["og:image"].content = image_Loc2;
             document.getElementsByTagName('meta')["twitter:image"].content = image_Loc2;
-            FB_URL = "https://www.facebook.com/sharer/sharer.php?u=" + document.URL + "&quote=" + "I am the map maker";
+            FB_URL = "https://www.facebook.com/sharer/sharer.php?u=" + lodURL + "&quote=" + "I am the map maker. Do you want to take a test?";
             document.getElementById('facebook-share').setAttribute("href", FB_URL);
 
-            twitter_URL = "https://twitter.com/intent/tweet?text=" + "I am the map maker. " + "Do you want to take a test? " + "Link :- " + document.URL;
+            twitter_URL = "https://twitter.com/intent/tweet?text=" + "I am the map maker. " + "Do you want to take a test? " + "Link :- " + lodURL;
             document.getElementById('twitter-share').setAttribute("href", twitter_URL);
             break;
         case 2:
             document.getElementsByTagName('meta')["og:image"].content = image_Loc3;
             document.getElementsByTagName('meta')["twitter:image"].content = image_Loc3;
-            FB_URL = "https://www.facebook.com/sharer/sharer.php?u=" + document.URL + "&quote=" + "I am the adventurer";
+            FB_URL = "https://www.facebook.com/sharer/sharer.php?u=" +lodURL + "&quote=" + "I am the adventurer. Do you want to take a test?";
             document.getElementById('facebook-share').setAttribute("href", FB_URL);
 
-            twitter_URL = "https://twitter.com/intent/tweet?text=" + "I am the adventurer. " + "Do you want to take a test? " + "Link :- " + document.URL;
+            twitter_URL = "https://twitter.com/intent/tweet?text=" + "I am the adventurer. " + "Do you want to take a test? " + "Link :- " + lodURL;
             document.getElementById('twitter-share').setAttribute("href", twitter_URL);
             break;
     }
