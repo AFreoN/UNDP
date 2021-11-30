@@ -1709,7 +1709,46 @@ transform: translate(-50%,-50%);
     box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.5);
 }
 
+.submit-loading-container{
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
+    width: 100%;
+    height: 50%;
+    margin-top: 25%;
+    text-align: center;
+    /* background: rgba(0, 0, 0, 0.212); */
+}
 
+.submit-loading-text{
+    margin:  0 auto;
+    width: 70%;
+    font-weight: 800;
+    font-size: 1.5em;
+    color: white;
+    font-family: 'Rubik',sans-serif;
+    text-shadow: 0 0 10px black;
+}
+
+.submit-progress-bar-container{
+    margin: 0 auto;
+}
+
+.submit-progress-bar-background{
+    border-radius: 50%;
+    background: rgb(36, 36, 36);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    margin: 0 auto;
+    box-shadow: 0px 0px 25px 0px rgba(255, 255, 255, 0.603) ;
+}
+
+
+.submit-progress-bar-text::after{
+    content: '%';
+}
 
 .results-text-container{
     position: absolute;
@@ -2228,7 +2267,9 @@ transform: translate(-50%,-50%);
         /* font-size: 4vw; */
     }
     
-    .progress-bar-container{
+    .progress-bar-container
+    ,.submit-progress-bar-container
+    {
         width: 35vw;
         height: 35vw;
     }
@@ -2279,7 +2320,9 @@ transform: translate(-50%,-50%);
         /* font-size: 2.5vw; */
     }
     
-    .progress-bar-container{
+    .progress-bar-container
+    ,.submit-progress-bar-container
+    {
         width: 30vw;
         height: 30vw;
     }
@@ -2324,7 +2367,9 @@ transform: translate(-50%,-50%);
         /* font-size: 2vw; */
     }
     
-    .progress-bar-container{
+    .progress-bar-container
+    ,.submit-progress-bar-container
+    {
         width: 25vw;
         height: 25vw;
     }
@@ -2369,7 +2414,9 @@ transform: translate(-50%,-50%);
         /* font-size: 1.5vw; */
     }
     
-    .progress-bar-container{
+    .progress-bar-container
+    ,.submit-progress-bar-container
+    {
         width: 20vw;
         height: 20vw;
     }
@@ -2414,7 +2461,9 @@ transform: translate(-50%,-50%);
         /* font-size: 1.6vw; */
     }
     
-    .progress-bar-container{
+    .progress-bar-container
+    ,.submit-progress-bar-container
+    {
         width: 15vw;
         height: 15vw;
     }
