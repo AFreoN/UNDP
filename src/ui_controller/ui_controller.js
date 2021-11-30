@@ -1337,8 +1337,21 @@ export function updateResultTitle(loc){     //LOC 2 = High, 1 = Middle, 0 = Low
 
     //document.getElementsByTagName('meta')["og:url"].content = document.URL;
     //document.getElementsByTagName('meta')["twitter:domain"].content = document.URL;
+    const changeSeekerHtml = "changeseeker.html";
+    const mapMakerHtml = "mapmaker.html";
+    const adventurerHtml = "adventurer.html";
+    const finalHtml = 0;
+    if(loc == 0){
+        finalHtml = changeSeekerHtml;
+    }
+    else if(loc == 1){
+        finalHtml = mapMakerHtml;
+    }
+    else{
+        finalHtml = adventurerHtml;
+    }
 
-    var lodURL = "http://quiz-extremelives.tk/" + "adventurer.html";
+    var lodURL = "http://quiz-extremelives.tk/" + finalHtml;
     var FB_URL = "https://www.facebook.com/sharer/sharer.php?u=" + lodURL + "&quote=" + "I am the Change Seeker. Do you want to take a test?";
     var twitter_URL = "https://twitter.com/intent/tweet?text=" + "I am the Change Seeker or the Palm Reader. " + "Do you want to take a test? " + "Link :- " + lodURL;
 
