@@ -383,7 +383,7 @@ canvas.webgl{
     border:2px solid white ;
     padding: 5px 30px;
     font-family: 'Rubik',sans-serif;
-    font-size: calc(1em + 1vw);
+    /* font-size: calc(1em + 1vw); */
     box-shadow: 3px 3px 16px rgba(0, 0, 0, 0.20);
 
 
@@ -428,7 +428,7 @@ canvas.webgl{
     border: 0;
     font-weight: 1000;
     color: white;
-    font-size: 25px;
+    font-size: calc(0.8em + 1vw);
     padding: 0;
     cursor: pointer;
 }
@@ -456,7 +456,7 @@ canvas.webgl{
     background: #CBFA01;
     color: black;
     font-family: 'Rubik',sans-serif;
-    font-size: 20px;
+    /* font-size: 20px; */
     font-weight: bold;
     padding: 5px 30px;
     box-shadow: 3px 3px 16px rgba(0, 0, 0, 0.20);
@@ -630,7 +630,7 @@ canvas.webgl{
       font-family: 'Rubik',sans-serif;
       text-shadow: 3px 3px 16px rgba(0, 0, 0.20);
       
-      
+      font-size: calc(0.6em + 1vw);
 
       /*
       background: rgba(255, 255, 255, 0.637);
@@ -648,6 +648,8 @@ canvas.webgl{
     font-family: 'Rubik',sans-serif;
     text-shadow: 0 0px 15px rgba(0, 0, 0);
     
+    font-size: calc(0.6em + 1vw);
+
 }
 
   #slidertext-distant{
@@ -692,7 +694,7 @@ canvas.webgl{
 
 
     text-align: center;
-    top: 15vh;
+    top: 12vh;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, 50%);
@@ -1416,7 +1418,7 @@ canvas.webgl{
     justify-content: center;
     align-items: center;
     color: white;
-    font-size: 3.5vh;
+    /* font-size: 3.5vh; */
     font-family: 'Rubik',sans-serif;
     /* pointer-events: none; */
     /* font-weight: 400; */
@@ -1437,6 +1439,7 @@ canvas.webgl{
     opacity: 100%;
     user-select: none;
     pointer-events: none;
+    font-size: 3.5vh;
     /* transform: translateY(0); */
 }
 
@@ -1460,20 +1463,23 @@ canvas.webgl{
 }
 
 .scroll-item-gender.selected, .scroll-item-age.selected{
-    font-size:  1.15rem ;
+    font-size:  calc(0.6em + 1vw) ;
+    /* font-size:  0.6em ; */
 }
 
 .scroll-item-gender.nearest, .scroll-item-age.nearest{
-    font-size: 1rem;
+    font-size: calc(0.55em + 1vw);
+    /* font-size:  0.4em ; */
 }
 
 .scroll-item-gender.farthest, .scroll-item-age.farthest{
-    font-size: 0.85rem;
+    font-size: calc(0.5em + 1vw);
+    /* font-size:  0.2em ; */
 }
 
 .scroll-item-gender.hidden, .scroll-item-age.hidden{
     transition: font-size 0.1s, opacity 0.1s, filter 0.1s  ;
-    font-size: 0.5rem;
+    font-size: 0.1rem;
     opacity: 0%;
 }
 
@@ -1542,11 +1548,11 @@ transform: translate(-50%,-50%);
 
 .lang-selection-button{      /* Next Button in language selection UI */
     position: absolute;
-    color: #222222;
-    background : #cbfa01;
-    width: 120px;
-    height: 28px;
-    font-size: 25px;
+    /* color: #222222; */
+    /* background : #cbfa01; */
+    /* width: 120px;
+    height: 28px; */
+    /* font-size: calc(1em + 1vw); */
     cursor: pointer;
     box-shadow: 3px 3px 16px rgba(0, 0, 0, 0.20);
 
@@ -1561,9 +1567,9 @@ transform: translate(-50%,-50%);
     background: #CBFA01;
     color: black;
     font-family: 'Rubik',sans-serif;
-    font-size: 25px;
+    font-size: calc(1em + 1vw);
     font-weight: bold;
-    padding: 5px 0;
+    padding: 5px 30px;
     border: 0;
 }
 
@@ -1604,11 +1610,11 @@ transform: translate(-50%,-50%);
 
     position: absolute;
     color: #ffffff;
-    font-size: calc(1em + 1vw);
+    font-size: calc(0.75em + 1vw);
     font-weight: bold;
 
     text-align: center;
-    top: 15vh;
+    top: 12vh;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, 50%);
@@ -1618,7 +1624,7 @@ transform: translate(-50%,-50%);
     background: #CBFA01;
     color: black;
     font-family: 'Rubik',sans-serif;
-    font-size: 20px;
+    /* font-size: 20px; */
     font-weight: bold;
     padding: 5px 30px;
     box-shadow: 3px 3px 10px #444444;
@@ -1659,7 +1665,7 @@ transform: translate(-50%,-50%);
     color: white;
     font-weight: 600;
     font-family: 'Rubik',sans-serif;
-    font-size: calc(1.5em + 1.5vw);
+    font-size: calc(1em + 1.5vw);
     /* font-size: 2em; */
     width: 100%;
     text-shadow: black 0 0 50px;
@@ -1705,7 +1711,7 @@ transform: translate(-50%,-50%);
     /* position: absolute;
     bottom: 5vh;
     right: 10vw; */
-    font-size: 20px;
+    font-size: calc(1em + 1vw);
     box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.5);
 }
 
@@ -1766,7 +1772,7 @@ transform: translate(-50%,-50%);
     font-family: 'Rubik',sans-serif;
     /* font-size: 3em; */
     width: 100%;
-    font-size: calc(1.5em + 1.5vw);
+    font-size: calc(1em + 1.5vw);
     /* font-size: 2em; */
     width: 100%;
     text-shadow:  black 0 0 50px;
@@ -1836,7 +1842,7 @@ transform: translate(-50%,-50%);
     border:none;
     cursor: pointer;
 
-    font-size: 20px;
+    font-size: calc(1em + 1vw);
     box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.5);
 }
 
