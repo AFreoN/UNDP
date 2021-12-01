@@ -233,7 +233,7 @@ export const Questions = [
         ],
         centerModelKey:'father',
         characterName:{
-            en : 'Father',
+            en : 'father',
             si : 'පියා',
             ta : 'தந்தை',
             dv : 'Father'

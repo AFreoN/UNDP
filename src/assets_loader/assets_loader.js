@@ -50,6 +50,13 @@ let models = {
     letter:null
 }
 
+const preLoadModels = [
+    'playerCharacter','playerOutline','mother','father','lamp','carpet',
+    'sriLankaMap','sriLankaProvincesMap','maldivesMap','maldivesProvincesMap'
+    // 'Tree1','Tree2','Tree3','Tree4','Tree5','Tree6','Tree7','Tree8','Tree9','Tree10',
+    // 'cloud1','cloud2','cloud3'
+]
+
 //player animations are stored here
 let animations = {
     playerCharacter:null,
@@ -97,11 +104,17 @@ let animationId = {
     },
     friends:{
         'idle':1
+    },
+    dif_language:{
+        'idle':1
     }
 }
 
+//#region Setting up progress bars
 //assign the number assets imported in this module
-const numberOfAssets = Object.keys(models).length
+// const numberOfAssets = Object.keys(models).length
+const numberOfAssets = preLoadModels.length
+console.log("Number of preload assets = ", numberOfAssets)
 
 //value representing how much has loaded,
 //ranging from 0 to 1. 
@@ -167,9 +180,7 @@ loadingBar.svg.insertAdjacentHTML('afterbegin',loadingBarGradient)
 
 //set the progress bar value to 0
 loadingBar.animate(loadedPercentage)
-//
-//      end of Creating a progress bar
-
+//#endregion
 
 //      Loading models
 //
@@ -193,6 +204,7 @@ gltfloader.load(
     }
 )  
 */
+//#region Texture Setting for toon materials
 const fiveTone = new THREE.DataTexture(
     Uint8Array.from([0, 0, 0, 255 ,
         64, 64,64,255,
@@ -212,1026 +224,961 @@ const threeTone = new THREE.DataTexture(
 const tex = new THREE.TextureLoader().load('Textures/grad.png');
 tex.minFilter = THREE.NearestFilter;
 tex.magFilter = THREE.NearestFilter;
+//#endregion
 
-//Importing player character
-gltfloader.load(
-    'Models/Animation_V11.gltf',       //'Models/toonwalk_character.gltf'
-    (gltf) =>
-    {
-        animations['playerCharacter'] = gltf.animations
-        let model = gltf.scene
-        model.name = 'player';
-        model.scale.set(.3,.3,.3)        //0.07 prev
-        model.position.set(0,-.6, 2)
+function loadInitialModels(){
 
-        var toonMaterial = new THREE.MeshToonMaterial({ color : 0xFFC332, gradientMap : tex});
-        //toonMaterial = new THREE.MeshStandardMaterial({color : 0xFFC332, roughness : 0.8, metalness : 0.2});
-        const shader = {
-            'outline' :
-            {
-                vertex_shader: [
-                    "uniform float offset;",
-                    "void main() {",
-                    "vec4 pos = modelViewMatrix * vec4( position + normal * offset, 1.0 );",
-                    "gl_Position = projectionMatrix * pos;",
-                    "}"
-                ].join("\n"),
+    //Importing player character
+    gltfloader.load(
+        'Models/Animation_V11.gltf',       //'Models/toonwalk_character.gltf'
+        (gltf) =>
+        {
+            const key = 'playerCharacter'
+            animations[key] = gltf.animations
+            let model = gltf.scene
+            model.name = 'player';
+            model.scale.set(.3,.3,.3)        //0.07 prev
+            model.position.set(0,-.6, 2)
     
-                fragment_shader: [
-                    "void main(){",
-                    "gl_FragColor = vec4( 1.0, 0.0, 0.0, 1.0 );",
-                    "}"
-                ].join("\n")
+            var toonMaterial = new THREE.MeshToonMaterial({ color : 0xFFC332, gradientMap : tex});
+            //toonMaterial = new THREE.MeshStandardMaterial({color : 0xFFC332, roughness : 0.8, metalness : 0.2});
+            const shader = {
+                'outline' :
+                {
+                    vertex_shader: [
+                        "uniform float offset;",
+                        "void main() {",
+                        "vec4 pos = modelViewMatrix * vec4( position + normal * offset, 1.0 );",
+                        "gl_Position = projectionMatrix * pos;",
+                        "}"
+                    ].join("\n"),
+        
+                    fragment_shader: [
+                        "void main(){",
+                        "gl_FragColor = vec4( 1.0, 0.0, 0.0, 1.0 );",
+                        "}"
+                    ].join("\n")
+                }
+            };
+            const outShader = shader['outline'];
+            const uniforms = {offset: {
+                type: "f",
+                value: 1}
+            };
+    
+            const matShader = new THREE.ShaderMaterial({
+                uniforms: uniforms,
+                vertexShader: outShader.vertex_shader,
+                fragmentShader: outShader.fragment_shader
+            });
+            matShader.depthWrite = false;
+    
+            model.traverse((child) => {
+                if (child.isMesh){
+                    //new THREE.MeshBasicMaterial({color : 0xFFC332});
+                    child.material = shaderMaterial; // material of the player character
+                    child.castShadow = true;
+                    child.rotation.set(3.5, 0, 0);
+                }
+            });
+    
+            models[key] = model; // adding the model to the models object
+    
+            if(preLoadModels.includes(key)){
+                loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
+                loadingBar.animate(loadedPercentage) // animate the progress bar
             }
-        };
-        const outShader = shader['outline'];
-        const uniforms = {offset: {
-            type: "f",
-            value: 1}
-        };
-
-        const matShader = new THREE.ShaderMaterial({
-            uniforms: uniforms,
-            vertexShader: outShader.vertex_shader,
-            fragmentShader: outShader.fragment_shader
-        });
-        matShader.depthWrite = false;
-
-        model.traverse((child) => {
-            if (child.isMesh){
-                //new THREE.MeshBasicMaterial({color : 0xFFC332});
-                child.material = shaderMaterial; // material of the player character
-                child.castShadow = true;
-                child.rotation.set(3.5, 0, 0);
+        }
+    )  
+    //Player outline
+    gltfloader.load(
+        'Models/Animation_V11.gltf',
+        (gltf) =>
+        {
+            const key = 'playerOutline'
+            animations[key] = gltf.animations
+            let model = gltf.scene
+            model.name = key
+            model.scale.set(.34,.33,.33)
+            model.position.set(0,-.6, 0)
+    
+            const mat = new THREE.MeshLambertMaterial({ color:'black', side : THREE.BackSide});
+    
+    
+            model.traverse((child) => {
+                if (child.isMesh){
+                    child.material = mat;
+                }
+            });
+    
+            // mat.onBeforeCompile = (shader) => {
+            //     const token = `#include <begin_vertex>`
+            //     const customTransform = `
+            //         vec3 transformed = vec3(position)  + objectNormal*0.006;
+            //     `
+            //     shader.vertexShader = 
+            //         shader.vertexShader.replace(token,customTransform)
+            // }
+    
+            models[key] = model// test center model.
+            if(preLoadModels.includes(key)){
+                loadedPercentage += (1/numberOfAssets)
+                loadingBar.animate(loadedPercentage)
             }
-        });
+        }
+    )
+    //Mother
+    gltfloader.load(
+        'Models/mom.gltf',
+        (gltf) =>
+        {
+            const key = 'mother'
+            animations[key] = gltf.animations
+            let model = gltf.scene
+            model.name = key
+            model.scale.set(.075,.075,.075)
+            model.position.set(0,-.6, 0)
 
-        models['playerCharacter'] = model; // adding the model to the models object
-
-        loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
-        loadingBar.animate(loadedPercentage) // animate the progress bar
-        // if(loadedPercentage >= 1){ //if loadedPercentage is 1, then the survey can start.
-        //     //Call function to start the survey
-        //     main.startSurvey()
-        // }
-    }
-)  
-
-gltfloader.load(
-    'Models/Animation_V11.gltf',
-    (gltf) =>
-    {
-        animations['playerOutline'] = gltf.animations
-        let model = gltf.scene
-        model.name = 'playerOutline'
-        model.scale.set(.34,.33,.33)
-        model.position.set(0,-.6, 0)
-
-        const mat = new THREE.MeshLambertMaterial({ color:'black', side : THREE.BackSide});
-
-
-        model.traverse((child) => {
-            if (child.isMesh){
-                child.material = mat;
-            }
-        });
-
-        // mat.onBeforeCompile = (shader) => {
-        //     const token = `#include <begin_vertex>`
-        //     const customTransform = `
-        //         vec3 transformed = vec3(position)  + objectNormal*0.006;
-        //     `
-        //     shader.vertexShader = 
-        //         shader.vertexShader.replace(token,customTransform)
-        // }
-
-        models['playerOutline'] = model// test center model.
-        loadedPercentage += (1/numberOfAssets)
-        loadingBar.animate(loadedPercentage)
-    }
-)
-
-gltfloader.load(
-    'Models/Animation_V09.gltf',
-    (gltf) =>
-    {
-        animations['distantFriend'] = gltf.animations
-        let model = gltf.scene
-        model.name = 'distantFriend'
-        model.scale.set(.3,.3,.3)
-        model.position.set(0,-.6, 0)
-
-        model.traverse((child) => {
-            if (child.isMesh){
-                let toonMaterial = new THREE.MeshToonMaterial({ color : 0xFFC332, gradientMap : tex});
-                child.material = shaderMaterial;
-                child.castShadow = true;
-            }
-        });
-
-        models['distantFriend'] = model// test center model.
-        loadedPercentage += (1/numberOfAssets)
-        loadingBar.animate(loadedPercentage)
-    }
-)
-
-gltfloader.load(
-    'Models/mom.gltf',
-    (gltf) =>
-    {
-        animations['mother'] = gltf.animations
-        let model = gltf.scene
-        model.name = 'mother'
-        model.scale.set(.075,.075,.075)
-        model.position.set(0,-.6, 0)
-
-        model.traverse((child) => {
-            if (child.isMesh){
-                let toonMaterial = new THREE.MeshToonMaterial({ color : 0xFFC332, gradientMap : tex});
-                child.material = shaderMaterial;
-                child.castShadow = true;
-            }
-        });
-
-        models['mother'] = model
-        loadedPercentage += (1/numberOfAssets)
-        loadingBar.animate(loadedPercentage)
-    }
-)
-
-var group = new THREE.Group();
-gltfloader.load(
-    'Models/father.gltf',
-    (gltf) =>
-    {
-        animations['father'] = gltf.animations
-        let model = gltf.scene
-        model.name = 'father'
-        model.scale.set(0.045,0.045,0.045)     //prev (0.04,0.04,0.04) = player size
-        model.position.set(0,-.6, 0)
-
-        //
-        model.traverse((child) => {
-            if (child.isMesh){
-                if(child.name == 'Father'){
+            model.traverse((child) => {
+                if (child.isMesh){
+                    let toonMaterial = new THREE.MeshToonMaterial({ color : 0xFFC332, gradientMap : tex});
                     child.material = shaderMaterial;
                     child.castShadow = true;
                 }
-                // else if(child.name == 'EyeGlass001'){
-                //     var glassMat = new THREE.MeshLambertMaterial({color: 0xFFFFFF, transparent : true, opacity : 0.5});
-                //     child.material = glassMat;
-                //     child.castShadow = true;
-                // }
-                // else if(child.name == 'Moustache'){
-                //     var moustacheMat = new THREE.MeshToonMaterial({color: 0xafafaf, gradientMap: tex});
-                //     child.material = moustacheMat;
-                //     child.castShadow = true;
-                // }
-                else{
-                    var transparentMat = new THREE.MeshBasicMaterial({transparent: true, opacity: 0});
-                    child.material = transparentMat;
-                }
+            });
+
+            models[key] = model
+            if(preLoadModels.includes(key)){
+                loadedPercentage += (1/numberOfAssets)
+                loadingBar.animate(loadedPercentage)
             }
-        });
-
-        models['father'] = model
-        loadedPercentage += (1/numberOfAssets)
-        loadingBar.animate(loadedPercentage)
-    }
-)
-
-gltfloader.load(
-    'Models/siblings.gltf',
-    (gltf) =>
-    {
-        animations['siblings'] = gltf.animations
-        let model = gltf.scene
-        model.name = 'siblings'
-        model.scale.set(.075,.075,.075)
-        model.position.set(0,-.6, 0)
-
-        model.traverse((child) => {
-            if (child.isMesh){
-                let toonMaterial = new THREE.MeshToonMaterial({ color : 0xFFC332, gradientMap : tex});
-                child.material = shaderMaterial;
-                child.castShadow = true;
-            }
-        });
-
-        models['siblings'] = model
-        loadedPercentage += (1/numberOfAssets)
-        loadingBar.animate(loadedPercentage)
-    }
-)
-
-gltfloader.load(
-    'Models/Friends.gltf',
-    (gltf) =>
-    {
-        animations['friends'] = gltf.animations
-        let model = gltf.scene
-        model.name = 'friends'
-        model.scale.set(.075,.075,.075)
-        model.position.set(0,-.6, 0)
-
-        model.traverse((child) => {
-            if (child.isMesh){
-                let toonMaterial = new THREE.MeshToonMaterial({ color : 0xFFC332, gradientMap : tex});
-                child.material = shaderMaterial;
-                child.castShadow = true;
-            }
-        });
-
-        models['friends'] = model
-        loadedPercentage += (1/numberOfAssets)
-        loadingBar.animate(loadedPercentage)
-    }
-)
-
-gltfloader.load(
-    'Models/community.gltf',
-    (gltf) =>
-    {
-        //animations['community'] = gltf.animations
-        let model = gltf.scene
-        model.name = 'community'
-        model.scale.set(.035,.035,.035)     //prev (.075,.075,.075)
-        model.position.set(0,-.6, 0)
-
-        // model.traverse((child) => {
-        //     if (child.isMesh){
-        //         child.material = shaderMaterial;
-        //         child.castShadow = true;
-        //     }
-        // });
-
-        models['community'] = model
-        loadedPercentage += (1/numberOfAssets)
-        loadingBar.animate(loadedPercentage)
-    }
-)
-
-gltfloader.load(
-    'Models/dif_language.gltf',
-    (gltf) =>
-    {
-        //animations['dif_language'] = gltf.animations
-        let model = gltf.scene
-        model.name = 'dif_language'
-        model.scale.set(.075,.075,.075)
-        model.position.set(0,-.6, 0)
-
-        model.traverse((child) => {
-            if (child.isMesh){
-                let toonMaterial = new THREE.MeshToonMaterial({ color : 0xFFC332, gradientMap : tex});
-                child.material = shaderMaterial;
-                child.castShadow = true;
-            }
-        });
-
-        // console.log(gltf)
-        models['dif_language'] = model
-        loadedPercentage += (1/numberOfAssets)
-        loadingBar.animate(loadedPercentage)
-    }
-)
-
-gltfloader.load(
-    'Models/Home Country.gltf',
-    (gltf) =>
-    {
-        //animations['community'] = gltf.animations
-        let model = gltf.scene
-        model.name = 'home_country'
-        model.scale.set(.035,.035,.035)     //prev (.075,.075,.075)
-        model.position.set(0,-.6, 0)
-
-        // model.traverse((child) => {
-        //     if (child.isMesh){
-        //         child.material = shaderMaterial;
-        //         child.castShadow = true;
-        //     }
-        // });
-
-        models['home_country'] = model
-        loadedPercentage += (1/numberOfAssets)
-        loadingBar.animate(loadedPercentage)
-    }
-)
-
-
-gltfloader.load(
-    'Models/Temple.gltf',
-    (gltf) =>
-    {
-        //animations['community'] = gltf.animations
-        let model = gltf.scene
-        model.name = 'temples'
-        model.scale.set(.065,.065,.065)     //prev (.075,.075,.075)
-        model.position.set(0,-.6, 0)
-
-        // model.traverse((child) => {
-        //     if (child.isMesh){
-        //         child.material = shaderMaterial;
-        //         child.castShadow = true;
-        //     }
-        // });
-
-        models['temples'] = model
-        loadedPercentage += (1/numberOfAssets)
-        loadingBar.animate(loadedPercentage)
-    }
-)
-
-gltfloader.load(
-    'Models/religious belief.gltf',
-    (gltf) =>
-    {
-        //animations['community'] = gltf.animations
-        let model = gltf.scene
-        model.name = 'religious_belief'
-        model.scale.set(.035,.035,.035)     //prev (.075,.075,.075)
-        model.position.set(0, -0.4, 0)
-
-       /*  model.traverse((child) => {
-             if (child.isMesh){
-                 child.material = shaderMaterial;
-                 child.castShadow = true;
-             }
-         });*/
-
-        models['religious_belief'] = model
-        loadedPercentage += (1/numberOfAssets)
-        loadingBar.animate(loadedPercentage)
-    }
-)
-
-gltfloader.load(
-    'Models/carpet.gltf',
-    (gltf) =>
-    {
-        let model = gltf.scene
-        model.name = 'carpet'
-        model.scale.set(.075,.075,.075)
-        model.position.set(0,-.6, 0)
-
-        models['carpet'] = model
-        loadedPercentage += (1/numberOfAssets)
-        loadingBar.animate(loadedPercentage)
-    }
-)
-
-gltfloader.load(
-    'Models/lamp.gltf',
-    (gltf) =>
-    {
-        let model = gltf.scene
-        model.name = 'lamp'
-        model.scale.set(.075,.075,.075)
-        model.position.set(0,-.6, 0)
-
-        models['lamp'] = model
-        loadedPercentage += (1/numberOfAssets)
-        loadingBar.animate(loadedPercentage)
-    }
-)
-
-gltfloader.load(
-    'Models/Sofa.gltf',
-    (gltf) =>
-    {
-        let model = gltf.scene
-        model.name = 'sofa'
-        model.scale.set(.075,.075,.075)
-        model.position.set(0,-.6, 0)
-
-        models['sofa'] = model
-        loadedPercentage += (1/numberOfAssets)
-        loadingBar.animate(loadedPercentage)
-    }
-)
-
-gltfloader.load(
-    'Models/SofaSmall.gltf',
-    (gltf) =>
-    {
-        let model = gltf.scene
-        model.name = 'sofasmall'
-        model.scale.set(.075,.075,.075)
-        model.position.set(0,-.6, 0)
-
-        models['sofasmall'] = model
-        loadedPercentage += (1/numberOfAssets)
-        loadingBar.animate(loadedPercentage)
-    }
-)
-
-gltfloader.load(
-    'Models/letter.gltf',
-    (gltf) =>
-    {
-        let model = gltf.scene
-        model.name = 'letter'
-        model.scale.set(0.2,0.2,0.2)
-        model.position.set(0,-0.6, 0)
-
-        models['letter'] = model
-        loadedPercentage += (1/numberOfAssets)
-        loadingBar.animate(loadedPercentage)
-    }
-)
-
-gltfloader.load(
-    'Models/LandStage3.gltf',
-    (gltf) =>
-    {
-        let model = gltf.scene
-        model.name = 'landstage3'
-        model.scale.set(.075,.075,.075)
-        model.position.set(0,-0.72, 0)
-
-        models['landstage3'] = model
-        loadedPercentage += (1/numberOfAssets)
-        loadingBar.animate(loadedPercentage)
-    }
-)
-
-gltfloader.load(
-    'Models/Emojis/love/scene.gltf',
-    (gltf) =>
-    {
-        let model = gltf.scene
-        model.scale.set(.06,.06,.06)
-        model.position.set(1.5,-0.3, 0)
-
-        models['centerEmoji'] = model
-
-        loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
-        loadingBar.animate(loadedPercentage) // animate the progress bar
-        // if(loadedPercentage >= 1){ //if loadedPercentage is 1, then the survey can start.
-        //     //Call function to start the survey
-        //     main.startSurvey()
-        // }
-    }
-)
-
-//#region Loading province models
-gltfloader.load(
-    'srilanka_provinces_cartoon_map.glb',
-    (gltf) =>
-    {
-        let model = gltf.scene
-        model.scale.set(0.75,0.75,0.75)
-        model.position.set(-1, 0, 0.5)
-
-        models['sriLankaProvincesMap'] = model
-        
-        // console.log(models['sriLankaProvincesMap']);
-        //Setting up model for country selection
-        // let countrySelectionModel = models['sriLankaProvincesMap'].clone(true)
-        // countrySelectionModel.scale.set(0.35,0.35,0.35)
-        // countrySelectionModel.position.set(-.4,0,0.1)
-        // countrySelectionModel.children[10].castShadow = true
-        // // console.log(countrySelectionModel);
-
-
-        // scenes.sriLankaCube.add(countrySelectionModel)
-
-        //Storing state colors as new properties
-        // scenes.sriLankaCube.regionMaterial = countrySelectionModel.children[0].material//Material for all regions
-
-        // scenes.sriLankaCube.standardColor = countrySelectionModel.children[0].material.color.clone()//standard color
-        // scenes.sriLankaCube.hoveringColor =  new THREE.Color( 0xff0000 )//hovering color
-        // scenes.sriLankaCube.selectedColor = new THREE.Color( 0x0000ff )//selected color
-
-
-        //Setting up model for region selection
-        let regionSelectionModel = models['sriLankaProvincesMap'].clone(true) 
-        regionSelectionModel.scale.set(0.15,0.15,0.15)
-        regionSelectionModel.position.set(-5, 0, 0.5)
-
-        regionSelectionModel.children[9].castShadow = true
-        // console.log(regionSelectionModel);
-        // console.log(regionSelectionModel);
-        scenes.sriLankaScene.add(regionSelectionModel)
-
-        //Setting up and filtering regions and setting up region state colors
-        let sriLankaRegions = regionSelectionModel.children.slice() //Region references
-        sriLankaRegions.splice(9,1)//Removes sealine and provincial divider from regions references
-        // console.log(sriLankaRegions);
-        // sriLankaRegions[0].position.y = 5
-        let sriLankanRegionsMeshes = sriLankaRegions.map((region) => {
-
-            const regionChildMesh = region.children[0]
-
-            regionChildMesh.name = region.name.replaceAll('_',' ')
-            regionChildMesh.name = regionChildMesh.name + ' Province'
-
-
-            // console.log(regionChildMesh)
-
-            regionChildMesh.regionMaterial = regionChildMesh.material.clone()//standard material
-            regionChildMesh.regionMaterial.needsUpdate = true
-            // console.log(regionChildMesh.regionMaterial);
-            regionChildMesh.material = regionChildMesh.regionMaterial
-            // console.log(regionChildMesh.material);
-
-            regionChildMesh.standardMap = new THREE.TextureLoader().load('sri_lanka_provinces_standard.png')
-            regionChildMesh.standardMap.needsUpdate = true
-            regionChildMesh.standardMap.flipY = false
-            regionChildMesh.regionMaterial.map = regionChildMesh.standardMap
-
-            regionChildMesh.hoveringMap =  new THREE.TextureLoader().load('sri_lanka_provinces_hovering.png')
-            regionChildMesh.hoveringMap.needsUpdate = true
-            regionChildMesh.hoveringMap.flipY = false
-            
-            regionChildMesh.selectedMap = new THREE.TextureLoader().load('sri_lanka_provinces_selected.png')
-            regionChildMesh.selectedMap.needsUpdate = true
-            regionChildMesh.selectedMap.flipY = false
-            
-            // region.hoveringMaterial = region.material.clone()//hovering material
-            // region.hoveringMaterial.color = new THREE.Color( 0xff0000 )
-
-            // region.selectedMaterial = region.material.clone()//selected material
-            // region.selectedMaterial.color = new THREE.Color( 0x0000ff )
-
-            return regionChildMesh
-        });
-        // console.log(sriLankanRegionsMeshes);
-
-        // model.castShadow = true
-        // model.receiveShadow = true
-
-        scenes.setSriLankaRegions(sriLankanRegionsMeshes)
-
-        loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
-        loadingBar.animate(loadedPercentage) // animate the progress bar
-        // if(loadedPercentage >= 1){ //if loadedPercentage is 1, then the survey can start.
-        //     //Call function to start the survey
-        //     main.startSurvey()
-        // }
-    }
-)
-
-gltfloader.load(
-    'maldives_provinces_cartoon_map.glb',
-    (gltf) =>
-    {
-        let model = gltf.scene
-        // model.scale.set(0.38,0.38,0.38)
-        // model.scale.set(0.3,0.3,0.3)
-        model.position.set(0, 0, 0)
-
-        models['maldivesProvincesMap'] = model
-        // console.log(model);
-        // console.log(model);
-        //Setting up model for country selection
-        // let countrySelectionModel = models['maldivesProvincesMap'].clone(true)
-        // countrySelectionModel.scale.set(0.2,0.2,0.2)
-        // countrySelectionModel.position.set(0,0,0)
-        // countrySelectionModel.children[4].castShadow = true
-        // scenes.maldivesCube.add(countrySelectionModel)
-        
-
-        // scenes.maldivesCube.regionMaterial = countrySelectionModel.children[0].material//Material for all regions
-
-        // scenes.maldivesCube.standardColor = countrySelectionModel.children[0].material.color.clone()//standard color
-        // scenes.maldivesCube.hoveringColor = new THREE.Color( 0xff0000 )//hovering color
-        // scenes.maldivesCube.selectedColor = new THREE.Color( 0x0000ff )//selected color
-
-        //Uncomment From here -----------------------------------------------------------
-        //Setting up model for region selection
-        let regionSelectionModel = models['maldivesProvincesMap'].clone(true) 
-        // regionSelectionModel.scale.set(0.15,0.15,0.15)
-        // regionSelectionModel.scale.set(0.1,0.1,0.1)
-        regionSelectionModel.scale.set(0.38,0.38,0.38)
-        regionSelectionModel.children[0].castShadow = true
-        scenes.maldivesScene.add(regionSelectionModel)
-        // console.log(regionSelectionModel);
-
-
-        //Setting up and filtering regions and setting up region state colors
-        let maldivesRegions = regionSelectionModel.children.slice() //Region references
-        let base = maldivesRegions.splice(0,1)//Removes sealine from regions references
-        // base.position.y = -0.5
-        // console.log(regionSelectionModel);
-        // console.log(maldivesRegions);
-
-        for (let i = 0; i < maldivesRegions.length; i++) {
-            const region = maldivesRegions[i];
-            
-
-            region.name = region.name.replaceAll('_',' ')
-            region.name = region.name + ' Province'
-
-            // scenes.maldivesRegionBoxes[i].position.y = i * -5   
-            scenes.maldivesRegionBoxes[i].name = region.name
-            scenes.maldivesRegionBoxes[i].position.copy( region.position )
-
-            // console.log(region.position);
-            // console.log(regionSelectionModel.position);
-            const worldPos = new THREE.Vector3()
-            region.getWorldPosition(worldPos)
-            // console.log(region.localToWorld(region.position));
-            // console.log(worldPos);
-            // console.log(worldPos.multiplyScalar(1.9));
-            // scenes.maldivesRegionBoxes[i].position.copy( worldPos )
-
-            // scenes.maldivesRegionBoxes[i].add(region)
-            // region.position.set(0,0,0)
-            // region.scale.set(0.3,0.3,0.3)
-
-            // console.log(region.position);
-            // console.log(scenes.maldivesRegionBoxes[i].position);
-
-
-            // region.standardMaterial = region.children[0].material.clone()//standard material
-            // console.log(region.standardMaterial);
-            // region.children[0].material = region.standardMaterial
-
-            scenes.maldivesRegionBoxes[i].regionMaterial = region.children[0].material.clone()
-            scenes.maldivesRegionBoxes[i].regionPosition = region.position
-            region.children[0].material = scenes.maldivesRegionBoxes[i].regionMaterial
-
-            scenes.maldivesRegionBoxes[i].standardColor = scenes.maldivesRegionBoxes[i].regionMaterial.color
-            scenes.maldivesRegionBoxes[i].hoveringColor = new THREE.Color( 0x7bbbf7 )
-            scenes.maldivesRegionBoxes[i].selectedColor = new THREE.Color( 0x3c5fff )
-            
         }
-        
-
-        // model.castShadow = true
-        // model.receiveShadow = true
-
-        // scenes.setMaldivesRegions(maldivesRegions)
-
-        loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
-        loadingBar.animate(loadedPercentage) // animate the progress bar
-        // if(loadedPercentage >= 1){ //if loadedPercentage is 1, then the survey can start.
-        //     //Call function to start the survey
-        //     main.startSurvey()
-        // }
-    }
-)
-
-gltfloader.load(
-    'srilanka_cartoon_map.glb',
-    (gltf) =>
-    {
-        let model = gltf.scene
-
-        models['sriLankaMap'] = model.children[1]
-
-        let countrySelectionModel = models['sriLankaMap'].clone(true)
-        countrySelectionModel.scale.set(0.18,0.18,0.18)
-        countrySelectionModel.position.set(0.24,0,0.1)
-        countrySelectionModel.castShadow = true
-        // console.log(countrySelectionModel);
-
-
-        scenes.sriLankaCube.add(countrySelectionModel)
-
-
-        //Storing state colors as new properties
-        scenes.sriLankaCube.regionMaterial = countrySelectionModel.material //Material for all regions
-        countrySelectionModel.material.needsUpdate = true
-
-        scenes.sriLankaCube.standardMap = new THREE.TextureLoader().load('sri_lanka_standard.png')
-        scenes.sriLankaCube.standardMap.needsUpdate = true
-        scenes.sriLankaCube.standardMap.flipY = false
-        scenes.sriLankaCube.regionMaterial.map = scenes.sriLankaCube.standardMap
-
-        scenes.sriLankaCube.hoveringMap =  new THREE.TextureLoader().load('sri_lanka_hovering.png')
-        scenes.sriLankaCube.hoveringMap.needsUpdate = true
-        scenes.sriLankaCube.hoveringMap.flipY = false
-        
-        scenes.sriLankaCube.selectedMap = new THREE.TextureLoader().load('sri_lanka_selected.png')
-        scenes.sriLankaCube.selectedMap.needsUpdate = true
-        scenes.sriLankaCube.selectedMap.flipY = false
-
-
-
-        // console.log(models['sriLankaMap']);
-        
-        loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
-        loadingBar.animate(loadedPercentage) // animate the progress bar
-        // if(loadedPercentage >= 1){ //if loadedPercentage is 1, then the survey can start.
-        //     //Call function to start the survey
-        //     main.startSurvey()
-        // }
-    }
-)
-//#endregion
-
-
-gltfloader.load(
-    'maldives_cartoon_map.glb',
-    (gltf) =>
-    {
-        let model = gltf.scene
-
-        models['maldivesMap'] = model.children[0]
-        // console.log(models['maldivesMap']);
-        let countrySelectionModel = models['maldivesMap'].clone(true)
-        countrySelectionModel.scale.set(0.08,0.08,0.08)
-        countrySelectionModel.position.set(0.02,0,-0.5)
-        countrySelectionModel.children[3].castShadow = true
-        // console.log(countrySelectionModel);
-
-
-        scenes.maldivesCube.add(countrySelectionModel)
-
-
-        //Storing state colors as new properties
-        scenes.maldivesCube.regionMaterial = countrySelectionModel.children[0].material //Material for all regions
-        // countrySelectionModel.regionMaterial.needsUpdate = true
-
-        // scenes.maldivesCube.regionMaterial = countrySelectionModel.children[0].material//Material for all regions
-
-        scenes.maldivesCube.standardColor = countrySelectionModel.children[0].material.color.clone()//standard color
-        scenes.maldivesCube.hoveringColor = new THREE.Color( 0x7bbbf7 )//hovering color
-        scenes.maldivesCube.selectedColor = new THREE.Color( 0x3c5fff )//selected color
-
-        // scenes.maldivesCube.standardMap = new THREE.TextureLoader().load('maldives_standard.png')
-        // scenes.maldivesCube.standardMap.needsUpdate = true
-        // scenes.maldivesCube.standardMap.flipY = false
-        // scenes.maldivesCube.regionMaterial.map = scenes.maldivesCube.standardMap
-
-        // scenes.maldivesCube.hoveringMap =  new THREE.TextureLoader().load('maldives_hovering.png')
-        // scenes.maldivesCube.hoveringMap.needsUpdate = true
-        // scenes.maldivesCube.hoveringMap.flipY = false
-        
-        // scenes.maldivesCube.selectedMap = new THREE.TextureLoader().load('maldives_selected.png')
-        // scenes.maldivesCube.selectedMap.needsUpdate = true
-        // scenes.maldivesCube.selectedMap.flipY = false
-
-
-
-        // console.log(models['maldivesMap']);
-        
-        loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
-        loadingBar.animate(loadedPercentage) // animate the progress bar
-        // if(loadedPercentage >= 1){ //if loadedPercentage is 1, then the survey can start.
-        //     //Call function to start the survey
-        //     main.startSurvey()
-        // }
-    }
-)
-
-
-//#region Loading tree models
-gltfloader.load(
-    'Tree.glb',
-    (gltf) =>
-    {
-        let model = gltf.scene
-        model.name = 'Tree'
-        model.position.set(0, -0.3, 0)
-        model.scale.set(0.25,0.25,0.25)
-
-        models['Tree1'] = model
-        SetTreeMaterial(model);
-
-        loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
-        loadingBar.animate(loadedPercentage)
-    }
-)
-
-gltfloader.load(
-    'Tree.glb',
-    (gltf) =>
-    {
-        let model = gltf.scene
-        model.name = 'Tree2'
-        model.position.set(0, -0.3, 0)
-        model.scale.set(0.25,0.25,0.25)
-
-        models['Tree2'] = model
-        SetTreeMaterial(model);
-
-        loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
-        loadingBar.animate(loadedPercentage)
-    }
-)
-
-gltfloader.load(
-    'Tree.glb',
-    (gltf) =>
-    {
-        let model = gltf.scene
-        model.name = 'Tree3'
-        model.position.set(0, -0.3, 0)
-        model.scale.set(0.25,0.25,0.25)
-
-        models['Tree3'] = model
-        SetTreeMaterial(model)
-
-        loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
-        loadingBar.animate(loadedPercentage)
-    }
-)
-
-gltfloader.load(
-    'Tree.glb',
-    (gltf) =>
-    {
-        let model = gltf.scene
-        model.name = 'Tree4'
-        model.position.set(0, -0.3, 0)
-        model.scale.set(0.25,0.25,0.25)
-
-        models['Tree4'] = model
-        SetTreeMaterial(model)
-
-        loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
-        loadingBar.animate(loadedPercentage)
-    }
-)
-
-
-gltfloader.load(
-    'Tree.glb',
-    (gltf) =>
-    {
-        let model = gltf.scene
-        model.name = 'Tree5'
-        model.position.set(0, -0.3, 0)
-        model.scale.set(0.25,0.25,0.25)
-
-        models['Tree5'] = model
-        SetTreeMaterial(model)
-
-        loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
-        loadingBar.animate(loadedPercentage)
-    }
-)
-
-gltfloader.load(
-    'Tree.glb',
-    (gltf) =>
-    {
-        let model = gltf.scene
-        model.name = 'Tree6'
-        model.position.set(0, -0.3, 0)
-        model.scale.set(0.25,0.25,0.25)
-
-        models['Tree6'] = model
-        SetTreeMaterial(model)
-
-        loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
-        loadingBar.animate(loadedPercentage)
-    }
-)
-
-gltfloader.load(
-    'Tree.glb',
-    (gltf) =>
-    {
-        let model = gltf.scene
-        model.name = 'Tree7'
-        model.position.set(0, -0.3, 0)
-        model.scale.set(0.25,0.25,0.25)
-
-        models['Tree7'] = model
-        SetTreeMaterial(model)
-
-        loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
-        loadingBar.animate(loadedPercentage)
-    }
-)
-
-gltfloader.load(
-    'Tree.glb',
-    (gltf) =>
-    {
-        let model = gltf.scene
-        model.name = 'Tree8'
-        model.position.set(0, -0.3, 0)
-        model.scale.set(0.25,0.25,0.25)
-
-        models['Tree8'] = model
-        SetTreeMaterial(model)
-
-        loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
-        loadingBar.animate(loadedPercentage)
-    }
-)
-
-gltfloader.load(
-    'Tree.glb',
-    (gltf) =>
-    {
-        let model = gltf.scene
-        model.name = 'Tree9'
-        model.position.set(0, -0.3, 0)
-        model.scale.set(0.25,0.25,0.25)
-
-        models['Tree9'] = model
-        SetTreeMaterial(model)
-
-        loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
-        loadingBar.animate(loadedPercentage)
-    }
-)
-
-gltfloader.load(
-    'Tree.glb',
-    (gltf) =>
-    {
-        let model = gltf.scene
-        model.name = 'Tree10'
-        model.position.set(0, -0.3, 0)
-        model.scale.set(0.25,0.25,0.25)
-
-        models['Tree10'] = model
-        SetTreeMaterial(model)
-
-        loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
-        loadingBar.animate(loadedPercentage)
-    }
-)
-//#endregion
-
-//#region Loading Cloud models
-gltfloader.load(
-    'cloud.glb',
-    (gltf) =>
-    {
-        let model = gltf.scene
-        model.name = 'Cloud'
-        model.position.set(0, -0.3, 0)
-        model.scale.set(0.05,0.05,0.05)
-
-        models['cloud1'] = model
-
-        let mesh = model.children[0].children[0].children[0].children[0];
-        var col = mesh.material.color;
-        var newMat = new THREE.MeshLambertMaterial( {color : col });
-        mesh.material = newMat;
-        mesh.material.transparent = true
-        model.material = mesh.material
-
-        loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
-        loadingBar.animate(loadedPercentage)
-    }
-)
-
-gltfloader.load(
-    'cloud.glb',
-    (gltf) =>
-    {
-        let model = gltf.scene
-        model.name = 'Cloud2'
-        model.position.set(0, -0.3, 0)
-        model.scale.set(0.05,0.05,0.05)
-
-        models['cloud2'] = model
-
-        let mesh = model.children[0].children[0].children[0].children[0];
-        var col = mesh.material.color;
-        var newMat = new THREE.MeshLambertMaterial( {color : col });
-        mesh.material = newMat;
-        mesh.material.transparent = true
-        model.material = mesh.material
-
-        loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
-        loadingBar.animate(loadedPercentage)
-    }
-)
-
-gltfloader.load(
-    'cloud.glb',
-    (gltf) =>
-    {
-        let model = gltf.scene
-        model.name = 'Cloud3'
-        model.position.set(0, -0.3, 0)
-        model.scale.set(0.05,0.05,0.05)
-
-        models['cloud3'] = model
-
-        let mesh = model.children[0].children[0].children[0].children[0];
-        var col = mesh.material.color;
-        var newMat = new THREE.MeshLambertMaterial( {color : col });
-        mesh.material = newMat;
-        mesh.material.transparent = true
-        model.material = mesh.material
-
-        model.children.forEach(child => {
-            if(child.isMesh){
-                // var col = child.material.color;
-                // var newMat = new THREE.MeshLambertMaterial( {col });
-                // child.material.color = newMat;
-                console.log(child.name);
+    )
+    //Father
+    gltfloader.load(
+        'Models/father.gltf',
+        (gltf) =>
+        {
+            const key = 'father'
+            animations[key] = gltf.animations
+            let model = gltf.scene
+            model.name = key
+            model.scale.set(0.045,0.045,0.045)     //prev (0.04,0.04,0.04) = player size
+            model.position.set(0,-.6, 0)
+
+            //
+            model.traverse((child) => {
+                if (child.isMesh){
+                    if(child.name == 'Father'){
+                        child.material = shaderMaterial;
+                        child.castShadow = true;
+                    }
+                    // else if(child.name == 'EyeGlass001'){
+                    //     var glassMat = new THREE.MeshLambertMaterial({color: 0xFFFFFF, transparent : true, opacity : 0.5});
+                    //     child.material = glassMat;
+                    //     child.castShadow = true;
+                    // }
+                    // else if(child.name == 'Moustache'){
+                    //     var moustacheMat = new THREE.MeshToonMaterial({color: 0xafafaf, gradientMap: tex});
+                    //     child.material = moustacheMat;
+                    //     child.castShadow = true;
+                    // }
+                    else{
+                        var transparentMat = new THREE.MeshBasicMaterial({transparent: true, opacity: 0});
+                        child.material = transparentMat;
+                    }
+                }
+            });
+
+            models[key] = model
+            if(preLoadModels.includes(key)){
+                loadedPercentage += (1/numberOfAssets)
+                loadingBar.animate(loadedPercentage)
             }
-        });
+        }
+    )
+    //Carpet
+    gltfloader.load(
+        'Models/carpet.gltf',
+        (gltf) =>
+        {
+            const key = 'carpet'
+            let model = gltf.scene
+            model.name = key
+            model.scale.set(.075,.075,.075)
+            model.position.set(0,-.6, 0)
 
-        loadedPercentage += (1/numberOfAssets) //calculate the percentage the asset contributes to the total loadedPercentage
-        loadingBar.animate(loadedPercentage)
-    }
-)
-//#endregion
+            models[key] = model
+            if(preLoadModels.includes(key)){
+                loadedPercentage += (1/numberOfAssets)
+                loadingBar.animate(loadedPercentage)
+            }
+        }
+    )
+    //Lamp
+    gltfloader.load(
+        'Models/lamp.gltf',
+        (gltf) =>
+        {
+            const key = 'lamp'
+            let model = gltf.scene
+            model.name = key
+            model.scale.set(.075,.075,.075)
+            model.position.set(0,-.6, 0)
 
+            models[key] = model
+            if(preLoadModels.includes(key)){
+                loadedPercentage += (1/numberOfAssets)
+                loadingBar.animate(loadedPercentage)
+            }
+        }
+    )
+    //srilanka_provinces_cartoon_map
+    gltfloader.load(
+        'srilanka_provinces_cartoon_map.glb',
+        (gltf) =>
+        {
+            const key = 'sriLankaProvincesMap'
+            let model = gltf.scene
+            model.scale.set(0.75,0.75,0.75)
+            model.position.set(-1, 0, 0.5)
+        
+            models[key] = model
+            
+            // console.log(models['sriLankaProvincesMap']);
+            //Setting up model for country selection
+            // let countrySelectionModel = models['sriLankaProvincesMap'].clone(true)
+            // countrySelectionModel.scale.set(0.35,0.35,0.35)
+            // countrySelectionModel.position.set(-.4,0,0.1)
+            // countrySelectionModel.children[10].castShadow = true
+            // // console.log(countrySelectionModel);
+        
+        
+            // scenes.sriLankaCube.add(countrySelectionModel)
+        
+            //Storing state colors as new properties
+            // scenes.sriLankaCube.regionMaterial = countrySelectionModel.children[0].material//Material for all regions
+        
+            // scenes.sriLankaCube.standardColor = countrySelectionModel.children[0].material.color.clone()//standard color
+            // scenes.sriLankaCube.hoveringColor =  new THREE.Color( 0xff0000 )//hovering color
+            // scenes.sriLankaCube.selectedColor = new THREE.Color( 0x0000ff )//selected color
+        
+        
+            //Setting up model for region selection
+            let regionSelectionModel = models[key].clone(true) 
+            regionSelectionModel.scale.set(0.15,0.15,0.15)
+            regionSelectionModel.position.set(-5, 0, 0.5)
+        
+            regionSelectionModel.children[9].castShadow = true
+            // console.log(regionSelectionModel);
+            // console.log(regionSelectionModel);
+            scenes.sriLankaScene.add(regionSelectionModel)
+        
+            //Setting up and filtering regions and setting up region state colors
+            let sriLankaRegions = regionSelectionModel.children.slice() //Region references
+            sriLankaRegions.splice(9,1)//Removes sealine and provincial divider from regions references
+            // console.log(sriLankaRegions);
+            // sriLankaRegions[0].position.y = 5
+            let sriLankanRegionsMeshes = sriLankaRegions.map((region) => {
+            
+                const regionChildMesh = region.children[0]
+            
+                regionChildMesh.name = region.name.replaceAll('_',' ')
+                regionChildMesh.name = regionChildMesh.name + ' Province'
+            
+            
+                // console.log(regionChildMesh)
+            
+                regionChildMesh.regionMaterial = regionChildMesh.material.clone()//standard material
+                regionChildMesh.regionMaterial.needsUpdate = true
+                // console.log(regionChildMesh.regionMaterial);
+                regionChildMesh.material = regionChildMesh.regionMaterial
+                // console.log(regionChildMesh.material);
+            
+                regionChildMesh.standardMap = new THREE.TextureLoader().load('sri_lanka_provinces_standard.png')
+                regionChildMesh.standardMap.needsUpdate = true
+                regionChildMesh.standardMap.flipY = false
+                regionChildMesh.regionMaterial.map = regionChildMesh.standardMap
+            
+                regionChildMesh.hoveringMap =  new THREE.TextureLoader().load('sri_lanka_provinces_hovering.png')
+                regionChildMesh.hoveringMap.needsUpdate = true
+                regionChildMesh.hoveringMap.flipY = false
+                
+                regionChildMesh.selectedMap = new THREE.TextureLoader().load('sri_lanka_provinces_selected.png')
+                regionChildMesh.selectedMap.needsUpdate = true
+                regionChildMesh.selectedMap.flipY = false
+                
+                // region.hoveringMaterial = region.material.clone()//hovering material
+                // region.hoveringMaterial.color = new THREE.Color( 0xff0000 )
+            
+                // region.selectedMaterial = region.material.clone()//selected material
+                // region.selectedMaterial.color = new THREE.Color( 0x0000ff )
+            
+                return regionChildMesh
+            });
+            // console.log(sriLankanRegionsMeshes);
+        
+            // model.castShadow = true
+            // model.receiveShadow = true
+        
+            scenes.setSriLankaRegions(sriLankanRegionsMeshes)
+        
+            if(preLoadModels.includes(key)){
+                loadedPercentage += (1/numberOfAssets)
+                loadingBar.animate(loadedPercentage)
+            }
+            // if(loadedPercentage >= 1){ //if loadedPercentage is 1, then the survey can start.
+            //     //Call function to start the survey
+            //     main.startSurvey()
+            // }
+        }
+    )
+    //maldives_provinces_cartoon_map
+    gltfloader.load(
+        'maldives_provinces_cartoon_map.glb',
+        (gltf) =>
+        {
+            const key = 'maldivesProvincesMap'
+            let model = gltf.scene
+            // model.scale.set(0.38,0.38,0.38)
+            // model.scale.set(0.3,0.3,0.3)
+            model.position.set(0, 0, 0)
+        
+            models[key] = model
+            // console.log(model);
+            // console.log(model);
+            //Setting up model for country selection
+            // let countrySelectionModel = models['maldivesProvincesMap'].clone(true)
+            // countrySelectionModel.scale.set(0.2,0.2,0.2)
+            // countrySelectionModel.position.set(0,0,0)
+            // countrySelectionModel.children[4].castShadow = true
+            // scenes.maldivesCube.add(countrySelectionModel)
+            
+        
+            // scenes.maldivesCube.regionMaterial = countrySelectionModel.children[0].material//Material for all regions
+        
+            // scenes.maldivesCube.standardColor = countrySelectionModel.children[0].material.color.clone()//standard color
+            // scenes.maldivesCube.hoveringColor = new THREE.Color( 0xff0000 )//hovering color
+            // scenes.maldivesCube.selectedColor = new THREE.Color( 0x0000ff )//selected color
+        
+            //Uncomment From here -----------------------------------------------------------
+            //Setting up model for region selection
+            let regionSelectionModel = models[key].clone(true) 
+            // regionSelectionModel.scale.set(0.15,0.15,0.15)
+            // regionSelectionModel.scale.set(0.1,0.1,0.1)
+            regionSelectionModel.scale.set(0.38,0.38,0.38)
+            regionSelectionModel.children[0].castShadow = true
+            scenes.maldivesScene.add(regionSelectionModel)
+            // console.log(regionSelectionModel);
+        
+        
+            //Setting up and filtering regions and setting up region state colors
+            let maldivesRegions = regionSelectionModel.children.slice() //Region references
+            let base = maldivesRegions.splice(0,1)//Removes sealine from regions references
+            // base.position.y = -0.5
+            // console.log(regionSelectionModel);
+            // console.log(maldivesRegions);
+        
+            for (let i = 0; i < maldivesRegions.length; i++) {
+                const region = maldivesRegions[i];
+                
+            
+                region.name = region.name.replaceAll('_',' ')
+                region.name = region.name + ' Province'
+            
+                // scenes.maldivesRegionBoxes[i].position.y = i * -5   
+                scenes.maldivesRegionBoxes[i].name = region.name
+                scenes.maldivesRegionBoxes[i].position.copy( region.position )
+            
+                // console.log(region.position);
+                // console.log(regionSelectionModel.position);
+                const worldPos = new THREE.Vector3()
+                region.getWorldPosition(worldPos)
+                // console.log(region.localToWorld(region.position));
+                // console.log(worldPos);
+                // console.log(worldPos.multiplyScalar(1.9));
+                // scenes.maldivesRegionBoxes[i].position.copy( worldPos )
+            
+                // scenes.maldivesRegionBoxes[i].add(region)
+                // region.position.set(0,0,0)
+                // region.scale.set(0.3,0.3,0.3)
+            
+                // console.log(region.position);
+                // console.log(scenes.maldivesRegionBoxes[i].position);
+            
+            
+                // region.standardMaterial = region.children[0].material.clone()//standard material
+                // console.log(region.standardMaterial);
+                // region.children[0].material = region.standardMaterial
+            
+                scenes.maldivesRegionBoxes[i].regionMaterial = region.children[0].material.clone()
+                scenes.maldivesRegionBoxes[i].regionPosition = region.position
+                region.children[0].material = scenes.maldivesRegionBoxes[i].regionMaterial
+            
+                scenes.maldivesRegionBoxes[i].standardColor = scenes.maldivesRegionBoxes[i].regionMaterial.color
+                scenes.maldivesRegionBoxes[i].hoveringColor = new THREE.Color( 0x7bbbf7 )
+                scenes.maldivesRegionBoxes[i].selectedColor = new THREE.Color( 0x3c5fff )
+                
+            }
+            
+        
+            // model.castShadow = true
+            // model.receiveShadow = true
+        
+            // scenes.setMaldivesRegions(maldivesRegions)
+        
+            if(preLoadModels.includes(key)){
+                loadedPercentage += (1/numberOfAssets)
+                loadingBar.animate(loadedPercentage)
+            }
+            // if(loadedPercentage >= 1){ //if loadedPercentage is 1, then the survey can start.
+            //     //Call function to start the survey
+            //     main.startSurvey()
+            // }
+        }
+    )
+    //srilanka_cartoon_map
+    gltfloader.load(
+        'srilanka_cartoon_map.glb',
+        (gltf) =>
+        {
+            const key = 'sriLankaMap'
+            let model = gltf.scene
+        
+            models[key] = model.children[1]
+        
+            let countrySelectionModel = models[key].clone(true)
+            countrySelectionModel.scale.set(0.18,0.18,0.18)
+            countrySelectionModel.position.set(0.24,0,0.1)
+            countrySelectionModel.castShadow = true
+            // console.log(countrySelectionModel);
+        
+        
+            scenes.sriLankaCube.add(countrySelectionModel)
+        
+        
+            //Storing state colors as new properties
+            scenes.sriLankaCube.regionMaterial = countrySelectionModel.material //Material for all regions
+            countrySelectionModel.material.needsUpdate = true
+        
+            scenes.sriLankaCube.standardMap = new THREE.TextureLoader().load('sri_lanka_standard.png')
+            scenes.sriLankaCube.standardMap.needsUpdate = true
+            scenes.sriLankaCube.standardMap.flipY = false
+            scenes.sriLankaCube.regionMaterial.map = scenes.sriLankaCube.standardMap
+        
+            scenes.sriLankaCube.hoveringMap =  new THREE.TextureLoader().load('sri_lanka_hovering.png')
+            scenes.sriLankaCube.hoveringMap.needsUpdate = true
+            scenes.sriLankaCube.hoveringMap.flipY = false
+            
+            scenes.sriLankaCube.selectedMap = new THREE.TextureLoader().load('sri_lanka_selected.png')
+            scenes.sriLankaCube.selectedMap.needsUpdate = true
+            scenes.sriLankaCube.selectedMap.flipY = false
+        
+        
+        
+            // console.log(models['sriLankaMap']);
+            
+            if(preLoadModels.includes(key)){
+                loadedPercentage += (1/numberOfAssets)
+                loadingBar.animate(loadedPercentage)
+            }
+            // if(loadedPercentage >= 1){ //if loadedPercentage is 1, then the survey can start.
+            //     //Call function to start the survey
+            //     main.startSurvey()
+            // }
+        }
+    )
+    //maldives_cartoon_map
+    gltfloader.load(
+        'maldives_cartoon_map.glb',
+        (gltf) =>
+        {
+            const key = 'maldivesMap'
+            let model = gltf.scene
+        
+            models[key] = model.children[0]
+            // console.log(models['maldivesMap']);
+            let countrySelectionModel = models[key].clone(true)
+            countrySelectionModel.scale.set(0.08,0.08,0.08)
+            countrySelectionModel.position.set(0.02,0,-0.5)
+            countrySelectionModel.children[3].castShadow = true
+            // console.log(countrySelectionModel);
+        
+        
+            scenes.maldivesCube.add(countrySelectionModel)
+        
+        
+            //Storing state colors as new properties
+            scenes.maldivesCube.regionMaterial = countrySelectionModel.children[0].material //Material for all regions
+            // countrySelectionModel.regionMaterial.needsUpdate = true
+        
+            // scenes.maldivesCube.regionMaterial = countrySelectionModel.children[0].material//Material for all regions
+        
+            scenes.maldivesCube.standardColor = countrySelectionModel.children[0].material.color.clone()//standard color
+            scenes.maldivesCube.hoveringColor = new THREE.Color( 0x7bbbf7 )//hovering color
+            scenes.maldivesCube.selectedColor = new THREE.Color( 0x3c5fff )//selected color
+        
+            // scenes.maldivesCube.standardMap = new THREE.TextureLoader().load('maldives_standard.png')
+            // scenes.maldivesCube.standardMap.needsUpdate = true
+            // scenes.maldivesCube.standardMap.flipY = false
+            // scenes.maldivesCube.regionMaterial.map = scenes.maldivesCube.standardMap
+        
+            // scenes.maldivesCube.hoveringMap =  new THREE.TextureLoader().load('maldives_hovering.png')
+            // scenes.maldivesCube.hoveringMap.needsUpdate = true
+            // scenes.maldivesCube.hoveringMap.flipY = false
+            
+            // scenes.maldivesCube.selectedMap = new THREE.TextureLoader().load('maldives_selected.png')
+            // scenes.maldivesCube.selectedMap.needsUpdate = true
+            // scenes.maldivesCube.selectedMap.flipY = false
+        
+        
+        
+            // console.log(models['maldivesMap']);
+            
+            if(preLoadModels.includes(key)){
+                loadedPercentage += (1/numberOfAssets)
+                loadingBar.animate(loadedPercentage)
+            }
+            // if(loadedPercentage >= 1){ //if loadedPercentage is 1, then the survey can start.
+            //     //Call function to start the survey
+            //     main.startSurvey()
+            // }
+        }
+    )
+    //Loading tree models
+    gltfloader.load(
+        'Tree.glb',
+        (gltf) =>
+        {
+            const key = 'Tree1'
+            let model = gltf.scene
+            model.name = key
+            model.position.set(0, -0.3, 0)
+            model.scale.set(0.25,0.25,0.25)
+
+            models[key] = model
+            SetTreeMaterial(model);
+
+            if(preLoadModels.includes(key)){
+                loadedPercentage += (1/numberOfAssets)
+                loadingBar.animate(loadedPercentage)
+            }
+
+            models['Tree2'] = models[key].clone(true)
+            models['Tree3'] = models[key].clone(true)
+            models['Tree4'] = models[key].clone(true)
+            models['Tree5'] = models[key].clone(true)
+            models['Tree6'] = models[key].clone(true)
+            models['Tree7'] = models[key].clone(true)
+            models['Tree8'] = models[key].clone(true)
+            models['Tree9'] = models[key].clone(true)
+            models['Tree10'] = models[key].clone(true)
+        }
+    )
+
+    //#region Loading Cloud models
+    gltfloader.load(
+        'cloud.glb',
+        (gltf) =>
+        {
+            const key = 'cloud1'
+            let model = gltf.scene
+            model.name = key
+            model.position.set(0, -0.3, 0)
+            model.scale.set(0.05,0.05,0.05)
+
+            models[key] = model
+
+            let mesh = model.children[0].children[0].children[0].children[0];
+            var col = mesh.material.color;
+            var newMat = new THREE.MeshLambertMaterial( {color : col });
+            mesh.material = newMat;
+            mesh.material.transparent = true
+            model.material = mesh.material
+
+            if(preLoadModels.includes(key)){
+                loadedPercentage += (1/numberOfAssets)
+                loadingBar.animate(loadedPercentage)
+            }
+            //models['cloud2'] = models[key].clone(true)
+            //models['cloud3'] = models[key].clone(true)
+        }
+    )
+    
+    gltfloader.load(
+        'cloud.glb',
+        (gltf) =>
+        {
+            const key = 'cloud2'
+            let model = gltf.scene
+            model.name = key
+            model.position.set(0, -0.3, 0)
+            model.scale.set(0.05,0.05,0.05)
+
+            models[key] = model
+
+            let mesh = model.children[0].children[0].children[0].children[0];
+            var col = mesh.material.color;
+            var newMat = new THREE.MeshLambertMaterial( {color : col });
+            mesh.material = newMat;
+            mesh.material.transparent = true
+            model.material = mesh.material
+
+            if(preLoadModels.includes(key)){
+                loadedPercentage += (1/numberOfAssets)
+                loadingBar.animate(loadedPercentage)
+            }
+        }
+    )
+
+    gltfloader.load(
+        'cloud.glb',
+        (gltf) =>
+        {
+            const key = 'cloud3'
+            let model = gltf.scene
+            model.name = key
+            model.position.set(0, -0.3, 0)
+            model.scale.set(0.05,0.05,0.05)
+
+            models[key] = model
+
+            let mesh = model.children[0].children[0].children[0].children[0];
+            var col = mesh.material.color;
+            var newMat = new THREE.MeshLambertMaterial( {color : col });
+            mesh.material = newMat;
+            mesh.material.transparent = true
+            model.material = mesh.material
+
+            if(preLoadModels.includes(key)){
+                loadedPercentage += (1/numberOfAssets)
+                loadingBar.animate(loadedPercentage)
+            }
+        }
+    )
+    
+    //#endregion
+}
+loadInitialModels()
+
+export function loadPostModels(){
+    //Distant friend
+    gltfloader.load(
+        'Models/Animation_V09.gltf',
+        (gltf) =>
+        {
+            const key = 'distantFriend'
+            animations[key] = gltf.animations
+            let model = gltf.scene
+            model.name = key
+            model.scale.set(.3,.3,.3)
+            model.position.set(0,-.6, 0)
+    
+            model.traverse((child) => {
+                if (child.isMesh){
+                    let toonMaterial = new THREE.MeshToonMaterial({ color : 0xFFC332, gradientMap : tex});
+                    child.material = shaderMaterial;
+                    child.castShadow = true;
+                }
+            });
+    
+            models[key] = model
+            if(preLoadModels.includes(key)){
+                loadedPercentage += (1/numberOfAssets)
+                loadingBar.animate(loadedPercentage)
+            }
+        }
+    )
+    //Siblings
+    gltfloader.load(
+        'Models/siblings.gltf',
+        (gltf) =>
+        {
+            const key = 'siblings'
+            animations[key] = gltf.animations
+            let model = gltf.scene
+            model.name = key
+            model.scale.set(.075,.075,.075)
+            model.position.set(0,-.6, 0)
+    
+            model.traverse((child) => {
+                if (child.isMesh){
+                    let toonMaterial = new THREE.MeshToonMaterial({ color : 0xFFC332, gradientMap : tex});
+                    child.material = shaderMaterial;
+                    child.castShadow = true;
+                }
+            });
+    
+            models[key] = model
+            if(preLoadModels.includes(key)){
+                loadedPercentage += (1/numberOfAssets)
+                loadingBar.animate(loadedPercentage)
+            }
+        }
+    )
+    //Friends
+    gltfloader.load(
+        'Models/Friends.gltf',
+        (gltf) =>
+        {
+            const key = 'friends'
+            animations[key] = gltf.animations
+            let model = gltf.scene
+            model.name =  key
+            model.scale.set(.075,.075,.075)
+            model.position.set(0,-.6, 0)
+    
+            model.traverse((child) => {
+                if (child.isMesh){
+                    let toonMaterial = new THREE.MeshToonMaterial({ color : 0xFFC332, gradientMap : tex});
+                    child.material = shaderMaterial;
+                    child.castShadow = true;
+                }
+            });
+    
+            models[key] = model
+            if(preLoadModels.includes(key)){
+                loadedPercentage += (1/numberOfAssets)
+                loadingBar.animate(loadedPercentage)
+            }
+        }
+    )
+    //Community
+    gltfloader.load(
+        'Models/community.gltf',
+        (gltf) =>
+        {
+            const key = 'community'
+            //animations[key] = gltf.animations
+            let model = gltf.scene
+            model.name = key
+            model.scale.set(.035,.035,.035)     //prev (.075,.075,.075)
+            model.position.set(0,-.6, 0)
+    
+            model.traverse((child) => {
+                if (child.isMesh){
+                    child.castShadow = true
+                }
+            });
+    
+            models[key] = model
+            if(preLoadModels.includes(key)){
+                loadedPercentage += (1/numberOfAssets)
+                loadingBar.animate(loadedPercentage)
+            }
+        }
+    )
+    //Different Language speaker
+    gltfloader.load(
+        'Models/dif_language.gltf',
+        (gltf) =>
+        {
+            const key = 'dif_language'
+            animations[key] = gltf.animations
+            let model = gltf.scene
+            model.name = key
+            model.scale.set(.075,.075,.075)
+            model.position.set(0,-.6, 0)
+    
+            model.traverse((child) => {
+                if (child.isMesh){
+                    let toonMaterial = new THREE.MeshToonMaterial({ color : 0xFFC332, gradientMap : tex});
+                    child.material = shaderMaterial;
+                    child.castShadow = true;
+                }
+            });
+    
+            // console.log(gltf)
+            models[key] = model
+            if(preLoadModels.includes(key)){
+                loadedPercentage += (1/numberOfAssets)
+                loadingBar.animate(loadedPercentage)
+            }
+        }
+    )
+    //Home country
+    gltfloader.load(
+        'Models/Home Country.gltf',
+        (gltf) =>
+        {
+            const key = 'home_country'
+            //animations[key] = gltf.animations
+            let model = gltf.scene
+            model.name = key
+            model.scale.set(.035,.035,.035)     //prev (.075,.075,.075)
+            model.position.set(0,-.6, 0)
+    
+            model.traverse((child) => {
+                if (child.isMesh){
+                    child.castShadow = true
+                }
+            });
+    
+            models[key] = model
+            if(preLoadModels.includes(key)){
+                loadedPercentage += (1/numberOfAssets)
+                loadingBar.animate(loadedPercentage)
+            }
+        }
+    )
+    //Temple
+    gltfloader.load(
+        'Models/Temple.gltf',
+        (gltf) =>
+        {
+            const key = 'temples'
+            //animations[key] = gltf.animations
+            let model = gltf.scene
+            model.name = key
+            model.scale.set(.065,.065,.065)     //prev (.075,.075,.075)
+            model.position.set(0,-.6, 0)
+    
+            model.traverse((child) => {
+                if (child.isMesh){
+                    child.castShadow = true
+                }
+            });
+    
+            models[key] = model
+            if(preLoadModels.includes(key)){
+                loadedPercentage += (1/numberOfAssets)
+                loadingBar.animate(loadedPercentage)
+            }
+        }
+    )
+    //Religious Beliefs
+    gltfloader.load(
+        'Models/religious belief.gltf',
+        (gltf) =>
+        {
+            const key = 'religious_belief'
+            //animations[key] = gltf.animations
+            let model = gltf.scene
+            model.name = key
+            model.scale.set(.035,.035,.035)     //prev (.075,.075,.075)
+            model.position.set(0, -0.4, 0)
+    
+            model.traverse((child) => {
+                 if (child.isMesh){
+                     //child.material = shaderMaterial;
+                     child.castShadow = true;
+                 }
+             });
+    
+            models[key] = model
+            if(preLoadModels.includes(key)){
+                loadedPercentage += (1/numberOfAssets)
+                loadingBar.animate(loadedPercentage)
+            }
+        }
+    )
+    //Sofa
+    gltfloader.load(
+        'Models/Sofa.gltf',
+        (gltf) =>
+        {
+            const key = 'sofa'
+            let model = gltf.scene
+            model.name = key
+            model.scale.set(.075,.075,.075)
+            model.position.set(0,-.6, 0)
+            models[key] = model
+            model.traverse((child) => {
+                if (child.isMesh){
+                    child.castShadow = true
+                }
+            });
+            if(preLoadModels.includes(key)){
+                loadedPercentage += (1/numberOfAssets)
+                loadingBar.animate(loadedPercentage)
+            }
+        }
+    )
+    //Sofa small
+    gltfloader.load(
+        'Models/SofaSmall.gltf',
+        (gltf) =>
+        {
+            const key = 'sofasmall'
+            let model = gltf.scene
+            model.name = key
+            model.scale.set(.075,.075,.075)
+            model.position.set(0,-.6, 0)
+            models[key] = model
+            model.traverse((child) => {
+                if (child.isMesh){
+                    child.castShadow = true
+                }
+            });
+            if(preLoadModels.includes(key)){
+                loadedPercentage += (1/numberOfAssets)
+                loadingBar.animate(loadedPercentage)
+            }
+        }
+    )
+    //Letter
+    gltfloader.load(
+        'Models/letter.gltf',
+        (gltf) =>
+        {
+            const key = 'letter'
+            let model = gltf.scene
+            model.name = key
+            model.scale.set(0.2,0.2,0.2)
+            model.position.set(0,-0.6, 0)
+            models[key] = model
+
+            if(preLoadModels.includes(key)){
+                loadedPercentage += (1/numberOfAssets)
+                loadingBar.animate(loadedPercentage)
+            }
+        }
+    )
+    //Land stage 3
+    gltfloader.load(
+        'Models/LandStage3.gltf',
+        (gltf) =>
+        {
+            const key = 'landstage3'
+            let model = gltf.scene
+            model.name = key
+            model.scale.set(.075,.075,.075)
+            model.position.set(0,-0.72, 0)
+            models[key] = model
+            model.traverse((child) => {
+                if (child.isMesh){
+                    child.castShadow = true
+                }
+            });
+            if(preLoadModels.includes(key)){
+                loadedPercentage += (1/numberOfAssets)
+                loadingBar.animate(loadedPercentage)
+            }
+        }
+    )
+    //Love Emoji
+    gltfloader.load(
+        'Models/Emojis/love/scene.gltf',
+        (gltf) =>
+        {
+            const key = 'centerEmoji'
+            let model = gltf.scene
+            model.name = key
+            model.scale.set(.06,.06,.06)
+            model.position.set(1.5,-0.3, 0)
+            models[key] = model
+            model.traverse((child) => {
+                if (child.isMesh){
+                    child.castShadow = true
+                }
+            });
+            if(preLoadModels.includes(key)){
+                loadedPercentage += (1/numberOfAssets)
+                loadingBar.animate(loadedPercentage)
+            }
+        }
+    )
+}
 
 function SetTreeMaterial(scene){
     scene.traverse( function(object){
@@ -1247,7 +1194,6 @@ function SetTreeMaterial(scene){
 
 //
 //      end of Loading models
-
 
 export function getModel(modelKey){
     return models[modelKey]

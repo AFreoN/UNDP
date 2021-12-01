@@ -85,12 +85,14 @@ export function startSurvey(){//call this function when loading is complete
     timeStamps.start = getCurrentTimeFormatted()
     console.log(timeStamps);
 
+    assetLoader.loadPostModels()
+
     if(isDebugging == false)
         uiControl.qInputField.style.display = 'none'
     //uiControl.addLangugageButtonEvents();
     //Call any functions related to starting the survey (setting up the first scene etc..)
 }
-console.log("url = ", document.URL + "adventurer.html")
+//console.log("url = ", document.URL + "adventurer.html")
 
 export function isSurveyStarted(){
     return surveyStarted;

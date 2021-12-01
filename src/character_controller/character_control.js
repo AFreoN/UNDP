@@ -1327,9 +1327,6 @@ const tick = () =>
             }
             SetSliderFillerAndAnswer();
         }
-        //let final = getEaseInValue(onboardTimer * 0.5) * 2
-        // console.log("Cur value = ", onboardTimer, ", Ease in = ", final)
-        //console.log("Cur = ", onboardTimer, " Ease out = ", final)
     }
 
     //Updating outlines here
@@ -1344,13 +1341,6 @@ const tick = () =>
     window.requestAnimationFrame(tick)
 }
 tick()
-console.log("Ease 0 = ", getEaseInValue(0))
-console.log("Ease 0.5 = ", getEaseInValue(0.25) * 2)
-console.log("Ease 1 = ", getEaseInValue(0.5) * 2)
-
-console.log("Ease 0 = ", getEaseOutValue(0))
-console.log("Ease 0.5 = ", getEaseOutValue(0.25) * 2)
-console.log("Ease 1 = ", getEaseOutValue(0.5) * 2)
 
 function getEaseInValue(t){
     return 2 * parseFloat(t) * parseFloat(t)
