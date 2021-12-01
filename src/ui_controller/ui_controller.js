@@ -763,6 +763,26 @@ export function setUiText(){
     resultsMoreButton.innerText = allTexts.resultsMoreButtonText[langId]
     likert5_negativeTwo_Text.setAttribute("likert-scale-value", allTexts.stronglyDisagree[langId]);
     likert5_positiveTwo_Text.setAttribute("likert-scale-value", allTexts.stronlgyAgree[langId]);
+
+    setUiTextSize()
+}
+
+function setUiTextSize(){
+    switch(langId){
+        case 'en':
+            questionContainer.style.fontSize = 'calc(0.8em + 1vw)'
+            break
+        case 'si':
+            questionContainer.style.fontSize = 'calc(0.6em + 1vw)'
+            break
+        case 'ta':
+            questionContainer.style.fontSize = 'calc(0.5em + 1vw)'
+            break
+        case 'dv':
+            questionContainer.style.fontSize = 'calc(0.6em + 1vw)'
+            break
+    }
+    
 }
 
 //Test code - Remove when pushing
@@ -1868,6 +1888,67 @@ export function updateUI(questionType, questionText, answers){
     }
 
     questionContainer.style.display = ''
+
+    switch(langId){
+        case 'en':
+            const enBaseSize = 0.6
+            const enSizeIncrementRate = 5 
+            const enBaseSizeOffset = (enSizeIncrementRate/questionText.length)
+            console.log(enBaseSizeOffset);
+            
+            const enNewBaseSize = enBaseSize + enBaseSizeOffset
+            const enNewStyle = 'calc(' + enNewBaseSize + 'em + 0.5vw + 0.3vh)'
+            console.log(enNewStyle);
+
+            questionContainer.style.fontSize = enNewStyle
+            break
+        case 'si':
+            const siBaseSize = 0.4
+
+            const siSizeIncrementRate = 5 
+            const siBaseSizeOffset = (siSizeIncrementRate/questionText.length)
+            console.log(siBaseSizeOffset);
+            
+            const siNewBaseSize = siBaseSize + siBaseSizeOffset
+            const siNewStyle = 'calc(' + siNewBaseSize + 'em + 0.5vw + 0.3vh)'
+            console.log(siNewStyle);
+
+            questionContainer.style.fontSize = siNewStyle
+            // questionContainer.style.fontSize = 'calc(0.6em + 1vw)'
+            break
+        case 'ta':
+            const taBaseSize = 0.4
+
+            const taSizeIncrementRate = 5 
+            const taBaseSizeOffset = (taSizeIncrementRate/questionText.length)
+            console.log(taBaseSizeOffset);
+            
+            const taNewBaseSize = taBaseSize + taBaseSizeOffset
+            const taNewStyle = 'calc(' + taNewBaseSize + 'em + 0.5vw + 0.3vh)'
+            console.log(taNewStyle);
+
+            questionContainer.style.fontSize = taNewStyle
+
+            // questionContainer.style.fontSize = 'calc(0.5em + 1vw)'
+            break
+        case 'dv':
+            const dvBaseSize = 0.4
+
+            const dvSizeIncrementRate = 5 
+            const dvBaseSizeOffset = (dvSizeIncrementRate/questionText.length)
+            console.log(dvBaseSizeOffset);
+            
+            const dvNewBaseSize = dvBaseSize + dvBaseSizeOffset
+            const dvNewStyle = 'calc(' + dvNewBaseSize + 'em + 0.5vw + 0.3vh)'
+            console.log(dvNewStyle);
+
+            questionContainer.style.fontSize = dvNewStyle
+
+            // questionContainer.style.fontSize = 'calc(0.6em + 1vw)'
+            break
+    }
+
+
     questionContainer.innerText= questionText
     //#region For Question Change Animation
     // questionContainer.style.animation = 'none'
@@ -2257,6 +2338,8 @@ languageSelectedButton.addEventListener('click', function(){
     setVidQuestionLang()
     setLinksPageLang();
     setUiText();
+
+
     // loadQuestion(0);
     langSelectionUI.hidden = true;
     vidQuestionUI.style.display = ''

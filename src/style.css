@@ -383,7 +383,7 @@ canvas.webgl{
     border:2px solid white ;
     padding: 5px 30px;
     font-family: 'Rubik',sans-serif;
-    font-size: 1.25em;
+    font-size: calc(1em + 1vw);
     box-shadow: 3px 3px 16px rgba(0, 0, 0, 0.20);
 
 
