@@ -741,7 +741,7 @@ canvas.webgl{
   form #likert5-slider::before {
     content: " ";
     position: absolute;
-    height: 8px;
+    height: 5px;
     width: 100%;
     width: calc(100% * (4 / 5));
     top: 50%;
@@ -797,7 +797,7 @@ canvas.webgl{
     transform: translate(-50%, -50%);
     width: 20px;
     height: 20px;
-    border: 3px solid rgb(255, 255, 255);
+    border: 2px solid rgb(255, 255, 255);
     background: rgba(125, 39, 252, 1);
     border-radius: 50%;
     pointer-events: none;
@@ -854,7 +854,7 @@ canvas.webgl{
   }
   /* Radio button style while checked */
   form #likert5-slider input:checked + label::after {
-    border-width: 4px;
+    border-width: 3px;
     transform: translate(-50%, -50%) scale(1);
   }
   form #likert5-slider input:checked ~ #likert5-pointer {
@@ -956,7 +956,7 @@ canvas.webgl{
   form #likert4-slider::before {
     content: " ";
     position: absolute;
-    height: 8px;
+    height: 5px;
     width: 100%;
     width: calc(100% * (3 / 4));
     top: 50%;
@@ -1012,7 +1012,7 @@ canvas.webgl{
     transform: translate(-50%, -50%);
     width: 20px;
     height: 20px;
-    border: 3px solid rgb(255, 255, 255);
+    border: 2px solid rgb(255, 255, 255);
     background: rgba(125, 39, 252, 1);
     border-radius: 50%;
     pointer-events: none;
@@ -1038,7 +1038,7 @@ canvas.webgl{
   }
   /* Radio button style while checked */
   form #likert4-slider input:checked + label::after {
-    border-width: 4px;
+    border-width: 3px;
     transform: translate(-50%, -50%) scale(1);
   }
   form #likert4-slider input:checked ~ #likert4-pointer {
@@ -1128,7 +1128,7 @@ canvas.webgl{
   form #likert7-slider::before {
     content: " ";
     position: absolute;
-    height: 8px;
+    height: 5px;
     width: 100%;
     width: calc(100% * (4 / 5));
     top: 50%;
@@ -1182,7 +1182,7 @@ canvas.webgl{
     transform: translate(-50%, -50%);
     width: 20px;
     height: 20px;
-    border: 3px solid rgb(255, 255, 255);
+    border: 2px solid rgb(255, 255, 255);
     background: rgba(125, 39, 252, 1);
     border-radius: 50%;
     pointer-events: none;
@@ -1251,7 +1251,7 @@ canvas.webgl{
   }
   /* Radio button style while checked */
   form #likert7-slider input:checked + label::after {
-    border-width: 4px;
+    border-width: 3px;
     transform: translate(-50%, -50%) scale(1);
   }
   form #likert7-slider input:checked ~ #likert7-pointer {

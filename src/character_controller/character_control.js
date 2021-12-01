@@ -20,10 +20,10 @@ const ringClearance = 0.001;    // this + player_ring_y_position = Y position of
 
 var isSliderOnboarded = false;  //Boolean to check whether onboarded previously or not
 var isOnboarding = false;       //If this is true, slider will move automatically to indicate the user that it's moveable
-var onBoardDuration = 0.8;  //Duration of whole slider onboarding
+var onBoardDuration = 0.3;  //Duration of whole slider onboarding   //prev 0.8
 var onboardTimer = 0;       //Local timer
 var onboardDirection = 0;   // 0 -> Right, 1 -> from right to left, 2 -> from left to middle
-var maxOnboardValue = 30;   //Max value of slider to move
+var maxOnboardValue = 20;  //Max value of slider to move //prev 20
 
 //#region New Style created here for showing slider outline while giving input
 let s = document.createElement("style");
@@ -1255,32 +1255,81 @@ const tick = () =>
 
     if(isOnboarding){
         const Lspeed = 0.5;
+        const phaseDuration = onBoardDuration;
+        var eased;
+        //#region Old Onboarding code
+        // if(onboardDirection == 0){
+        //     onboardTimer += deltatime * maxOnboardValue / (onBoardDuration / 2);
+        //     joystickSlider.value =  MathUtils.lerp(joystickSlider.value, onboardTimer, Lspeed);
+        //     SetSliderFillerAndAnswer();
+        //     if(onboardTimer >= maxOnboardValue){
+        //         onboardDirection = 1;
+        //     }
+        // }
+        // else if(onboardDirection == 1){
+        //     onboardTimer -= deltatime * maxOnboardValue / (onBoardDuration / 4);
+        //     joystickSlider.value =  MathUtils.lerp(joystickSlider.value, onboardTimer, Lspeed);
+        //     SetSliderFillerAndAnswer();
+        //     if(onboardTimer <= -maxOnboardValue){
+        //         onboardDirection = 2;
+        //     }
+        // }
+        // else if(onboardDirection == 2){
+        //     onboardTimer += deltatime * maxOnboardValue / (onBoardDuration / 2);
+        //     joystickSlider.value =  MathUtils.lerp(joystickSlider.value, onboardTimer, Lspeed);
+        //     if(onboardTimer >= 0){
+        //         isOnboarding = false;
+        //         s.textContent = thumbTransparent;
+        //         joystickSlider.value = 0;
+        //     }
+        //     SetSliderFillerAndAnswer();
+        // }
+        //#endregion
+
         if(onboardDirection == 0){
-            onboardTimer += deltatime * maxOnboardValue / (onBoardDuration / 2);
-            joystickSlider.value =  MathUtils.lerp(joystickSlider.value, onboardTimer, Lspeed);
+            onboardTimer += deltatime / phaseDuration;
+            eased = getEaseInValue(onboardTimer * 0.5) * 2;
+            joystickSlider.value =  MathUtils.lerp(joystickSlider.value, eased * maxOnboardValue, Lspeed);
             SetSliderFillerAndAnswer();
-            if(onboardTimer >= maxOnboardValue){
+            if(onboardTimer >= 1){
                 onboardDirection = 1;
+                onboardTimer = 0;
             }
         }
         else if(onboardDirection == 1){
-            onboardTimer -= deltatime * maxOnboardValue / (onBoardDuration / 4);
-            joystickSlider.value =  MathUtils.lerp(joystickSlider.value, onboardTimer, Lspeed);
+            onboardTimer += deltatime / phaseDuration;
+            eased = getEaseOutValue(onboardTimer * 0.5) * 2;
+            joystickSlider.value =  MathUtils.lerp(joystickSlider.value, maxOnboardValue - eased * maxOnboardValue, Lspeed);
             SetSliderFillerAndAnswer();
-            if(onboardTimer <= -maxOnboardValue){
+            if(onboardTimer >= 1){
                 onboardDirection = 2;
+                onboardTimer = 0;
             }
         }
         else if(onboardDirection == 2){
-            onboardTimer += deltatime * maxOnboardValue / (onBoardDuration / 2);
-            joystickSlider.value =  MathUtils.lerp(joystickSlider.value, onboardTimer, Lspeed);
-            if(onboardTimer >= 0){
+            onboardTimer += deltatime / phaseDuration;
+            eased = getEaseInValue(onboardTimer * 0.5) * 2;
+            joystickSlider.value =  MathUtils.lerp(joystickSlider.value, -eased * maxOnboardValue, Lspeed);
+            SetSliderFillerAndAnswer();
+            if(onboardTimer >= 1){
+                onboardDirection = 3;
+                onboardTimer = 0;
+            }
+        }
+        else if(onboardDirection == 3){
+            onboardTimer += deltatime / phaseDuration;
+            eased = getEaseOutValue(onboardTimer * 0.5) * 2;
+            joystickSlider.value =  MathUtils.lerp(joystickSlider.value, - maxOnboardValue + eased * maxOnboardValue, Lspeed);
+            if(onboardTimer >= 1){
                 isOnboarding = false;
                 s.textContent = thumbTransparent;
                 joystickSlider.value = 0;
             }
             SetSliderFillerAndAnswer();
         }
+        //let final = getEaseInValue(onboardTimer * 0.5) * 2
+        // console.log("Cur value = ", onboardTimer, ", Ease in = ", final)
+        //console.log("Cur = ", onboardTimer, " Ease out = ", final)
     }
 
     //Updating outlines here
@@ -1295,3 +1344,18 @@ const tick = () =>
     window.requestAnimationFrame(tick)
 }
 tick()
+console.log("Ease 0 = ", getEaseInValue(0))
+console.log("Ease 0.5 = ", getEaseInValue(0.25) * 2)
+console.log("Ease 1 = ", getEaseInValue(0.5) * 2)
+
+console.log("Ease 0 = ", getEaseOutValue(0))
+console.log("Ease 0.5 = ", getEaseOutValue(0.25) * 2)
+console.log("Ease 1 = ", getEaseOutValue(0.5) * 2)
+
+function getEaseInValue(t){
+    return 2 * parseFloat(t) * parseFloat(t)
+}
+
+function getEaseOutValue(t){
+    return 2 * parseFloat(t) * (1 - parseFloat(t))
+}
