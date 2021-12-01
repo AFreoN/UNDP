@@ -631,6 +631,8 @@ let backButton = document.getElementById('control-back-button')
 let nextButton = document.getElementById('control-next-button')
 let regionSkipButton = document.getElementById('country-skip-button')
 let submitButton = document.getElementById('submit-button')
+let submitHeader = document.getElementById('submit-title-text-container')
+let submitSubtext = document.getElementById('submit-sub-text-container')
 let submitBackButton = document.getElementById('submit-control-back-button')
 let resultsMoreButton = document.getElementById('results-more-button')
 let joystickTutCloseButton = document.getElementById('joystick-tutorial-close-button');
@@ -756,8 +758,8 @@ export function setUiText(){
     sliderDistantText.innerText = allTexts.sliderDistantText[langId];
     sliderCloseText.innerText = allTexts.sliderCloseText[langId];
     
-    document.getElementById('submit-title-text-container').innerText = allTexts.submitConfirmationTitleText[langId]
-    document.getElementById('submit-sub-text-container').innerText = allTexts.submitConfirmationSubText[langId]
+    submitHeader.innerText = allTexts.submitConfirmationTitleText[langId]
+    submitSubtext.innerText = allTexts.submitConfirmationSubText[langId]
 
     document.getElementById('results-footer-text').innerHTML = allTexts.resultsConfirmationFooterText[langId]   
     resultsMoreButton.innerText = allTexts.resultsMoreButtonText[langId]
@@ -771,15 +773,35 @@ function setUiTextSize(){
     switch(langId){
         case 'en':
             questionContainer.style.fontSize = 'calc(0.8em + 1vw)'
+            regionSkipButton.style.fontSize = 'calc(0.6em + 1vw)'
+            
+            submitHeader.style.fontSize = 'calc(1em + 1.5vw)'
+            submitSubtext.style.fontSize = 'calc(0.7em + 0.5vw)'
+            submitButton.style.fontSize = 'calc(1em + 1vw)'
             break
         case 'si':
             questionContainer.style.fontSize = 'calc(0.6em + 1vw)'
+            regionSkipButton.style.fontSize = 'calc(0.5em + 1vw)'
+            
+            submitHeader.style.fontSize = 'calc(0.75em + 1.5vw)'
+            submitSubtext.style.fontSize = 'calc(0.6em + 0.5vw)'
+            submitButton.style.fontSize = 'calc(0.5em + 1vw)'
             break
         case 'ta':
             questionContainer.style.fontSize = 'calc(0.5em + 1vw)'
+            regionSkipButton.style.fontSize = 'calc(0.6em + 1vw)'
+
+            submitHeader.style.fontSize = 'calc(0.9em + 1.5vw)'
+            submitSubtext.style.fontSize = 'calc(0.6em + 0.5vw)'
+            submitButton.style.fontSize = 'calc(0.5em + 1vw)'
             break
         case 'dv':
             questionContainer.style.fontSize = 'calc(0.6em + 1vw)'
+            regionSkipButton.style.fontSize = 'calc(0.6em + 1vw)'
+
+            submitHeader.style.fontSize = 'calc(1em + 1.5vw)'
+            submitSubtext.style.fontSize = 'calc(0.7em + 0.5vw)'
+            submitButton.style.fontSize = 'calc(1em + 1vw)'
             break
     }
     
