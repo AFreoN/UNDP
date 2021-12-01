@@ -66,16 +66,16 @@ let animations = {
 
 let animationId = {
     playerCharacter:{
-        'idle':0,   //0
-        'startL':5, //2
-        'walkL':6,  //3
-        'stopL':7,  //4 
-        'startR':8, //5
-        'walkR':9,  //6
-        'stopR':10, //7
-        'jumpStart':2,
-        'onJump':3,
-        'jumpStop':4
+        'idle':1,   //0
+        'startL':6, //5
+        'walkL' :7,  //6
+        'stopL' :8,  //7 
+        'startR':9, //8
+        'walkR' :10,  //9
+        'stopR' :11, //10
+        'jumpStart':3,  //2
+        'onJump'   :4,  //3
+        'jumpStop' :5   //4
     },
     playerOutline:{
         'idle':0,
@@ -215,7 +215,7 @@ tex.magFilter = THREE.NearestFilter;
 
 //Importing player character
 gltfloader.load(
-    'Models/Animation_V09.gltf',       //'Models/toonwalk_character.gltf'
+    'Models/Animation_V11.gltf',       //'Models/toonwalk_character.gltf'
     (gltf) =>
     {
         animations['playerCharacter'] = gltf.animations
@@ -278,7 +278,7 @@ gltfloader.load(
 )  
 
 gltfloader.load(
-    'Models/Animation_V05.gltf',
+    'Models/Animation_V11.gltf',
     (gltf) =>
     {
         animations['playerOutline'] = gltf.animations
@@ -521,7 +521,7 @@ gltfloader.load(
 
 
 gltfloader.load(
-    'Models/Temples.gltf',
+    'Models/Temple.gltf',
     (gltf) =>
     {
         //animations['community'] = gltf.animations

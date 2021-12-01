@@ -198,12 +198,12 @@ const clock = new THREE.Clock();
 let prevTime = clock.getElapsedTime();
 
 let onJumpDelay = false;
-const jumpDelay = 0.45;
+const jumpDelay = 0.45;     //Time taken to jump from the ground
 let timerJumpDelay = 0;
 let delayedAction;
 
 let onControlDelay = false;
-const controlDelay = 0.75;  //0.55
+const controlDelay = 0.35;  //Time taken to land on the ground and start idle animation prev 0.75
 let timerControlDelay = 0;
 let delayedControlAction;
 
