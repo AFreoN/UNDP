@@ -912,14 +912,14 @@ joystickScene.add(joyDirLight);
 export const pointLight = new THREE.PointLight(0xA7C0FF, 1, 3);      //prev new THREE.PointLight(0xA7C0FF, 1, 3)
 pointLight.position.y = -1;
 pointLight.position.z = 3.5/ aspect;
-joystickScene.add(pointLight);
+//joystickScene.add(pointLight);
 
 const rimLightDistance = 40;
 const bgPointLight = new THREE.PointLight(0xea7ff9, 10, rimLightDistance - 2);
 bgPointLight.castShadow = false;
 bgPointLight.position.y = 5;
 bgPointLight.position.z = -rimLightDistance + 2;
-joystickScene.add(bgPointLight);
+//joystickScene.add(bgPointLight);
 
 const bgPointLight2 = new THREE.PointLight(0xea7ff9, 2, rimLightDistance - 2);
 bgPointLight2.position.y = -1;

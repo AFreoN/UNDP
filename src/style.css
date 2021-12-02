@@ -393,6 +393,11 @@ canvas.webgl{
     opacity: 75%;
 }
 
+.highlightText{
+    /* display: inline-block; */
+    color: yellow;
+}
+
 .country-skip-container{
     margin: 5px auto;
     display: flex;
