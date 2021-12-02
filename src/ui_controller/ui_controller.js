@@ -533,8 +533,6 @@ let surveyProgressBar = document.getElementById("survey-progress-bar");
 const agrees = document.getElementsByName('likert5-checker');
 agrees.forEach(buttons => {
     buttons.addEventListener('change', function(event){
-        var rect = buttons.getBoundingClientRect()
-        console.log("Button position = ", rect.top, ", ", rect.left, ", ", rect.right, ", ", rect.bottom)
         main.saveCurrentAnswer(event.target.value)
         setPlayerRotationLikert5(event.target.value)        
         enableConfirmation(event.target.value)
@@ -1914,6 +1912,8 @@ export function updateUI(questionType, questionText, answers){
     }
 
     questionContainer.style.display = ''
+    // questionText.replace('mother', '<span class="highlightText">'+'mother'+'</span>')
+    // questionText = '<mark>'+ questionText +'</mark>'
 
     switch(langId){
         case 'en':
@@ -1975,7 +1975,7 @@ export function updateUI(questionType, questionText, answers){
     }
 
 
-    questionContainer.innerText= questionText
+    questionContainer.innerHTML = questionText
     //#region For Question Change Animation
     // questionContainer.style.animation = 'none'
     // questionContainer.offsetHeight;     //Resets animation
