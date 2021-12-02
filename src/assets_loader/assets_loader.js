@@ -970,7 +970,7 @@ export function loadPostModels(){
     )
     //Different Language speaker
     gltfloader.load(
-        'Models/dif_language.gltf',
+        'Models/dif_language2.gltf',
         (gltf) =>
         {
             const key = 'dif_language'
@@ -981,14 +981,27 @@ export function loadPostModels(){
             model.position.set(0,-.6, 0)
     
             model.traverse((child) => {
-                if (child.isMesh){
+
+                if(child.isMesh){
+                    console.log(child.id);
+                }
+
+                if (child.isMesh && (child.id == 795 || child.id == 796 || child.id == 794 || child.id == 800) ){
+                    
                     let toonMaterial = new THREE.MeshToonMaterial({ color : 0xFFC332, gradientMap : tex});
                     child.material = shaderMaterial;
                     child.castShadow = true;
                 }
+
+                
+                
+
+                
             });
+            
+
     
-            // console.log(gltf)
+            console.log(gltf)
             models[key] = model
             if(preLoadModels.includes(key)){
                 loadedPercentage += (1/numberOfAssets)
