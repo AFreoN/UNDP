@@ -519,13 +519,24 @@ let questionContainer = document.getElementById('question-container')
 let aboutAnswerContainer = document.getElementById('about-answer-container')// answer container holds the answer buttons for MCQ
 let joystickAnswerContainer = document.getElementById('joystick-answer-container')
 let countryAnswerContainer = document.getElementById('country-answer-container')
+
+let countryLabelContainer = document.getElementById('country-label-container')
+let sriLankaLabel = document.getElementById('srilanka-label')
+let maldivesLabel = document.getElementById('maldives-label')
+
 let regionAnswerContainer = document.getElementById('region-answer-container')
 let joystickTutorialContainer = document.getElementById('joystick-tutorial-frame')
+
 let likert5Container = document.getElementById('likert5-wrapper')
 let likert4Container = document.getElementById('likert4-wrapper')
 let likert7Container = document.getElementById('likert7-wrapper')
+
 let resultTitle = document.getElementById('results-header-container')
+let resultSubText = document.getElementById('results-subtext-container')
+let resultFooterText = document.getElementById('results-footer-text')
 let linkResultTitle = document.getElementById('links-result-header-container')
+let linkResultSubText = document.getElementById('links-result-subtext-container')
+
 joystickTutorialContainer.hidden = true
 
 let surveyProgressBar = document.getElementById("survey-progress-bar");
@@ -735,7 +746,19 @@ let allTexts = {
             ta : 'நீங்கள்தான் ஒரு விநோத விரும்பி ',
             dv : ''
         }
-    ]
+    ],
+    maldivesName:{
+        en:'Maldives',
+        si:'මාල දිවයින',
+        ta:'மாலைத்தீவுகள்',
+        dv:'Maldives',
+    },
+    sriLankaName:{
+        en:'Sri Lanka',
+        si:'ශ්‍රී ලංකා',
+        ta:'இலங்கை',
+        dv:'Sri Lanka',
+    }
 }
 
 // let paginationDisplayText = document.getElementById('pagination-part-displaytext');
@@ -761,10 +784,13 @@ export function setUiText(){
     submitHeader.innerText = allTexts.submitConfirmationTitleText[langId]
     submitSubtext.innerText = allTexts.submitConfirmationSubText[langId]
 
-    document.getElementById('results-footer-text').innerHTML = allTexts.resultsConfirmationFooterText[langId]   
+    resultFooterText.innerHTML = allTexts.resultsConfirmationFooterText[langId]   
     resultsMoreButton.innerText = allTexts.resultsMoreButtonText[langId]
     likert5_negativeTwo_Text.setAttribute("likert-scale-value", allTexts.stronglyDisagree[langId]);
     likert5_positiveTwo_Text.setAttribute("likert-scale-value", allTexts.stronlgyAgree[langId]);
+
+    maldivesLabel.innerText = allTexts.maldivesName[langId]
+    sriLankaLabel.innerText = allTexts.sriLankaName[langId]
 
     setUiTextSize()
 }
@@ -775,9 +801,15 @@ function setUiTextSize(){
             questionContainer.style.fontSize = 'calc(0.8em + 1vw)'
             regionSkipButton.style.fontSize = 'calc(0.6em + 1vw)'
             
-            submitHeader.style.fontSize = 'calc(1em + 1.5vw)'
-            submitSubtext.style.fontSize = 'calc(0.7em + 0.5vw)'
-            submitButton.style.fontSize = 'calc(1em + 1vw)'
+            submitHeader.style.fontSize = 'calc(0.8em + 1.5vw)'
+            submitSubtext.style.fontSize = 'calc(0.65em + 0.5vw)'
+            submitButton.style.fontSize = 'calc(0.8em + 1vw)'
+
+            resultTitle.style.fontSize = 'calc(1em + 1.5vw)'
+            resultSubText.style.fontSize = 'calc(0.7em + 0.5vw)'
+            resultsMoreButton.style.fontSize = 'calc(0.8em + 1vw)'
+
+            resultFooterText.style.fontSize = 'calc(0.6em + 0.5vw)'
             break
         case 'si':
             questionContainer.style.fontSize = 'calc(0.6em + 1vw)'
@@ -786,14 +818,26 @@ function setUiTextSize(){
             submitHeader.style.fontSize = 'calc(0.75em + 1.5vw)'
             submitSubtext.style.fontSize = 'calc(0.6em + 0.5vw)'
             submitButton.style.fontSize = 'calc(0.5em + 1vw)'
+
+            resultTitle.style.fontSize = 'calc(0.75em + 1.5vw)'
+            resultSubText.style.fontSize = 'calc(0.6em + 0.5vw)'
+            resultsMoreButton.style.fontSize = 'calc(0.5em + 1vw)'
+
+            resultFooterText.style.fontSize = 'calc(0.5em + 0.5vw)'
             break
         case 'ta':
             questionContainer.style.fontSize = 'calc(0.5em + 1vw)'
             regionSkipButton.style.fontSize = 'calc(0.6em + 1vw)'
 
-            submitHeader.style.fontSize = 'calc(0.9em + 1.5vw)'
+            submitHeader.style.fontSize = 'calc(0.7em + 1.5vw)'
             submitSubtext.style.fontSize = 'calc(0.6em + 0.5vw)'
             submitButton.style.fontSize = 'calc(0.5em + 1vw)'
+
+            resultTitle.style.fontSize = 'calc(0.7em + 1.5vw)'
+            resultSubText.style.fontSize = 'calc(0.5em + 0.5vw)'
+            resultsMoreButton.style.fontSize = 'calc(0.5em + 1vw)'
+
+            resultFooterText.style.fontSize = 'calc(0.5em + 0.5vw)'
             break
         case 'dv':
             questionContainer.style.fontSize = 'calc(0.6em + 1vw)'
@@ -802,6 +846,12 @@ function setUiTextSize(){
             submitHeader.style.fontSize = 'calc(1em + 1.5vw)'
             submitSubtext.style.fontSize = 'calc(0.7em + 0.5vw)'
             submitButton.style.fontSize = 'calc(1em + 1vw)'
+
+            resultTitle.style.fontSize = 'calc(1em + 1.5vw)'
+            resultSubText.style.fontSize = 'calc(0.7em + 0.5vw)'
+            resultsMoreButton.style.fontSize = 'calc(1em + 1vw)'
+
+            resultFooterText.style.fontSize = 'calc(0.6em + 0.5vw)'
             break
     }
     
@@ -819,16 +869,21 @@ function setUiTextSize(){
 //         case '3':
 //             updateResultTitle('2')
 //             break;
+//         case 'e':
+//             languageSelected('en')
+//             break;
+//         case 's':
+//             languageSelected('si')
+//             break;
+//         case 't':
+//             languageSelected('ta')
+//             break;
+//         case 'd':
+//             languageSelected('dv')
+//             break;
+        
 //     }
 // })
-
-// export function updateResultTitle(lod){
-//     console.log("Result update called");
-//     resultTitle.innerText = allTexts.resultTitle[parseInt(lod)][langId];
-//     linkResultTitle.innerText = allTexts.resultTitle[parseInt(lod)][langId];
-//     updateResultLinks(lod)
-//     updateResultSubtexts(lod)
-// }
 
 function updateResultLinks(loc){
     const langTexts = {
@@ -1362,8 +1417,8 @@ function updateResultSubtexts(loc){
      
     const locValue = parseInt(loc)
 
-    document.getElementById('results-subtext-container').innerText = langTexts.resultsPage[locValue][langId]
-    document.getElementById('links-result-subtext-container').innerHTML = langTexts.linksPage[locValue][langId]
+    resultSubText.innerText = langTexts.resultsPage[locValue][langId]
+    linkResultSubText.innerHTML = langTexts.linksPage[locValue][langId]
 }
 
 const image_Loc1 = "https://www.gstatic.com/webp/gallery/1.jpg";
@@ -1551,7 +1606,7 @@ let genderItemOffset
 
 function genderCalculateMargins(){
     
-    let genderMiddleChildrenMargin = ((genderScrollContainer.offsetHeight/2) - genderFirstChildItem.offsetHeight * 3)/2
+    let genderMiddleChildrenMargin = ((genderScrollContainer.offsetHeight/2) - genderFirstChildItem.offsetHeight * 4)/3
 
     // genderSelectorContainer.style.height = genderScrollContainer.clientHeight + 'px'
 
@@ -1585,6 +1640,7 @@ function genderCalculateMargins(){
     setGenderSelectedStyle(genderItems[0])
     setGenderNearestStyle(genderItems[1])
     setGenderFarthestStyle(genderItems[2])
+    setGenderFarthestStyle(genderItems[3])
 
     genderScrollContainer.scroll({
         top:0,
@@ -1619,12 +1675,16 @@ function onScrollGender(){
     }
     setGenderSelectedStyle(genderSelectedItem)
 
-    if(genderCurrentItemIndex < (genderItems.length - 2)){
-        setGenderNearestStyle(genderItems[genderCurrentItemIndex + 1])
-        setGenderFarthestStyle(genderItems[genderCurrentItemIndex + 2])
-    }else if (genderCurrentItemIndex === (genderItems.length - 2)){
-        setGenderNearestStyle(genderItems[genderCurrentItemIndex + 1])
-    }
+    if(genderItems[genderCurrentItemIndex + 1]) setGenderNearestStyle(genderItems[genderCurrentItemIndex + 1])
+    if(genderItems[genderCurrentItemIndex + 2]) setGenderFarthestStyle(genderItems[genderCurrentItemIndex + 2])
+    if(genderItems[genderCurrentItemIndex + 3]) setGenderFarthestStyle(genderItems[genderCurrentItemIndex + 3])
+
+    // if(genderCurrentItemIndex < (genderItems.length - 2)){
+    //     setGenderNearestStyle(genderItems[genderCurrentItemIndex + 1])
+    //     setGenderFarthestStyle(genderItems[genderCurrentItemIndex + 2])
+    // }else if (genderCurrentItemIndex === (genderItems.length - 2)){
+    //     setGenderNearestStyle(genderItems[genderCurrentItemIndex + 1])
+    // }
     // else if (genderCurrentItemIndex === (genderItems.length - 1)){
 
     // }
@@ -1709,7 +1769,7 @@ let ageLastChildItem = ageItems[ageItems.length - 1]
 
 let ageItemOffset
 function ageCalculateMargins(){
-    let ageMiddleChildrenMargin = ((ageScrollContainer.offsetHeight/2) - ageFirstChildItem.offsetHeight * 3)/2
+    let ageMiddleChildrenMargin = ((ageScrollContainer.offsetHeight/2) - ageFirstChildItem.offsetHeight * 4)/3
 
     // ageSelectorContainer.style.height = ageScrollContainer.clientHeight + 'px'
     
@@ -1744,6 +1804,8 @@ function ageCalculateMargins(){
     setAgeSelectedStyle(ageItems[0])
     setAgeNearestStyle(ageItems[1])
     setAgeFarthestStyle(ageItems[2])
+    setAgeFarthestStyle(ageItems[3])
+
 
     ageScrollContainer.scroll({
         top:0,
@@ -1777,13 +1839,16 @@ function onScrollAge(){
         resetAgeItemStyle(item)
     }
     setAgeSelectedStyle(ageSelectedItem)
+    if(ageItems[ageCurrentItemIndex + 1]) setAgeNearestStyle(ageItems[ageCurrentItemIndex + 1]) 
+    if(ageItems[ageCurrentItemIndex + 2]) setAgeFarthestStyle(ageItems[ageCurrentItemIndex + 2]) 
+    if(ageItems[ageCurrentItemIndex + 3]) setAgeFarthestStyle(ageItems[ageCurrentItemIndex + 3]) 
 
-    if(ageCurrentItemIndex < (ageItems.length - 2)){
-        setAgeNearestStyle(ageItems[ageCurrentItemIndex + 1])
-        setAgeFarthestStyle(ageItems[ageCurrentItemIndex + 2])
-    }else if (ageCurrentItemIndex === (ageItems.length - 2)){
-        setAgeNearestStyle(ageItems[ageCurrentItemIndex + 1])
-    }
+    // if(ageCurrentItemIndex < (ageItems.length - 2)){
+    //     setAgeNearestStyle(ageItems[ageCurrentItemIndex + 1])
+    //     setAgeFarthestStyle(ageItems[ageCurrentItemIndex + 2])
+    // }else if (ageCurrentItemIndex === (ageItems.length - 2)){
+    //     setAgeNearestStyle(ageItems[ageCurrentItemIndex + 1])
+    // }
 
 
     // if(ageCurrentItemIndex === 0){
@@ -1993,6 +2058,7 @@ export function updateUI(questionType, questionText, answers){
             likert5Container.style.display = 'none' 
             likert4Container.style.display = 'none'
             likert7Container.style.display = 'none'
+            countryLabelContainer.style.display = ''
             break;
         case 'province':
             aboutAnswerContainer.style.display = 'none' 
@@ -2008,6 +2074,7 @@ export function updateUI(questionType, questionText, answers){
             likert5Container.style.display = 'none'
             likert4Container.style.display = 'none'
             likert7Container.style.display = 'none'
+            countryLabelContainer.style.display = 'none'
             break;
         case 'about':
             aboutAnswerContainer.style.display = ''
@@ -2024,6 +2091,7 @@ export function updateUI(questionType, questionText, answers){
             likert5Container.style.display = 'none'
             likert4Container.style.display = 'none'
             likert7Container.style.display = 'none'
+            countryLabelContainer.style.display = 'none'
 
             ageCalculateMargins()
             genderCalculateMargins()
@@ -2105,6 +2173,7 @@ export function updateUI(questionType, questionText, answers){
             likert5Container.style.display = 'none'
             likert4Container.style.display = 'none'
             likert7Container.style.display = 'none'
+            countryLabelContainer.style.display = 'none'
             fadeInSliderContainer()
             enableConfirmation(joystickSlideValue);
             break;
@@ -2121,6 +2190,7 @@ export function updateUI(questionType, questionText, answers){
             likert5Container.style.display = ''
             likert4Container.style.display = 'none'
             likert7Container.style.display = 'none'
+            countryLabelContainer.style.display = 'none'
             FadeInLiker5()
             //enableConfirmation(0)
             break;
@@ -2137,6 +2207,7 @@ export function updateUI(questionType, questionText, answers){
             likert5Container.style.display = 'none'
             likert4Container.style.display = ''
             likert7Container.style.display = 'none'
+            countryLabelContainer.style.display = 'none'
             FadeInLikert4()
             //enableConfirmation(0)
             break;
@@ -2153,6 +2224,7 @@ export function updateUI(questionType, questionText, answers){
             likert5Container.style.display = 'none'
             likert4Container.style.display = 'none'
             likert7Container.style.display = ''
+            countryLabelContainer.style.display = 'none'
             FadeInLikert7()
             //enableConfirmation(0)
             break;
@@ -2228,6 +2300,40 @@ export const fadeOutSliderContainer = function(){
     resetElementAnimation(sliderHolder);
     sliderHolder.style.animation = 'sliderContainerFadeOut 0.5s ease-out 0s 1 normal forwards';
     sliderHolder.hidden = false;
+}
+
+export function setMaldivesLabelPosition(left,top){
+    maldivesLabel.style.top = top + 'px'
+    maldivesLabel.style.left = left + 'px'
+}
+
+export function setSriLankaLabelPosition(left,top){
+    sriLankaLabel.style.top = top + 'px'
+    sriLankaLabel.style.left = left + 'px'
+}
+
+export function resetLabels(){
+    maldivesLabel.classList.remove('unselected')
+    maldivesLabel.classList.remove('hidden')
+
+    sriLankaLabel.classList.remove('unselected')
+    sriLankaLabel.classList.remove('hidden')
+}
+
+export function setMaldivesSelected(){
+    maldivesLabel.classList.remove('unselected')
+    maldivesLabel.classList.add('hidden')
+
+    sriLankaLabel.classList.add('unselected')
+    sriLankaLabel.classList.remove('hidden')
+}
+
+export function setSriLankaSelected(){
+    sriLankaLabel.classList.remove('unselected')
+    sriLankaLabel.classList.add('hidden')
+
+    maldivesLabel.classList.add('unselected')
+    maldivesLabel.classList.remove('hidden')
 }
 
 let progressBar = require('progressbar.js')

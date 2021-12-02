@@ -367,6 +367,32 @@ canvas.webgl{
     100% { opacity: 1;}
 }
 
+.country-label-container{
+
+}
+
+.country-label{
+    font-family: 'Rubik',sans-serif ;
+    font-size: calc(0.6em + 1vh);
+    transition: opacity 0.25s;
+    opacity: 100%;
+    transform: translate(-50%,-50%);
+
+    position: absolute;
+    
+    color: white;
+    text-shadow: 0 0 10px black;
+    pointer-events: none;
+}
+
+.country-label.hidden{
+    opacity: 0%;
+}
+
+.country-label.unselected{
+    opacity: 75%;
+}
+
 .country-skip-container{
     margin: 5px auto;
     display: flex;
