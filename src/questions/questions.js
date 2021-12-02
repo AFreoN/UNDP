@@ -315,6 +315,7 @@ export function loadQuestion(questionIndex){
 
                     sceneTransition.fadeOut(prevOtherModel, dir, function(){
                         setupJoystickScene(currentQuestion, player, questionIndex);
+                        setPlayerRotationLikert5(3);
                         //updateSceneAndCamera(joystickScene, joystickCamera, true);
                         sceneTransition.fadeIn(prevOtherModel, dir,true, null, controls.getPlayerInitialPosition().x, joystickCamera);
                     });
@@ -347,7 +348,7 @@ export function loadQuestion(questionIndex){
                             joystickScene.remove(currentCenterModel);
                         currentCenterModel = null;
                         player.position.set(0,-.6, 0);
-                        player.rotation.set(0,0,0);
+                        //player.rotation.set(0,0,0);
                         controls.disablePlayerControl();
                         addModelToScene(joystickScene, player);
                         controls.setOtherCharacter(null, null, null);
@@ -369,7 +370,7 @@ export function loadQuestion(questionIndex){
                         joystickScene.remove(currentCenterModel);
                     currentCenterModel = null;
                     player.position.set(0,-.6, 0);
-                    player.rotation.set(0,0,0);
+                    //player.rotation.set(0,0,0);
                     controls.disablePlayerControl();
                     addModelToScene(joystickScene, player);
                     controls.setOtherCharacter(null, null, null);
@@ -396,7 +397,7 @@ export function loadQuestion(questionIndex){
                             joystickScene.remove(currentCenterModel);
                         currentCenterModel = null;
                         player.position.set(0,-.6, 0);
-                        player.rotation.set(0,0,0);
+                        //player.rotation.set(0,0,0);
                         controls.disablePlayerControl();
                         addModelToScene(joystickScene, player);
                         controls.setOtherCharacter(null, null, null);
@@ -417,7 +418,7 @@ export function loadQuestion(questionIndex){
                         joystickScene.remove(currentCenterModel);
                     currentCenterModel = null;
                     player.position.set(0,-.6, 0);
-                    player.rotation.set(0,0,0);
+                    //player.rotation.set(0,0,0);
                     controls.disablePlayerControl();
                     addModelToScene(joystickScene, player);
                     controls.setOtherCharacter(null, null, null);
@@ -490,7 +491,7 @@ export function loadQuestion(questionIndex){
                         joystickScene.remove(currentCenterModel);
                     currentCenterModel = null;
                     player.position.set(0,-.6, 0);
-                    player.rotation.set(0,0,0);
+                    //player.rotation.set(0,0,0);
                     controls.disablePlayerControl();
                     addModelToScene(stage3Scene, player);
                     
@@ -520,7 +521,7 @@ export function loadQuestion(questionIndex){
                             joystickScene.remove(currentCenterModel);
                         currentCenterModel = null;
                         player.position.set(0,-.6, 0);
-                        player.rotation.set(0,0,0);
+                        //player.rotation.set(0,0,0);
                         controls.disablePlayerControl();
                         addModelToScene(stage3Scene, player);
                         
@@ -661,6 +662,8 @@ function setupJoystickScene(currentQuestion, player, questionIndex){
         // if(!joystickScene.getObjectByName('player')){
         //     joystickScene.add(player)
         // }
+        player.position.set(0,-0.6,0);
+        //player.rotation.y = 0
         addModelToScene(joystickScene, player);
 
         if(currentQuestion.characterName){
@@ -851,6 +854,10 @@ function animateClouds(deltaTime){
     clouds.mid.material.opacity = (vanishingXcoordinate - Math.abs(clouds.mid.position.x))/vanishingXcoordinate
     clouds.high.material.opacity = (vanishingXcoordinate - Math.abs(clouds.high.position.x))/vanishingXcoordinate
 
+}
+
+export function setPlayerRotationLikert5(value){
+    controls.setPlayerRotationForLikert5(value)
 }
 
 //Sets scene submit scene, enabled separately due to submit scene not being in the questions array

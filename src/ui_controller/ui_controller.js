@@ -1,8 +1,8 @@
 import * as main from '../script'
-import { langId, setLangId, loadQuestion, numberOfQuestions,enableSubmitScene } from '../questions/questions'
+import { langId, setLangId, loadQuestion, numberOfQuestions,enableSubmitScene, setPlayerRotationLikert5 } from '../questions/questions'
 import { doc } from '@firebase/firestore'
 import { LineSegments } from 'three';
-
+// import { setPlayerRotationForLikert5 } from '../character_controller/character_control'
 
 //Ui control
 let uiHolder = document.getElementById('ui-holder');
@@ -533,7 +533,10 @@ let surveyProgressBar = document.getElementById("survey-progress-bar");
 const agrees = document.getElementsByName('likert5-checker');
 agrees.forEach(buttons => {
     buttons.addEventListener('change', function(event){
+        var rect = buttons.getBoundingClientRect()
+        console.log("Button position = ", rect.top, ", ", rect.left, ", ", rect.right, ", ", rect.bottom)
         main.saveCurrentAnswer(event.target.value)
+        setPlayerRotationLikert5(event.target.value)        
         enableConfirmation(event.target.value)
         //console.log("Agree value = ", event.target.value);
     })
@@ -1907,6 +1910,7 @@ export function updateUI(questionType, questionText, answers){
     }
     else{
         document.body.style.background = defaultBackground;
+        setPlayerRotationLikert5(3)
     }
 
     questionContainer.style.display = ''

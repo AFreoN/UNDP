@@ -1,5 +1,6 @@
 import { TubeBufferGeometry } from "three"
 import { confirmedAnswers } from "../script"
+import * as questions from '../questions/questions'
 
 const likert5_1 = document.getElementById('1')
 const likert5_2 = document.getElementById('2')
@@ -53,21 +54,28 @@ export const updateLikert5 = function(value){
         switch(value){
             case '1':
                 likert5_1.checked = true
+                questions.setPlayerRotationLikert5(1)
                 break
             case '2':
                 likert5_2.checked = true
+                questions.setPlayerRotationLikert5(2)
                 break
             case '3':
                 likert5_3.checked = true
+                questions.setPlayerRotationLikert5(3)
                 break
             case '4':
                 likert5_4.checked = true
+                questions.setPlayerRotationLikert5(4)
                 break
             case '5':
                 likert5_5.checked = true
+                questions.setPlayerRotationLikert5(5)
                 break
         }
     }
+    else
+        questions.setPlayerRotationLikert5(3)
 }
 
 export const updateLikert4 = function(value){

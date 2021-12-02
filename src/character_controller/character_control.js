@@ -433,14 +433,15 @@ function Movecharacter(){
     //#endregion
 
     //#region For setting up ring position
-    const scaleLerpSpeed = 0.3;
+    const scaleLerpSpeed = 0.3; //prev 0.3
+    const ringLerpSpeed = 0.5;
     if(joystickSlideValue != 50){
         var finalPos = player.position.clone();
         finalPos.y = ringYPos;
-        ring1.position.lerp(finalPos, lerpSpeed);
+        ring1.position.lerp(finalPos, ringLerpSpeed);
         finalPos = otherCharacter.position.clone();
         finalPos.y = ringYPos + ringClearance;
-        ring2.position.lerp(finalPos, lerpSpeed * 2);
+        ring2.position.lerp(finalPos, ringLerpSpeed);
 
         ring1.scale.lerp(oneVector, scaleLerpSpeed);
         ring2.scale.lerp(oneVector, scaleLerpSpeed);
@@ -451,9 +452,9 @@ function Movecharacter(){
         finalPos.x *= 0.5;
         finalPos.y = ringYPos;
         finalPos.z *= 0.5;
-        ring1.position.lerp(finalPos, lerpSpeed);
+        ring1.position.lerp(finalPos, ringLerpSpeed);
         finalPos.y += ringClearance;
-        ring2.position.lerp(finalPos,lerpSpeed * 2);
+        ring2.position.lerp(finalPos,ringLerpSpeed);
 
         var dis = Math.abs(ring2.position.x - ring1.position.x);
         if(dis < minRingJoinDistance){
@@ -1194,12 +1195,18 @@ function animateOtherPlayerTHREE(){
 const clock = new THREE.Clock()
 let previousTime = 0
 let prevPos = new THREE.Vector3();
+let playerYrotation = 0
 
 const tick = () =>
 {
     const elapsedTime = clock.getElapsedTime()
     const deltatime = elapsedTime - previousTime //delta time can be retrieved from here
     previousTime = elapsedTime
+
+    if(player){
+        const yValue = MathUtils.lerp(player.rotation.y, playerYrotation, 0.1)
+        player.rotation.y = yValue
+    }
 
     if(canControlPlayer){
         Movecharacter()
@@ -1348,4 +1355,32 @@ function getEaseInValue(t){
 
 function getEaseOutValue(t){
     return 2 * parseFloat(t) * (1 - parseFloat(t))
+}
+
+export const setPlayerRotationForLikert5 = function(value){
+    value = parseInt(value)
+    const extreme = MathUtils.degToRad(45)
+    const mid = MathUtils.degToRad(22.5)
+    switch(value){
+        case 1:     //Stongly Disagree
+            playerYrotation = -extreme
+            //player.rotation.y = playerYrotation
+            break
+        case 2:
+            playerYrotation = -mid
+            //player.rotation.y = playerYrotation
+            break
+        case 3:
+            playerYrotation = 0
+            //player.rotation.y = playerYrotation
+            break
+        case 4:
+            playerYrotation = mid
+            //player.rotation.y = playerYrotation
+            break
+        case 5:
+            playerYrotation = extreme
+            //player.rotation.y = playerYrotation
+            break
+    }
 }
