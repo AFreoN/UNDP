@@ -1925,8 +1925,11 @@ let pos = {
 }
 
 let elementToScroll = null
+let mouseMoved = false
 
 function mouseDownHandler(e){
+    mouseMoved = false
+
     e.preventDefault ? e.preventDefault() : e.returnValue = false 
     e.target.style.cursor = 'grabbing';
     elementToScroll = e.target
@@ -1943,6 +1946,8 @@ function mouseDownHandler(e){
 }
 
  function mouseMoveHandler (e) {
+    mouseMoved = true
+
     // How far the mouse has been moved
     const dx = e.clientX - pos.x;
     const dy = e.clientY - pos.y;
@@ -1958,6 +1963,21 @@ function mouseUpHandler(e){
 
     elementToScroll.style.cursor = 'grab';
     elementToScroll.style.removeProperty('user-select');
+
+    if(!mouseMoved){
+        // console.log(e.clientY);
+        // console.log(e.offsetY);
+        // console.log(elementToScroll.clientHeight/2)
+
+        const scrollValue = e.offsetY - (elementToScroll.clientHeight/2) + pos.top
+        // console.log(scrollValue);
+        if(scrollValue > pos.top){
+            elementToScroll.scroll({
+                top:scrollValue,
+                behavior:'smooth'
+            })
+        }
+    }
 }
 
 genderScrollContainer.addEventListener('mousedown',mouseDownHandler)
