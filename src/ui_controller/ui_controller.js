@@ -413,10 +413,10 @@ function convertStringToBool(string){
 function setVidQuestionLang(){
     const langTexts = {
         question:{
-            en:'Have you watched all Extreme Lives videos?',
-            si:'ඔබ Extreme Lives වීඩියෝ සියල්ලම නරඹා තිබේද?',
-            ta:'Extreme Lives வீடியோக்கள் அனைத்தையும் பார்த்திருக்கிறீர்களா?',
-            dv:'Have you watched all extreme lives videos?',
+            en:'Have you watched Extreme Lives videos?',
+            si:'ඔබ Extreme Lives වීඩියෝ නරඹා තිබේද?',
+            ta:'Extreme Lives வீடியோக்களைப் பார்த்திருக்கிறீர்களா?',
+            dv:'Have you watched Extreme Lives videos?',
         },
         answers:{
             yes:{
@@ -609,7 +609,7 @@ export function SetFiller(sliderValue){
 let countrySkipContainer = document.getElementById('country-skip-container')
 let submitContainer = document.getElementById('submit-container') 
 let submitConfirmationContainer = document.getElementById('submit-confirmation-container')
-let resultsLoadingContainer = document.getElementById('submit-loading-container')
+let submitLoadingContainer = document.getElementById('submit-loading-container')
 let resultsConfirmationContainer = document.getElementById('submit-results-container')
 let linksPageContainer = document.getElementById("links-page-container")
 
@@ -859,32 +859,32 @@ function setUiTextSize(){
 }
 
 //Test code - Remove when pushing
-// document.addEventListener('keydown',function(e){
-//     switch(e.key.toLowerCase()){
-//         case '1':
-//             updateResultTitle('0')
-//             break;
-//         case '2':
-//             updateResultTitle('1')
-//             break;
-//         case '3':
-//             updateResultTitle('2')
-//             break;
-//         case 'e':
-//             languageSelected('en')
-//             break;
-//         case 's':
-//             languageSelected('si')
-//             break;
-//         case 't':
-//             languageSelected('ta')
-//             break;
-//         case 'd':
-//             languageSelected('dv')
-//             break;
+document.addEventListener('keydown',function(e){
+    switch(e.key.toLowerCase()){
+        case '1':
+            updateResultTitle('0')
+            break;
+        case '2':
+            updateResultTitle('1')
+            break;
+        case '3':
+            updateResultTitle('2')
+            break;
+        case 'e':
+            languageSelected('en')
+            break;
+        case 's':
+            languageSelected('si')
+            break;
+        case 't':
+            languageSelected('ta')
+            break;
+        case 'd':
+            languageSelected('dv')
+            break;
         
-//     }
-// })
+    }
+})
 
 function updateResultLinks(loc){
     const langTexts = {
@@ -2259,7 +2259,7 @@ export function enableSubmitPage(){
     submitContainer.style.display = ''
     submitConfirmationContainer.style.display = ''
     resultsConfirmationContainer.style.display = 'none'
-    resultsLoadingContainer.style.display = 'none'
+    submitLoadingContainer.style.display = 'none'
     uiHolder.style.display = 'none'
     FadeOutLikert7()
     // disableResultsContainer()
@@ -2413,10 +2413,10 @@ const loadingBarGradient = `
 submitLoadingBar.svg.insertAdjacentHTML('afterbegin',loadingBarGradient)
 
 
-function enableResultsLoadingContainer(){
+export function enableResultsLoadingContainer(){
     submitConfirmationContainer.style.display = 'none'
     resultsConfirmationContainer.style.display = 'none'
-    resultsLoadingContainer.style.display = ''
+    submitLoadingContainer.style.display = ''
 
     submitLoadingBar.set(0)
 
@@ -2428,13 +2428,13 @@ function enableResultsLoadingContainer(){
 function enableResultsContainer(){
     submitConfirmationContainer.style.display = 'none'
     resultsConfirmationContainer.style.display = ''
-    resultsLoadingContainer.style.display = 'none'
+    submitLoadingContainer.style.display = 'none'
 }
 
 function disableResultsContainer(){
     submitConfirmationContainer.style.display = ''
     resultsConfirmationContainer.style.display = 'none'
-    resultsLoadingContainer.style.display = 'none'
+    submitLoadingContainer.style.display = 'none'
 }
 
 joystickTutCloseButton.addEventListener('click', function(){
@@ -2470,7 +2470,7 @@ regionSkipButton.addEventListener('click',function(){
 
 submitButton.addEventListener('click',function(){
     // enableResultsContainer()
-    enableResultsLoadingContainer()
+    // enableResultsLoadingContainer()
     main.validateAnswers()
 })
 

@@ -240,6 +240,7 @@ export function validateAnswers(){
         uiControl.updateResultTitle(0);
     }
     submitAnswers()
+    uiControl.enableResultsLoadingContainer()
 }
 
 function getCurrentTimeFormatted(){
