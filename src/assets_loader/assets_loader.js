@@ -182,6 +182,8 @@ const loadingBarGradient = `
 
 loadingBar.svg.insertAdjacentHTML('afterbegin',loadingBarGradient)
 
+document.getElementById('progress-bar-background').style.display = ''
+
 //set the progress bar value to 0
 loadingBar.animate(loadedPercentage)
 //#endregion

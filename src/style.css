@@ -92,6 +92,7 @@ canvas.webgl{
 
 .progress-bar-container{
     margin: auto;
+    position: relative;
 }
 
 .progress-bar-background{
