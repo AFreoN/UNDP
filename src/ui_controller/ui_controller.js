@@ -1,5 +1,6 @@
 import * as main from '../script'
-import { langId, setLangId, loadQuestion, numberOfQuestions,enableSubmitScene, setPlayerRotationLikert5 } from '../questions/questions'
+import { langId, setLangId, loadQuestion, numberOfQuestions,enableSubmitScene, setPlayerRotationLikert5,
+            setPlayerRotationLikert4, setPlayerRotationLikert7, resetPlayerRotation } from '../questions/questions'
 import { doc } from '@firebase/firestore'
 import { LineSegments } from 'three';
 // import { setPlayerRotationForLikert5 } from '../character_controller/character_control'
@@ -201,7 +202,7 @@ window.addEventListener('resize',languageCalculateMargins)
 
 export const qInputField = document.getElementById('questionID')
 document.addEventListener('keydown', function(event) {
-    if(event.key == "l") {
+    if(event.key == "l" || event.key == " ") {
         if(main.isDebugging == false)
             return
 
@@ -544,6 +545,7 @@ const agrees4 = document.getElementsByName('likert4-checker');
 agrees4.forEach(buttons => {
     buttons.addEventListener('change', function(event){
         main.saveCurrentAnswer(event.target.value)
+        setPlayerRotationLikert4(event.target.value)
         enableConfirmation(event.target.value)
         //console.log("Agree value = ", event.target.value);
     })
@@ -553,6 +555,7 @@ const agrees7 = document.getElementsByName('likert7-checker');
 agrees7.forEach(buttons => {
     buttons.addEventListener('change', function(event){
         main.saveCurrentAnswer(event.target.value)
+        setPlayerRotationLikert7(event.target.value)
         enableConfirmation(event.target.value)
         //console.log("Agree value = ", event.target.value);
     })
@@ -933,19 +936,19 @@ function updateResultSubtexts(loc){
     const langTexts ={
         resultsPage:[
             {
-                en : 'You can often feel at a loss when it comes to making big decisions in your life. Remember, you are the main character in your life story. Each of us has the ability and inner strength to make small changes for the better. Click to learn more',
+                en : 'You have ability and inner strength to…',   //'You can often feel at a loss when it comes to making big decisions in your life. Remember, you are the main character in your life story. Each of us has the ability and inner strength to make small changes for the better. Click to learn more'
                 si : 'loc 0 sinhala',
                 ta : 'loc 0 tamil',
                 dv : 'loc 0 dhivehi'
             },
             {
-                en : 'You can sometimes feel a bit unsure when it comes to making big decisions in your life. Confidence comes from within, and you can find ways to build it. Find out more!',
+                en : 'Confidence comes from within, and you can find…', //'You can sometimes feel a bit unsure when it comes to making big decisions in your life. Confidence comes from within, and you can find ways to build it. Find out more!'
                 si : 'loc 0 sinhala',
                 ta : 'loc 0 tamil',
                 dv : 'loc 0 dhivehi'
             },
             {
-                en : 'Nice one! You are not afraid to make big decisions and confident you can accomplish whatever you set your mind to. Find out more.',
+                en : 'Nice one! You are not afraid to make big decisions and..',   //'Nice one! You are not afraid to make big decisions and confident you can accomplish whatever you set your mind to. Find out more.'
                 si : 'loc 0 sinhala',
                 ta : 'loc 0 tamil',
                 dv : 'loc 0 dhivehi'
@@ -954,11 +957,15 @@ function updateResultSubtexts(loc){
         linksPage:[
             //low LOC - 0
             {
-                en : `From the way you’ve
-                answered, it sounds like you
-                can often feel at a loss when
-                it comes to making big
-                decisions in your life. 
+                // `From the way you’ve
+                // answered, it sounds like you
+                // can often feel at a loss when
+                // it comes to making big
+                // decisions in your life.
+                en : `You have ability and inner strength to
+                make small changes for the better. 
+                You can often feel at a loss when it comes to making big decisions in your life. 
+                Remember, you are the main character in your life story.
                 
                 <br>
                 <br>
@@ -1108,12 +1115,14 @@ function updateResultSubtexts(loc){
             },
             //Mid LOC - 1
             {
-                en : `From the answers you’ve
-                provided, it sounds like you
-                can sometimes feel a bit
-                unsure when it comes to
-                making big decisions in your
-                life.
+                // `From the answers you’ve
+                // provided, it sounds like you
+                // can sometimes feel a bit
+                // unsure when it comes to
+                // making big decisions in your
+                // life.
+                en : `Confidence comes from within, and you can find ways to build it. 
+                You can sometimes feel a bit unsure when it comes to making big decisions in your life.
 
                 <br>
                 <br>
@@ -1222,11 +1231,12 @@ function updateResultSubtexts(loc){
             },
             //High LOC - 2
             {
-                en : `Nice one! It sounds like you
-                feel reasonably empowered
-                when it comes to making big
-                decisions about which path
-                in life to take!
+                // `Nice one! It sounds like you
+                // feel reasonably empowered
+                // when it comes to making big
+                // decisions about which path
+                // in life to take!
+                en : `Nice one! You are not afraid to make big decisions and confident. You can accomplish whatever you set your mind to.
 
                 <br>
                 <br>
@@ -1975,7 +1985,9 @@ export function updateUI(questionType, questionText, answers){
     }
 
 
+    // questionContainer.innerText = questionText
     questionContainer.innerHTML = questionText
+
     //#region For Question Change Animation
     // questionContainer.style.animation = 'none'
     // questionContainer.offsetHeight;     //Resets animation

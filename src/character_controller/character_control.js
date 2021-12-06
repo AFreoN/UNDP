@@ -1357,6 +1357,10 @@ function getEaseOutValue(t){
     return 2 * parseFloat(t) * (1 - parseFloat(t))
 }
 
+export const resetPlayerRotation = function(){
+    setPlayerRotationForLikert5(3)
+}
+
 export const setPlayerRotationForLikert5 = function(value){
     value = parseInt(value)
     const extreme = MathUtils.degToRad(45)
@@ -1364,23 +1368,68 @@ export const setPlayerRotationForLikert5 = function(value){
     switch(value){
         case 1:     //Stongly Disagree
             playerYrotation = -extreme
-            //player.rotation.y = playerYrotation
             break
         case 2:
             playerYrotation = -mid
-            //player.rotation.y = playerYrotation
             break
         case 3:
             playerYrotation = 0
-            //player.rotation.y = playerYrotation
             break
         case 4:
             playerYrotation = mid
-            //player.rotation.y = playerYrotation
             break
         case 5:
             playerYrotation = extreme
-            //player.rotation.y = playerYrotation
+            break
+    }
+}
+
+export const setPlayerRotationForLikert4 = function(value){
+    value = parseInt(value)
+    const extreme = MathUtils.degToRad(45)
+    const mid = MathUtils.degToRad(22.5)
+    switch(value){
+        case 1:     //Stongly Disagree
+            playerYrotation = -extreme
+            break
+        case 2:
+            playerYrotation = -mid
+            break
+        case 3:
+            playerYrotation = mid
+            break
+        case 4:
+            playerYrotation = extreme
+            break
+    }
+}
+
+export const setPlayerRotationForLikert7 = function(value){
+    value = parseInt(value)
+    const extreme = MathUtils.degToRad(45)
+    const mid = MathUtils.degToRad(30)
+    const low = MathUtils.degToRad(15)
+    switch(value){
+        case 1:     //Stongly Disagree
+            playerYrotation = -extreme
+            break
+        case 2:
+            playerYrotation = -mid
+            break
+        case 3:
+            playerYrotation = -low
+            break
+        case 4:
+            playerYrotation = 0
+            break
+        case 5:
+            playerYrotation = low
+            break
+        case 6:
+            playerYrotation = mid
+            break
+        case 7:
+            playerYrotation = extreme
             break
     }
 }

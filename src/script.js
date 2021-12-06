@@ -85,7 +85,7 @@ export function startSurvey(){//call this function when loading is complete
     timeStamps.start = getCurrentTimeFormatted()
     console.log(timeStamps);
 
-    assetLoader.loadPostModels()
+    // assetLoader.loadPostModels()
 
     if(isDebugging == false)
         uiControl.qInputField.style.display = 'none'
@@ -214,29 +214,29 @@ export function validateAnswers(){
         }
     }
 
-    const noOfQuestionForLod = 7;
+    const noOfQuestionForLoc = 7;
     let currentQuestionID = 28;
-    let lodArray = []
-    for(let i = 0; i < noOfQuestionForLod; i++){
+    let locArray = []
+    for(let i = 0; i < noOfQuestionForLoc; i++){
         const answerIndex = confirmedAnswers[currentQuestionID+i];
-        lodArray[i] = answerIndex;
+        locArray[i] = answerIndex;
         console.log("Stage 3, Question ", (parseInt(i) + 1), " -> answer = ", answerIndex);
     }
-    var finalValue = parseInt(lodArray[0]) + parseInt(lodArray[1]) + parseInt(lodArray[2]) + 
-                        parseInt(lodArray[3]) + parseInt(lodArray[4]) 
-                        - parseInt(lodArray[5]) - parseInt(lodArray[6]) + 16;
+    var finalValue = parseInt(locArray[0]) + parseInt(locArray[1]) + parseInt(locArray[2]) + 
+                        parseInt(locArray[3]) + parseInt(locArray[4]) 
+                        - parseInt(locArray[5]) - parseInt(locArray[6]) + 16;
     //console.log("Final value = ", finalValue);
     console.log("LOD formula = ", "a1 + a2 + a3 + a4 + a5 - a6 - a7 + 16");
-    console.log("LOD = ", lodArray[0],"+",lodArray[1],"+",lodArray[2],"+",lodArray[3],"+",
-                    lodArray[4],"-",lodArray[5],"-",lodArray[6],"+",16," = ", finalValue);
+    console.log("LOD = ", locArray[0],"+",locArray[1],"+",locArray[2],"+",locArray[3],"+",
+                    locArray[4],"-",locArray[5],"-",locArray[6],"+",16," = ", finalValue);
 
-    if(finalValue >= 42 && finalValue <= 49){
+    if(finalValue >= 31 && finalValue <= 49){       //prev 42 to 49
         uiControl.updateResultTitle(2);
     }
-    else if(finalValue >= 15 && finalValue < 42){
+    else if(finalValue >= 20 && finalValue <= 30){   //prev 15 to 42
         uiControl.updateResultTitle(1);
     }
-    else if(finalValue < 15){
+    else if(finalValue <= 19){       //prev less than 15
         uiControl.updateResultTitle(0);
     }
     submitAnswers()

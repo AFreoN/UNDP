@@ -4,6 +4,7 @@ import * as assetLoader from '../assets_loader/assets_loader'
 import * as uiControl from '../ui_controller/ui_controller'
 import * as mainScipt from '../script'
 import { clamp } from 'three/src/math/mathutils'
+import * as outliner from '../character_controller/charcater_outliner'
 //import { MathUtils } from 'three'
 
 const mouse = new THREE.Vector2() 
@@ -982,6 +983,8 @@ submitCamera.position.z = 3.5
 // submitCamera.rotation.set(Math.PI * 0, 0, 0)
 
 submitCamera.lookAt(0, -0.6, 0);
+
+//joystickScene.remove(floor)
 
 
 // const submitPointLight = new THREE.PointLight(0xffffff, 3)

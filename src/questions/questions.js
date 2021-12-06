@@ -10,6 +10,7 @@ import { clamp } from 'three/src/math/mathutils'
 import { Questions } from './QuestionArray'
 import * as answerUpdater from '../ui_controller/answerUIupdater'
 import * as stage3Transition from '../ui_controller/stage3Transition'
+import * as outliner from '../character_controller/charcater_outliner'
 
 //import main from 'progressbar.js'
 //import * as mainScript from '../script.js'
@@ -45,7 +46,7 @@ const sizes = {
 
 const canvas = document.querySelector('canvas.webgl')
 
-const renderer = new THREE.WebGLRenderer({
+export const renderer = new THREE.WebGLRenderer({
     canvas: canvas,
     alpha: true,
     antialias: true,
@@ -142,9 +143,9 @@ window.addEventListener('resize', () =>
 document.getElementsByTagName('body')[0].style.height = window.innerHeight + "px" 
 document.getElementsByTagName('html')[0].style.height = window.innerHeight + "px" 
 
-console.log(window.innerHeight);
-console.log(window.outerHeight);
-console.log(document.getElementsByTagName('body')[0].clientHeight)
+// console.log(window.innerHeight);
+// console.log(window.outerHeight);
+// console.log(document.getElementsByTagName('body')[0].clientHeight)
 //
 //      end of Enabling responsiveness for 3D scene
 
@@ -190,7 +191,17 @@ const tick = () =>
     //Implement loop here
 
     window.requestAnimationFrame(tick)
-    renderer.render(mainScene,mainCamera)
+    outliner.renderOutline()
+    // if(currentQuestion){
+    //     const transitionCondition = currentQuestion.type == 'joystick' || currentQuestion.type == 'likert4' || currentQuestion.type == 'likert5' || currentQuestion.type == 'likert7'
+    //     if(currentQuestion && transitionCondition){
+    //         outliner.renderOutline()
+    //     }
+    //     else
+    //         renderer.render(mainScene,mainCamera)
+    // }
+    // else
+    //     renderer.render(mainScene, mainCamera)
 }
 
 tick()
@@ -220,6 +231,9 @@ export function loadQuestion(questionIndex){
         player = assetLoader.getModel('playerCharacter')
         playerName.innerText = playerNamesLang[langId]
         sceneTransition.initializeData(player, joystickCamera, controls.getPlayerInitialPosition())
+
+        // outliner.setOutlineObject(joystickCamera, joystickScene, renderer)
+        outliner.addOutlineObject(player)
     }
     controls.disablePlayerControl()
     characterText.hidden = true
@@ -560,12 +574,15 @@ const clouds = {
 }
 function setupJoystickScene(currentQuestion, player, questionIndex){
 
+    // outliner.setOutlineObject(joystickCamera, joystickScene, renderer)
+    // outliner.addOutlineObject(player)
     if(currentQuestion.centerModelKey){
         const centerModel = assetLoader.getModel(currentQuestion.centerModelKey)
         if(currentCenterModel){
             joystickScene.remove(currentCenterModel)
             currentCenterModel = null
         }
+        outliner.addOutlineObject(centerModel)
         joystickScene.add(centerModel)
         
         let treeYPos = -0.6; 
@@ -716,6 +733,7 @@ function addModelsForThisScene(scene, modelsArray){
             m.rotation.x = MathUtils.degToRad(element.rotation.x);
             m.rotation.y = MathUtils.degToRad(element.rotation.y);
             m.rotation.z = MathUtils.degToRad(element.rotation.z);
+            //outliner.addOutlineObject(m)
             scene.add(m);
         }
         else{
@@ -823,6 +841,8 @@ function updateSceneAndCamera(sceneObject, cameraObject, dontUpdate){
     mainScene = sceneObject
     mainCamera = cameraObject
 
+    outliner.setOutlineObject(cameraObject, sceneObject, renderer)
+
     mainCamera.aspect = sizes.width / sizes.height
     mainCamera.updateProjectionMatrix()
 }
@@ -858,6 +878,18 @@ function animateClouds(deltaTime){
 
 export function setPlayerRotationLikert5(value){
     controls.setPlayerRotationForLikert5(value)
+}
+
+export function setPlayerRotationLikert4(value){
+    controls.setPlayerRotationForLikert4(value)
+}
+
+export function setPlayerRotationLikert7(value){
+    controls.setPlayerRotationForLikert7(value)
+}
+
+export function resetPlayerRotation(){
+    controls.resetPlayerRotation()
 }
 
 //Sets scene submit scene, enabled separately due to submit scene not being in the questions array
