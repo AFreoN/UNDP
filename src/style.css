@@ -367,6 +367,32 @@ canvas.webgl{
     100% { opacity: 1;}
 }
 
+.country-label-container{
+
+}
+
+.country-label{
+    font-family: 'Rubik',sans-serif ;
+    font-size: calc(0.6em + 1vh);
+    transition: opacity 0.25s;
+    opacity: 100%;
+    transform: translate(-50%,-50%);
+
+    position: absolute;
+    
+    color: white;
+    text-shadow: 0 0 10px black;
+    pointer-events: none;
+}
+
+.country-label.hidden{
+    opacity: 0%;
+}
+
+.country-label.unselected{
+    opacity: 75%;
+}
+
 .highlightText{
     /* display: inline-block; */
     color: yellow;
@@ -1726,17 +1752,24 @@ transform: translate(-50%,-50%);
     justify-content:center;
     align-items: center;
     width: 100%;
-    height: 50%;
-    margin-top: 25%;
+    height: 100%;
+    /* margin-top: 25%; */
     text-align: center;
     /* background: rgba(0, 0, 0, 0.212); */
+    
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    z-index: 4;
+    background: linear-gradient(to top , #5f27fc, #e827fc );
 }
 
 .submit-loading-text{
-    margin:  0 auto;
+    margin:  0 auto 30px auto;
     width: 70%;
     font-weight: 800;
-    font-size: 1.5em;
+    font-size: calc(1em + 1vw);
     color: white;
     font-family: 'Rubik',sans-serif;
     text-shadow: 0 0 10px black;
@@ -1882,7 +1915,7 @@ transform: translate(-50%,-50%);
     display: flex;
     flex-direction: column;
 
-    width: 80%;
+    width: min(80%, 650px);
     /* height: fit-content; */
     /* padding-top: 10px; */
 
@@ -1893,7 +1926,7 @@ transform: translate(-50%,-50%);
 
 .links-result-header-container{
     font-family: 'Rubik',sans-serif;
-    font-size: calc(1em + 5vw);
+    font-size: calc(2em + 2vw);
     color: white;
     margin: 0 0 15px 0;
 }
@@ -1949,7 +1982,7 @@ transform: translate(-50%,-50%);
 .additional-resources-grid-header{
     color: white;
     font-family: 'Rubik',sans-serif;
-    font-size: calc(0.8em + 1vw);
+    font-size: calc(0.8em + 0.8vw);
     margin-bottom: 15px;
 }
 
@@ -1962,13 +1995,13 @@ transform: translate(-50%,-50%);
     box-sizing: border-box;
 
     font-family: 'Rubik',sans-serif;
-    font-size: calc(0.3em + 2vw);
+    font-size: calc(0.6em + 1vw);
 }
 
 .resource-link-container-bottom{
     width: 100%;
     font-family: 'Rubik',sans-serif;
-    font-size: calc(0.3em + 2vw);
+    font-size: calc(0.6em + 1vw);
 
     display: flex;
     flex-direction: row;

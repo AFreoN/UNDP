@@ -72,6 +72,8 @@ sriLankaCube.position.set(0.75,0,0)
 sriLankaCube.material.visible = false
 // sriLankaCube.children[0].castShadow = true
 
+
+
 const countryDirectionalLight = new THREE.DirectionalLight(0xffffff,0.75)
 countryScene.add(countryDirectionalLight)
 countryDirectionalLight.position.set(0,1,0)
@@ -119,6 +121,7 @@ export function resetCountrySelection(){
     selectedCountry = null
 
     uiControl.disableNextButton()
+    uiControl.resetLabels()
 }
 
 var hoveringCountry
@@ -240,9 +243,11 @@ function onCountryClick(){
             if(selectedCountry === maldivesCube){
                 uiControl.enableConfirmation(0)
                 uiControl.setCountryName('Maldives')
+                uiControl.setMaldivesSelected()
             } else if (selectedCountry === sriLankaCube){
                 uiControl.enableConfirmation(1)
                 uiControl.setCountryName('Sri Lanka')
+                uiControl.setSriLankaSelected()
             }
         }
     }
@@ -293,9 +298,11 @@ function onCountryTouch(event){
             if(selectedCountry === maldivesCube){
                 uiControl.enableConfirmation(0)
                 uiControl.setCountryName('Maldives')
+                uiControl.setMaldivesSelected()
             } else if (selectedCountry === sriLankaCube){
                 uiControl.enableConfirmation(1)
                 uiControl.setCountryName('Sri Lanka')
+                uiControl.setSriLankaSelected()
             }
         }
     }
@@ -712,6 +719,10 @@ const tick = () =>
     const deltatime = elapsedTime - previousTime //delta time can be retrieved from here
     previousTime = elapsedTime
     
+    setLabelPositions()
+
+    // console.log(pos);
+
     animateMeshPosition(sriLankaCube,deltatime,maxLerpDuration)
     animateMeshPosition(maldivesCube,deltatime,maxLerpDuration)
 
@@ -734,6 +745,33 @@ const tick = () =>
 }
 
 tick()
+
+function setLabelPositions(){
+    let sriLankaPos = new THREE.Vector3();
+    sriLankaPos = sriLankaCube.getWorldPosition(sriLankaPos);
+    // console.log(sriLankaPos);
+    sriLankaPos.project(countryCamera);
+
+    let maldivesPos = new THREE.Vector3();
+    maldivesPos = maldivesCube.getWorldPosition(maldivesPos);
+    // console.log(maldivesPos);
+    maldivesPos.project(countryCamera);
+    
+    let widthHalf = window.innerWidth / 2;
+    let heightHalf = window.innerHeight / 2;
+    
+    sriLankaPos.x = (sriLankaPos.x * widthHalf) + widthHalf;
+    sriLankaPos.y = - (sriLankaPos.y * heightHalf) + heightHalf;
+    sriLankaPos.z = 0;
+    
+    maldivesPos.x = (maldivesPos.x * widthHalf) + widthHalf;
+    maldivesPos.y = - (maldivesPos.y * heightHalf) + heightHalf;
+    maldivesPos.z = 0;
+
+    uiControl.setSriLankaLabelPosition(sriLankaPos.x,sriLankaPos.y)
+    uiControl.setMaldivesLabelPosition(maldivesPos.x,maldivesPos.y)
+
+}
 
 function setMeshAnimProperties(mesh,startValue,endValue){
     mesh.startValue = startValue
