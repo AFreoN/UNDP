@@ -2067,12 +2067,18 @@ transform: translate(-50%,-50%);
     margin-top: 25px;
 }
 
+.resource-link-block{
+    margin: auto;
+}
 
 .resource-link-icon{
     content:url('../static/link_button.png');
     width:16px;
     margin: auto;
+    position: relative;
 }
+
+
 
 .links-footer{
     font-weight: 500;

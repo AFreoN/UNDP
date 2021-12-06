@@ -329,13 +329,13 @@ const maldivesRegionBboxGroup = new THREE.Group()
 maldivesRegionBboxGroup.scale.set(0.375,0.375,0.375)
 maldivesScene.add(maldivesRegionBboxGroup)
 
-const bboxMat = new THREE.MeshLambertMaterial({color: 0x03d7fc, wireframe: true, visible: false})
+const bboxMat = new THREE.MeshLambertMaterial({color: 0x03d7fc, wireframe: true, visible: true})
 
-const upperNorthCube = new THREE.Mesh(new THREE.BoxGeometry(3.5,0.5,3),bboxMat )
+const upperNorthCube = new THREE.Mesh(new THREE.BoxGeometry(3.5,0.5,2.5),bboxMat )
 maldivesRegionBboxGroup.add(upperNorthCube)
 upperNorthCube.name = 'Upper North province'
 
-const northCube = new THREE.Mesh(new THREE.BoxGeometry(4,0.5,2.5), bboxMat)
+const northCube = new THREE.Mesh(new THREE.BoxGeometry(4,0.5,3), bboxMat)
 maldivesRegionBboxGroup.add(northCube)
 northCube.name = 'North province'
 
@@ -383,7 +383,7 @@ maldivesDirectionalLight.shadow.camera.right = 20
 maldivesDirectionalLight.shadow.camera.bottom = -20
 maldivesDirectionalLight.shadow.camera.top = 20
 
-const maldivesStandardYValue = 1
+const maldivesStandardYValue = 0.5
 const maldivesHoveringYValue = 1.5
 const maldivesSelectedYValue = 2
 

@@ -545,7 +545,7 @@ function loadInitialModels(){
     )
     //maldives_provinces_cartoon_map
     gltfloader.load(
-        'maldives_provinces_cartoon_map.glb',
+        'new_maldives_provinces_cartoon_map.glb',
         (gltf) =>
         {
             const key = 'maldivesProvincesMap'
