@@ -1615,7 +1615,7 @@ transform: translate(-50%,-50%);
     position: absolute;
     color: #ffffff;
     width: 30vmin;
-    font-size: clamp(3vmin, 4vmin, 4vmin);
+    font-size: calc(0.6em + 1vw);
 
     text-align: left;
     bottom: 3vh;
