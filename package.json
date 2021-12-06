@@ -21,11 +21,17 @@
         "progressbar.js": "^1.1.0",
         "raw-loader": "^4.0.2",
         "style-loader": "^3.0.0",
-        "three": "^0.130.0",
+        "three": "^0.130.1",
+        "three-outlinepass": "^1.2.0",
+        "three-screen-quad": "^0.2.1",
+        "three-shader-fxaa": "^5.1.1",
         "uuid": "^8.3.2",
         "webpack": "^5.41.1",
         "webpack-cli": "^4.7.2",
         "webpack-dev-server": "^3.11.2",
         "webpack-merge": "^5.8.0"
+    },
+    "devDependencies": {
+        "dat.gui": "^0.7.7"
     }
 }

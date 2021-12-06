@@ -5,7 +5,10 @@ import * as uiControl from '../ui_controller/ui_controller'
 import * as THREE from 'three'
 import { fresnel } from '../shader'
 import { shaderMaterial, shaderUnlit } from '../fresnel'
+import { MathUtils } from 'three'
 
+let preModelsLoaded = false
+let postModelsLoaded = false
 
 //      Initializing loader module properties
 //
@@ -158,6 +161,7 @@ let loadingBar = new progressBar.Circle('#progress-bar-container' /* Element tha
         if(value >= 100){
             // main.startSurvey()
             uiControl.enableStartSurvey()
+            loadPostModels()
         }
     },
     svgStyle:{
@@ -227,6 +231,10 @@ tex.magFilter = THREE.NearestFilter;
 //#endregion
 
 function loadInitialModels(){
+    if(preModelsLoaded)
+        return
+    else
+        preModelsLoaded = true
 
     //Importing player character
     gltfloader.load(
@@ -862,6 +870,11 @@ function loadInitialModels(){
 loadInitialModels()
 
 export function loadPostModels(){
+    if(postModelsLoaded)
+        return
+    else
+        postModelsLoaded = true
+
     //Distant friend
     gltfloader.load(
         'Models/Animation_V09.gltf',
@@ -982,10 +995,6 @@ export function loadPostModels(){
     
             model.traverse((child) => {
 
-                if(child.isMesh){
-                    console.log(child.id);
-                }
-
                 if (child.isMesh && (child.id == 795 || child.id == 796 || child.id == 794 || child.id == 800) ){
                     
                     let toonMaterial = new THREE.MeshToonMaterial({ color : 0xFFC332, gradientMap : tex});
@@ -1070,11 +1079,50 @@ export function loadPostModels(){
             model.name = key
             model.scale.set(.035,.035,.035)     //prev (.075,.075,.075)
             model.position.set(0, -0.4, 0)
+            model.rotation.y = MathUtils.degToRad(0)
+
+            /*
+            shine = back strips
+            Character02 = center character
+            glow01 = small glowing light
+            glow2 = big glowing light
+            sphere012 = first sphere
+            plant009_1 = second sphere
+            plant010_1 = second sphere
+            plant011_1 = second sphere
+            sphere012_1 = first sphere back plane
+            plane009 = second sphere back plane
+            plane010 = third sphere back plane
+            plane011 = fourth sphere back plane
+            */
     
             model.traverse((child) => {
                  if (child.isMesh){
-                     //child.material = shaderMaterial;
-                     child.castShadow = true;
+                     if(child.name == 'Character02'){   //center character
+                         var charMat = new THREE.MeshToonMaterial({ color : 0xFFFF00, gradientMap : tex})
+                         child.material = charMat
+                     }
+                     if(child.name == 'shine'){         //back shining strips
+                        var glassMat = new THREE.MeshToonMaterial({color: 0xFFFF00, transparent : true, opacity : 0.5, gradientMap : tex})
+                        child.material = glassMat
+                     }
+                     if(child.name == 'glow2'){ //Big Glowing Light
+                        var glassMat = new THREE.MeshBasicMaterial({color: 0xFFFF00, transparent : true, opacity : 0.2})
+                        child.material = glassMat
+                     }
+                     if(child.name == 'glow01'){        //Small Glowing LIght
+                        var glassMat = new THREE.MeshBasicMaterial({color: 0xFFAA00, transparent : true, opacity : 0.4})
+                        child.material = glassMat
+                     }
+                     if(child.name == 'Plane009' || child.name == 'Plane009_1' || child.name == 'Plane010' ||
+                        child.name == 'Plane010_1' || child.name == 'Plane011' || child.name == 'Plane011_1' ||
+                        child.name == 'Sphere012' || child.name == 'Sphere012_1'){      //Spheres
+                        var glassMat = new THREE.MeshLambertMaterial({color: 0xFFFFFF, transparent : true, opacity : 0})
+                        glassMat = new THREE.MeshToonMaterial({color : 0xFFFF00, gradientMap : tex})
+                        child.material = glassMat
+                     }
+                     child.castShadow = true
+                     //console.log("Model name = ", child.name)
                  }
              });
     
