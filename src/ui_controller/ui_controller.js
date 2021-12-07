@@ -877,32 +877,32 @@ function setUiTextSize(){
 }
 
 //Test code - Remove when pushing
-document.addEventListener('keydown',function(e){
-    switch(e.key.toLowerCase()){
-        case '1':
-            updateResultTitle('0')
-            break;
-        case '2':
-            updateResultTitle('1')
-            break;
-        case '3':
-            updateResultTitle('2')
-            break;
-        case 'e':
-            languageSelected('en')
-            break;
-        case 's':
-            languageSelected('si')
-            break;
-        case 't':
-            languageSelected('ta')
-            break;
-        case 'd':
-            languageSelected('dv')
-            break;
+// document.addEventListener('keydown',function(e){
+//     switch(e.key.toLowerCase()){
+//         case '1':
+//             updateResultTitle('0')
+//             break;
+//         case '2':
+//             updateResultTitle('1')
+//             break;
+//         case '3':
+//             updateResultTitle('2')
+//             break;
+//         case 'e':
+//             languageSelected('en')
+//             break;
+//         case 's':
+//             languageSelected('si')
+//             break;
+//         case 't':
+//             languageSelected('ta')
+//             break;
+//         case 'd':
+//             languageSelected('dv')
+//             break;
         
-    }
-})
+//     }
+// })
 
 function updateResultLinks(loc){
     const langTexts = {
