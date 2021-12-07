@@ -2226,7 +2226,8 @@ export function updateUI(questionType, questionText, answers){
             likert7Container.style.display = 'none'
             countryLabelContainer.style.display = 'none'
             fadeInSliderContainer()
-            enableConfirmation(joystickSlideValue);
+            // enableConfirmation(joystickSlideValue);
+            enableConfirmation(Math.round((parseInt(joystickSlideValue)+50)/14.2857));
             break;
         case 'likert5':
             aboutAnswerContainer.style.display = 'none'
