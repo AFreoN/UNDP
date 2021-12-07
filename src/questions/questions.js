@@ -300,7 +300,7 @@ export function loadQuestion(questionIndex){
                     player.rotation.set(0,0,0)
                     controls.disablePlayerControl()
                     aboutScene.add(player)
-                    controls.playWaitAnimation()
+                    controls.playIdleAnimation()
                 }
                 else{
                     UIUpdateNeeded = false;
@@ -315,7 +315,7 @@ export function loadQuestion(questionIndex){
                         aboutScene.add(player)
                         uiControl.updateUI(questionType, questionText, answers)
                         uiControl.setSurveyProgressValue(questionIndex)
-                        controls.playWaitAnimation()
+                        controls.playIdleAnimation()
                     });
                 }
                 break;

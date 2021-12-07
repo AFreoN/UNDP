@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { getOtherCharacterInitialPosition, enablePlayerControl, playJumpStartAnimation, 
-    playJumpStopAnimation, playOnJumpAnimation, playIdleAnimation,playWaitAnimation, disablePlayerControl } from './character_controller/character_control';
+    playJumpStopAnimation, playOnJumpAnimation, playIdleAnimation, disablePlayerControl } from './character_controller/character_control';
 import { setUiText, sliderHolder, enableBackButton, disableBackButton, enableNextButton, disableNextButton, fadeOutSliderContainer } from './ui_controller/ui_controller';
 import { pointLight, joyDirLight } from './questions/scenes';
 import { FlatShading, MathUtils } from 'three';
@@ -542,7 +542,7 @@ const jumpTransition = function(deltatime){
         }
         if(transitionStyle == styleJumpOut){
             callBackFunction();
-            playWaitAnimation();
+            playIdleAnimation();
             enableBackButton();
             enableNextButton();
         }

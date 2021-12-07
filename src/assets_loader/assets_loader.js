@@ -183,6 +183,8 @@ const loadingBarGradient = `
 
 loadingBar.svg.insertAdjacentHTML('afterbegin',loadingBarGradient)
 
+document.getElementById('progress-bar-background').style.display = ''
+
 //set the progress bar value to 0
 loadingBar.animate(loadedPercentage)
 //#endregion
@@ -544,7 +546,7 @@ function loadInitialModels(){
     )
     //maldives_provinces_cartoon_map
     gltfloader.load(
-        'maldives_provinces_cartoon_map.glb',
+        'new_maldives_provinces_cartoon_map.glb',
         (gltf) =>
         {
             const key = 'maldivesProvincesMap'
@@ -1076,7 +1078,7 @@ export function loadPostModels(){
     )
     //Religious Beliefs
     gltfloader.load(
-        'Models/religious_belief2.gltf',
+        'Models/religious belief2.gltf',
         (gltf) =>
         {
             const key = 'religious_belief'

@@ -571,26 +571,6 @@ agrees7.forEach(buttons => {
     })
 });
 
-const resourceLink1 = document.getElementById('additional-resources-list-item-1')
-resourceLink1.addEventListener('click', function(){
-    window.open("https://www.google.com/search?q=A")
-})
-
-const resourceLink2 = document.getElementById('additional-resources-list-item-2')
-resourceLink2.addEventListener('click', function(){
-    window.open("https://www.google.com/search?q=B")
-})
-
-const resourceLink3 = document.getElementById('additional-resources-list-item-3')
-resourceLink3.addEventListener('click', function(){
-    window.open("https://www.google.com/search?q=C")
-})
-
-const resourceLink4 = document.getElementById('additional-resources-list-item-4')
-resourceLink4.addEventListener('click', function(){
-    window.open("https://www.google.com/search?q=D")
-})
-
 export function setSurveyProgressMax(maxValue){
     surveyProgressBar.max = maxValue
 }
