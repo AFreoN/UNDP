@@ -514,6 +514,23 @@ function setLinksPageLang(){
 
 //UI elements
 
+document.getElementById('links-email-submit-button').addEventListener('click',function(){
+    const email = document.getElementById('links-email-input').value.toLowerCase().trim()
+
+    if(email === ''){
+        alert("Email field is empty!")
+        return
+    }
+
+    const re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    //validate email
+    if (re.test(email)){
+        main.submitEmail(email)
+    }
+    else{
+        alert("You have entered an invalid email address!")
+    }
+})
 
 //question answer containers
 let questionContainer = document.getElementById('question-container')
