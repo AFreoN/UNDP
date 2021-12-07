@@ -861,19 +861,21 @@ var playerMoveEnded = true;
 
 //#region Player animation variables
 let playerValueInitialized = false;
-let idleId,IDwalkStartLeft,IDwalkLeft,IDwalkStopLeft,IDwalkStartRight,IDwalkRight,IDwalkStopRight;
+let idleId,IDwait,IDwalkStartLeft,IDwalkLeft,IDwalkStopLeft,IDwalkStartRight,IDwalkRight,IDwalkStopRight;
 let IDjumpStart,IDonJump, IDjumpStop;
 let jumpStartAction, onJumpAction, jumpStopAction;
-let idleAction,walkStartLeft,walkLeft,walkStopLeft,walkStartRight,walkRight,walkStopRight;
+let idleAction,waitAction,walkStartLeft,walkLeft,walkStopLeft,walkStartRight,walkRight,walkStopRight;
 let allAnims;
 
 function initializePlayerAnimationVariables(){
     if(playerValueInitialized == false){
         var ids = assetLoader.getAnimationIds('playerCharacter');
-        idleId = ids['idle'];
-        IDwalkStartLeft = ids['startL'], IDwalkLeft = ids['walkL'], IDwalkStopLeft = ids['stopL'], IDwalkStartRight = ids['startR'], IDwalkRight = ids['walkR'], IDwalkStopRight = ids['stopL'];
+        idleId = ids['idle'], IDwait = ids['wait'];
+        IDwalkStartLeft = ids['startL'], IDwalkLeft = ids['walkL'], IDwalkStopLeft = ids['stopL'];
+        IDwalkStartRight = ids['startR'], IDwalkRight = ids['walkR'], IDwalkStopRight = ids['stopL'];
         IDjumpStart = ids['jumpStart'], IDonJump = ids['onJump'], IDjumpStop = ids['jumpStop'];
         idleAction = playerMixer.clipAction(playerAnimations[idleId]);
+        waitAction = playerMixer.clipAction(playerAnimations[IDwait]);
         walkStartLeft = playerMixer.clipAction(playerAnimations[IDwalkStartLeft]);
         walkLeft = playerMixer.clipAction(playerAnimations[IDwalkLeft]);
         walkStopLeft = playerMixer.clipAction(playerAnimations[IDwalkStopLeft]);
@@ -1095,12 +1097,34 @@ export const playIdleAnimation = function(){
     if(animationIndex == idleId)
         return;
 
-    const prevAnimation = playerMixer.clipAction(playerAnimations[animationIndex]);
-    resetAnimations(allAnims, prevAnimation);
-    idleAction.reset();
-    idleAction.crossFadeFrom(prevAnimation, fadeDuration);
-    idleAction.play();
+    if(animationIndex >= 0){
+        const prevAnimation = playerMixer.clipAction(playerAnimations[animationIndex]);
+        resetAnimations(allAnims, prevAnimation);
+        idleAction.reset();
+        idleAction.crossFadeFrom(prevAnimation, fadeDuration);
+        idleAction.play();
+    }
+    else{
+        idleAction.play()
+    }
     animationIndex = idleId;
+}
+
+export const playWaitAnimation = function(){
+    if(animationIndex == IDwait)
+        return;
+
+    if(animationIndex >= 0){
+        const prevAnimation = playerMixer.clipAction(playerAnimations[animationIndex]);
+        resetAnimations(allAnims, prevAnimation);
+        waitAction.reset();
+        waitAction.crossFadeFrom(prevAnimation, fadeDuration);
+        waitAction.play();
+    }
+    else{
+        waitAction.play()
+    }
+    animationIndex = IDwait;
 }
 
 var otherMovingTime = 0;

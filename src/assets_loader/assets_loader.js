@@ -5,7 +5,7 @@ import * as uiControl from '../ui_controller/ui_controller'
 import * as THREE from 'three'
 import { fresnel } from '../shader'
 import { shaderMaterial, shaderUnlit } from '../fresnel'
-import { MathUtils } from 'three'
+import { MathUtils, TextureLoader } from 'three'
 
 let preModelsLoaded = false
 let postModelsLoaded = false
@@ -77,6 +77,7 @@ let animations = {
 let animationId = {
     playerCharacter:{
         'idle':1,   //0
+        'wait':2,
         'startL':6, //5
         'walkL' :7,  //6
         'stopL' :8,  //7 
@@ -996,15 +997,20 @@ export function loadPostModels(){
             model.position.set(0,-.6, 0)
     
             model.traverse((child) => {
-
-                if (child.isMesh && (child.id == 795 || child.id == 796 || child.id == 794 || child.id == 800) ){
+                // console.log("Mesh name = ", child.name, ", id = ", child.id)
+                // if (child.isMesh && (child.id == 795 || child.id == 796 || child.id == 794 || child.id == 800) ){
                     
-                    let toonMaterial = new THREE.MeshToonMaterial({ color : 0xFFC332, gradientMap : tex});
-                    child.material = shaderMaterial;
-                    child.castShadow = true;
-                }
+                //     let toonMaterial = new THREE.MeshToonMaterial({ color : 0xFFC332, gradientMap : tex});
+                //     child.material = toonMaterial;
+                //     child.castShadow = true;
+                // }
 
-                
+                if(child.isMesh){
+                    if(child.name == 'character02' || child.name == 'bubbletext1' || child.name == 'bubbletext2' || child.name == 'bubbletext3'){
+                        child.material = shaderMaterial
+                    }
+                    child.castShadow = true
+                }
                 
 
                 
@@ -1072,61 +1078,58 @@ export function loadPostModels(){
     )
     //Religious Beliefs
     gltfloader.load(
-        'Models/religious belief.gltf',
+        'Models/religious belief2.gltf',
         (gltf) =>
         {
             const key = 'religious_belief'
             //animations[key] = gltf.animations
             let model = gltf.scene
             model.name = key
-            model.scale.set(.035,.035,.035)     //prev (.075,.075,.075)
+            const scale = 0.035
+            model.scale.set(scale,scale,scale)     //prev (.035,.035,.035)
             model.position.set(0, -0.4, 0)
             model.rotation.y = MathUtils.degToRad(0)
 
-            /*
-            shine = back strips
-            Character02 = center character
-            glow01 = small glowing light
-            glow2 = big glowing light
-            sphere012 = first sphere
-            plant009_1 = second sphere
-            plant010_1 = second sphere
-            plant011_1 = second sphere
-            sphere012_1 = first sphere back plane
-            plane009 = second sphere back plane
-            plane010 = third sphere back plane
-            plane011 = fourth sphere back plane
-            */
-    
             model.traverse((child) => {
-                 if (child.isMesh){
-                     if(child.name == 'Character02'){   //center character
-                         var charMat = new THREE.MeshToonMaterial({ color : 0xFFFF00, gradientMap : tex})
-                         child.material = charMat
-                     }
-                     if(child.name == 'shine'){         //back shining strips
-                        var glassMat = new THREE.MeshToonMaterial({color: 0xFFFF00, transparent : true, opacity : 0.5, gradientMap : tex})
-                        child.material = glassMat
-                     }
-                     if(child.name == 'glow2'){ //Big Glowing Light
-                        var glassMat = new THREE.MeshBasicMaterial({color: 0xFFFF00, transparent : true, opacity : 0.2})
-                        child.material = glassMat
-                     }
-                     if(child.name == 'glow01'){        //Small Glowing LIght
-                        var glassMat = new THREE.MeshBasicMaterial({color: 0xFFAA00, transparent : true, opacity : 0.4})
-                        child.material = glassMat
-                     }
-                     if(child.name == 'Plane009' || child.name == 'Plane009_1' || child.name == 'Plane010' ||
-                        child.name == 'Plane010_1' || child.name == 'Plane011' || child.name == 'Plane011_1' ||
-                        child.name == 'Sphere012' || child.name == 'Sphere012_1'){      //Spheres
-                        var glassMat = new THREE.MeshLambertMaterial({color: 0xFFFFFF, transparent : true, opacity : 0})
-                        glassMat = new THREE.MeshToonMaterial({color : 0xFFFF00, gradientMap : tex})
-                        child.material = glassMat
-                     }
-                     child.castShadow = true
-                     //console.log("Model name = ", child.name)
-                 }
-             });
+                if(child.isMesh){
+                    // console.log("Mesh name = ", child.name)
+                    child.castShadow = true
+                    if(child.name == 'Character02'){    //Main Character
+                        var toon = new THREE.MeshToonMaterial({color:0xFFFF00, gradientMap : tex})
+                        child.material = shaderMaterial
+                    }
+                    if(child.name == 'shine'){  //Back strips
+                        var alpha = new THREE.TextureLoader().load('Textures/ReligiousBeleif_Texture/lightStrips_Alpha.png')
+                        alpha.flipY = false
+                        alpha.needsUpdate = true
+                        var mat = new THREE.MeshToonMaterial({ color : 0xFFFF00, alphaMap : alpha, transparent : true})
+                        child.material = mat
+                    }
+                    if(child.name == 'orb01'){  //Religion Indicators
+                        var t = new THREE.TextureLoader().load('Textures/ReligiousBeleif_Texture/relsphere.png')
+                        t.flipY = false
+                        t.needsUpdate = true
+                        var m = new THREE.MeshToonMaterial({ map : t, opacity : 1, transparent :true, gradientMap : tex})
+                        child.material = m
+                    }       
+                    if(child.name == 'orb01001'){   //Religion indicators   //Not needed now
+                        var t = new THREE.TextureLoader().load('Textures/ReligiousBeleif_Texture/relsphere.png')
+                        t.flipY = false
+                        t.needsUpdate = true
+                        var mat = new THREE.MeshToonMaterial({map : t, opacity : 0, transparent : true, gradientMap : tex})
+                        child.material = mat
+                    }
+                    if(child.name == 'SmallGlow'){  //Small Glow
+                        var t = new THREE.TextureLoader().load('Textures/ReligiousBeleif_Texture/SmallGlow.png')
+                        var alpha = new THREE.TextureLoader().load('Textures/ReligiousBeleif_Texture/SmallGlow_alpha.png')
+                        t.flipY = false
+                        t.needsUpdate = true
+                        alpha.flipY = false
+                        var mat = new THREE.MeshToonMaterial( {map : t, opacity : 0.65, transparent : true, gradientMap : tex, alphaMap : alpha})
+                        child.material = mat
+                    }
+                }
+            })
     
             models[key] = model
             if(preLoadModels.includes(key)){

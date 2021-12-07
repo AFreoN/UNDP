@@ -3,7 +3,6 @@ import { langId, setLangId, loadQuestion, numberOfQuestions,enableSubmitScene, s
             setPlayerRotationLikert4, setPlayerRotationLikert7, resetPlayerRotation } from '../questions/questions'
 import { doc } from '@firebase/firestore'
 import { LineSegments } from 'three';
-// import { setPlayerRotationForLikert5 } from '../character_controller/character_control'
 
 //Ui control
 let uiHolder = document.getElementById('ui-holder');
@@ -588,7 +587,6 @@ agrees7.forEach(buttons => {
         //console.log("Agree value = ", event.target.value);
     })
 });
-
 
 export function setSurveyProgressMax(maxValue){
     surveyProgressBar.max = maxValue
@@ -2290,6 +2288,7 @@ export function enableSubmitPage(){
     resultsConfirmationContainer.style.display = 'none'
     submitLoadingContainer.style.display = 'none'
     uiHolder.style.display = 'none'
+    resetPlayerRotation()
     FadeOutLikert7()
     // disableResultsContainer()
     enableSubmitScene()
