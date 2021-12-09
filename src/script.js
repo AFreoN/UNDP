@@ -248,15 +248,16 @@ export function validateAnswers(){
 
 export async function submitEmail(email){
 
-    const docRef = doc(db,"answers",docId)
-
     try {
+        const docRef = doc(db,"answers",docId)
         await updateDoc(docRef,{
             email:email
         })        
         console.log("updated document");
+        uiControl.setEmailSubmitIndicatorText('success')
     } catch (e) {
         console.log("error updating document", e);
+        uiControl.setEmailSubmitIndicatorText('failed')
     }
 
 

@@ -1980,6 +1980,19 @@ transform: translate(-50%,-50%);
     margin: 0 0 20px 0;
 }
 
+.links-email-submit-indicator{
+    color: #cbfa01;
+    font-size: 1em;
+    width: fit-content;
+    transition: width 0.25s;
+    display: inline;
+    padding-left: 10px;
+}
+
+.links-email-submit-indicator:empty{
+    width:0px;
+}
+
 .additional-resources-grid-header{
     color: white;
     font-family: 'Rubik',sans-serif;

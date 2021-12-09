@@ -50,7 +50,10 @@ let models = {
     lamp:null,
     sofa:null,
     sofasmall:null,
-    letter:null
+    letter:null,
+    adventurer:null, // high LOC
+    mapMaker:null, // mid LOC
+    changeSeeker:null // low LOC
 }
 
 const preLoadModels = [
@@ -1222,6 +1225,78 @@ export function loadPostModels(){
             }
         }
     )
+
+    //adventurer - High LOC
+    gltfloader.load(
+        'adventurer.gltf',
+        (gltf) =>
+        {
+            const key = 'adventurer'
+            let model = gltf.scene
+            model.name = key
+            model.scale.set(0.3,0.3,0.3)
+            model.position.set(0,-0.6, 2)
+            models[key] = model
+            // console.log(model);
+            model.traverse((child) => {
+                if (child.isMesh){
+                    child.castShadow = true
+                }
+            });
+            if(preLoadModels.includes(key)){
+                loadedPercentage += (1/numberOfAssets)
+                loadingBar.animate(loadedPercentage)
+            }
+        }
+    )
+
+    //Map maker - Mid LOC
+    gltfloader.load(
+        'map_maker.gltf',
+        (gltf) =>
+        {
+            const key = 'mapMaker'
+            let model = gltf.scene
+            model.name = key
+            model.scale.set(0.3,0.3,0.3)
+            model.position.set(0,-0.59, 2)
+            models[key] = model
+            model.traverse((child) => {
+                if (child.isMesh){
+                    child.castShadow = true
+                }
+            });
+            if(preLoadModels.includes(key)){
+                loadedPercentage += (1/numberOfAssets)
+                loadingBar.animate(loadedPercentage)
+            }
+        }
+    )
+
+    //Change seeker - Low LOC
+    gltfloader.load(
+        'change_seeker.gltf',
+        (gltf) =>
+        {
+            const key = 'changeSeeker'
+            let model = gltf.scene
+            model.name = key
+            model.scale.set(0.3,0.3,0.3)
+            model.position.set(0,-0.61, 2)
+            models[key] = model
+            console.log(model);
+            model.traverse((child) => {
+                if (child.isMesh){
+                    child.castShadow = true
+                }
+            });
+            if(preLoadModels.includes(key)){
+                loadedPercentage += (1/numberOfAssets)
+                loadingBar.animate(loadedPercentage)
+            }
+        }
+    )
+
     //Love Emoji
     gltfloader.load(
         'Models/Emojis/love/scene.gltf',

@@ -1,6 +1,6 @@
 import * as main from '../script'
 import { langId, setLangId, loadQuestion, numberOfQuestions,enableSubmitScene, setPlayerRotationLikert5,
-            setPlayerRotationLikert4, setPlayerRotationLikert7, resetPlayerRotation } from '../questions/questions'
+            setPlayerRotationLikert4, setPlayerRotationLikert7, resetPlayerRotation, updateSubmitModel } from '../questions/questions'
 import { doc } from '@firebase/firestore'
 import { LineSegments } from 'three';
 
@@ -498,6 +498,24 @@ function setLinksPageLang(){
             ta:'தன்னார்வத் தொண்டுகளில் ஈடுபடுவது எப்படி',
             dv:'How to get involved in volunteering',
         },
+        addResource5:{
+            en:'How to cope if you have social anxiety, how to build confidence',
+            si:'ඔබට සමාජ කනස්සල්ලක් ඇත්නම් එයට මුහුණ දෙන්නේ කෙසේද, විශ්වාසය ගොඩනඟා ගන්නේ කෙසේද',
+            ta:'உங்களுக்கு சமூக கவலை இருந்தால் எப்படி சமாளிப்பது, தன்னம்பிக்கையை வளர்ப்பது எப்படி',
+            dv:'How to cope if you have social anxiety, how to build confidence',
+        },
+        addResource6:{
+            en:'How to make a difficult decision. And then follow up on specific decisions e.g. subject to study, career to choose',
+            si:'දුෂ්කර තීරණයක් ගන්නේ කෙසේද. ඉන්පසු නිශ්චිත තීරණ ගැන පසු විපරම් කරන්න උදා. ඉගෙනීමට යටත්ව, තෝරා ගැනීමට වෘත්තිය',
+            ta:'கடினமான முடிவை எடுப்பது எப்படி. பின்னர் குறிப்பிட்ட முடிவுகளைப் பின்தொடரவும் எ.கா. படிப்புக்கு உட்பட்டது, தேர்ந்தெடுக்கும் தொழில்',
+            dv:'How to make a difficult decision. And then follow up on specific decisions e.g. subject to study, career to choose',
+        },
+        addResource7:{
+            en:'Mental health, dealing with depression, anxiety, loneliness, disempowerment, frustration',
+            si:'මානසික සෞඛ්‍යය, මානසික අවපීඩනය සමඟ කටයුතු කිරීම, කාංසාව, තනිකම, බල ගැන්වීම, කලකිරීම',
+            ta:'மன ஆரோக்கியம், மனச்சோர்வு, பதட்டம், தனிமை, அதிகாரமின்மை, விரக்தி ஆகியவற்றைக் கையாள்வது',
+            dv:'Mental health, dealing with depression, anxiety, loneliness, disempowerment, frustration',
+        },
     }
 
     document.getElementById('links-email-input').placeholder = langTexts.emailPlaceholder[langId]
@@ -508,6 +526,9 @@ function setLinksPageLang(){
     document.getElementById('additional-resources-list-item-text-2').innerText = langTexts.addResource2[langId]
     document.getElementById('additional-resources-list-item-text-3').innerText = langTexts.addResource3[langId]
     document.getElementById('additional-resources-list-item-text-4').innerText = langTexts.addResource4[langId]
+    document.getElementById('additional-resources-list-item-text-5').innerText = langTexts.addResource5[langId]
+    document.getElementById('additional-resources-list-item-text-6').innerText = langTexts.addResource6[langId]
+    document.getElementById('additional-resources-list-item-text-7').innerText = langTexts.addResource7[langId]
 
 }
 
@@ -876,32 +897,47 @@ function setUiTextSize(){
     
 }
 
-//Test code - Remove when pushing
+// Test code - Remove when pushing
+
 // document.addEventListener('keydown',function(e){
 //     switch(e.key.toLowerCase()){
 //         case '1':
 //             updateResultTitle('0')
+//             updateSubmitModel(0)
 //             break;
 //         case '2':
 //             updateResultTitle('1')
+//             updateSubmitModel(1)
 //             break;
 //         case '3':
 //             updateResultTitle('2')
+//             updateSubmitModel(2)
 //             break;
 //         case 'e':
 //             languageSelected('en')
+//             setLinksPageLang();
+//             setUiText();
 //             break;
 //         case 's':
 //             languageSelected('si')
+//             setLinksPageLang();
+//             setUiText();
 //             break;
 //         case 't':
 //             languageSelected('ta')
+//             setLinksPageLang();
+//             setUiText();
 //             break;
 //         case 'd':
 //             languageSelected('dv')
+//             setLinksPageLang();
+//             setUiText();
 //             break;
         
 //     }
+
+
+
 // })
 
 function updateResultLinks(loc){
@@ -1458,6 +1494,7 @@ export function updateResultTitle(loc){     //LOC 2 = High, 1 = Middle, 0 = Low
 
     updateResultLinks(loc)
     updateResultSubtexts(loc)
+    updateSubmitModel(loc)
 
     //document.getElementsByTagName('meta')["og:url"].content = document.URL;
     //document.getElementsByTagName('meta')["twitter:domain"].content = document.URL;
@@ -1518,6 +1555,52 @@ export function setLikert4Options(options){
     likert4_value3_Text.setAttribute("likert4-scale-value", options.value3[langId]);
     likert4_value4_Text.setAttribute("likert4-scale-value", options.value4[langId]);
 }
+
+export function setEmailSubmitIndicatorText(message){
+    const langTexts = {
+        success:{
+            en:'email submitted',
+            si:'ඊමේල් ඉදිරිපත් කරන ලදී',
+            ta:'மின்னஞ்சல் சமர்ப்பிக்கப்பட்டது',
+            dv:'email submitted',
+        },
+        failed:{
+            en:'failed to submit email',
+            si:'ඊමේල් ඉදිරිපත් කිරීමට අපොහොසත් විය',
+            ta:'மின்னஞ்சலைச் சமர்ப்பிக்க முடியவில்லை',
+            dv:'failed to submit email',
+        }
+    }
+
+    const emailSubmitIndicator = document.getElementById('links-email-submit-indicator')
+    emailSubmitIndicator.innerText = langTexts[message][langId]
+
+    switch(langId){
+        case'en':
+            emailSubmitIndicator.style.fontSize = '1em'
+            break;
+        case'si':
+            emailSubmitIndicator.style.fontSize = '0.8em'
+            break;
+        case'ta':
+            emailSubmitIndicator.style.fontSize = '0.6em'
+            break;
+        case'dv':
+            emailSubmitIndicator.style.fontSize = '0.8em'
+            break;
+    
+    }
+
+    switch(message){
+        case 'success':
+            emailSubmitIndicator.style.color = '#cbfa01'
+            break;
+        case 'failed':
+            emailSubmitIndicator.style.color = '#ff2b2b'
+            break;
+    }
+}
+
 
 //enabling/disabling control buttons
 let canChangeQuestions = true
