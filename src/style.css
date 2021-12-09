@@ -410,7 +410,7 @@ canvas.webgl{
     font-weight: 700;
     color: rgb(255, 255, 255);
     /* border-radius: 3px; */
-    border:2px solid white ;
+    border:2px solid white;
     padding: 5px 30px;
     font-family: 'Rubik',sans-serif;
     /* font-size: calc(1em + 1vw); */
@@ -419,7 +419,7 @@ canvas.webgl{
 
     position: absolute;
     left: 50%;
-    bottom: 25%;
+    bottom: 20%;
     /* transform: translateX(-50%); */
     /* transform: translateY(0); */
     transform: translate(-50%,0);
@@ -1407,15 +1407,15 @@ canvas.webgl{
 .selected-item-indicator{
     height: calc(7vh + 4px);
     width: 40vw;
-    border-top:  2px solid transparent  ;
-    border-bottom:  2px solid transparent  ;
-    border-image: linear-gradient(to right, 
+    border-top:  2px solid white  ;
+    border-bottom:  2px solid white  ;
+    /* border-image: linear-gradient(to right, 
                         rgba(255,255,255,0), 
                         rgba(255,255,255,0.3), 
                         rgba(255,255,255,0.5), 
                         rgba(255,255,255,0.3),
-                        rgba(255,255,255,0) );
-    border-image-slice: 1;
+                        rgba(255,255,255,0) ); */
+    /* border-image-slice: 1; */
 
     position: absolute;
     top: 50%;
@@ -1771,15 +1771,7 @@ transform: translate(-50%,-50%);
     text-shadow:  black 0 0 50px;
 }
 
-.results-subtext-container{
-    margin-top: 10px ;
-    color: white;
-    font-weight: 300;
-    font-family: 'Rubik',sans-serif;
-    width: 100%;
-    font-size: calc(0.7em + 0.5vw);
-    text-shadow:  black 0 0 50px;
-}
+
 
 .results-footer-container{
     position: absolute;
@@ -1794,13 +1786,61 @@ transform: translate(-50%,-50%);
     justify-content: center;
 }
 
+.results-subtext-container{
+    margin-top: 10px ;
+    color: white;
+    font-weight: 300;
+    font-family: 'Rubik',sans-serif;
+    width: 75%;
+    font-size: calc(0.7em + 0.5vw);
+    text-shadow:  black 0 0 50px;
+    padding-bottom: 8px;
+    text-align: center;
+}
+
+.results-more-button{
+    background: #cbfa01;
+    font-weight: 600;
+    font-family: 'Rubik', sans-serif;
+    color: rgba(0, 0, 0, 1);
+    padding: 3px 15px;
+    border:none;
+    cursor: pointer;
+
+    font-size: calc(1em + 1vw);
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.5);
+    margin-bottom: 8px;
+}
+
+.results-footer-social-container{
+    width: min(60%,250px);
+    border: 3px solid;
+    border-color: white;
+    animation: pulse 3s linear infinite ;
+}
+
+@keyframes pulse {
+    from{
+        border-color: white;
+    }
+    50%{
+        border-color: rgba(255, 255, 255, 0.479);
+    }
+    to{
+        border-color: white;
+
+    }
+
+}
+
 .results-footer-text{
     font-family: 'Rubik',sans-serif;
     font-weight: 300;
     color: white;
     text-align: center;
     font-size: calc(0.7em + 0.5vw);
-
+    margin: 0 auto;
+    padding-top: 8px;
 }
 
 .results-footer-social{
@@ -1808,7 +1848,8 @@ transform: translate(-50%,-50%);
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    margin: 10px auto 20px auto;
+    margin: 10px auto 8px auto;
+    
 }
 
 .results-footer-social-icon{
@@ -1825,18 +1866,7 @@ transform: translate(-50%,-50%);
     content: url('../static/undp_twitter_logo.png');
 }
 
-.results-more-button{
-    background: #cbfa01;
-    font-weight: 600;
-    font-family: 'Rubik', sans-serif;
-    color: rgba(0, 0, 0, 1);
-    padding: 5px 22px;
-    border:none;
-    cursor: pointer;
 
-    font-size: calc(1em + 1vw);
-    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.5);
-}
 
 .links-page-container{
     background:  #1C1B1B;
@@ -2187,25 +2217,29 @@ transform: translate(-50%,-50%);
 
     .country-skip-button:hover{
         transform: translate(-50%,-4px);
-        box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.5), 0 5px 10px 0 rgba(0, 0, 0, 0.5) inset ;
-        text-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+        box-shadow: 3px 3px 16px rgba(0, 0, 0, 0.20)
+                    /* , 0 5px 10px 0 rgba(0, 0, 0, 0.5) inset  */
+                    ;
+        /* text-shadow: 0 5px 10px rgba(0, 0, 0, 0.5); */
+        background-color: white;
+        color: #6f23fc;
+
     }
     
 }
-
-
 
 .answer-box:active{
     background: #5d99b3;
 }
 
 .country-skip-button:active{
+    transform: translate(-50%,0);
     background-color: white;
     color: #6f23fc;
     mix-blend-mode: screen;
     transition: none;
     text-shadow: none;
-    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.5);
+    box-shadow: 3px 3px 16px rgba(0, 0, 0, 0.20);
 }
 
 

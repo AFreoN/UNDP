@@ -732,7 +732,7 @@ function loadInitialModels(){
             models[key] = model.children[0]
             // console.log(models['maldivesMap']);
             let countrySelectionModel = models[key].clone(true)
-            countrySelectionModel.scale.set(0.08,0.08,0.08)
+            countrySelectionModel.scale.set(0.06,0.06,0.06)
             countrySelectionModel.position.set(0.02,0,-0.5)
             countrySelectionModel.children[3].castShadow = true
             // console.log(countrySelectionModel);

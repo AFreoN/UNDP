@@ -839,7 +839,7 @@ function setUiTextSize(){
     switch(langId){
         case 'en':
             questionContainer.style.fontSize = 'calc(0.8em + 1vw)'
-            regionSkipButton.style.fontSize = 'calc(0.6em + 1vw)'
+            regionSkipButton.style.fontSize = 'calc(0.6em + 0.8vw)'
             
             submitHeader.style.fontSize = 'calc(0.8em + 1.5vw)'
             submitSubtext.style.fontSize = 'calc(0.65em + 0.5vw)'
@@ -850,10 +850,13 @@ function setUiTextSize(){
             resultsMoreButton.style.fontSize = 'calc(0.8em + 1vw)'
 
             resultFooterText.style.fontSize = 'calc(0.6em + 0.5vw)'
+
+            sriLankaLabel.style.fontSize = 'calc(0.6em + 1vh)'
+            maldivesLabel.style.fontSize = 'calc(0.6em + 1vh)'
             break
         case 'si':
             questionContainer.style.fontSize = 'calc(0.6em + 1vw)'
-            regionSkipButton.style.fontSize = 'calc(0.5em + 1vw)'
+            regionSkipButton.style.fontSize = 'calc(0.55em + 0.75vw)'
             
             submitHeader.style.fontSize = 'calc(0.75em + 1.5vw)'
             submitSubtext.style.fontSize = 'calc(0.6em + 0.5vw)'
@@ -864,10 +867,13 @@ function setUiTextSize(){
             resultsMoreButton.style.fontSize = 'calc(0.5em + 1vw)'
 
             resultFooterText.style.fontSize = 'calc(0.5em + 0.5vw)'
+            
+            sriLankaLabel.style.fontSize = 'calc(0.6em + 1vh)'
+            maldivesLabel.style.fontSize = 'calc(0.6em + 1vh)'
             break
         case 'ta':
             questionContainer.style.fontSize = 'calc(0.5em + 1vw)'
-            regionSkipButton.style.fontSize = 'calc(0.6em + 1vw)'
+            regionSkipButton.style.fontSize = 'calc(0.5em + 0.7vw)'
 
             submitHeader.style.fontSize = 'calc(0.7em + 1.5vw)'
             submitSubtext.style.fontSize = 'calc(0.6em + 0.5vw)'
@@ -878,10 +884,13 @@ function setUiTextSize(){
             resultsMoreButton.style.fontSize = 'calc(0.5em + 1vw)'
 
             resultFooterText.style.fontSize = 'calc(0.5em + 0.5vw)'
+
+            sriLankaLabel.style.fontSize = 'calc(0.6em + 0.75vh)'
+            maldivesLabel.style.fontSize = 'calc(0.6em + 0.75vh)'
             break
         case 'dv':
             questionContainer.style.fontSize = 'calc(0.6em + 1vw)'
-            regionSkipButton.style.fontSize = 'calc(0.6em + 1vw)'
+            regionSkipButton.style.fontSize = 'calc(0.5em + 0.75vw)'
 
             submitHeader.style.fontSize = 'calc(1em + 1.5vw)'
             submitSubtext.style.fontSize = 'calc(0.7em + 0.5vw)'
@@ -892,6 +901,9 @@ function setUiTextSize(){
             resultsMoreButton.style.fontSize = 'calc(1em + 1vw)'
 
             resultFooterText.style.fontSize = 'calc(0.6em + 0.5vw)'
+
+            sriLankaLabel.style.fontSize = 'calc(0.5em + 0.8vh)'
+            maldivesLabel.style.fontSize = 'calc(0.5em + 0.8vh)'
             break
     }
     
@@ -932,12 +944,8 @@ function setUiTextSize(){
 //             languageSelected('dv')
 //             setLinksPageLang();
 //             setUiText();
-//             break;
-        
+//             break;        
 //     }
-
-
-
 // })
 
 function updateResultLinks(loc){
@@ -2079,11 +2087,20 @@ function mouseUpHandler(e){
 
         const scrollValue = e.offsetY - (elementToScroll.clientHeight/2) + pos.top
         // console.log(scrollValue);
-        if(scrollValue > pos.top){
+
+        if(elementToScroll === vidQuestionScrollContainer){
             elementToScroll.scroll({
                 top:scrollValue,
                 behavior:'smooth'
             })
+        }
+        else{
+            if(scrollValue > pos.top){
+                elementToScroll.scroll({
+                    top:scrollValue,
+                    behavior:'smooth'
+                })
+            }
         }
     }
 }
@@ -2387,6 +2404,7 @@ export function disableSubmitPage(){
 export function enableVidQuestionPage(){
     vidQuestionUI.style.display = ''
     uiHolder.style.display = 'none';
+    vidQuestionCalculateMargins();
 }
 
 
