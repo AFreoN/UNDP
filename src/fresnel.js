@@ -119,7 +119,7 @@ export const outerCharacterShaders = new THREE.ShaderMaterial({
   void main()
   {
     vec3 color = vec3(0.54, 0.64, 0.86);    //vec3(.58, .74, 1.)
-    vec3 objectColor = vec3(0.27, 0.47, 0.86);  //orange-yellow vec3(1.0,0.76,0.2)    //yellow vec3(1.0,0.89,0.1)
+    vec3 objectColor = vec3(0.54, 0.17, 0.7);  //orange-yellow vec3(1.0,0.76,0.2)    //yellow vec3(1.0,0.89,0.1)
     vec3 viewDirectionW = normalize(cameraPosition - vPositionW);
     float fresnelTerm = dot(viewDirectionW, vNormalW);// * (1. - u_opacity/2.);
     fresnelTerm = clamp(1.0 - fresnelTerm, 0., 1.);
