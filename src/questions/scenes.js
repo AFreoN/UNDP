@@ -861,19 +861,19 @@ const color = 0xfa76ff;   //prev 0xfa76ff      0xf571ff
 
 const minDis = joystickCamera.position.z;
 const maxDis = 20;
-const density = 0.13;   //prev 0.1
+const density = 0.15;   //prev 0.1
 joystickScene.fog = new THREE.FogExp2(color, density);    //this 
 //joystickScene.fog = new THREE.Fog(color, minDis, maxDis);
 
 const mainBG = "linear-gradient(to top , #5f27fc, #e827fc )";
-const sliderBG = "linear-gradient(to bottom, #bb56ff 0%,#ed81f9 35%)";
+const sliderBG = "linear-gradient(to bottom, #bb56ff 0%,#ed81f9 30%)";
 //document.body.style.background = sliderBG;
 
 //Setting up level
 
 //add floor
 const floorSize = 30
-var floorgeo = new THREE.PlaneGeometry(floorSize,floorSize)
+var floorgeo = new THREE.PlaneGeometry(floorSize* 10,floorSize)
 floorgeo.computeBoundingBox()
 //const floorgeo = new THREE.CylinderGeometry(1000,1000,0.05, 256);
 const floorMaterial = new THREE.MeshToonMaterial( {color: 0x5331FF})   //dark pink 801FCF    //prev new THREE.MeshToonMaterial( {color: 0x725FB3})
