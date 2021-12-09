@@ -927,11 +927,6 @@ function checkingBoundbox(model){
 const addModelToScene = function(_scene, _model){
     if(_scene.getObjectById(_model.id) == null){
         _scene.add(_model);
-        if(_model.name == 'player'){
-            _model.layers.enable(1)
-            _model.layers.set(1)
-            console.log("Player model added to scene")
-        }
     }
 }
 
