@@ -149,19 +149,20 @@ export function setPlayer(playerModel, playerAnims, outline, outlineAnimation){
 }
 
 const PlayerYPos = -0.6;
-export function disableOtherCharacterMixer(){
-    if(otherMixer){
-        otherMixer.stopAllAction()
-        otherMixer.uncacheRoot(otherMixer.getRoot())
-    }
-    otherMixer = null
-    otherAnimations = null
-    otherCharacter = null
-}
+const levitatingModels = ['religious_belief']
+
 export function setOtherCharacter(otherModel, _otherAnimation, _otherAnimationIds){
     if(otherModel == null){
         otherCharacter == null;
         return;
+    }
+
+    if(levitatingModels.includes(otherModel.name)){
+        canLevitate = true
+        console.log("found religious belief model")
+    }
+    else{
+        canLevitate = false
     }
 
     resetJoystickSlider();
@@ -406,6 +407,12 @@ var ringUp = true;
 const minRingJoinDistance = 0.05;
 var finalScale;
 
+var canLevitate =  false
+const levitateDuration = 0.9
+const levitateDistance = 0.025
+var currentLevitateDistance = 0
+var upLevitate = true
+
 function Movecharacter(){
 
     //#region  For setting player position
@@ -419,29 +426,29 @@ function Movecharacter(){
         if(!otherXpos) otherXpos = otherCharacter.position.clone().x;
         
         if(canControlOtherPlayer)
-        otherXpos = startX - stepValue * (joystickSlideValue + 50);
-        // else if(prevSlideValue != joystickSlideValue && onInputDelay == false){
+            otherXpos = startX - stepValue * (joystickSlideValue + 50);
+        //else if(prevSlideValue != joystickSlideValue && onInputDelay == false){
+        
+        //     prevSlideValue = joystickSlideValue;
+        //     targetTime = clock.getElapsedTime();
+        //     onInputDelay = true;
+        // }
             
-            //     prevSlideValue = joystickSlideValue;
-            //     targetTime = clock.getElapsedTime();
-            //     onInputDelay = true;
-            // }
-            
-            curOtherPosition.lerp(new Vector3(otherXpos, otherYPos, 0), lerpSpeed);
-            
-            otherCharacter.position.set(curOtherPosition.x, curOtherPosition.y, curOtherPosition.z);
-            updateNameIndicator(player,otherCharacter);
-            EnableCharacterText(true);
-            
-            let minDis = 0.005;
-            var abs = Math.abs(otherXpos - otherCharacter.position.x);
-            if((abs) < minDis){
-                otherIdle = true;
-            }
-            else{
-                otherIdle = false;
-            }
+        curOtherPosition.lerp(new Vector3(otherXpos, otherYPos, 0), lerpSpeed);
+        
+        otherCharacter.position.set(curOtherPosition.x, curOtherPosition.y + currentLevitateDistance, curOtherPosition.z);
+        updateNameIndicator(player,otherCharacter);
+        EnableCharacterText(true);
+        
+        let minDis = 0.005;
+        var abs = Math.abs(otherXpos - otherCharacter.position.x);
+        if((abs) < minDis){
+            otherIdle = true;
         }
+        else{
+            otherIdle = false;
+        }
+    }
 //#endregion
 
     //#region For setting camera position
@@ -1291,6 +1298,22 @@ const tick = () =>
     
     
     if(canControlPlayer){
+        if(canLevitate){
+            if(upLevitate){
+                currentLevitateDistance += deltatime * levitateDistance / levitateDuration
+                if(currentLevitateDistance >= levitateDistance)
+                    upLevitate = false
+            }
+            else{
+                currentLevitateDistance -= deltatime * levitateDistance / levitateDuration
+                if(currentLevitateDistance <= - levitateDistance)
+                    upLevitate = true
+            }
+        }
+        else{
+            currentLevitateDistance = 0
+        }
+        
         if(otherIdle == false){
             otherMovingTime += deltatime;
             otherStoppingTime = 0;

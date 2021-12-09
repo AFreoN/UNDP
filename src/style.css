@@ -604,56 +604,60 @@ canvas.webgl{
     opacity: 0.8;
     transition: opacity 0.5s ease-in-out;
     -webkit-transition: opacity 0.5s ease-in-out;
-    
-  }
+}
 
-  .slider-filler{
-    position: absolute;
-    top : 1px;
-    width: 50%;
-    height: 7px;
-    border-radius: 6px;  
-    background: #CBFA01;    /* Old color = #cbfa01 */
-    outline: none;
-    opacity: 1;
-    -webkit-transition: .2s;
-    transition: opacity .2s;
-    pointer-events: none;
-
-  }
-
-  .slider::-webkit-slider-thumb {
-    -webkit-appearance: none; /* Override default look */
-    appearance: none;
+.slider-filler{
+  position: absolute;
+  top : 1px;
+  width: 50%;
+  height: 7px;
+  border-radius: 6px;  
+  background: #CBFA01;    /* Old color = #cbfa01 */
+  outline: none;
+  opacity: 0.9;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+  pointer-events: none;
+  z-index: 3;
+}
+/* .range {
     position: relative;
-    width: 25px; /* Set a specific slider handle width */
-    height: 25px; /* Slider handle height */
-    border-radius: 25px;
-    background: #CBFA01; /* Green background */
-    cursor: pointer; /* Cursor on hover */
-    z-index: 3;
-
-    outline: solid;
-    outline-color: rgba(255, 255, 255, 1);
-    outline-width: 5px;
-    transition: 0.3s;
-  }
+    z-index: 1;
+    opacity: 0;
+} */
+input::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  position: relative;
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  border-radius: 25px;
+  background: #CBFA01; /* Yellow background */
+  opacity: 1;
+  cursor: pointer; /* Cursor on hover */
+  z-index: 100;
+  outline: solid;
+  outline-color: rgba(255, 255, 255, 1);
+  outline-width: 5px;
+  transition: 0.3s;
+}
   
-  .slider::-moz-range-thumb {
-    width: 25px; /* Set a specific slider handle width */
-    height: 25px; /* Slider handle height */
-    position: relative;
-    background: #CBFA01; /* Green background */
-    border-radius: 5px;
-    cursor: pointer; /* Cursor on hover */
-    z-index: 3;
+input::-moz-range-thumb {
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  position: relative;
+  background: #CBFA01; /* Green background */
+  opacity: 1;
+  border-radius: 5px;
+  cursor: pointer; /* Cursor on hover */
+  z-index: 100;
+  outline: solid;
+  outline-color: white;
+  outline-width: 5px;
+  transition : 0.3s;
+}
 
-    outline: solid;
-    outline-color: white;
-    outline-width: 5px;
-  }
-
-  #Character_name{
+#Character_name{
       position: absolute;
       justify-content: center;
       align-items: center;
