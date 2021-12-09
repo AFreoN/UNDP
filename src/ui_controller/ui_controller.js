@@ -1,6 +1,6 @@
 import * as main from '../script'
 import { langId, setLangId, loadQuestion, numberOfQuestions,enableSubmitScene, setPlayerRotationLikert5,
-            setPlayerRotationLikert4, setPlayerRotationLikert7, resetPlayerRotation, updateSubmitModel } from '../questions/questions'
+            setPlayerRotationLikert4, setPlayerRotationLikert7, resetPlayerRotation, updateSubmitModel, spawnCharacters } from '../questions/questions'
 import { doc } from '@firebase/firestore'
 import { LineSegments } from 'three';
 
@@ -595,7 +595,7 @@ agrees4.forEach(buttons => {
         main.saveCurrentAnswer(event.target.value)
         setPlayerRotationLikert4(event.target.value)
         enableConfirmation(event.target.value)
-        //console.log("Agree value = ", event.target.value);
+        spawnCharacters(event.target.value)
     })
 });
 

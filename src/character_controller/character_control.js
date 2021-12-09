@@ -136,19 +136,28 @@ export function setPlayer(playerModel, playerAnims, outline, outlineAnimation){
     ring1.position.set(player.position.x, ringYPos, player.position.z);
 
     playerOutline = outline;
-    playerOutlineAnimation = outlineAnimation;
+    playerOutlineAnimation = playerAnims;
     playerOutlineMixer = new THREE.AnimationMixer(playerOutline);
     playerOutline.position.set(player.position.x, player.position.y, player.position.z);
-    playerOutlineMixer.clipAction(playerOutlineAnimation[0]).stop();
-    playerOutlineMixer.clipAction(playerOutlineAnimation[1]).stop();
-    playerOutlineMixer.clipAction(playerOutlineAnimation[2]).stop();
-    playerOutlineMixer.clipAction(playerOutlineAnimation[3]).stop();
+    // playerOutlineMixer.clipAction(playerOutlineAnimation[0]).stop();
+    // playerOutlineMixer.clipAction(playerOutlineAnimation[1]).stop();
+    // playerOutlineMixer.clipAction(playerOutlineAnimation[2]).stop();
+    // playerOutlineMixer.clipAction(playerOutlineAnimation[3]).stop();
     //joystickScene.add(playerOutline);
 
     initializePlayerAnimationVariables();
 }
 
 const PlayerYPos = -0.6;
+export function disableOtherCharacterMixer(){
+    if(otherMixer){
+        otherMixer.stopAllAction()
+        otherMixer.uncacheRoot(otherMixer.getRoot())
+    }
+    otherMixer = null
+    otherAnimations = null
+    otherCharacter = null
+}
 export function setOtherCharacter(otherModel, _otherAnimation, _otherAnimationIds){
     if(otherModel == null){
         otherCharacter == null;
@@ -164,6 +173,10 @@ export function setOtherCharacter(otherModel, _otherAnimation, _otherAnimationId
 
     otherYPos = otherModel.position.clone().y;
     curOtherPosition.y = otherYPos;
+    if(otherMixer){
+        otherMixer.stopAllAction()
+        otherMixer.uncacheRoot(otherMixer.getRoot())
+    }
     otherCharacter = otherModel;
     //curOtherPosition = otherCharacter.position;
     const idleId = -1, walkId = -1, startId = -1, endId = -1;
@@ -233,7 +246,11 @@ export function getPlayerInitialPosition(){
 
 export function getOtherCharacterInitialPosition(){
     var x = startX - stepValue * 50;
-    var vec = new THREE.Vector3(x, otherCharacter.position.y, 0);
+    var y = 0
+    if(otherCharacter)
+        y = otherCharacter.position.clone().y
+
+    var vec = new THREE.Vector3(x, y, 0);
     return vec;
 }
 
@@ -867,6 +884,10 @@ let jumpStartAction, onJumpAction, jumpStopAction;
 let idleAction,waitAction,walkStartLeft,walkLeft,walkStopLeft,walkStartRight,walkRight,walkStopRight;
 let allAnims;
 
+let OutJumpStartAction, OutonJumpAction, OutjumpStopAction;
+let OutidleAction,OutwaitAction,OutwalkStartLeft,OutwalkLeft,OutwalkStopLeft,OutwalkStartRight,OutwalkRight,OutwalkStopRight;
+let OutAllAnims;
+
 function initializePlayerAnimationVariables(){
     if(playerValueInitialized == false){
         var ids = assetLoader.getAnimationIds('playerCharacter');
@@ -886,9 +907,24 @@ function initializePlayerAnimationVariables(){
         onJumpAction = playerMixer.clipAction(playerAnimations[IDonJump]);
         jumpStopAction = playerMixer.clipAction(playerAnimations[IDjumpStop]);
 
+        OutidleAction = playerMixer.clipAction(playerAnimations[idleId]);
+        OutwaitAction = playerMixer.clipAction(playerAnimations[IDwait]);
+        OutwalkStartLeft = playerMixer.clipAction(playerAnimations[IDwalkStartLeft]);
+        OutwalkLeft = playerMixer.clipAction(playerAnimations[IDwalkLeft]);
+        OutwalkStopLeft = playerMixer.clipAction(playerAnimations[IDwalkStopLeft]);
+        OutwalkStartRight = playerMixer.clipAction(playerAnimations[IDwalkStartRight]);
+        OutwalkRight = playerMixer.clipAction(playerAnimations[IDwalkRight]);
+        OutwalkStopRight = playerMixer.clipAction(playerAnimations[IDwalkStopRight]);
+        OutJumpStartAction = playerMixer.clipAction(playerAnimations[IDjumpStart]);
+        OutonJumpAction = playerMixer.clipAction(playerAnimations[IDonJump]);
+        OutjumpStopAction = playerMixer.clipAction(playerAnimations[IDjumpStop]);
+
         allAnims = [idleAction, walkStartLeft, walkLeft, walkStopLeft,
             walkStartRight, walkRight, walkStopRight, jumpStartAction, onJumpAction, jumpStopAction];
         playerValueInitialized = true;
+
+        OutAllAnims = [OutidleAction, OutwalkStartLeft, OutwalkLeft, OutwalkStopLeft,
+            OutwalkStartRight, OutwalkRight, OutwalkStopRight, OutJumpStartAction, OutonJumpAction, OutjumpStopAction];
     }
 }
 //#endregion

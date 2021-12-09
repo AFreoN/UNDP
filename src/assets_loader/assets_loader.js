@@ -4,7 +4,7 @@ import * as scenes from '../questions/scenes'
 import * as uiControl from '../ui_controller/ui_controller'
 import * as THREE from 'three'
 import { fresnel } from '../shader'
-import { shaderMaterial, shaderUnlit } from '../fresnel'
+import { shaderMaterial, outerCharacterShaders } from '../fresnel'
 import { MathUtils, TextureLoader } from 'three'
 
 let preModelsLoaded = false
@@ -19,7 +19,7 @@ let models = {
     playerOutline:null,
     distantFriend:null,
     mother:null,
-    Father:null,
+    father:null,
     siblings:null,
     friends:null,
     community:null,
@@ -53,7 +53,19 @@ let models = {
     letter:null,
     adventurer:null, // high LOC
     mapMaker:null, // mid LOC
-    changeSeeker:null // low LOC
+    changeSeeker:null, // low LOC
+    //Scene Filling characters
+    friend1:null,
+    friend2:null,
+    friend3:null,
+    friend4:null,
+    friend5:null,
+    friend6:null,
+    friend7:null,
+    friend8:null,
+    house1:null,
+    house2:null,
+    house3:null
 }
 
 const preLoadModels = [
@@ -92,10 +104,17 @@ let animationId = {
         'jumpStop' :5   //4
     },
     playerOutline:{
-        'idle':0,
-        'walk':2,
-        'start':1,
-        'stop':3
+        'idle':1,   //0
+        'wait':2,
+        'startL':6, //5
+        'walkL' :7,  //6
+        'stopL' :8,  //7 
+        'startR':9, //8
+        'walkR' :10,  //9
+        'stopR' :11, //10
+        'jumpStart':3,  //2
+        'onJump'   :4,  //3
+        'jumpStop' :5   //4
     },
     distantFriend:{
         'idle':1
@@ -949,7 +968,6 @@ export function loadPostModels(){
     
             model.traverse((child) => {
                 if (child.isMesh){
-                    let toonMaterial = new THREE.MeshToonMaterial({ color : 0xFFC332, gradientMap : tex});
                     child.material = shaderMaterial;
                     child.castShadow = true;
                 }
@@ -989,18 +1007,18 @@ export function loadPostModels(){
     )
     //Different Language speaker
     gltfloader.load(
-        'Models/dif_language2.gltf',
+        'Models/dif_language3.gltf',
         (gltf) =>
         {
             const key = 'dif_language'
             animations[key] = gltf.animations
             let model = gltf.scene
             model.name = key
-            model.scale.set(.075,.075,.075)
+            model.scale.set(.055,.055,.055)
             model.position.set(0,-.6, 0)
     
             model.traverse((child) => {
-                // console.log("Mesh name = ", child.name, ", id = ", child.id)
+                //console.log("Mesh name = ", child.name, ", id = ", child.id)
                 // if (child.isMesh && (child.id == 795 || child.id == 796 || child.id == 794 || child.id == 800) ){
                     
                 //     let toonMaterial = new THREE.MeshToonMaterial({ color : 0xFFC332, gradientMap : tex});
@@ -1009,7 +1027,7 @@ export function loadPostModels(){
                 // }
 
                 if(child.isMesh){
-                    if(child.name == 'character02' || child.name == 'bubbletext1' || child.name == 'bubbletext2' || child.name == 'bubbletext3'){
+                    if(child.name == 'character02' || child.name == 'bubbletext1' || child.name == 'bubbletext2' || child.name == 'bubbletext3' || child.name =='bubbletext3001'){
                         child.material = shaderMaterial
                     }
                     child.castShadow = true
@@ -1313,6 +1331,278 @@ export function loadPostModels(){
                     child.castShadow = true
                 }
             });
+            if(preLoadModels.includes(key)){
+                loadedPercentage += (1/numberOfAssets)
+                loadingBar.animate(loadedPercentage)
+            }
+        }
+    )
+    loadFillerModels()
+}
+
+function loadFillerModels(){
+    //Mother 2
+    gltfloader.load(
+        'Models/mom.gltf',
+        (gltf) =>
+        {
+            const key = 'mother2'
+            animations[key] = gltf.animations
+            let model = gltf.scene
+            model.name = key
+            model.scale.set(.075,.075,.075)
+            model.position.set(0,-.6, 0)
+
+            model.traverse((child) => {
+                if (child.isMesh){
+                    let toonMaterial = new THREE.MeshToonMaterial({ color : 0xFFC332, gradientMap : tex});
+                    child.material = outerCharacterShaders;
+                    child.castShadow = true;
+                }
+            });
+
+            models[key] = model
+            if(preLoadModels.includes(key)){
+                loadedPercentage += (1/numberOfAssets)
+                loadingBar.animate(loadedPercentage)
+            }
+        }
+    )
+    //Father 2
+    gltfloader.load(
+        'Models/father.gltf',
+        (gltf) =>
+        {
+            const key = 'father2'
+            animations[key] = gltf.animations
+            let model = gltf.scene
+            model.name = key
+            model.scale.set(0.045,0.045,0.045)     //prev (0.04,0.04,0.04) = player size
+            model.position.set(0,-.6, 0)
+
+            //
+            model.traverse((child) => {
+                if (child.isMesh){
+                    if(child.name == 'Father'){
+                        child.material = outerCharacterShaders;
+                        child.castShadow = true;
+                    }
+                    // else if(child.name == 'EyeGlass001'){
+                    //     var glassMat = new THREE.MeshLambertMaterial({color: 0xFFFFFF, transparent : true, opacity : 0.5});
+                    //     child.material = glassMat;
+                    //     child.castShadow = true;
+                    // }
+                    // else if(child.name == 'Moustache'){
+                    //     var moustacheMat = new THREE.MeshToonMaterial({color: 0xafafaf, gradientMap: tex});
+                    //     child.material = moustacheMat;
+                    //     child.castShadow = true;
+                    // }
+                    else{
+                        var transparentMat = new THREE.MeshBasicMaterial({transparent: true, opacity: 0});
+                        child.material = transparentMat;
+                    }
+                }
+            });
+
+            models[key] = model
+            if(preLoadModels.includes(key)){
+                loadedPercentage += (1/numberOfAssets)
+                loadingBar.animate(loadedPercentage)
+            }
+        }
+    )
+    //Siblings 2
+    gltfloader.load(
+        'Models/siblings.gltf',
+        (gltf) =>
+        {
+            const key = 'siblings2'
+            animations[key] = gltf.animations
+            let model = gltf.scene
+            model.name = key
+            model.scale.set(.075,.075,.075)
+            model.position.set(0,-.6, 0)
+    
+            model.traverse((child) => {
+                if (child.isMesh){
+                    let toonMaterial = new THREE.MeshToonMaterial({ color : 0xFFC332, gradientMap : tex});
+                    child.material = outerCharacterShaders;
+                    child.castShadow = true;
+                }
+            });
+    
+            models[key] = model
+            if(preLoadModels.includes(key)){
+                loadedPercentage += (1/numberOfAssets)
+                loadingBar.animate(loadedPercentage)
+            }
+        }
+    )
+    //Friend 1
+    // gltfloader.load(
+    //     'Models/Friends.gltf',
+    //     (gltf) =>
+    //     {
+    //         const key = 'friends1'
+    //         animations[key] = gltf.animations
+    //         let model = gltf.scene
+    //         model.name =  key
+    //         model.scale.set(.075,.075,.075)
+    //         model.position.set(0,-.6, 0)
+    
+    //         model.traverse((child) => {
+    //             if (child.isMesh){
+    //                 child.material = shaderMaterial;
+    //                 child.castShadow = true;
+    //             }
+    //         });
+    
+    //         models[key] = model
+    //         if(preLoadModels.includes(key)){
+    //             loadedPercentage += (1/numberOfAssets)
+    //             loadingBar.animate(loadedPercentage)
+    //         }
+    //     }
+    // )
+
+    LoadAndAssignModel('Models/Friends.gltf', 'friends1', 0.075)
+    LoadAndAssignModel('Models/Friends.gltf', 'friends2', 0.075)
+
+    LoadAndAssignModel('Models/Animation_V09.gltf', 'friend1', 0.3)
+    LoadAndAssignModel('Models/Animation_V09.gltf', 'friend2', 0.3)
+    LoadAndAssignModel('Models/Animation_V09.gltf', 'friend3', 0.3)
+    LoadAndAssignModel('Models/Animation_V09.gltf', 'friend4', 0.3)
+    LoadAndAssignModel('Models/Animation_V09.gltf', 'friend5', 0.25)
+    LoadAndAssignModel('Models/Animation_V09.gltf', 'friend6', 0.25)
+    LoadAndAssignModel('Models/Animation_V09.gltf', 'friend7', 0.25)
+    LoadAndAssignModel('Models/Animation_V09.gltf', 'friend8', 0.25)
+
+    //House 1
+    gltfloader.load(
+        'Models/house.gltf',
+        (gltf) =>
+        {
+            const key = 'house1'
+            animations[key] = gltf.animations
+            let model = gltf.scene
+            model.name =  key
+            model.scale.set(.3,.3,.3)
+            model.position.set(0,-.6, 0)
+    
+            model.traverse((child) => {
+                if (child.isMesh){
+                    //child.material = shaderMaterial;
+                    child.castShadow = true;
+                }
+            });
+    
+            models[key] = model
+            if(preLoadModels.includes(key)){
+                loadedPercentage += (1/numberOfAssets)
+                loadingBar.animate(loadedPercentage)
+            }
+        }
+    )
+    //House 2
+    gltfloader.load(
+        'Models/house.gltf',
+        (gltf) =>
+        {
+            const key = 'house2'
+            animations[key] = gltf.animations
+            let model = gltf.scene
+            model.name =  key
+            model.scale.set(.23,.23,.23)
+            model.position.set(0,-.6, 0)
+    
+            model.traverse((child) => {
+                if (child.isMesh){
+                    //child.material = shaderMaterial;
+                    child.castShadow = true;
+                }
+            });
+    
+            models[key] = model
+            if(preLoadModels.includes(key)){
+                loadedPercentage += (1/numberOfAssets)
+                loadingBar.animate(loadedPercentage)
+            }
+        }
+    )
+    //House 3
+    gltfloader.load(
+        'Models/house.gltf',
+        (gltf) =>
+        {
+            const key = 'house3'
+            animations[key] = gltf.animations
+            let model = gltf.scene
+            model.name =  key
+            model.scale.set(.18,.18,.18)
+            model.position.set(0,-.6, 0)
+    
+            model.traverse((child) => {
+                if (child.isMesh){
+                    //child.material = shaderMaterial;
+                    child.castShadow = true;
+                }
+            });
+    
+            models[key] = model
+            if(preLoadModels.includes(key)){
+                loadedPercentage += (1/numberOfAssets)
+                loadingBar.animate(loadedPercentage)
+            }
+        }
+    )
+    //House 4
+    gltfloader.load(
+        'Models/house.gltf',
+        (gltf) =>
+        {
+            const key = 'house4'
+            animations[key] = gltf.animations
+            let model = gltf.scene
+            model.name =  key
+            model.scale.set(.13,.13,.13)
+            model.position.set(0,-.6, 0)
+    
+            model.traverse((child) => {
+                if (child.isMesh){
+                    //child.material = shaderMaterial;
+                    child.castShadow = true;
+                }
+            });
+    
+            models[key] = model
+            if(preLoadModels.includes(key)){
+                loadedPercentage += (1/numberOfAssets)
+                loadingBar.animate(loadedPercentage)
+            }
+        }
+    )
+}
+
+function LoadAndAssignModel(directory, key, scale){
+    scale = parseFloat(scale)
+    gltfloader.load(
+        directory,
+        (gltf) =>
+        {
+            animations[key] = gltf.animations
+            let model = gltf.scene
+            model.name =  key
+            model.scale.set(scale,scale,scale)
+            model.position.set(0,-.6, 0)
+    
+            model.traverse((child) => {
+                if (child.isMesh){
+                    child.material = outerCharacterShaders;
+                    child.castShadow = true;
+                }
+            });
+    
+            models[key] = model
             if(preLoadModels.includes(key)){
                 loadedPercentage += (1/numberOfAssets)
                 loadingBar.animate(loadedPercentage)

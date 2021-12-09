@@ -150,7 +150,8 @@ document.getElementsByTagName('html')[0].style.height = window.innerHeight + "px
 //      end of Enabling responsiveness for 3D scene
 
 //      Implementing game loop
-//
+var animMixers = []
+
 const clock = new THREE.Clock()
 let previousTime = 0
 const tick = () =>
@@ -188,20 +189,28 @@ const tick = () =>
         animateClouds(deltatime)
     }
 
+    if(animMixers){
+        animMixers.forEach(element => {
+            element.update(deltatime)
+        });
+    }
     //Implement loop here
 
     window.requestAnimationFrame(tick)
-    outliner.renderOutline()
-    // if(currentQuestion){
-    //     const transitionCondition = currentQuestion.type == 'joystick' || currentQuestion.type == 'likert4' || currentQuestion.type == 'likert5' || currentQuestion.type == 'likert7'
-    //     if(currentQuestion && transitionCondition){
-    //         outliner.renderOutline()
-    //     }
-    //     else
-    //         renderer.render(mainScene,mainCamera)
-    // }
+    // if(currentQuestion && currentQuestion.type == 'joystick')
+    //     outliner.renderOutlineJoystickscene()
     // else
-    //     renderer.render(mainScene, mainCamera)
+    //     outliner.renderOutline()
+    if(currentQuestion){
+        const transitionCondition = currentQuestion.type == 'joystick' || currentQuestion.type == 'likert4' || currentQuestion.type == 'likert5' || currentQuestion.type == 'likert7'
+        if(transitionCondition){
+            outliner.renderOutlineJoystickscene()
+        }
+        else
+            outliner.renderOutline()
+    }
+    else
+        renderer.render(mainScene, mainCamera)
 }
 
 tick()
@@ -359,6 +368,11 @@ export function loadQuestion(questionIndex){
                     sceneTransition.fadeOut(prevOtherModel, dir, function(){
                         scenes.resetCurrentSelectionScene();
                         removeModelsFromScene(joystickScene, models);
+                        removeModelsFromScene(stage3Scene, models)
+                        models = scenes.GetModelIds(questionIndex)
+                        if(models != null)
+                            addModelsForThisScene(joystickScene, models)
+
                         updateSceneAndCamera(joystickScene, joystickCamera);
                         if(currentCenterModel)
                             joystickScene.remove(currentCenterModel);
@@ -381,6 +395,11 @@ export function loadQuestion(questionIndex){
                 else{
                     scenes.resetCurrentSelectionScene();
                     removeModelsFromScene(joystickScene, models);
+                    removeModelsFromScene(stage3Scene, models)
+                    models = scenes.GetModelIds(questionIndex)
+                    if(models != null)
+                        addModelsForThisScene(joystickScene, models)
+
                     updateSceneAndCamera(joystickScene, joystickCamera);
                     if(currentCenterModel)
                         joystickScene.remove(currentCenterModel);
@@ -408,6 +427,11 @@ export function loadQuestion(questionIndex){
                     sceneTransition.fadeOut(prevOtherModel, dir, function(){
                         scenes.resetCurrentSelectionScene();
                         removeModelsFromScene(joystickScene, models);
+                        removeModelsFromScene(stage3Scene, models)
+                        models = scenes.GetModelIds(questionIndex)
+                        if(models != null)
+                            addModelsForThisScene(joystickScene, models)
+
                         updateSceneAndCamera(joystickScene, joystickCamera);
                         if(currentCenterModel)
                             joystickScene.remove(currentCenterModel);
@@ -420,6 +444,7 @@ export function loadQuestion(questionIndex){
                         uiControl.updateUI(questionType, questionText, answers);
                         uiControl.setSurveyProgressValue(questionIndex);
                         answerUpdater.updateLikert4(confirmedAnswers[questionIndex])
+                        spawnCharacters(confirmedAnswers[questionIndex])
                         if(currentQuestion.options)
                             uiControl.setLikert4Options(currentQuestion.options);
 
@@ -429,6 +454,11 @@ export function loadQuestion(questionIndex){
                 else{
                     scenes.resetCurrentSelectionScene();
                     removeModelsFromScene(joystickScene, models);
+                    removeModelsFromScene(stage3Scene, models)
+                    models = scenes.GetModelIds(questionIndex)
+                    if(models != null)
+                        addModelsForThisScene(joystickScene, models)
+
                     updateSceneAndCamera(joystickScene, joystickCamera);
                     if(currentCenterModel)
                         joystickScene.remove(currentCenterModel);
@@ -439,6 +469,7 @@ export function loadQuestion(questionIndex){
                     addModelToScene(joystickScene, player);
                     controls.setOtherCharacter(null, null, null);
                     answerUpdater.updateLikert4(confirmedAnswers[questionIndex])
+                    spawnCharacters(confirmedAnswers[questionIndex])
                     if(currentQuestion.options)
                         uiControl.setLikert4Options(currentQuestion.options);
 
@@ -502,6 +533,11 @@ export function loadQuestion(questionIndex){
 
                     scenes.resetCurrentSelectionScene();
                     removeModelsFromScene(joystickScene, models);
+                    removeModelsFromScene(stage3Scene, models)
+                    models = scenes.GetModelIds(questionIndex)
+                    if(models != null)
+                        addModelsForThisScene(stage3Scene, models)
+
                     updateSceneAndCamera(stage3Scene, stage3Camera);
                     if(currentCenterModel)
                         joystickScene.remove(currentCenterModel);
@@ -512,7 +548,7 @@ export function loadQuestion(questionIndex){
                     addModelToScene(stage3Scene, player);
                     
                     const landModel = assetLoader.getModel('landstage3');
-                    if(questionIndex < 36){
+                    if(questionIndex < 35){
                         addModelToScene(stage3Scene, landModel);
                         stage3Scene.getObjectByName('floor').position.set(0,-0.72,0);
                     }
@@ -532,6 +568,11 @@ export function loadQuestion(questionIndex){
 
                         scenes.resetCurrentSelectionScene();
                         removeModelsFromScene(joystickScene, models);
+                        removeModelsFromScene(stage3Scene, models)
+                        models = scenes.GetModelIds(questionIndex)
+                        if(models != null)
+                            addModelsForThisScene(stage3Scene, models)
+
                         updateSceneAndCamera(stage3Scene, stage3Camera);
                         if(currentCenterModel)
                             joystickScene.remove(currentCenterModel);
@@ -542,7 +583,7 @@ export function loadQuestion(questionIndex){
                         addModelToScene(stage3Scene, player);
                         
                         const landModel = assetLoader.getModel('landstage3');
-                        if(questionIndex < 36){
+                        if(questionIndex < 35){
                             addModelToScene(stage3Scene, landModel);
                             stage3Scene.getObjectByName('floor').position.set(0,-0.72,0);
                         }
@@ -659,7 +700,21 @@ function setupJoystickScene(currentQuestion, player, questionIndex){
         addModelToScene(joystickScene, cloud1);
         addModelToScene(joystickScene, cloud2);
         addModelToScene(joystickScene, cloud3);
-
+        /*
+        outliner.addOutlineObject(cloud1)
+        outliner.addOutlineObject(cloud2)
+        outliner.addOutlineObject(cloud3)
+        outliner.addOutlineObject(tree1)
+        outliner.addOutlineObject(tree2)
+        outliner.addOutlineObject(tree3)
+        outliner.addOutlineObject(tree4)
+        outliner.addOutlineObject(tree5)
+        outliner.addOutlineObject(tree6)
+        outliner.addOutlineObject(tree7)
+        outliner.addOutlineObject(tree8)
+        outliner.addOutlineObject(tree9)
+        outliner.addOutlineObject(tree10)
+*/
         // const carp = assetLoader.getModel('carpet');
         // let lamp = assetLoader.getModel('lamp');
         // if(questionIndex == 3 || questionIndex == 4){
@@ -727,15 +782,53 @@ function fadeOutCurrentUI(questionType){
     }
 }
 
+export function spawnCharacters(value){
+    if(qId == 19)   //19 is non number 4 option question
+        return
+
+    removeModelsFromScene(joystickScene, models)
+    models = scenes.GetSpawnModelIds(value)
+    
+    if(models != null)
+        addModelsForThisScene(joystickScene, models)
+}
+
 function addModelsForThisScene(scene, modelsArray){
+    if(modelsArray == null)
+        return
+
+    // if(currentQuestion.type == 'likert4' || currentQuestion.type == 'likert5' || currentQuestion.type == 'likert7')
+    //     controls.disableOtherCharacterMixer()}
+
+    if(animMixers){
+        animMixers.forEach(am => {
+            am.stopAllAction()
+            am.uncacheRoot(am.getRoot())
+        })
+    }
+    animMixers = []
+
     modelsArray.forEach(element => {
         var m = assetLoader.getModel(element.name);
         if(m != null){
+            if(element.anim){
+                var mixer = new THREE.AnimationMixer(m)
+                var animations  = assetLoader.getOtherCharacterAnimations(element.name)
+                animations.forEach(a => {
+                    mixer.clipAction(a).reset()
+                    mixer.clipAction(a).stop()
+                })
+                mixer.clipAction(animations[parseInt(element.anim)]).play()
+                animMixers.push( mixer )
+            }
+
             m.position.set(element.position.x, element.position.y, element.position.z);
             m.rotation.x = MathUtils.degToRad(element.rotation.x);
             m.rotation.y = MathUtils.degToRad(element.rotation.y);
             m.rotation.z = MathUtils.degToRad(element.rotation.z);
-            //outliner.addOutlineObject(m)
+            if(element.scale){
+                m.scale.set(element.scale.x, element.scale.y, element.scale.z)
+            }
             scene.add(m);
         }
         else{

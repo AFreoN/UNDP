@@ -853,6 +853,7 @@ joystickCamera.position.z = 3.5 /  aspect // 4 * aspect      //prev value is 6 /
 //setting rotation of the camera
 joystickCamera.rotation.set(Math.PI * -0.2, 0, 0)
 joystickCamera.lookAt(0, -0.3, 0);
+joystickCamera.layers.enable(1)
 
 joystickScene.add(joystickCamera)
 
@@ -862,7 +863,7 @@ const color = 0xfa76ff;   //prev 0xea7ff9
 const minDis = joystickCamera.position.z;
 const maxDis = 20;
 const density = 0.13;   //prev 0.1
-joystickScene.fog = new THREE.FogExp2(color, density);
+joystickScene.fog = new THREE.FogExp2(color, density);    //this 
 //joystickScene.fog = new THREE.Fog(color, minDis, maxDis);
 
 const mainBG = "linear-gradient(to top , #5f27fc, #e827fc )";
@@ -913,20 +914,20 @@ joystickScene.add(joyDirLight);
 export const pointLight = new THREE.PointLight(0xA7C0FF, 1, 3);      //prev new THREE.PointLight(0xA7C0FF, 1, 3)
 pointLight.position.y = -1;
 pointLight.position.z = 3.5/ aspect;
-//joystickScene.add(pointLight);
+joystickScene.add(pointLight);
 
 const rimLightDistance = 40;
 const bgPointLight = new THREE.PointLight(0xea7ff9, 10, rimLightDistance - 2);
 bgPointLight.castShadow = false;
 bgPointLight.position.y = 5;
 bgPointLight.position.z = -rimLightDistance + 2;
-//joystickScene.add(bgPointLight);
+joystickScene.add(bgPointLight);
 
 const bgPointLight2 = new THREE.PointLight(0xea7ff9, 2, rimLightDistance - 2);
 bgPointLight2.position.y = -1;
 bgPointLight2.position.z = -rimLightDistance + 7;
 bgPointLight2.position.x = (rimLightDistance - 2) * 1.3;
-//joystickScene.add(bgPointLight2);
+joystickScene.add(bgPointLight2);
 // console.log(joystickScene);
 //#endregion
 //#endregion
@@ -1173,6 +1174,61 @@ export function updateRingLocation(currentCenterModel){
     }
 }
 
+export function GetSpawnModelIds(value){
+    value = parseInt(value)
+
+    switch(value){
+        case 2:
+            return [{
+                name : 'friends1',
+                position : new THREE.Vector3(-0.55, -0.6, -0.65),
+                rotation : new THREE.Vector3(0, 50, 0),
+                anim : 1
+            }]
+            break
+        case 3:
+            return [{
+                name : 'friends1',
+                position : new THREE.Vector3(-0.55, -0.6, -0.65),
+                rotation : new THREE.Vector3(0, 50, 0),
+                anim : 1
+            },
+            {
+                name : 'friends2',
+                position : new THREE.Vector3(0.65, -0.6, -0.6),
+                rotation : new THREE.Vector3(0, -40, 0),
+                anim : 1
+            }]
+            break
+        case 4:
+            return [{
+                name : 'friends1',
+                position : new THREE.Vector3(-0.55, -0.6, -0.65),
+                rotation : new THREE.Vector3(0, 50, 0),
+                anim : 1
+            },
+            {
+                name : 'friends2',
+                position : new THREE.Vector3(0.65, -0.6, -0.6),
+                rotation : new THREE.Vector3(0, -40, 0),
+                anim : 1
+            },
+            {
+                name : 'friend1',
+                position : new THREE.Vector3(0.3, -0.6, -0.8),
+                rotation : new THREE.Vector3(0, -15, 0),
+                anim : 1
+            },
+            {
+                name : 'friend5',
+                position : new THREE.Vector3(-0.1, -0.6, -0.85),
+                rotation : new THREE.Vector3(0, 15, 0),
+                anim : 1
+            }]
+            break
+    }
+}
+
 export function GetModelIds(questionIndex){
     switch(questionIndex){
         default:
@@ -1230,7 +1286,261 @@ export function GetModelIds(questionIndex){
                 rotation : new THREE.Vector3(0, 0, 0)
             }]
             break;
-
+        case 13:    //feel close to your friends
+            return[{
+                name : 'friends1',
+                position : new THREE.Vector3(-0.5, -0.6, -1),
+                rotation : new THREE.Vector3(0, 60, 0),
+                anim : 1
+            },
+            {
+                name : 'friend2',
+                position : new THREE.Vector3(0.5, -0.6, -1),
+                rotation : new THREE.Vector3(0, -45, 0),
+                anim : 1
+            },
+            {
+                name : 'friend3',
+                position : new THREE.Vector3(0.65, -0.6, -0.85),
+                rotation : new THREE.Vector3(0, -45, 0),
+                anim : 1
+            }]
+            break;
+        case 15:    //easy to find new friends
+            return[{
+                name : 'friends1',
+                position : new THREE.Vector3(-0.5, -0.6, -1),
+                rotation : new THREE.Vector3(0, 60, 0),
+                anim : 1
+            },
+            {
+                name : 'friend2',
+                position : new THREE.Vector3(0.5, -0.6, -1),
+                rotation : new THREE.Vector3(0, -45, 0),
+                anim : 1
+            },
+            {
+                name : 'friend3',
+                position : new THREE.Vector3(0.65, -0.6, -0.85),
+                rotation : new THREE.Vector3(0, -45, 0),
+                anim : 1
+            }]
+            break;
+        case 16:    //Well Supported by people you know
+            return [{
+                name : 'father2',
+                position : new THREE.Vector3(-0.5, -0.6, -0.9),
+                rotation : new THREE.Vector3(0, 45, 0),
+                anim : 1
+            },
+            {
+                name : 'mother2',
+                position : new THREE.Vector3(-0.65, -0.6, -0.75),   //-0.65 x
+                rotation : new THREE.Vector3(0, 45, 0),
+                anim : 1
+            },
+            {
+                name : 'friends1',
+                position : new THREE.Vector3(0.1, -0.6, -1.2),
+                rotation : new THREE.Vector3(0, -10, 0),
+                anim : 1
+            },
+            {
+                name : 'siblings2',
+                position : new THREE.Vector3(0.55, -0.6, -0.65),
+                rotation : new THREE.Vector3(0, -45, 0),
+                anim : 1
+            }]
+            break;
+        case 18:    //Sense of belonging in your local community
+            return [{
+                name : 'father2',
+                position : new THREE.Vector3(-0.5, -0.6, -0.9),
+                rotation : new THREE.Vector3(0, 45, 0),
+                anim : 1
+            },
+            {
+                name : 'mother2',
+                position : new THREE.Vector3(-0.65, -0.6, -0.75),   //-0.65 x
+                rotation : new THREE.Vector3(0, 45, 0),
+                anim : 1
+            },
+            {
+                name : 'friend2',
+                position : new THREE.Vector3(0.3, -0.6, -0.9),
+                rotation : new THREE.Vector3(0, -10, 0),
+                anim : 1
+            },
+            {
+                name : 'house1',
+                position : new THREE.Vector3(0, -0.6, -3),
+                rotation : new THREE.Vector3(0,0,0)
+            },
+            {
+                name : 'siblings2',
+                position : new THREE.Vector3(0.55, -0.6, -0.65),
+                rotation : new THREE.Vector3(0, -45, 0),
+                anim : 1
+            }]
+            break;
+        case 19:    //Most people can be trusted
+            return [{
+                name : 'father2',
+                position : new THREE.Vector3(0.5, -0.6, -0.6),
+                rotation : new THREE.Vector3(0, -45, 0),
+                anim : 1
+            },
+            {
+                name : 'mother2',
+                position : new THREE.Vector3(0.65, -0.6, -0.45),   //-0.65 x
+                rotation : new THREE.Vector3(0, -45, 0),
+                anim : 1
+            },
+            {
+                name : 'friends1',
+                position : new THREE.Vector3(-0.1, -0.6, -1.2),
+                rotation : new THREE.Vector3(0, -10, 0),
+                anim : 1
+            },
+            {
+                name : 'siblings2',
+                position : new THREE.Vector3(-0.55, -0.6, -0.5),
+                rotation : new THREE.Vector3(0, 45, 0),
+                anim : 1
+            }]
+            break;
+        case 20:    //People have the best intentions
+            return [{
+                name : 'father2',
+                position : new THREE.Vector3(-0.5, -0.6, -0.9),
+                rotation : new THREE.Vector3(0, 45, 0),
+                anim : 1
+            },
+            {
+                name : 'mother2',
+                position : new THREE.Vector3(-0.65, -0.6, -0.75),   //-0.65 x
+                rotation : new THREE.Vector3(0, 45, 0),
+                anim : 1
+            },
+            {
+                name : 'friends1',
+                position : new THREE.Vector3(0.1, -0.6, -1.2),
+                rotation : new THREE.Vector3(0, -10, 0),
+                anim : 1
+            },
+            {
+                name : 'siblings2',
+                position : new THREE.Vector3(0.55, -0.6, -0.65),
+                rotation : new THREE.Vector3(0, -45, 0),
+                anim : 1
+            }]
+            break;
+        case 21:    //Neighbourhood can be trusted (walking distance)
+            return [{
+                name : 'siblings2',
+                position : new THREE.Vector3(-0.55, -0.6, -0.55),
+                rotation : new THREE.Vector3(0, 45, 0),
+                anim : 1
+            },
+            {
+                name : 'friend5',
+                position : new THREE.Vector3(0.5, -0.6, -0.5),
+                rotation : new THREE.Vector3(0, -40, 0),
+                anim : 1
+            },
+            {
+                name : 'friend3',
+                position : new THREE.Vector3(0.3, -0.6, -0.7),
+                rotation : new THREE.Vector3(0, -10, 0),
+                anim : 1
+            },
+            {
+                name : 'friend4',
+                position : new THREE.Vector3(0.65, -0.6, -0.35),
+                rotation : new THREE.Vector3(0, -50, 0),
+                anim : 1
+            },
+            {
+                name : 'house3',
+                position : new THREE.Vector3(-0.4, -0.6, -1.7),
+                rotation : new THREE.Vector3(0, 190, 0)
+            },
+            {
+                name : 'house2',
+                position : new THREE.Vector3(0.7, -0.6, -1.5),
+                rotation : new THREE.Vector3(0, 90, 0)
+            }]
+            break;
+        case 22:    //Genrally neighbourhood can be trusted
+            return [{
+                name : 'friend5',
+                position : new THREE.Vector3(-0.55, -0.6, -0.55),
+                rotation : new THREE.Vector3(0, 55, 0),
+                anim : 1
+            },
+            {
+                name : 'friend2',
+                position : new THREE.Vector3(0.5, -0.6, -0.5),
+                rotation : new THREE.Vector3(0, -40, 0),
+                anim : 1
+            },
+            {
+                name : 'friend6',
+                position : new THREE.Vector3(0.65, -0.6, -0.35),
+                rotation : new THREE.Vector3(0, -50, 0),
+                anim : 1
+            },
+            {
+                name : 'house3',
+                position : new THREE.Vector3(-0.7, -0.6, -1.7),
+                rotation : new THREE.Vector3(0, 80, 0)
+            },
+            {
+                name : 'house2',
+                position : new THREE.Vector3(0.7, -0.6, -1.5),
+                rotation : new THREE.Vector3(0, 160, 0)
+            },
+            {
+                name : 'house4',
+                position : new THREE.Vector3(0, -0.6, -2),
+                rotation : new THREE.Vector3(0,0,0)
+            }]
+            break;
+        case 23:    //Feeling safe where you currently live
+            return [{
+                name : 'friend5',
+                position : new THREE.Vector3(0.55, -0.6, -0.55),
+                rotation : new THREE.Vector3(0, -55, 0),
+                anim : 1
+            },
+            {
+                name : 'friend2',
+                position : new THREE.Vector3(-0.5, -0.6, -0.5),
+                rotation : new THREE.Vector3(0, 40, 0),
+                anim : 1
+            },
+            {
+                name : 'friend6',
+                position : new THREE.Vector3(-0.65, -0.6, -0.35),
+                rotation : new THREE.Vector3(0, 50, 0),
+                anim : 1
+            },
+            {
+                name : 'house3',
+                position : new THREE.Vector3(-0.1, -0.6, -2),
+                rotation : new THREE.Vector3(0, 10, 0)
+            },
+            {
+                name : 'house2',
+                position : new THREE.Vector3(0.7, -0.6, -1.5),
+                rotation : new THREE.Vector3(0, 210, 0)
+            },
+            {
+                name : 'house4',
+                position : new THREE.Vector3(-0.6, -0.6, -1.8),
+                rotation : new THREE.Vector3(0,110,0)
+            }]
+            break;
     }
 }
 
