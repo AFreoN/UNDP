@@ -113,7 +113,7 @@ export function setOutlineObject(_cam, _scene, _render){
 
 var cloned 
 export function addOutlineObject( object ) {
-    if(selectedObjects.includes(object))
+    if(selectedObjects.includes(object) || true)
         return;
     
     //console.log("Added object = ", object.name)

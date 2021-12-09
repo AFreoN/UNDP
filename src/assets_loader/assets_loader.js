@@ -4,7 +4,7 @@ import * as scenes from '../questions/scenes'
 import * as uiControl from '../ui_controller/ui_controller'
 import * as THREE from 'three'
 import { fresnel } from '../shader'
-import { shaderMaterial, outerCharacterShaders } from '../fresnel'
+import { shaderMaterial, outerCharacterShaders, lowFresnelMaterial } from '../fresnel'
 import { MathUtils, TextureLoader } from 'three'
 
 let preModelsLoaded = false
@@ -1081,11 +1081,16 @@ export function loadPostModels(){
             //animations[key] = gltf.animations
             let model = gltf.scene
             model.name = key
-            model.scale.set(.065,.065,.065)     //prev (.075,.075,.075)
+            const scale = 0.055
+            model.scale.set(scale,scale,scale)     //prev (.065,.065,.065)
             model.position.set(0,-.6, 0)
+            model.rotation.set(0, MathUtils.degToRad(-25),0)  //-75 for old model
     
             model.traverse((child) => {
                 if (child.isMesh){
+                    if(child.name == 'Temple_Base'){
+                        child.material = lowFresnelMaterial
+                    }
                     child.castShadow = true
                 }
             });
@@ -1215,6 +1220,18 @@ export function loadPostModels(){
             model.position.set(0,-0.6, 0)
             models[key] = model
 
+            model.traverse((child) => {
+                if (child.isMesh){
+                    if(child.name == 'shine'){
+                        var alpha = new THREE.TextureLoader().load('Textures/letter_shine_alpha.png')
+                        alpha.flipY = false
+                        alpha.needsUpdate = true
+                        var mat = new THREE.MeshToonMaterial({alphaMap : alpha,opacity : 0.95, transparent : true, gradientMap : tex})
+                        child.material = mat
+                    }
+                }
+            });
+
             if(preLoadModels.includes(key)){
                 loadedPercentage += (1/numberOfAssets)
                 loadingBar.animate(loadedPercentage)
@@ -1259,6 +1276,11 @@ export function loadPostModels(){
             model.traverse((child) => {
                 if (child.isMesh){
                     child.castShadow = true
+                    
+
+                    if(child.name == "SimpleCharacter" ){
+                        child.material = shaderMaterial
+                    }
                 }
             });
             if(preLoadModels.includes(key)){
@@ -1282,6 +1304,11 @@ export function loadPostModels(){
             model.traverse((child) => {
                 if (child.isMesh){
                     child.castShadow = true
+                    
+
+                    if(child.name == "SimpleCharacter" ){
+                        child.material = shaderMaterial
+                    }
                 }
             });
             if(preLoadModels.includes(key)){
@@ -1293,7 +1320,7 @@ export function loadPostModels(){
 
     //Change seeker - Low LOC
     gltfloader.load(
-        'change_seeker.gltf',
+        'change_seeker2.gltf',
         (gltf) =>
         {
             const key = 'changeSeeker'
@@ -1306,6 +1333,11 @@ export function loadPostModels(){
             model.traverse((child) => {
                 if (child.isMesh){
                     child.castShadow = true
+
+                    
+                    if(child.name == "SimpleCharacter" ){
+                        child.material = shaderMaterial
+                    }
                 }
             });
             if(preLoadModels.includes(key)){

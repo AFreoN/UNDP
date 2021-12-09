@@ -183,10 +183,10 @@ const tick = () =>
             }
         }
     }
-
-    if(currentQuestion && currentQuestion.type === 'joystick'){
-        // console.log(mainCamera.position)
-        animateClouds(deltatime)
+    if(currentQuestion){
+        var cloudMoveCondition = currentQuestion.type == 'joystick' || currentQuestion.type == 'likert5' || currentQuestion.type == 'likert4' || currentQuestion.type == 'likert7'
+        if(cloudMoveCondition)
+            animateClouds(deltatime)
     }
 
     if(animMixers){
@@ -249,7 +249,7 @@ export function loadQuestion(questionIndex){
     playerName.hidden = true
 
     var UIUpdateNeeded = true
-    const transitionCondition = prevQues == 'joystick' || prevQues == 'likert5' || prevQues == 'likert4'// || prevQues == 'likert7'
+    const transitionCondition = prevQues == 'joystick' || prevQues == 'likert5' || prevQues == 'likert4' || prevQues == 'likert7'
     currentQuestion = qArray[questionIndex]
 
     if(currentQuestion){
@@ -329,16 +329,16 @@ export function loadQuestion(questionIndex){
                 }
                 break;
             case 'joystick':
-                scenes.resetCurrentSelectionScene();
                 uiControl.sliderHolder.hidden = true;
-
+                
                 var slideDirection = questionIndex - qId;
                 var dir = slideDirection > 0 ? 'right' : 'left';
+                fadeOutCurrentUI(prevQues);
                 if(transitionCondition){     //If previos scene is joystick scene, then scene has to fadeout first then fadein to other scene
                     UIUpdateNeeded = false;
-                    fadeOutCurrentUI(prevQues);
-
+                    
                     sceneTransition.fadeOut(prevOtherModel, dir, function(){
+                        scenes.resetCurrentSelectionScene();
                         setupJoystickScene(currentQuestion, player, questionIndex);
                         setPlayerRotationLikert5(3);
                         //updateSceneAndCamera(joystickScene, joystickCamera, true);
@@ -346,6 +346,7 @@ export function loadQuestion(questionIndex){
                     });
                 }
                 else{
+                    scenes.resetCurrentSelectionScene();
                     if(questionIndex != 3){     //questionIndex 3 is mother scene
                         setupJoystickScene(currentQuestion, player, questionIndex);
                         updateSceneAndCamera(joystickScene, joystickCamera);
@@ -367,6 +368,10 @@ export function loadQuestion(questionIndex){
 
                     sceneTransition.fadeOut(prevOtherModel, dir, function(){
                         scenes.resetCurrentSelectionScene();
+
+                        addModelToScene(joystickScene, clouds.low)
+                        addModelToScene(joystickScene, clouds.mid)
+                        addModelToScene(joystickScene, clouds.high)
                         removeModelsFromScene(joystickScene, models);
                         removeModelsFromScene(stage3Scene, models)
                         models = scenes.GetModelIds(questionIndex)
@@ -394,6 +399,10 @@ export function loadQuestion(questionIndex){
                 }
                 else{
                     scenes.resetCurrentSelectionScene();
+
+                    addModelToScene(joystickScene, clouds.low)
+                    addModelToScene(joystickScene, clouds.mid)
+                    addModelToScene(joystickScene, clouds.high)
                     removeModelsFromScene(joystickScene, models);
                     removeModelsFromScene(stage3Scene, models)
                     models = scenes.GetModelIds(questionIndex)
@@ -426,6 +435,10 @@ export function loadQuestion(questionIndex){
 
                     sceneTransition.fadeOut(prevOtherModel, dir, function(){
                         scenes.resetCurrentSelectionScene();
+
+                        addModelToScene(joystickScene, clouds.low)
+                        addModelToScene(joystickScene, clouds.mid)
+                        addModelToScene(joystickScene, clouds.high)
                         removeModelsFromScene(joystickScene, models);
                         removeModelsFromScene(stage3Scene, models)
                         models = scenes.GetModelIds(questionIndex)
@@ -453,6 +466,10 @@ export function loadQuestion(questionIndex){
                 }
                 else{
                     scenes.resetCurrentSelectionScene();
+
+                    addModelToScene(joystickScene, clouds.low)
+                    addModelToScene(joystickScene, clouds.mid)
+                    addModelToScene(joystickScene, clouds.high)
                     removeModelsFromScene(joystickScene, models);
                     removeModelsFromScene(stage3Scene, models)
                     models = scenes.GetModelIds(questionIndex)
@@ -477,96 +494,96 @@ export function loadQuestion(questionIndex){
                 }
                 break;
             case 'likert7':
-                //#region Old Code with scene transition
-                // var slideDirection = questionIndex - qId;
-                // var dir = slideDirection > 0 ? 'right' : 'left';
-                // if(transitionCondition){
-                //     UIUpdateNeeded = false;
-                //     fadeOutCurrentUI(prevQues);
+                var slideDirection = questionIndex - qId;
+                var dir = slideDirection > 0 ? 'right' : 'left';
+                fadeOutCurrentUI(prevQues)
 
-                //     sceneTransition.fadeOut(prevOtherModel, dir, function(){ 
-                //         scenes.resetCurrentSelectionScene();
-                //         removeModelsFromScene(joystickScene, models);
-                //         updateSceneAndCamera(stage3Scene, stage3Camera);
-                //         if(currentCenterModel)
-                //         joystickScene.remove(currentCenterModel);
-                //         currentCenterModel = null;
-                //         player.position.set(0,-.6, 0);
-                //         player.rotation.set(0,0,0);
-                //         controls.disablePlayerControl();
-                //         addModelToScene(stage3Scene, player);
-                        
-                //         const landModel = assetLoader.getModel('landstage3');
-                //         addModelToScene(stage3Scene, landModel);
-                //         controls.setOtherCharacter(null, null, null);
-                //         uiControl.updateUI(questionType, questionText, answers);
-                //         uiControl.setSurveyProgressValue(questionIndex);
-                //         answerUpdater.updateLikert7(confirmedAnswers[questionIndex])
-                //         sceneTransition.fadeIn(prevOtherModel, dir,false, null, 0,stage3Camera);
-                //     })
-                // }
-                // else{
+                //#region old code
+                // if(prevQues != 'likert7'){
+                //     UIUpdateNeeded = true;
+
                 //     scenes.resetCurrentSelectionScene();
                 //     removeModelsFromScene(joystickScene, models);
+                //     removeModelsFromScene(stage3Scene, models)
+                //     models = scenes.GetModelIds(questionIndex)
+                //     if(models != null)
+                //         addModelsForThisScene(stage3Scene, models)
+
                 //     updateSceneAndCamera(stage3Scene, stage3Camera);
                 //     if(currentCenterModel)
                 //         joystickScene.remove(currentCenterModel);
                 //     currentCenterModel = null;
                 //     player.position.set(0,-.6, 0);
-                //     player.rotation.set(0,0,0);
+                //     //player.rotation.set(0,0,0);
                 //     controls.disablePlayerControl();
                 //     addModelToScene(stage3Scene, player);
-
+                    
                 //     const landModel = assetLoader.getModel('landstage3');
-                //     addModelToScene(stage3Scene, landModel);
+                //     if(questionIndex < 35){
+                //         addModelToScene(stage3Scene, landModel);
+                //         stage3Scene.getObjectByName('floor').position.set(0,-0.72,0);
+                //     }
+                //     else{
+                //         stage3Scene.remove(landModel);
+                //         stage3Scene.getObjectByName('floor').position.set(0,-0.6,0);
+                //     }
                 //     controls.setOtherCharacter(null, null, null);
+                //     //uiControl.updateUI(questionType, questionText, answers);
+                //     //uiControl.setSurveyProgressValue(questionIndex);
                 //     answerUpdater.updateLikert7(confirmedAnswers[questionIndex])
-                //     sceneTransition.fadeIn(prevOtherModel, dir,false, null, 0, stage3Camera);
+                //     stage3Transition.startFadeIn()
                 // }
                 //#endregion
-                var slideDirection = questionIndex - qId;
-                var dir = slideDirection > 0 ? 'right' : 'left';
-                fadeOutCurrentUI(prevQues);
                 if(prevQues != 'likert7'){
-                    UIUpdateNeeded = true;
-                    console.log("Likert 7")
+                    UIUpdateNeeded = false;
+                    fadeOutCurrentUI(prevQues)
 
-                    scenes.resetCurrentSelectionScene();
-                    removeModelsFromScene(joystickScene, models);
-                    removeModelsFromScene(stage3Scene, models)
-                    models = scenes.GetModelIds(questionIndex)
-                    if(models != null)
-                        addModelsForThisScene(stage3Scene, models)
+                    sceneTransition.fadeOut(prevOtherModel, dir, function(){
+                        scenes.resetCurrentSelectionScene();
 
-                    updateSceneAndCamera(stage3Scene, stage3Camera);
-                    if(currentCenterModel)
-                        joystickScene.remove(currentCenterModel);
-                    currentCenterModel = null;
-                    player.position.set(0,-.6, 0);
-                    //player.rotation.set(0,0,0);
-                    controls.disablePlayerControl();
-                    addModelToScene(stage3Scene, player);
-                    
-                    const landModel = assetLoader.getModel('landstage3');
-                    if(questionIndex < 35){
-                        addModelToScene(stage3Scene, landModel);
-                        stage3Scene.getObjectByName('floor').position.set(0,-0.72,0);
-                    }
-                    else{
-                        stage3Scene.remove(landModel);
-                        stage3Scene.getObjectByName('floor').position.set(0,-0.6,0);
-                    }
-                    controls.setOtherCharacter(null, null, null);
-                    //uiControl.updateUI(questionType, questionText, answers);
-                    //uiControl.setSurveyProgressValue(questionIndex);
-                    answerUpdater.updateLikert7(confirmedAnswers[questionIndex])
-                    stage3Transition.startFadeIn()
+                        addModelToScene(stage3Scene, clouds.low)
+                        addModelToScene(stage3Scene, clouds.mid)
+                        addModelToScene(stage3Scene, clouds.high)
+                        removeModelsFromScene(joystickScene, models);
+                        removeModelsFromScene(stage3Scene, models)
+                        models = scenes.GetModelIds(questionIndex)
+                        if(models != null)
+                            addModelsForThisScene(stage3Scene, models)
+    
+                        updateSceneAndCamera(stage3Scene, stage3Camera);
+                        if(currentCenterModel)
+                            joystickScene.remove(currentCenterModel);
+                        currentCenterModel = null;
+                        player.position.set(0,-.6, 0);
+                        //player.rotation.set(0,0,0);
+                        controls.disablePlayerControl();
+                        addModelToScene(stage3Scene, player);
+                        
+                        const landModel = assetLoader.getModel('landstage3');
+                        if(questionIndex < 35){
+                            addModelToScene(stage3Scene, landModel);
+                            stage3Scene.getObjectByName('floor').position.set(0,-0.72,0);
+                        }
+                        else{
+                            stage3Scene.remove(landModel);
+                            stage3Scene.getObjectByName('floor').position.set(0,-0.6,0);
+                        }
+                        controls.setOtherCharacter(null, null, null);
+                        uiControl.updateUI(questionType, questionText, answers);
+                        uiControl.setSurveyProgressValue(questionIndex);
+                        answerUpdater.updateLikert7(confirmedAnswers[questionIndex])
+                        sceneTransition.fadeIn(prevOtherModel, dir, false, null, 0, stage3Camera)
+                        //stage3Transition.startFadeIn()
+                    })
                 }
                 else{
                     UIUpdateNeeded = false;
                     stage3Transition.startFadeOut(function(){
-
                         scenes.resetCurrentSelectionScene();
+
+                        addModelToScene(stage3Scene, clouds.low)
+                        addModelToScene(stage3Scene, clouds.mid)
+                        addModelToScene(stage3Scene, clouds.high)
                         removeModelsFromScene(joystickScene, models);
                         removeModelsFromScene(stage3Scene, models)
                         models = scenes.GetModelIds(questionIndex)
@@ -674,17 +691,23 @@ function setupJoystickScene(currentQuestion, player, questionIndex){
         tree10.position.set(1.1 + MathUtils.randFloat(-r,r), treeYPos, -5 + MathUtils.randFloat(-r,r))
         tree10.rotation.y = MathUtils.randFloat(0.1, 359)
 
-        let cloud1 = assetLoader.getModel('cloud1')
-        cloud1.position.set(2, 1.8,-12)
-        clouds.low = cloud1 
+        if(clouds.low == null){
+            let cloud1 = assetLoader.getModel('cloud1')
+            cloud1.position.set(2, 2.8,-12)     //prev (2, 1.8,-12)
+            clouds.low = cloud1 
+        }
 
-        let cloud2 = assetLoader.getModel('cloud2')
-        cloud2.position.set(0.5, 2.2,-12)
-        clouds.high = cloud2
+        if(clouds.mid == null){
+            let cloud2 = assetLoader.getModel('cloud2')
+            cloud2.position.set(0.5, 2.2,-12)
+            clouds.mid = cloud2
+        }
 
-        let cloud3 = assetLoader.getModel('cloud3')
-        cloud3.position.set(-1.5, 1.8,-10)
-        clouds.mid = cloud3
+        if(clouds.high == null){
+            let cloud3 = assetLoader.getModel('cloud3')
+            cloud3.position.set(-1.5, 1.6,-10)
+            clouds.high = cloud3
+        }
     
         addModelToScene(joystickScene, tree1);
         addModelToScene(joystickScene, tree2);
@@ -697,9 +720,9 @@ function setupJoystickScene(currentQuestion, player, questionIndex){
         addModelToScene(joystickScene, tree9);
         addModelToScene(joystickScene, tree10);
 
-        addModelToScene(joystickScene, cloud1);
-        addModelToScene(joystickScene, cloud2);
-        addModelToScene(joystickScene, cloud3);
+        addModelToScene(joystickScene, clouds.low);
+        addModelToScene(joystickScene, clouds.mid);
+        addModelToScene(joystickScene, clouds.high);
         /*
         outliner.addOutlineObject(cloud1)
         outliner.addOutlineObject(cloud2)
@@ -930,6 +953,7 @@ const addModelToScene = function(_scene, _model){
     }
 }
 
+
 //Used to change the scene and camera
 function updateSceneAndCamera(sceneObject, cameraObject, dontUpdate){
     if(dontUpdate) return;
@@ -945,9 +969,9 @@ function updateSceneAndCamera(sceneObject, cameraObject, dontUpdate){
 function animateClouds(deltaTime){
     const baseSpeed = -0.1
     const speedMultiplier = {
-        high: 1,
-        mid: 2,
-        low: 4
+        high: 0.6,
+        mid: 1.7,
+        low: 1.1
     }
     const vanishingXcoordinate = 3
     clouds.low.position.x += baseSpeed * speedMultiplier.low * deltaTime

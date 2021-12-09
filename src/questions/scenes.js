@@ -845,7 +845,7 @@ let aspect = window.innerWidth / window.innerHeight;
 aspect = clamp(aspect, 1, 2);
 let fov = 35 + 8 * aspect;  // prev 35
 
-export const joystickCamera = new THREE.PerspectiveCamera(fov, window.innerWidth / window.innerHeight, 0.1, 50)
+export const joystickCamera = new THREE.PerspectiveCamera(fov, window.innerWidth / window.innerHeight, 0.1, 100)
 joystickCamera.position.x = 0
 joystickCamera.position.y = 0 / aspect      //prev value is 4
 joystickCamera.position.z = 3.5 /  aspect // 4 * aspect      //prev value is 6 / aspect
@@ -853,28 +853,27 @@ joystickCamera.position.z = 3.5 /  aspect // 4 * aspect      //prev value is 6 /
 //setting rotation of the camera
 joystickCamera.rotation.set(Math.PI * -0.2, 0, 0)
 joystickCamera.lookAt(0, -0.3, 0);
-joystickCamera.layers.enable(1)
 
 joystickScene.add(joystickCamera)
 
-const color = 0xfa76ff;   //prev 0xea7ff9
+const color = 0xfa76ff;   //prev 0xfa76ff      0xf571ff
 //joystickScene.background = new THREE.Color(color);
 
 const minDis = joystickCamera.position.z;
 const maxDis = 20;
-const density = 0.13;   //prev 0.1
+const density = 0.15;   //prev 0.1
 joystickScene.fog = new THREE.FogExp2(color, density);    //this 
 //joystickScene.fog = new THREE.Fog(color, minDis, maxDis);
 
 const mainBG = "linear-gradient(to top , #5f27fc, #e827fc )";
-const sliderBG = "linear-gradient(to bottom, #bb56ff 0%,#ed81f9 35%)";
+const sliderBG = "linear-gradient(to bottom, #bb56ff 0%,#ed81f9 30%)";
 //document.body.style.background = sliderBG;
 
 //Setting up level
 
 //add floor
-const floorSize = 100
-var floorgeo = new THREE.PlaneGeometry(floorSize,floorSize)
+const floorSize = 30
+var floorgeo = new THREE.PlaneGeometry(floorSize* 10,floorSize)
 floorgeo.computeBoundingBox()
 //const floorgeo = new THREE.CylinderGeometry(1000,1000,0.05, 256);
 const floorMaterial = new THREE.MeshToonMaterial( {color: 0x5331FF})   //dark pink 801FCF    //prev new THREE.MeshToonMaterial( {color: 0x725FB3})
@@ -921,13 +920,13 @@ const bgPointLight = new THREE.PointLight(0xea7ff9, 10, rimLightDistance - 2);
 bgPointLight.castShadow = false;
 bgPointLight.position.y = 5;
 bgPointLight.position.z = -rimLightDistance + 2;
-joystickScene.add(bgPointLight);
+//joystickScene.add(bgPointLight);
 
 const bgPointLight2 = new THREE.PointLight(0xea7ff9, 2, rimLightDistance - 2);
 bgPointLight2.position.y = -1;
 bgPointLight2.position.z = -rimLightDistance + 7;
 bgPointLight2.position.x = (rimLightDistance - 2) * 1.3;
-joystickScene.add(bgPointLight2);
+//joystickScene.add(bgPointLight2);
 // console.log(joystickScene);
 //#endregion
 //#endregion
