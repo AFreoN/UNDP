@@ -748,7 +748,7 @@ function loadInitialModels(){
             // scenes.maldivesCube.regionMaterial = countrySelectionModel.children[0].material//Material for all regions
         
             scenes.maldivesCube.standardColor = countrySelectionModel.children[0].material.color.clone()//standard color
-            scenes.maldivesCube.hoveringColor = new THREE.Color( 0x7bbbf7 )//hovering color
+            scenes.maldivesCube.hoveringColor = new THREE.Color( 0xffffff )//hovering color
             scenes.maldivesCube.selectedColor = new THREE.Color( 0x3c5fff )//selected color
         
             // scenes.maldivesCube.standardMap = new THREE.TextureLoader().load('maldives_standard.png')
