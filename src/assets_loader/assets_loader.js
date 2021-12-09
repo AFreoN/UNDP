@@ -649,7 +649,7 @@ function loadInitialModels(){
                 region.children[0].material = scenes.maldivesRegionBoxes[i].regionMaterial
             
                 scenes.maldivesRegionBoxes[i].standardColor = scenes.maldivesRegionBoxes[i].regionMaterial.color
-                scenes.maldivesRegionBoxes[i].hoveringColor = new THREE.Color( 0x7bbbf7 )
+                scenes.maldivesRegionBoxes[i].hoveringColor = new THREE.Color( 0xffffff )
                 scenes.maldivesRegionBoxes[i].selectedColor = new THREE.Color( 0x3c5fff )
                 
             }
