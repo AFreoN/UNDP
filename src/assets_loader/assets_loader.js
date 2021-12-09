@@ -1320,7 +1320,7 @@ export function loadPostModels(){
 
     //Change seeker - Low LOC
     gltfloader.load(
-        'change_seeker.gltf',
+        'change_seeker2.gltf',
         (gltf) =>
         {
             const key = 'changeSeeker'
