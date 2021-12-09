@@ -7,7 +7,7 @@ import { enableBackButton, enableConfirmation, enableNextButton } from './ui_con
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
-import { collection, addDoc } from "firebase/firestore"; 
+import { collection, addDoc, doc, updateDoc } from "firebase/firestore"; 
 
 import backButtonImg from '../static/arrow_back.png'
 
@@ -31,7 +31,7 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const db = getFirestore();
 
-
+let docId = ''
 //      Initializing application properties
 //
 
@@ -188,6 +188,7 @@ async function submitAnswers(){
             answers: modifiedConfirmedAnswers
         });
         console.log("Document written with ID: ", docRef.id);
+        docId = docRef.id
       } catch (e) {
         console.error("Error adding document: ", e);
       }
@@ -243,10 +244,30 @@ export function validateAnswers(){
     uiControl.enableResultsLoadingContainer()
 }
 
+
+
+export async function submitEmail(email){
+
+    const docRef = doc(db,"answers",docId)
+
+    try {
+        await updateDoc(docRef,{
+            email:email
+        })        
+        console.log("updated document");
+    } catch (e) {
+        console.log("error updating document", e);
+    }
+
+
+    
+
+}
+
 function getCurrentTimeFormatted(){
     const currentTime = new Date()
     const date = addZeroToSingleDigitNumber(currentTime.getDate())
-    const month = addZeroToSingleDigitNumber(currentTime.getMonth())
+    const month = addZeroToSingleDigitNumber(currentTime.getMonth() + 1)
     const year = currentTime.getFullYear()
     const hours = addZeroToSingleDigitNumber(currentTime.getHours())
     const minutes = addZeroToSingleDigitNumber(currentTime.getMinutes())
@@ -259,6 +280,8 @@ function getCurrentTimeFormatted(){
 function addZeroToSingleDigitNumber(number){
     return ('0'+number).slice(-2);
 }
+
+
 
 //      Main JS Notes
 //-Controls question index

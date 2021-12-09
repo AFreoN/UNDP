@@ -329,7 +329,7 @@ const maldivesRegionBboxGroup = new THREE.Group()
 maldivesRegionBboxGroup.scale.set(0.375,0.375,0.375)
 maldivesScene.add(maldivesRegionBboxGroup)
 
-const bboxMat = new THREE.MeshLambertMaterial({color: 0x03d7fc, wireframe: true, visible: true})
+const bboxMat = new THREE.MeshLambertMaterial({color: 0x03d7fc, wireframe: true, visible: false})
 
 const upperNorthCube = new THREE.Mesh(new THREE.BoxGeometry(3.5,0.5,2.5),bboxMat )
 maldivesRegionBboxGroup.add(upperNorthCube)

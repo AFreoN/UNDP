@@ -1004,18 +1004,18 @@ export function loadPostModels(){
     )
     //Different Language speaker
     gltfloader.load(
-        'Models/dif_language2.gltf',
+        'Models/dif_language3.gltf',
         (gltf) =>
         {
             const key = 'dif_language'
             animations[key] = gltf.animations
             let model = gltf.scene
             model.name = key
-            model.scale.set(.075,.075,.075)
+            model.scale.set(.055,.055,.055)
             model.position.set(0,-.6, 0)
     
             model.traverse((child) => {
-                // console.log("Mesh name = ", child.name, ", id = ", child.id)
+                //console.log("Mesh name = ", child.name, ", id = ", child.id)
                 // if (child.isMesh && (child.id == 795 || child.id == 796 || child.id == 794 || child.id == 800) ){
                     
                 //     let toonMaterial = new THREE.MeshToonMaterial({ color : 0xFFC332, gradientMap : tex});
@@ -1024,7 +1024,7 @@ export function loadPostModels(){
                 // }
 
                 if(child.isMesh){
-                    if(child.name == 'character02' || child.name == 'bubbletext1' || child.name == 'bubbletext2' || child.name == 'bubbletext3'){
+                    if(child.name == 'character02' || child.name == 'bubbletext1' || child.name == 'bubbletext2' || child.name == 'bubbletext3' || child.name =='bubbletext3001'){
                         child.material = shaderMaterial
                     }
                     child.castShadow = true

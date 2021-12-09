@@ -513,6 +513,23 @@ function setLinksPageLang(){
 
 //UI elements
 
+document.getElementById('links-email-submit-button').addEventListener('click',function(){
+    const email = document.getElementById('links-email-input').value.toLowerCase().trim()
+
+    if(email === ''){
+        alert("Email field is empty!")
+        return
+    }
+
+    const re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    //validate email
+    if (re.test(email)){
+        main.submitEmail(email)
+    }
+    else{
+        alert("You have entered an invalid email address!")
+    }
+})
 
 //question answer containers
 let questionContainer = document.getElementById('question-container')
@@ -860,32 +877,32 @@ function setUiTextSize(){
 }
 
 //Test code - Remove when pushing
-document.addEventListener('keydown',function(e){
-    switch(e.key.toLowerCase()){
-        case '1':
-            updateResultTitle('0')
-            break;
-        case '2':
-            updateResultTitle('1')
-            break;
-        case '3':
-            updateResultTitle('2')
-            break;
-        case 'e':
-            languageSelected('en')
-            break;
-        case 's':
-            languageSelected('si')
-            break;
-        case 't':
-            languageSelected('ta')
-            break;
-        case 'd':
-            languageSelected('dv')
-            break;
+// document.addEventListener('keydown',function(e){
+//     switch(e.key.toLowerCase()){
+//         case '1':
+//             updateResultTitle('0')
+//             break;
+//         case '2':
+//             updateResultTitle('1')
+//             break;
+//         case '3':
+//             updateResultTitle('2')
+//             break;
+//         case 'e':
+//             languageSelected('en')
+//             break;
+//         case 's':
+//             languageSelected('si')
+//             break;
+//         case 't':
+//             languageSelected('ta')
+//             break;
+//         case 'd':
+//             languageSelected('dv')
+//             break;
         
-    }
-})
+//     }
+// })
 
 function updateResultLinks(loc){
     const langTexts = {
@@ -2209,7 +2226,8 @@ export function updateUI(questionType, questionText, answers){
             likert7Container.style.display = 'none'
             countryLabelContainer.style.display = 'none'
             fadeInSliderContainer()
-            enableConfirmation(joystickSlideValue);
+            // enableConfirmation(joystickSlideValue);
+            enableConfirmation(Math.round((parseInt(joystickSlideValue)+50)/14.2857));
             break;
         case 'likert5':
             aboutAnswerContainer.style.display = 'none'
