@@ -51,6 +51,9 @@ let models = {
     sofa:null,
     sofasmall:null,
     letter:null,
+    adventurer:null, // high LOC
+    mapMaker:null, // mid LOC
+    changeSeeker:null, // low LOC
     //Scene Filling characters
     friend1:null,
     friend2:null,
@@ -646,7 +649,7 @@ function loadInitialModels(){
                 region.children[0].material = scenes.maldivesRegionBoxes[i].regionMaterial
             
                 scenes.maldivesRegionBoxes[i].standardColor = scenes.maldivesRegionBoxes[i].regionMaterial.color
-                scenes.maldivesRegionBoxes[i].hoveringColor = new THREE.Color( 0x7bbbf7 )
+                scenes.maldivesRegionBoxes[i].hoveringColor = new THREE.Color( 0xffffff )
                 scenes.maldivesRegionBoxes[i].selectedColor = new THREE.Color( 0x3c5fff )
                 
             }
@@ -745,7 +748,7 @@ function loadInitialModels(){
             // scenes.maldivesCube.regionMaterial = countrySelectionModel.children[0].material//Material for all regions
         
             scenes.maldivesCube.standardColor = countrySelectionModel.children[0].material.color.clone()//standard color
-            scenes.maldivesCube.hoveringColor = new THREE.Color( 0x7bbbf7 )//hovering color
+            scenes.maldivesCube.hoveringColor = new THREE.Color( 0xffffff )//hovering color
             scenes.maldivesCube.selectedColor = new THREE.Color( 0x3c5fff )//selected color
         
             // scenes.maldivesCube.standardMap = new THREE.TextureLoader().load('maldives_standard.png')
@@ -1257,6 +1260,78 @@ export function loadPostModels(){
             }
         }
     )
+
+    //adventurer - High LOC
+    gltfloader.load(
+        'adventurer.gltf',
+        (gltf) =>
+        {
+            const key = 'adventurer'
+            let model = gltf.scene
+            model.name = key
+            model.scale.set(0.3,0.3,0.3)
+            model.position.set(0,-0.6, 2)
+            models[key] = model
+            // console.log(model);
+            model.traverse((child) => {
+                if (child.isMesh){
+                    child.castShadow = true
+                }
+            });
+            if(preLoadModels.includes(key)){
+                loadedPercentage += (1/numberOfAssets)
+                loadingBar.animate(loadedPercentage)
+            }
+        }
+    )
+
+    //Map maker - Mid LOC
+    gltfloader.load(
+        'map_maker.gltf',
+        (gltf) =>
+        {
+            const key = 'mapMaker'
+            let model = gltf.scene
+            model.name = key
+            model.scale.set(0.3,0.3,0.3)
+            model.position.set(0,-0.59, 2)
+            models[key] = model
+            model.traverse((child) => {
+                if (child.isMesh){
+                    child.castShadow = true
+                }
+            });
+            if(preLoadModels.includes(key)){
+                loadedPercentage += (1/numberOfAssets)
+                loadingBar.animate(loadedPercentage)
+            }
+        }
+    )
+
+    //Change seeker - Low LOC
+    gltfloader.load(
+        'change_seeker.gltf',
+        (gltf) =>
+        {
+            const key = 'changeSeeker'
+            let model = gltf.scene
+            model.name = key
+            model.scale.set(0.3,0.3,0.3)
+            model.position.set(0,-0.61, 2)
+            models[key] = model
+            console.log(model);
+            model.traverse((child) => {
+                if (child.isMesh){
+                    child.castShadow = true
+                }
+            });
+            if(preLoadModels.includes(key)){
+                loadedPercentage += (1/numberOfAssets)
+                loadingBar.animate(loadedPercentage)
+            }
+        }
+    )
+
     //Love Emoji
     gltfloader.load(
         'Models/Emojis/love/scene.gltf',

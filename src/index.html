@@ -70,33 +70,11 @@
                 <div class="hamburger-base">
                     <div class="hamburger-line line-1"></div>
                     <div class="hamburger-line line-2"></div>
-                    <!-- <div class="hamburger-line-container">
-                        
-                    </div> -->
                 </div>
             </div>
-            <!-- <div class="pagination-container">
-                <div class="part-display-container" id="pagination-part-displaytext">Part 1 of 4</div>
-                <div class="pagination-dot-container">
-                    <div class="page-dot answered"></div>
-                    <div class="page-dot current"></div>
-                    <div class="page-dot"></div>
-                    <div class="page-dot"></div>
-                    <div class="page-dot"></div>
-                    <div class="page-dot"></div>
-                </div>
-            </div> -->
+            
             <div class="question-container" id="question-container"> Question </div>
         </div>
-        
-        <!-- <div class="pagination">
-            <div data-tooltip="Country selection" class="pagination__dot pagination__dot--active" id="country_selection_dot"></div>
-            <div data-tooltip="Region selection" class="pagination__dot" id="region_selection_dot"></div>
-            <div data-tooltip="Question 1" class="pagination__dot" id="question1_dot"></div>
-            <div data-tooltip="Question 2" class="pagination__dot" id="question2_dot"></div>
-            <div data-tooltip="Question 3" class="pagination__dot" id="question3_dot"></div>
-            <div data-tooltip="Question 4" class="pagination__dot" id="question4_dot"></div>
-        </div> -->
         
         <div class="country-label-container" id="country-label-container">
             <div class="country-label" id="srilanka-label">Sri Lanka</div>
@@ -167,10 +145,8 @@
         <div class="question-footer-container">
             <div class="control-container">
                 <button class="control-button back-button" id="control-back-button"> 
-                    <!-- <img src="{../static/arrow_back.png}" alt="backButton"> -->
                 </button>
-                <!-- <button class="submit-button" id="submit-button"> Submit</button> -->
-                <button class="control-button" id="control-next-button"> Next </button>
+                <button class="control-button next-button" id="control-next-button"> Next </button>
             </div>
             <div class="survey-progress-container">
                 <progress class="survey-progress-bar" id="survey-progress-bar" value="0" max="10">
@@ -198,7 +174,7 @@
         </div>
 
 
-        <div class="lang-selection-button" id="language-selected-button"><b>Next</b></div>
+        <button class="control-button lang-selection-button next-button" id="language-selected-button"><b>Next</b></button>
         <div id="lang-bottom-text"><b>Circles of influence quiz</b></div>
     </div>
     <div class="video-question-container" id="video-question-container">
@@ -215,10 +191,7 @@
 
         <div class="control-container video-question-control-container">
             <button class="control-button back-button" id="video-question-back-button"></button>
-            <!-- <button class="submit-button" id="submit-button"> Submit</button> -->
-            <!-- <button class="control-button" id="control-next-button"> Next </button> -->
-            <!-- <button class="control-button submit-button" id="submit-button"> Submit</button> -->
-            <button class="control-button" id="video-question-close-button"> Next </button>
+            <button class="control-button next-button" id="video-question-close-button"> Next </button>
         </div>
 
     </div>
@@ -239,8 +212,6 @@
             </div>
             <div class="control-container submit-control-container">
                 <button class="control-button back-button" id="submit-control-back-button"></button>
-                <!-- <button class="submit-button" id="submit-button"> Submit</button> -->
-                <!-- <button class="control-button" id="control-next-button"> Next </button> -->
                 <button class="control-button submit-button" id="submit-button"> Submit</button>
             </div>
     
@@ -287,6 +258,7 @@
                     </div>
                     <div class="links-email-submit-button-container">
                         <button class="links-email-submit-button control-button" id="links-email-submit-button">submit</button>
+                        <div class="links-email-submit-indicator" id="links-email-submit-indicator"></div>
                     </div>
                 </div>
                 <div class="additional-resources-grid-container">
@@ -313,7 +285,9 @@
                     <!-- First List item -->
                     <div class="additional-resources-list-item">
                         <div class="additional-resources-list-item-text" >
-                            <a href="https://www.extremelives.org/articles-that-may-help-you/#comp-kwcivmir" id="additional-resources-list-item-text-1" class="resource-link" target="_blank">How to check if your friends are doing OK?</a>
+                            <a href="https://www.extremelives.org/articles-that-may-help-you/#comp-kwcivmir" id="additional-resources-list-item-text-1" class="resource-link" target="_blank">
+                                How to check if your friends are doing OK?
+                            </a>
                         </div>
                         <!-- <div class="resource-link-icon">
                             <a href="https://www.extremelives.org/articles-that-may-help-you/#comp-kwcivmir" target="_blank" class="resource-link-block"></a>
@@ -326,7 +300,9 @@
                     <!-- Second List item -->
                     <div class="additional-resources-list-item">
                         <div class="additional-resources-list-item-text" >
-                            <a href="https://www.extremelives.org/articles-that-may-help-you/#comp-kwezpa16" id="additional-resources-list-item-text-2" class="resource-link" target="_blank">How to have a difficult conversation and get the desired end results</a>
+                            <a href="https://www.extremelives.org/articles-that-may-help-you/#comp-kwezpa16" id="additional-resources-list-item-text-2" class="resource-link" target="_blank">
+                                How to have a difficult conversation and get the desired end results
+                            </a>
                         </div>
                         <!-- <div class="resource-link-icon"></div> -->
                         <a href="https://www.extremelives.org/articles-that-may-help-you/#comp-kwezpa16" target="_blank" class="resource-link-block">
@@ -337,10 +313,12 @@
                     <!-- Third List item -->
                     <div class="additional-resources-list-item">
                         <div class="additional-resources-list-item-text">
-                            <a href="https://www.extremelives.org/articles-that-may-help-you" id="additional-resources-list-item-text-3" class="resource-link" target="_blank">Affirmation and self-help, meditation and mindfulness</a>
+                            <a href="https://www.extremelives.org/articles-that-may-help-you/#comp-kwvnfkb6" id="additional-resources-list-item-text-3" class="resource-link" target="_blank">
+                                Affirmation and self-help, meditation and mindfulness
+                            </a>
                         </div>
                         <!-- <div class="resource-link-icon"></div> -->
-                        <a href="https://www.extremelives.org/articles-that-may-help-you" target="_blank" class="resource-link-block">
+                        <a href="https://www.extremelives.org/articles-that-may-help-you/#comp-kwvnfkb6" target="_blank" class="resource-link-block">
                             <div class="resource-link-icon"></div>
                         </a>
                     </div>
@@ -348,13 +326,55 @@
                     <!-- Fourth List item -->
                     <div class="additional-resources-list-item">
                         <div class="additional-resources-list-item-text">
-                            <a href="https://www.extremelives.org/articles-that-may-help-you/#comp-kwf0rwuk" id="additional-resources-list-item-text-4" class="resource-link" target="_blank">How to get involved in volunteering</a>
+                            <a href="https://www.extremelives.org/articles-that-may-help-you/#comp-kwvuzet4" id="additional-resources-list-item-text-4" class="resource-link" target="_blank">
+                                How to get involved in volunteering
+                            </a>
+                        </div>
+                        <!-- <div class="resource-link-icon"></div> -->
+                        <a href="https://www.extremelives.org/articles-that-may-help-you/#comp-kwvuzet4" target="_blank" class="resource-link-block">
+                            <div class="resource-link-icon"></div>
+                        </a>
+                    </div>
+
+                    <!-- Fifth List item -->
+                    <div class="additional-resources-list-item">
+                        <div class="additional-resources-list-item-text">
+                            <a href="https://www.extremelives.org/articles-that-may-help-you/#comp-kwf0rwuk" id="additional-resources-list-item-text-5" class="resource-link" target="_blank">
+                                How to cope if you have social anxiety, how to build confidence
+                            </a>
                         </div>
                         <!-- <div class="resource-link-icon"></div> -->
                         <a href="https://www.extremelives.org/articles-that-may-help-you/#comp-kwf0rwuk" target="_blank" class="resource-link-block">
                             <div class="resource-link-icon"></div>
                         </a>
                     </div>
+
+                    <!-- Sixth List item -->
+                    <div class="additional-resources-list-item">
+                        <div class="additional-resources-list-item-text">
+                            <a href="https://www.extremelives.org/articles-that-may-help-you/#comp-kwvxwypl" id="additional-resources-list-item-text-6" class="resource-link" target="_blank">
+                                How to make a difficult decision. And then follow up on specific decisions e.g. subject to study, career to choose
+                            </a>
+                        </div>
+                        <!-- <div class="resource-link-icon"></div> -->
+                        <a href="https://www.extremelives.org/articles-that-may-help-you/#comp-kwvxwypl" target="_blank" class="resource-link-block">
+                            <div class="resource-link-icon"></div>
+                        </a>
+                    </div>
+
+                    <!-- Seventh List item -->
+                    <div class="additional-resources-list-item">
+                        <div class="additional-resources-list-item-text">
+                            <a href="https://www.extremelives.org/articles-that-may-help-you/#comp-kww0wkut" id="additional-resources-list-item-text-7" class="resource-link" target="_blank">
+                                Mental health, dealing with depression, anxiety, loneliness, disempowerment, frustration
+                            </a>
+                        </div>
+                        <!-- <div class="resource-link-icon"></div> -->
+                        <a href="https://www.extremelives.org/articles-that-may-help-you/#comp-kww0wkut" target="_blank" class="resource-link-block">
+                            <div class="resource-link-icon"></div>
+                        </a>
+                    </div>
+
                 </div>
             </div>
         <!-- </div> -->

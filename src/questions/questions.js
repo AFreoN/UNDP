@@ -1038,4 +1038,25 @@ export function enableSubmitScene(){
         });
     }
 }
+
+let newModel = assetLoader.getModel('playerCharacter')
+export function updateSubmitModel(loc){
+    submitScene.remove(assetLoader.getModel('playerCharacter'))
+    submitScene.remove(newModel)
+
+    switch(loc){
+        case 0:
+            newModel = assetLoader.getModel('changeSeeker')
+            break;
+        case 1:
+            newModel = assetLoader.getModel('mapMaker')
+            break;
+        case 2:
+            newModel = assetLoader.getModel('adventurer')
+            break;        
+    }
+
+    submitScene.add(newModel)
+
+}
 //Calculating distance between player and the center model
