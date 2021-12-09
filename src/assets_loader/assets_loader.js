@@ -4,7 +4,7 @@ import * as scenes from '../questions/scenes'
 import * as uiControl from '../ui_controller/ui_controller'
 import * as THREE from 'three'
 import { fresnel } from '../shader'
-import { shaderMaterial, outerCharacterShaders } from '../fresnel'
+import { shaderMaterial, outerCharacterShaders, lowFresnelMaterial } from '../fresnel'
 import { MathUtils, TextureLoader } from 'three'
 
 let preModelsLoaded = false
@@ -649,7 +649,7 @@ function loadInitialModels(){
                 region.children[0].material = scenes.maldivesRegionBoxes[i].regionMaterial
             
                 scenes.maldivesRegionBoxes[i].standardColor = scenes.maldivesRegionBoxes[i].regionMaterial.color
-                scenes.maldivesRegionBoxes[i].hoveringColor = new THREE.Color( 0x7bbbf7 )
+                scenes.maldivesRegionBoxes[i].hoveringColor = new THREE.Color( 0xffffff )
                 scenes.maldivesRegionBoxes[i].selectedColor = new THREE.Color( 0x3c5fff )
                 
             }
@@ -748,7 +748,7 @@ function loadInitialModels(){
             // scenes.maldivesCube.regionMaterial = countrySelectionModel.children[0].material//Material for all regions
         
             scenes.maldivesCube.standardColor = countrySelectionModel.children[0].material.color.clone()//standard color
-            scenes.maldivesCube.hoveringColor = new THREE.Color( 0x7bbbf7 )//hovering color
+            scenes.maldivesCube.hoveringColor = new THREE.Color( 0xffffff )//hovering color
             scenes.maldivesCube.selectedColor = new THREE.Color( 0x3c5fff )//selected color
         
             // scenes.maldivesCube.standardMap = new THREE.TextureLoader().load('maldives_standard.png')
@@ -1081,11 +1081,16 @@ export function loadPostModels(){
             //animations[key] = gltf.animations
             let model = gltf.scene
             model.name = key
-            model.scale.set(.065,.065,.065)     //prev (.075,.075,.075)
+            const scale = 0.055
+            model.scale.set(scale,scale,scale)     //prev (.065,.065,.065)
             model.position.set(0,-.6, 0)
+            model.rotation.set(0, MathUtils.degToRad(-25),0)  //-75 for old model
     
             model.traverse((child) => {
                 if (child.isMesh){
+                    if(child.name == 'Temple_Base'){
+                        child.material = lowFresnelMaterial
+                    }
                     child.castShadow = true
                 }
             });
@@ -1214,6 +1219,18 @@ export function loadPostModels(){
             model.scale.set(0.2,0.2,0.2)
             model.position.set(0,-0.6, 0)
             models[key] = model
+
+            model.traverse((child) => {
+                if (child.isMesh){
+                    if(child.name == 'shine'){
+                        var alpha = new THREE.TextureLoader().load('Textures/letter_shine_alpha.png')
+                        alpha.flipY = false
+                        alpha.needsUpdate = true
+                        var mat = new THREE.MeshToonMaterial({alphaMap : alpha,opacity : 0.95, transparent : true, gradientMap : tex})
+                        child.material = mat
+                    }
+                }
+            });
 
             if(preLoadModels.includes(key)){
                 loadedPercentage += (1/numberOfAssets)
