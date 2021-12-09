@@ -1259,6 +1259,11 @@ export function loadPostModels(){
             model.traverse((child) => {
                 if (child.isMesh){
                     child.castShadow = true
+                    
+
+                    if(child.name == "SimpleCharacter" ){
+                        child.material = shaderMaterial
+                    }
                 }
             });
             if(preLoadModels.includes(key)){
@@ -1282,6 +1287,11 @@ export function loadPostModels(){
             model.traverse((child) => {
                 if (child.isMesh){
                     child.castShadow = true
+                    
+
+                    if(child.name == "SimpleCharacter" ){
+                        child.material = shaderMaterial
+                    }
                 }
             });
             if(preLoadModels.includes(key)){
@@ -1306,6 +1316,11 @@ export function loadPostModels(){
             model.traverse((child) => {
                 if (child.isMesh){
                     child.castShadow = true
+
+                    
+                    if(child.name == "SimpleCharacter" ){
+                        child.material = shaderMaterial
+                    }
                 }
             });
             if(preLoadModels.includes(key)){
