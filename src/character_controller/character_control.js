@@ -28,8 +28,10 @@ var maxOnboardValue = 20;  //Max value of slider to move //prev 20
 //#region New Style created here for showing slider outline while giving input
 let s = document.createElement("style");
 document.head.appendChild(s);
-const thumbWhite = '.slider::-webkit-slider-thumb{ outline-color: rgba(255, 255, 255, 1)}';
-const thumbTransparent = '.slider::-webkit-slider-thumb{ outline-color: rgba(255, 255, 255, 0)}';
+// const thumbWhite = '.slider::-webkit-slider-thumb{ outline-color: rgba(255, 255, 255, 1)}';
+// const thumbTransparent = '.slider::-webkit-slider-thumb{ outline-color: rgba(255, 255, 255, 0)}';
+const thumbWhite = '.slider-thumb::before{ outline-color: rgba(255, 255, 255, 1)}';
+const thumbTransparent = '.slider-thumb::before{ outline-color: rgba(255, 255, 255, 0)}';
 s.textContent = thumbTransparent;
 //#endregion
 
@@ -79,11 +81,11 @@ sliderHolder.addEventListener('input', function(){      //Called while giving in
         targetTime = clock.getElapsedTime();
         canControlOtherPlayer = false;
         onInputDelay = true;
-        s.textContent = thumbWhite;
         
         isOnboarding = false;
         isSliderOnboarded = true;
     }
+    s.textContent = thumbWhite;
 });
 
 const onSliderInputEnd = function(){    //On Input end on the slider
@@ -1313,7 +1315,7 @@ const tick = () =>
         else{
             currentLevitateDistance = 0
         }
-        
+
         if(otherIdle == false){
             otherMovingTime += deltatime;
             otherStoppingTime = 0;

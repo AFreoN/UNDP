@@ -596,6 +596,7 @@ canvas.webgl{
     position: absolute;
     width: 100%;
     height: 6px;
+    left: -3px;
     border-radius: 5px;  
     background: rgba(0, 0, 0, 0.493);
     outline: none;
@@ -603,8 +604,44 @@ canvas.webgl{
     transition: opacity 0.5s ease-in-out;
     -webkit-transition: opacity 0.5s ease-in-out;
 }
+.slider-thumb{
+    pointer-events: none;
+    position: relative;
+    width: 25px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
+    border-radius: 25px;
+    background: #CBFA01; /* Yellow background */
+    z-index: 10;
+    opacity: 1;
+    /* outline: solid;
+    outline-color: rgba(255, 255, 255, 1);
+    outline-width: 5px; */
+    transform: translate(-50%,0%);
+    bottom: 8px;
+    /* left : 50%; */
+    left : calc(50% + 100px);
+}
+
+.slider-thumb::before{
+    content: '';
+    display: block;
+    pointer-events: none;
+    position: relative;
+    width: 25px;
+    height: 25px;
+    border-radius: 25px;
+    background: rgba(255, 0, 0, 0);
+    z-index: 10;
+    opacity: 1;
+    outline: solid;
+    outline-width: 5px;
+    outline-color: white;
+    z-index: 10;
+    transition: 0.3s;
+}
 
 .slider-filler{
+  pointer-events: none;
   position: absolute;
   top : 1px;
   width: 50%;
@@ -631,11 +668,11 @@ input::-webkit-slider-thumb {
   height: 25px; /* Slider handle height */
   border-radius: 25px;
   background: #CBFA01; /* Yellow background */
-  opacity: 1;
+  opacity: 0;
   cursor: pointer; /* Cursor on hover */
   z-index: 100;
   outline: solid;
-  outline-color: rgba(255, 255, 255, 1);
+  outline-color: rgba(255, 255, 255, 0);
   outline-width: 5px;
   transition: 0.3s;
 }
@@ -645,7 +682,7 @@ input::-moz-range-thumb {
   height: 25px; /* Slider handle height */
   position: relative;
   background: #CBFA01; /* Green background */
-  opacity: 1;
+  opacity: 0;
   border-radius: 5px;
   cursor: pointer; /* Cursor on hover */
   z-index: 100;

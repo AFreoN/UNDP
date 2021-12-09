@@ -627,7 +627,7 @@ function setFillerWidth(){
 }
 
 export function SetFiller(sliderValue){
-    let v = sliderValue + 50;
+    let v = parseInt(sliderValue) + 50;
     if(sliderValue == 0){
         sliderFiller.style.width = '0%';
     }
@@ -640,6 +640,11 @@ export function SetFiller(sliderValue){
         sliderFiller.style.width = sliderValue + "%";
         sliderFiller.style.left = '50%';
     }
+
+    var tolerance = -(sliderValue / 50) * 12
+    //console.log("tolerance = ", tolerance)
+    var s = "calc(" + v + "% + " + parseInt(tolerance) +"px)"
+    sliderThumb.style.left = s
 }
 
 
@@ -652,7 +657,8 @@ let submitLoadingContainer = document.getElementById('submit-loading-container')
 let resultsConfirmationContainer = document.getElementById('submit-results-container')
 let linksPageContainer = document.getElementById("links-page-container")
 
-export const joystickSlider = document.getElementById('sliderRange');
+export const joystickSlider = document.getElementById('sliderRange')
+export const sliderThumb = document.getElementById('slider-thumb')
 export var joystickSlideValue = 0;
 
 joystickSlider.oninput = function(){
