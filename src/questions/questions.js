@@ -133,9 +133,9 @@ window.addEventListener('resize', () =>
     document.getElementsByTagName('body')[0].style.height = window.innerHeight + "px" 
     document.getElementsByTagName('html')[0].style.height = window.innerHeight + "px" 
 
-    console.log(window.innerHeight);
-    console.log(window.outerHeight);
-    console.log(document.getElementsByTagName('body')[0].clientHeight)
+    // console.log(window.innerHeight);
+    // console.log(window.outerHeight);
+    // console.log(document.getElementsByTagName('body')[0].clientHeight)
 
     window.scrollTo(0,0)
 })
@@ -267,9 +267,9 @@ export function loadQuestion(questionIndex){
         uiControl.disableConfirmation()
 
         let questionType = currentQuestion.type
-        let questionText
+        let questionText 
         if(questionType === 'about'){
-            questionText = currentQuestion.question.main[langId]
+            questionText = currentQuestion.question
         }else{
             questionText = currentQuestion.question[langId]
         }
@@ -294,7 +294,7 @@ export function loadQuestion(questionIndex){
                         break;
                     default:
                         console.log('select a country');
-                        updateSceneAndCamera(emptyScene, emptyCamera)
+                        // updateSceneAndCamera(emptyScene, emptyCamera)
                         break;
                 }
                 
@@ -581,15 +581,6 @@ export function loadQuestion(questionIndex){
                     stage3Transition.startFadeOut(function(){
                         scenes.resetCurrentSelectionScene();
 
-                        addModelToScene(stage3Scene, clouds.low)
-                        addModelToScene(stage3Scene, clouds.mid)
-                        addModelToScene(stage3Scene, clouds.high)
-                        removeModelsFromScene(joystickScene, models);
-                        removeModelsFromScene(stage3Scene, models)
-                        models = scenes.GetModelIds(questionIndex)
-                        if(models != null)
-                            addModelsForThisScene(stage3Scene, models)
-
                         updateSceneAndCamera(stage3Scene, stage3Camera);
                         if(currentCenterModel)
                             joystickScene.remove(currentCenterModel);
@@ -607,6 +598,17 @@ export function loadQuestion(questionIndex){
                         else{
                             stage3Scene.remove(landModel);
                             stage3Scene.getObjectByName('floor').position.set(0,-0.6,0);
+
+                            if(checkModelsForThisScene(stage3Scene, models) == false){
+                                addModelToScene(stage3Scene, clouds.low)
+                                addModelToScene(stage3Scene, clouds.mid)
+                                addModelToScene(stage3Scene, clouds.high)
+                                removeModelsFromScene(joystickScene, models);
+                                removeModelsFromScene(stage3Scene, models)
+                                models = scenes.GetModelIds(questionIndex)
+                                if(models != null)
+                                    addModelsForThisScene(stage3Scene, models)
+                            }
                         }
                         controls.setOtherCharacter(null, null, null);
                         uiControl.updateUI(questionType, questionText, answers);
@@ -816,6 +818,21 @@ export function spawnCharacters(value){
         addModelsForThisScene(joystickScene, models)
 }
 
+function checkModelsForThisScene(scene, modelsArray){   //If all models not in the scene, return false Else return true
+    if(modelsArray == null)
+        return false
+
+    modelsArray.forEach(element => {
+        var m = assetLoader.getModel(element.name)
+        if(m != null){
+            if(scene.getObjectById(m.id) == null)
+                return false
+        }
+    })
+
+    return true
+}
+
 function addModelsForThisScene(scene, modelsArray){
     if(modelsArray == null)
         return
@@ -834,13 +851,19 @@ function addModelsForThisScene(scene, modelsArray){
     modelsArray.forEach(element => {
         var m = assetLoader.getModel(element.name);
         if(m != null){
-            if(element.anim){
+            if(element.anim != null){
                 var mixer = new THREE.AnimationMixer(m)
                 var animations  = assetLoader.getOtherCharacterAnimations(element.name)
                 animations.forEach(a => {
                     mixer.clipAction(a).reset()
                     mixer.clipAction(a).stop()
                 })
+                if(parseInt(element.anim) == 0){
+                    console.log("Playing 0 animation = ", animations[parseInt(element.anim)])
+                }
+                if(element.animSpeed != null){
+                    mixer.timeScale = parseFloat(element.animSpeed)
+                }
                 mixer.clipAction(animations[parseInt(element.anim)]).play()
                 animMixers.push( mixer )
             }

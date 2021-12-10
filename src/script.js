@@ -120,6 +120,11 @@ export function loadLastQuestion(){
 
     if (questionIndex > 0){
         questionIndex--
+        if(getSelectedCountry() === 2){
+            if( questionIndex === 1){
+                questionIndex--
+            }
+        }
         questions.loadQuestion(questionIndex)
         console.log((questionIndex+1)+'/'+(numberOfQuestions));
         // uiControl.paginate(questionIndex)
