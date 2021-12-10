@@ -1540,7 +1540,56 @@ export function GetModelIds(questionIndex){
                 rotation : new THREE.Vector3(0,110,0)
             }]
             break;
+        case 35:    //Feeling safe where you currently live
+            return stage3Part2Scenes()
+            break
+        case 36:    //Feeling safe where you currently live
+            return stage3Part2Scenes()
+            break
+        case 37:    //Feeling safe where you currently live
+            return stage3Part2Scenes()
+            break
+        case 38:    //Feeling safe where you currently live
+            return stage3Part2Scenes()
+            break
+        case 39:    //Feeling safe where you currently live
+            return stage3Part2Scenes()
+            break
+        case 40:    //Feeling safe where you currently live
+            return stage3Part2Scenes()
+            break
+        case 41:    //Feeling safe where you currently live
+            return stage3Part2Scenes()
+            break
     }
+}
+
+function stage3Part2Scenes(){
+    return [{
+        name : 'friend1',
+        position : new THREE.Vector3(0.3, -0.6, -0.55),
+        rotation : new THREE.Vector3(0, -10, 0)
+    },
+    {
+        name : 'friend3',
+        position : new THREE.Vector3(0.5, -0.6, -0.4),
+        rotation : new THREE.Vector3(0, -5, 0),
+        anim : 1
+    },
+    {
+        name : 'friend2',
+        position : new THREE.Vector3(-0.55, -0.6, -0.35),
+        rotation : new THREE.Vector3(0, 5, 0),
+        anim : 0,
+        animSpeed : 0.85
+    },
+    {
+        name : 'friend5',
+        position : new THREE.Vector3(-0.35, -0.6, -0.6),
+        rotation : new THREE.Vector3(0, 15, 0),
+        anim : 1,
+        animSpeed : 0.8
+    }]
 }
 
 
