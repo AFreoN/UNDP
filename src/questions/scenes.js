@@ -59,7 +59,7 @@ countryScene.add(shadowMesh.clone())
 countryCamera.position.set(0,4,1.5)
 countryCamera.rotation.set(Math.PI * -0.4,0,0)
 
-export const maldivesCube = new THREE.Mesh(new THREE.BoxGeometry(0.75,0.1,2.8), new THREE.MeshLambertMaterial({color: 0xee2b2b,wireframe:true}))
+export const maldivesCube = new THREE.Mesh(new THREE.BoxGeometry(0.75,0.1,2.4), new THREE.MeshLambertMaterial({color: 0xee2b2b,wireframe:true}))
 countryScene.add(maldivesCube)
 maldivesCube.position.set(-0.75,0,0)
 maldivesCube.material.visible = false
