@@ -3,6 +3,7 @@ import { langId, setLangId, loadQuestion, numberOfQuestions,enableSubmitScene, s
             setPlayerRotationLikert4, setPlayerRotationLikert7, resetPlayerRotation, updateSubmitModel, spawnCharacters } from '../questions/questions'
 import { doc } from '@firebase/firestore'
 import { LineSegments } from 'three';
+import { initializeLoadingPage } from './loading_page';
 
 //Ui control
 let uiHolder = document.getElementById('ui-holder');
@@ -10,6 +11,7 @@ let menuHolder = document.getElementById('questions-menu-holder');
 menuHolder.hidden = false;
 
 //For language selection ui
+initializeLoadingPage()
 let langSelectionUI = document.getElementById('language-selection-ui');
 
 let englishText = document.getElementById('english-text');

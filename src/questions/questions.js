@@ -582,15 +582,6 @@ export function loadQuestion(questionIndex){
                     stage3Transition.startFadeOut(function(){
                         scenes.resetCurrentSelectionScene();
 
-                        addModelToScene(stage3Scene, clouds.low)
-                        addModelToScene(stage3Scene, clouds.mid)
-                        addModelToScene(stage3Scene, clouds.high)
-                        removeModelsFromScene(joystickScene, models);
-                        removeModelsFromScene(stage3Scene, models)
-                        models = scenes.GetModelIds(questionIndex)
-                        if(models != null)
-                            addModelsForThisScene(stage3Scene, models)
-
                         updateSceneAndCamera(stage3Scene, stage3Camera);
                         if(currentCenterModel)
                             joystickScene.remove(currentCenterModel);
@@ -608,6 +599,17 @@ export function loadQuestion(questionIndex){
                         else{
                             stage3Scene.remove(landModel);
                             stage3Scene.getObjectByName('floor').position.set(0,-0.6,0);
+
+                            if(checkModelsForThisScene(stage3Scene, models) == false){
+                                addModelToScene(stage3Scene, clouds.low)
+                                addModelToScene(stage3Scene, clouds.mid)
+                                addModelToScene(stage3Scene, clouds.high)
+                                removeModelsFromScene(joystickScene, models);
+                                removeModelsFromScene(stage3Scene, models)
+                                models = scenes.GetModelIds(questionIndex)
+                                if(models != null)
+                                    addModelsForThisScene(stage3Scene, models)
+                            }
                         }
                         controls.setOtherCharacter(null, null, null);
                         uiControl.updateUI(questionType, questionText, answers);
@@ -815,6 +817,21 @@ export function spawnCharacters(value){
     
     if(models != null)
         addModelsForThisScene(joystickScene, models)
+}
+
+function checkModelsForThisScene(scene, modelsArray){   //If all models not in the scene, return false Else return true
+    if(modelsArray == null)
+        return false
+
+    modelsArray.forEach(element => {
+        var m = assetLoader.getModel(element.name)
+        if(m != null){
+            if(scene.getObjectById(m.id) == null)
+                return false
+        }
+    })
+
+    return true
 }
 
 function addModelsForThisScene(scene, modelsArray){
