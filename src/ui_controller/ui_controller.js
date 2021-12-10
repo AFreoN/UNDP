@@ -1765,6 +1765,8 @@ function genderCalculateMargins(){
     setGenderFarthestStyle(genderItems[2])
     setGenderFarthestStyle(genderItems[3])
 
+    genderSelectionIndicator.style.height = (genderItems[0].scrollHeight * 1.4) + "px"
+
     genderScrollContainer.scroll({
         top:0,
         behavior:'smooth'
@@ -1776,6 +1778,8 @@ genderCalculateMargins()
 let genderCurrentItemIndex = 0
 let genderSelectedItem = genderItems[genderCurrentItemIndex]
 genderScrollContainer.scrollTop = 0
+genderSelectionIndicator.style.height = (genderSelectedItem.scrollHeight * 1.4) + "px"
+
 setGenderSelectedStyle(genderSelectedItem)
 setGenderNearestStyle(genderItems[genderCurrentItemIndex + 1])
 setGenderFarthestStyle(genderItems[genderCurrentItemIndex + 2])
@@ -1839,6 +1843,7 @@ function onScrollGender(){
             top:scrollValue,
             behavior:'smooth'
         })
+        genderSelectionIndicator.style.height = (genderSelectedItem.scrollHeight * 1.4) + "px"
     }, 250);
 }
 
@@ -1928,7 +1933,8 @@ function ageCalculateMargins(){
     setAgeNearestStyle(ageItems[1])
     setAgeFarthestStyle(ageItems[2])
     setAgeFarthestStyle(ageItems[3])
-
+    
+    ageSelectionIndicator.style.height = (ageItems[0].scrollHeight * 1.4) + "px"
 
     ageScrollContainer.scroll({
         top:0,
@@ -1942,6 +1948,8 @@ ageCalculateMargins()
 let ageCurrentItemIndex = 0
 let ageSelectedItem = ageItems[ageCurrentItemIndex]
 ageScrollContainer.scrollTop = 0
+ageSelectionIndicator.style.height = (ageSelectedItem.scrollHeight * 1.4) + "px"
+
 setAgeSelectedStyle(ageSelectedItem)
 setAgeNearestStyle(ageItems[ageCurrentItemIndex + 1])
 setAgeFarthestStyle(ageItems[ageCurrentItemIndex + 2])
@@ -1999,6 +2007,7 @@ function onScrollAge(){
             top:scrollValue,
             behavior:'smooth'
         })
+        ageSelectionIndicator.style.height = (ageSelectedItem.scrollHeight * 1.4) + "px"
     }, 250);
 }
 
@@ -2147,7 +2156,7 @@ export function updateUI(questionType, questionText, answers){
         case 'si':
             const siBaseSize = 0.4
 
-            const siSizeIncrementRate = 5 
+            const siSizeIncrementRate = 4
             const siBaseSizeOffset = (siSizeIncrementRate/questionText.length)
             console.log(siBaseSizeOffset);
             
@@ -2192,7 +2201,12 @@ export function updateUI(questionType, questionText, answers){
 
 
     // questionContainer.innerText = questionText
-    questionContainer.innerHTML = questionText
+    if(questionType === 'about'){
+        questionContainer.innerHTML = questionText.main[langId]
+    }else{
+        questionContainer.innerHTML = questionText
+    }
+    // questionContainer.innerHTML = questionText
 
     //#region For Question Change Animation
     // questionContainer.style.animation = 'none'
@@ -2258,6 +2272,9 @@ export function updateUI(questionType, questionText, answers){
                 age:ageSelectedItem.getAttribute('data-index')
             })
             
+            ageSelectorHeader.innerText =  questionText.age[langId]
+            genderSelectorHeader.innerText = questionText.gender[langId]
+
             if(answers){
                 for (let i = 0; i < genderItems.length; i++) {
                     const genderItem = genderItems[i];

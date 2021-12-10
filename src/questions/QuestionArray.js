@@ -27,20 +27,20 @@ export const Questions = [
                 en : 'About you',
                 si : 'ඔබ ගැන',
                 //translations need to be added  extra not on doc
-                ta : 'உங்களுக்கு எவ்வளவு வயது ?',
+                ta : 'உங்களைப் பற்றி?',
                 dv : 'How old are you ?'
             },
             age:{
-                en : 'How old are you ?',
-                si : 'ඔබගේ වයස ?',
-                ta : 'உங்களுடைய வயது என்ன ?',                  
-                dv : 'ތިބާގެ އުމުރަކީ ކިހާވަރެއް؟'
+                en : 'Age',
+                si : 'වයස',
+                ta : 'வயது',                  
+                dv : 'ޢުމުރު'
             },
             gender:{
-                en : 'What is your gender ?',
-                si : 'ස්ත්‍රී පුරුෂ සමාජභාවය ?',
-                ta : 'உங்களுடைய பால்நிலை என்ன ?',
-                dv : 'ތިބާގެ ޖިންސަކީ ކޮބާ؟'
+                en : 'Gender',
+                si : 'ස්ත්රී පුරුෂ භාවය',
+                ta : 'பாலினம்',
+                dv : 'ޖެންޑާ'
             }
         },
         answers :{
@@ -733,9 +733,9 @@ export const Questions = [
     {   //1     14    Feel close to your friends
         type : 'likert5',
         question : {
-            en : 'Do you feel close to your <span class="highlightText">friends</span>(not including those in your family)? ',
-            si : 'ඔබ ඔබගේ මිතුරන් සමග සමීප යයි ඔබට හැඟේද? (ඔබේ පවුලේ අය අදාළ නොවේ)',
-            ta : 'உங்கள் நண்பர்களுடன் நெருக்கமாக உணர்கிறீர்களா (உங்கள் குடும்ப உறுப்பினர்கள் தவிர்ந்த)?',
+            en : 'Do you feel close to your <span class="highlightText">friends</span> <span class="bracket-text-english">(not including those in your family)</span>?',
+            si : 'ඔබ ඔබගේ මිතුරන් සමග සමීප යයි ඔබට හැඟේද? <span class="bracket-text-sinhala">(ඔබේ පවුලේ අය අදාළ නොවේ)</span>',
+            ta : 'உங்கள் நண்பர்களுடன் நெருக்கமாக உணர்கிறீர்களா <span class="bracket-text-sinhala">(உங்கள் குடும்ப உறுப்பினர்கள் தவிர்ந்த)</span>?',
             dv : 'ތިބާގެ ރަހުމަތްތެރިންނާ ގާތްކަން އިހުސާސްކުރެވޭތަ؟ (އާއިލީ މެންބަރުން ނުހިމެނޭ ގޮތަށް)'
         },
         answers : [
@@ -1193,9 +1193,9 @@ export const Questions = [
     {   //9     22    Neighbourhood can be trusted
         type : 'likert5',
         question : {
-            en : 'To what extent do you agree with the statement <span class="highlightText">‘most people in my home neighbourhood can be trusted’</span>? (Home neighbourhood means 15-20 minutes walking distance from where you currently live.)',
-            si : '‘මගේ නිවස ආසන්න ප්‍රදේශයේ අසල්වැසියන් වැඩිදෙනෙකු විශ්වාස කළ හැකිය’ යන ප්‍රකාශය සමග ඔබ කොයි තරම් දුරට එකඟද? (නිවස ආසන්න ප්‍රදේශයේ අසල්වැසියන් යන්නෙන් අදහස් කරනු ලබන්නේ ඔබ වර්තමානයේ ජීවත්වන තැන සිට විනාඩි 15-20 අතර කාලයකින් යා හැකි දුරයි)',
-            ta : '‘எனது வீட்டு அயலிலுள்ள பெரும்பாலான மக்களை நம்பலாம்’ என்ற கூற்றை நீங்கள் எந்த அளவிற்கு ஏற்றுக்கொள்கிறீர்கள்? (வீட்டு அயல் என்பது நீங்கள் தற்போது வசிக்கும் இடத்திலிருந்து 15-20 நிமிட நடை தூரம் ஆகும்.',
+            en : 'To what extent do you agree with the statement <span class="highlightText">‘most people in my home neighbourhood can be trusted’</span>? <span class="bracket-text-english">(Home neighbourhood means 15-20 minutes walking distance from where you currently live.)</span>',
+            si : '‘මගේ නිවස ආසන්න ප්‍රදේශයේ අසල්වැසියන් වැඩිදෙනෙකු විශ්වාස කළ හැකිය’ යන ප්‍රකාශය සමග ඔබ කොයි තරම් දුරට එකඟද? <span class="bracket-text-sinhala">(නිවස ආසන්න ප්‍රදේශයේ අසල්වැසියන් යන්නෙන් අදහස් කරනු ලබන්නේ ඔබ වර්තමානයේ ජීවත්වන තැන සිට විනාඩි 15-20 අතර කාලයකින් යා හැකි දුරයි)</span>',
+            ta : '‘எனது வீட்டு அயலிலுள்ள பெரும்பாலான மக்களை நம்பலாம்’ என்ற கூற்றை நீங்கள் எந்த அளவிற்கு ஏற்றுக்கொள்கிறீர்கள்? <span class="bracket-text-tamil">(வீட்டு அயல் என்பது நீங்கள் தற்போது வசிக்கும் இடத்திலிருந்து 15-20 நிமிட நடை தூரம் ஆகும்.</span>',
             dv : '[ގޭދޮށުގައި އުޅޭ ގިނަ މީހުންނަށް އިތުބާރުކުރެވޭނެ] ކަމަށް ބުނާ ބުނުމާމެދު ތިބާ އެއްބަސްވަނީ ކިހާ މިންވަރަކަށް؟ (ގޭދޮށު ކަމަށް ބުނެފައި އެވަނީ ތިބާ މިހާރު ދިރިއުޅޭ ތަނުން 15-20 މިނެޓުން ހިނގާފައި ދެވޭ ހިސާބަށް)'
         },
         answers : [
@@ -1430,9 +1430,9 @@ export const Questions = [
     {   //13    26    How many people can you go to for help
         type : 'likert4',
         question : {
-            en : 'When in need, <span class="highlightText">how many people can you go to for help</span> (e.g.practical, relationships, emotional,financial, etc.)?',
-            si : 'ඔබට අවශ්‍ය විටදී, ඔබට පුද්ගලයන් කීදෙනෙකුගෙන් උපකාර ලබාගත හැකිද? (උදා: ප්‍රායෝගික, සම්බන්ධතා,චිත්තවේගී, මූල්‍ය)',
-            ta : 'தேவைப்படும் போது, நீங்கள் எத்தனை பேரிடம் உதவிக்கு செல்லலாம் (உதா-நடைமுறை, உறவு, உணர்ச்சி, நிதி போன்றவை)?',
+            en : 'When in need, <span class="highlightText">how many people can you go to for help</span> <span class="bracket-text-english">(e.g.practical, relationships, emotional,financial, etc.)?',
+            si : 'ඔබට අවශ්‍ය විටදී, ඔබට පුද්ගලයන් කීදෙනෙකුගෙන් උපකාර ලබාගත හැකිද? <span class="bracket-text-sinhala">(උදා: ප්‍රායෝගික, සම්බන්ධතා,චිත්තවේගී, මූල්‍ය)</span>',
+            ta : 'தேவைப்படும் போது, நீங்கள் எத்தனை பேரிடம் உதவிக்கு செல்லலாம் <span class="bracket-text-tamil">(உதா-நடைமுறை, உறவு, உணர்ச்சி, நிதி போன்றவை)?</span>',
             dv : 'ބޭނުމެއް ޖެހުމުން، އެހީއަށް އެދި ތިބާއަށް ދެވޭނީ ކިތައް މީހުން ގާތަށް؟ (މިސާލަކަށް: މާލީ، ދޭދޭ ގުޅުންތައް، އިހުސާސްތައް)'
         },
         answers : [

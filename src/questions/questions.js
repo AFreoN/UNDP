@@ -267,9 +267,9 @@ export function loadQuestion(questionIndex){
         uiControl.disableConfirmation()
 
         let questionType = currentQuestion.type
-        let questionText
+        let questionText 
         if(questionType === 'about'){
-            questionText = currentQuestion.question.main[langId]
+            questionText = currentQuestion.question
         }else{
             questionText = currentQuestion.question[langId]
         }
@@ -294,7 +294,7 @@ export function loadQuestion(questionIndex){
                         break;
                     default:
                         console.log('select a country');
-                        updateSceneAndCamera(emptyScene, emptyCamera)
+                        // updateSceneAndCamera(emptyScene, emptyCamera)
                         break;
                 }
                 
