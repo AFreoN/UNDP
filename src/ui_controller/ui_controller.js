@@ -2563,6 +2563,10 @@ export function enableResultsLoadingContainer(){
 
 function enableResultsContainer(){
     submitConfirmationContainer.style.display = 'none'
+    resetElementAnimation(resultTitle)
+    resetElementAnimation(resultSubText)
+    resultTitle.style.animation = 'result-header-fadeIn 0.5s ease-out 0.5s 1 normal forwards'
+    resultSubText.style.animation = 'result-subtext-fadeIn 0.3s ease-out 1s 1 normal forwards'
     resultsConfirmationContainer.style.display = ''
     submitLoadingContainer.style.display = 'none'
 }
