@@ -28,6 +28,7 @@ canvas.webgl{
     -moz-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+
 #questionID{
     position: absolute;
     width: 46px;
