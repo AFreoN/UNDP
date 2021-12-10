@@ -1433,8 +1433,8 @@ export function updateResultTitle(loc){     //LOC 2 = High, 1 = Middle, 0 = Low
     }
 
     var lodURL = "http://quiz-extremelives.tk/" + finalHtml;
-    var FB_URL = "https://www.facebook.com/sharer/sharer.php?u=" + lodURL + "&quote=" + "I am the Change Seeker. Do you want to take a test?";
-    var twitter_URL = "https://twitter.com/intent/tweet?text=" + "I am the Change Seeker or the Palm Reader. " + "Do you want to take a test? " + "Link :- " + lodURL;
+    var FB_URL = "https://www.facebook.com/sharer/sharer.php?u=" + lodURL + "&quote=" + "Curious about how much control you have in your life? Take the quiz to find out.";
+    var twitter_URL = "https://twitter.com/intent/tweet?text=" + "Curious about how much control you have in your life? Take the quiz to find out. " + lodURL;
 
     switch(loc){
         case 0:
@@ -1446,19 +1446,19 @@ export function updateResultTitle(loc){     //LOC 2 = High, 1 = Middle, 0 = Low
         case 1:
             document.getElementsByTagName('meta')["og:image"].content = image_Loc2;
             document.getElementsByTagName('meta')["twitter:image"].content = image_Loc2;
-            FB_URL = "https://www.facebook.com/sharer/sharer.php?u=" + lodURL + "&quote=" + "I am the map maker. Do you want to take a test?";
+            FB_URL = "https://www.facebook.com/sharer/sharer.php?u=" + lodURL + "&quote=" + "Curious about how much control you have in your life? Take the quiz to find out.";
             document.getElementById('facebook-share').setAttribute("href", FB_URL);
 
-            twitter_URL = "https://twitter.com/intent/tweet?text=" + "I am the map maker. " + "Do you want to take a test? " + "Link :- " + lodURL;
+            twitter_URL = "https://twitter.com/intent/tweet?text=" + "Curious about how much control you have in your life? Take the quiz to find out. "  + lodURL;
             document.getElementById('twitter-share').setAttribute("href", twitter_URL);
             break;
         case 2:
             document.getElementsByTagName('meta')["og:image"].content = image_Loc3;
             document.getElementsByTagName('meta')["twitter:image"].content = image_Loc3;
-            FB_URL = "https://www.facebook.com/sharer/sharer.php?u=" +lodURL + "&quote=" + "I am the adventurer. Do you want to take a test?";
+            FB_URL = "https://www.facebook.com/sharer/sharer.php?u=" +lodURL + "&quote=" + "Curious about how much control you have in your life? Take the quiz to find out.";
             document.getElementById('facebook-share').setAttribute("href", FB_URL);
 
-            twitter_URL = "https://twitter.com/intent/tweet?text=" + "I am the adventurer. " + "Do you want to take a test? " + "Link :- " + lodURL;
+            twitter_URL = "https://twitter.com/intent/tweet?text=" + "Curious about how much control you have in your life? Take the quiz to find out. " + lodURL;
             document.getElementById('twitter-share').setAttribute("href", twitter_URL);
             break;
     }
