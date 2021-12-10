@@ -286,9 +286,6 @@ function getCurrentTimeFormatted(){
 function addZeroToSingleDigitNumber(number){
     return ('0'+number).slice(-2);
 }
-
-
-
 //      Main JS Notes
 //-Controls question index
 //-Stores selected answers

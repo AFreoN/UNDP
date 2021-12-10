@@ -1454,7 +1454,7 @@ export function GetModelIds(questionIndex){
                 name : 'siblings2',
                 position : new THREE.Vector3(-0.55, -0.6, -0.55),
                 rotation : new THREE.Vector3(0, 40, 0),
-                anim : 0,
+                anim : 1,
                 animSpeed : 0.7
             },
             {
