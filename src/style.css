@@ -2089,7 +2089,13 @@ input::-moz-range-thumb {
     padding-bottom: 15px ;
     color: white;
     width: 80%;
-    margin-top: 25px;
+    padding-top: 25px;
+    background: #C4C4C41A;
+
+}
+
+.additional-resources-list-item-text > .resource-link{
+    transition: color 0.2s;
 }
 
 .resource-link-block{
@@ -2358,7 +2364,10 @@ input::-moz-range-thumb {
         color: #6f23fc;
 
     }
-    
+    .additional-resources-list-item-text > .resource-link:hover{
+        
+        color: #cbfa01;
+    }
 }
 
 .answer-box:active{
