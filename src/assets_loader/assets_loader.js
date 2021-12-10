@@ -512,15 +512,19 @@ function loadInitialModels(){
             sriLankaRegions.splice(9,1)//Removes sealine and provincial divider from regions references
             // console.log(sriLankaRegions);
             // sriLankaRegions[0].position.y = 5
+            // console.log(regionSelectionModel);
             let sriLankanRegionsMeshes = sriLankaRegions.map((region) => {
             
                 const regionChildMesh = region.children[0]
             
-                regionChildMesh.name = region.name.replaceAll('_',' ')
-                regionChildMesh.name = regionChildMesh.name + ' Province'
+                regionChildMesh.name = region.name.toLowerCase()
+
+                // regionChildMesh.name = region.name.replaceAll('_',' ')
+                // regionChildMesh.name = regionChildMesh.name + ' Province'
             
-            
-                // console.log(regionChildMesh)
+                
+
+                console.log(regionChildMesh.name)
             
                 regionChildMesh.regionMaterial = regionChildMesh.material.clone()//standard material
                 regionChildMesh.regionMaterial.needsUpdate = true
@@ -611,13 +615,16 @@ function loadInitialModels(){
             // base.position.y = -0.5
             // console.log(regionSelectionModel);
             // console.log(maldivesRegions);
+            console.log(regionSelectionModel);
         
             for (let i = 0; i < maldivesRegions.length; i++) {
                 const region = maldivesRegions[i];
                 
             
-                region.name = region.name.replaceAll('_',' ')
-                region.name = region.name + ' Province'
+
+                region.name = region.name.toLowerCase()
+                // region.name = region.name.replaceAll('_',' ')
+                // region.name = region.name + ' Province'
             
                 // scenes.maldivesRegionBoxes[i].position.y = i * -5   
                 scenes.maldivesRegionBoxes[i].name = region.name
@@ -1329,7 +1336,7 @@ export function loadPostModels(){
             model.scale.set(0.3,0.3,0.3)
             model.position.set(0,-0.61, 2)
             models[key] = model
-            console.log(model);
+            // console.log(model);
             model.traverse((child) => {
                 if (child.isMesh){
                     child.castShadow = true

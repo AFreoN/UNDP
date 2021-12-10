@@ -1515,6 +1515,7 @@ input::-moz-range-thumb {
 
 
 .selector-header{
+    font-weight: 300;
     position: absolute;
     top: 20%;
     transition: opacity 100ms, transform 120ms, top 120ms;
@@ -1848,7 +1849,7 @@ input::-moz-range-thumb {
     left: 50%;
     transform: translateX(-50%);
     width: 100vw;
-    margin-bottom: 20px;
+    margin-bottom: 4.8vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1863,7 +1864,7 @@ input::-moz-range-thumb {
     width: 75%;
     font-size: calc(0.7em + 0.5vw);
     text-shadow:  black 0 0 50px;
-    padding-bottom: 8px;
+    margin-bottom: 1.8vh;
     text-align: center;
 }
 
@@ -1878,7 +1879,7 @@ input::-moz-range-thumb {
 
     font-size: calc(1em + 1vw);
     box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.5);
-    margin-bottom: 8px;
+    margin-bottom: 1.8vh;
 }
 
 .results-footer-social-container{
