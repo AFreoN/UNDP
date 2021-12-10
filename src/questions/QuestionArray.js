@@ -6,7 +6,7 @@ export const Questions = [
             en : 'In which <span class="highlightText">country</span> do you live?',
             si : 'ඔබ ජීවත් වන්නේ කුමන රටේද?',
             ta : 'நீங்கள் எந்த நாட்டில் வாழ்கிறீர்கள்?',
-            dv : 'In which country do you live?'
+            dv : 'ތިބާ ދިރިއުޅެނީ ކޮން ޤައުމެއްގައި ހެއްޔެވެ؟'
         },
         compulsory : true
     },
@@ -16,7 +16,7 @@ export const Questions = [
             en : 'In which <span class="highlightText">area</span> do you live?',
             si : 'ඔබ ජීවත් වන්නේ කුමන ප්‍රදේශයේද?',
             ta : 'நீங்கள் எந்த பகுதியில் வசிக்கிறீர்கள்?',
-            dv : 'In which area do you live?'
+            dv : 'ތިބާ ދިރިއުޅެނީ ކޮން ހިސާބެއްގައި؟'
         },
         compulsory : false
     },
@@ -28,7 +28,7 @@ export const Questions = [
                 si : 'ඔබ ගැන',
                 //translations need to be added  extra not on doc
                 ta : 'உங்களைப் பற்றி?',
-                dv : 'How old are you ?'
+                dv : 'ތިބާއާމެދު'
             },
             age:{
                 en : 'Age',
@@ -174,8 +174,8 @@ export const Questions = [
         characterName: {
             en : 'Mother',
             si : 'මව',
-            ta : 'அம்மா',
-            dv : 'Mother'
+            ta : 'தாய்',
+            dv : 'Mother'//Note - Unfinished Translations
         },
         compulsory: true
     },
@@ -236,7 +236,7 @@ export const Questions = [
             en : 'father',
             si : 'පියා',
             ta : 'தந்தை',
-            dv : 'Father'
+            dv : 'Father'//Note - Unfinished Translations
         },
         compulsory: true
     },
@@ -297,7 +297,7 @@ export const Questions = [
             en : 'Siblings',
             si : 'සහෝදර සහෝදරියන්',
             ta : 'உடன்பிறந்தவர்கள்',
-            dv : 'Siblings'
+            dv : 'Siblings'//Note - Unfinished Translations
         },
         compulsory: true
     },
@@ -356,9 +356,9 @@ export const Questions = [
         centerModelKey:'friends',
         characterName:{
             en : 'Closest Friends',
-            si : 'සමීපතම මිතුරන්',
+            si : 'සමීපතම මිතුරෝ',
             ta : 'நெருங்கிய நண்பர்கள்',
-            dv : 'Closest Friends'
+            dv : 'Closest Friends'//Note - Unfinished Translations
         },
         compulsory: true
     },
@@ -417,9 +417,9 @@ export const Questions = [
         centerModelKey:'distantFriend',       //distantFriend
         characterName:{
             en : 'Distant Friends',
-            si : 'දුරස්ථ මිතුරන්',
+            si : 'දුරස්ථ මිතුරෝ',
             ta : 'தொலைதூர நண்பர்கள்',
-            dv : 'Distant Friends'
+            dv : 'Distant Friends'//Note - Unfinished Translations
         },
         compulsory: true
     },
@@ -478,9 +478,9 @@ export const Questions = [
         centerModelKey:'community',
         characterName:{
             en : 'Community',
-            si : 'ප්රජාව',
+            si : 'ප්‍රජාව',
             ta : 'சமூகம்',
-            dv : 'Community'
+            dv : 'Community'//Note - Unfinished Translations
         },
         compulsory: true
     },
@@ -539,9 +539,9 @@ export const Questions = [
         centerModelKey:'temples',
         characterName:{
             en : 'Religious Community',
-            si : 'ප්රජාව',
-            ta : 'சமூகம்',
-            dv : 'Community'
+            si : 'ආගමික ප්‍රජාව',
+            ta : 'மத ரீதியான சமூகம்',
+            dv : 'Community'//Note - Unfinished Translations
         },
         compulsory: true
     },
@@ -600,9 +600,9 @@ export const Questions = [
         centerModelKey:'dif_language',
         characterName:{
             en : 'Different Language',
-            si : 'ප්රජාව',
-            ta : 'சமூகம்',
-            dv : 'Community'
+            si : 'විවිධ භාෂා',
+            ta : 'வேறு மொழி',
+            dv : 'Community'//Note - Unfinished Translations
         },
         compulsory: true
     },
@@ -661,9 +661,9 @@ export const Questions = [
         centerModelKey:'religious_belief',
         characterName:{
             en : 'Different Religions',
-            si : 'ප්රජාව',
-            ta : 'சமூகம்',
-            dv : 'Community'
+            si : 'විවිධ ආගම්',
+            ta : 'வேறு மதங்கள்',
+            dv : 'Community'//Note - Unfinished Translations
         },
         compulsory: true
     },
@@ -722,9 +722,9 @@ export const Questions = [
         centerModelKey:'home_country',
         characterName:{
             en : 'Home Country',
-            si : 'ප්රජාව',
-            ta : 'சமூகம்',
-            dv : 'Community'
+            si : 'මාතෘ භූමිය',
+            ta : 'தாய் நாடு',
+            dv : 'Community'//Note - Unfinished Translations
         },
         compulsory: true
     },
@@ -831,7 +831,7 @@ export const Questions = [
                 en : 'Extremely easy',
                 si : 'ඉතාම පහසුයි පහසුයි',
                 ta : 'மிக அதிகளவில் இலகுவானது',
-                dv : 'Extremely easy'
+                dv : 'ވަރަށް ބޮޑަށް ފަސޭހަ'
             },
             negativeTwo : {
                 en : 'Not at all easy',
@@ -1069,7 +1069,7 @@ export const Questions = [
     {   //7     20    Trusted or can't be too careful
         type : 'likert4',
         question : {
-            en : 'Do you think that, in general, most people can be <span class="highlightText">trusted</span>, or that you <span class="highlightText">can' + 't be too careful</span> in dealing with people?',
+            en : 'Do you think that, in general, most people can be <span class="highlightText">trusted</span>, or that you <span class="highlightText">can\'t be too careful</span> in dealing with people?',
             si : 'සාමාන්‍යයෙන් ගත් කල බොහෝ මිනිසුන් විශ්වාස කළ හැකි යයි ඔබ සිතනවාද? නැතිනම්, මිනිසුන් සමග කටයුතු කිරීමේදී ඕනෑවට වඩා පරිස්සම් වීම අනවශ්‍ය යයි ඔබ සිතනවාද?',
             ta : 'பொதுவாக, பெரும்பாலான மக்களை நம்பலாம், அல்லது மக்களுடன் பழகுவதில் நீங்கள் மிகவும் கவனமாக இருக்க முடியாது என்று நினைக்கின்றீர்களா?',
             dv : 'އާންމުގޮތެއްގައި މީހުންނަށް އިތުބާރުކުރެވޭނެކަމަށް ގަބޫލުކުރަންތަ؟ ނޫނީ މީހުންނާ މުއާމަލާތްކުރާއިރު ވަރަށް ފަރުވާތެރި ވާންޖެހޭނެކަމަށް ގަބޫލުކުރަންތަ؟'

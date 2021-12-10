@@ -228,10 +228,11 @@ const characterText = document.getElementById('Character_name');
 const playerName = document.getElementById('Player_name');
 const playerNamesLang = {
     en : 'You',
-    si : 'ඔබට',
+    si : 'ඔබ',
     ta : 'நீங்கள்',
-    dv : 'You'
+    dv : 'You'//Note - Unfinished Translations
 }
+
 
 //Takes a question object from the array above and updates UI with the info.
 //Implement updating models/ environment in respect to the question
