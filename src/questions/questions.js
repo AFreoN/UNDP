@@ -834,13 +834,19 @@ function addModelsForThisScene(scene, modelsArray){
     modelsArray.forEach(element => {
         var m = assetLoader.getModel(element.name);
         if(m != null){
-            if(element.anim){
+            if(element.anim != null){
                 var mixer = new THREE.AnimationMixer(m)
                 var animations  = assetLoader.getOtherCharacterAnimations(element.name)
                 animations.forEach(a => {
                     mixer.clipAction(a).reset()
                     mixer.clipAction(a).stop()
                 })
+                if(parseInt(element.anim) == 0){
+                    console.log("Playing 0 animation = ", animations[parseInt(element.anim)])
+                }
+                if(element.animSpeed != null){
+                    mixer.timeScale = parseFloat(element.animSpeed)
+                }
                 mixer.clipAction(animations[parseInt(element.anim)]).play()
                 animMixers.push( mixer )
             }

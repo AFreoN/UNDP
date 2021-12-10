@@ -11,8 +11,8 @@ var uniforms = THREE.UniformsUtils.merge(
 var outerUniform = THREE.UniformsUtils.merge(
   [THREE.UniformsLib['lights'],
   {
-    u_opacity: {  value: 0.5},  //prev 0.8
-    fresnelExponent : { value : 4}
+    u_opacity: {  value: 0.7},  //prev 0.8
+    fresnelExponent : { value : 3.2}
   }
   ]
 );
