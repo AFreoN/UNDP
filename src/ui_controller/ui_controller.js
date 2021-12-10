@@ -446,6 +446,8 @@ function setVidQuestionLang(){
             item.innerText = langTexts.answers.no[langId]
         }
     }
+
+    vidQuestionButton.innerText = allTexts.next[langId]
 }
 
 
@@ -806,6 +808,12 @@ let allTexts = {
         si:'ශ්‍රී ලංකා',
         ta:'இலங்கை',
         dv:'ސްރީ ލަންކާ',
+    },
+    next:{
+        en:'Next',
+        si:'ඊළඟ',
+        ta:'அடுத்து',
+        dv:'ދެން އޮތް ސޮފްހާ',
     }
 }
 
@@ -839,6 +847,8 @@ export function setUiText(){
 
     maldivesLabel.innerText = allTexts.maldivesName[langId]
     sriLankaLabel.innerText = allTexts.sriLankaName[langId]
+
+    nextButton.innerText = allTexts.next[langId]
 
     setUiTextSize()
 }
