@@ -2103,8 +2103,13 @@ input::-moz-range-thumb {
 }
 
 .resource-link-icon{
-    content:url('../static/link_button.png');
+    /* content:url('../static/link_button.png'); */
+    background-image: url('../static/link_button.png');
+    background-repeat: no-repeat;
+    background-size: 16px;
+    background-position: center;
     width:16px;
+    height:16px;
     margin: auto;
     position: relative;
 }
