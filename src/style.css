@@ -720,7 +720,7 @@ input::-moz-range-thumb {
 
       color: rgb(255, 255, 255);
       font-family: 'Rubik',sans-serif;
-      text-shadow: 3px 3px 16px rgba(0, 0, 0.20);
+      text-shadow: 3px 3px 16px rgba(0, 0, 0, 0.473);
       
       font-size: calc(0.6em + 1vw);
 
@@ -738,8 +738,8 @@ input::-moz-range-thumb {
 
     color: rgb(255, 255, 255);
     font-family: 'Rubik',sans-serif;
-    text-shadow: 0 0px 15px rgba(0, 0, 0);
-    
+    /* text-shadow: 0 0px 15px rgba(0, 0, 0, 0.411); */
+    text-shadow: 3px 3px 16px rgba(0, 0, 0, 0.473);
     font-size: calc(0.6em + 1vw);
 
 }
@@ -1467,7 +1467,7 @@ input::-moz-range-thumb {
 
 
 .selected-item-indicator{
-    height: calc(7vh + 4px);
+    height: calc(6vh + 4px);
     width: 40vw;
     border-top:  2px solid white  ;
     border-bottom:  2px solid white  ;

@@ -2599,6 +2599,7 @@ joystickTutCloseButton.addEventListener('click', function(){
 vidQuestionBackButton.addEventListener('click',function(){
     langSelectionUI.hidden = false;
     vidQuestionUI.style.display = 'none'
+    languageCalculateMargins()
 })
 
 backButton.addEventListener('click',function(){
@@ -2648,6 +2649,7 @@ languageSelectedButton.addEventListener('click', function(){
     // loadQuestion(0);
     langSelectionUI.hidden = true;
     vidQuestionUI.style.display = ''
+    vidQuestionCalculateMargins()
 })
 
 languageSelectedButton.addEventListener('onmousedown', function(){

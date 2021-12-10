@@ -822,9 +822,22 @@ export const aboutCamera = new THREE.PerspectiveCamera(75, window.innerWidth / w
 aboutScene.add(aboutCamera)
 
 aboutCamera.position.x = 0
-aboutCamera.position.y = -.6
-aboutCamera.position.z = 3.5
+aboutCamera.position.y = -.4
+
+const cameraBaseZPos = 3.5
+const cameraZPosDecrementRate = 1000
+let cameraNewZPos = cameraBaseZPos - (window.innerWidth/cameraZPosDecrementRate)
+aboutCamera.position.z = cameraNewZPos > 2.7? cameraNewZPos : 2.7  
+
+window.addEventListener('resize',function(){
+    let cameraNewZPos = cameraBaseZPos - (window.innerWidth/cameraZPosDecrementRate)
+    aboutCamera.position.z = cameraNewZPos > 2.7? cameraNewZPos : 2.7  
+
+    console.log(cameraNewZPos > 2.7? cameraNewZPos : 2.7 );
+})
+
 aboutCamera.rotation.set(Math.PI * 0, 0, 0)
+
 
 const aboutPointLight = new THREE.PointLight(0xffffff, 3)
 
