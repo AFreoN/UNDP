@@ -28,6 +28,7 @@ canvas.webgl{
     -moz-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+
 #questionID{
     position: absolute;
     width: 46px;
@@ -1838,8 +1839,14 @@ input::-moz-range-thumb {
     font-size: calc(1em + 1.5vw);
     width: 100%;
     text-shadow:  black 0 0 50px;
+    opacity: 0;
+    animation: result-header-fadeIn 0.5s ease-out 0.5s 1 normal forwards;
 }
 
+@keyframes result-header-fadeIn{
+    0% { opacity : 0}
+    100% { opacity : 1}
+}
 
 
 .results-footer-container{
@@ -1865,6 +1872,13 @@ input::-moz-range-thumb {
     text-shadow:  black 0 0 50px;
     margin-bottom: 1.8vh;
     text-align: center;
+    opacity: 0;
+    animation: result-subtext-fadeIn 0.3s ease-out 1s 1 normal forwards;
+}
+
+@keyframes result-subtext-fadeIn{
+    0% { opacity : 0}
+    100% { opacity : 1}
 }
 
 .results-more-button{
