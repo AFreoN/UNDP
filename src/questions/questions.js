@@ -133,9 +133,9 @@ window.addEventListener('resize', () =>
     document.getElementsByTagName('body')[0].style.height = window.innerHeight + "px" 
     document.getElementsByTagName('html')[0].style.height = window.innerHeight + "px" 
 
-    console.log(window.innerHeight);
-    console.log(window.outerHeight);
-    console.log(document.getElementsByTagName('body')[0].clientHeight)
+    // console.log(window.innerHeight);
+    // console.log(window.outerHeight);
+    // console.log(document.getElementsByTagName('body')[0].clientHeight)
 
     window.scrollTo(0,0)
 })
