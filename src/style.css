@@ -2001,7 +2001,9 @@ input::-moz-range-thumb {
     color: white;
     font-weight: 300;
     text-align: justify;
-    text-justify: inter-word;
+    /* text-justify: inter-word; */
+    line-height: 1.6;
+    margin-bottom: 2vh;
 }
 
 
@@ -2014,8 +2016,8 @@ input::-moz-range-thumb {
 
 .resource-link-container-top{
     width: 100%;
-    background: chartreuse;
-    color: black;
+    background: rgba(36,35,35,1);
+    color: white;
     padding: 10px;
     margin-bottom: 8px;
     box-sizing: border-box;
@@ -2039,14 +2041,14 @@ input::-moz-range-thumb {
     width: calc(60% - 4px);
     margin-right: 8px;
     padding: 10px;
-    background: black;
+    background: rgba(36,35,35,1);
     color: white;
     box-sizing: border-box;
 }
 
 .resource-link-container-right{
     width: calc(40% - 4px);
-    background: linear-gradient(to bottom , #5f27fc, #e827fc );
+    background: rgba(36,35,35,1);
     box-sizing: border-box;
     padding: 10px;
 }
@@ -2057,7 +2059,7 @@ input::-moz-range-thumb {
 }
 
 .resource-link-container-top > .resource-link:any-link{
-    color: black;
+    color: white;
 }
 
 .additional-resources-list-container{
