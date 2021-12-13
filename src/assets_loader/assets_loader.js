@@ -10,6 +10,42 @@ import { MathUtils, TextureLoader } from 'three'
 let preModelsLoaded = false
 let postModelsLoaded = false
 
+// history.back()
+// let popHandler = () => {
+//     console.log('pop up')
+//     if (confirm('Your progress will be lost. Do you want to go back?')) {
+//       window.history.back() 
+//     } else {
+//       window.history.forward()
+//       setTimeout(() => {
+//         window.addEventListener('popstate', popHandler, {once: true})
+//       }, 50) // delay needed since the above is an async operation for some reason
+//     }
+// }
+// window.addEventListener('popstate', popHandler, {once: true})
+// window.history.pushState(null,null,null)
+
+window.onbeforeunload = function (e) {
+    e = e || window.event;
+
+    // For IE and Firefox prior to version 4
+    if (e) {
+        e.returnValue = 'Sure?';
+    }
+
+    // For Safari
+    return 'Sure?';
+};
+
+// window.history.pushState({page: 1}, "", "");
+// history.back();
+// history.forward();
+// window.addEventListener('onpopstate', function(event) {
+//   if(event){
+//     var confirm = window.confirm("Please, note that you may lose your move details by returning to the previous page.");
+//   }
+// })
+
 //      Initializing loader module properties
 //
 //Object to store loaded models
