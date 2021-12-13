@@ -8,7 +8,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
 import { collection, addDoc, doc, updateDoc } from "firebase/firestore"; 
-
+// import './links.html'
 import backButtonImg from '../static/arrow_back.png'
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -32,6 +32,8 @@ const analytics = getAnalytics(app);
 const db = getFirestore();
 
 let docId = ''
+let locValue = 0
+
 //      Initializing application properties
 //
 
@@ -238,37 +240,21 @@ export function validateAnswers(){
 
     if(finalValue >= 31 && finalValue <= 49){       //prev 42 to 49
         uiControl.updateResultTitle(2);
+        locValue = 2
     }
     else if(finalValue >= 20 && finalValue <= 30){   //prev 15 to 42
-        uiControl.updateResultTitle(1);
+        uiControl.updateResultTitle(1); 
+        locValue = 1
     }
     else if(finalValue <= 19){       //prev less than 15
         uiControl.updateResultTitle(0);
+        locValue = 0
     }
     submitAnswers()
     uiControl.enableResultsLoadingContainer()
 }
 
-
-
-export async function submitEmail(email){
-
-    try {
-        const docRef = doc(db,"answers",docId)
-        await updateDoc(docRef,{
-            email:email
-        })        
-        console.log("updated document");
-        uiControl.setEmailSubmitIndicatorText('success')
-    } catch (e) {
-        console.log("error updating document", e);
-        uiControl.setEmailSubmitIndicatorText('failed')
-    }
-
-
-    
-
-}
+ 
 
 function getCurrentTimeFormatted(){
     const currentTime = new Date()
@@ -285,6 +271,14 @@ function getCurrentTimeFormatted(){
 
 function addZeroToSingleDigitNumber(number){
     return ('0'+number).slice(-2);
+}
+
+export function getDocumentId(){
+    return docId
+}
+
+export function getLocValue(){
+    return locValue
 }
 //      Main JS Notes
 //-Controls question index

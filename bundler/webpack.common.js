@@ -4,11 +4,17 @@ const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
 const path = require('path')
 
 module.exports = {
-    entry: path.resolve(__dirname, '../src/script.js'),
+    entry:{
+        main: path.resolve(__dirname, '../src/script.js'),
+        links: path.resolve(__dirname, '../src/ui_controller/links.js')
+    },
     output:
     {
-        filename: 'bundle.[contenthash].js',
-        path: path.resolve(__dirname, '../dist')
+        filename: '[name].bundle.[contenthash].js',
+        path: path.resolve(__dirname, '../dist'),
+        publicPath: '/',
+        chunkFilename: '[id].bundle_[chunkhash].js',
+        sourceMapFilename: '[file].map'
     },
     devtool: 'source-map',
     plugins:
@@ -20,7 +26,15 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, '../src/index.html'),
-            minify: true
+            filename: 'index.html',
+            minify: true,
+            chunks:['main']
+        }),
+        new HtmlWebpackPlugin({
+            template: path.resolve(__dirname, '../src/links.html'),
+            filename: 'links.html',
+            minify: true,
+            chunks:['links']
         }),
         new MiniCSSExtractPlugin()
     ],
@@ -82,7 +96,29 @@ module.exports = {
                         }
                     }
                 ]
-            }
+            },
+
+            // {
+            //     test: /\.html$/,
+            //     use:
+            //     [
+            //         {
+            //             loader: 'file-loader',
+            //             options:
+            //             {
+            //                 name: '[name].[ext]',
+            //                 outputPath: '/'
+            //             }
+            //         }
+            //     ],
+            //     include:path.resolve(__dirname,'../src/links.html'),
+            //     exclude:[
+            //         path.resolve(__dirname,'../src/index.html'),
+            //         path.resolve(__dirname,'../src/adventurer.html'),
+            //         path.resolve(__dirname,'../src/changeseeker.html'),
+            //         path.resolve(__dirname,'../src/mapmaker.html')
+            //     ]
+            // },
         ]
     }
 }
