@@ -9,8 +9,9 @@ import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
 import { collection, addDoc, doc, updateDoc } from "firebase/firestore"; 
 // import './links.html'
-import backButtonImg from '../static/arrow_back.png'
+// import loadingBanner from '../static/loading_banner.png'
 
+// console.log(loadingBanner);
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 

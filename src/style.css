@@ -93,7 +93,28 @@ canvas.webgl{
 
 .progress-bar-container{
     margin: auto;
-    position: relative;
+    /* position: relative; */
+    width: 100%;
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading-banner-container{
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    max-width: 600px;
+    background-image: url('../static//loading_banner.png') ;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+}
+
+#loading-banner-image{
+    
 }
 
 .progress-bar-background{
@@ -104,6 +125,7 @@ canvas.webgl{
     position: absolute;
     margin: 0 auto;
     box-shadow: 0px 0px 25px 0px rgba(255, 255, 255, 0.603) ;
+    display: none;
 }
 
 
@@ -2406,8 +2428,8 @@ input::-moz-range-thumb {
 
 @media screen and (max-width: 600px) {
     
-    .progress-bar-container
-    ,.submit-progress-bar-container
+    /* .progress-bar-container, */
+    .submit-progress-bar-container
     {
         width: 35vw;
         height: 35vw;
@@ -2465,8 +2487,8 @@ input::-moz-range-thumb {
 @media screen and (min-width: 601px) {
     
     
-    .progress-bar-container
-    ,.submit-progress-bar-container
+     /* .progress-bar-container, */
+    .submit-progress-bar-container
     {
         width: 30vw;
         height: 30vw;
@@ -2513,8 +2535,8 @@ input::-moz-range-thumb {
 
 @media screen and (min-width: 768px) {
 
-    .progress-bar-container
-    ,.submit-progress-bar-container
+     /* .progress-bar-container, */
+    .submit-progress-bar-container
     {
         width: 25vw;
         height: 25vw;
@@ -2561,8 +2583,8 @@ input::-moz-range-thumb {
 @media screen and (min-width: 992px) {
     
     
-    .progress-bar-container
-    ,.submit-progress-bar-container
+     /* .progress-bar-container, */
+    .submit-progress-bar-container
     {
         width: 20vw;
         height: 20vw;
@@ -2608,8 +2630,8 @@ input::-moz-range-thumb {
 @media screen and (min-width: 1200px) {
     
     
-    .progress-bar-container
-    ,.submit-progress-bar-container
+     /* .progress-bar-container, */
+    .submit-progress-bar-container
     {
         width: 15vw;
         height: 15vw;

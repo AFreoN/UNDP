@@ -199,10 +199,10 @@ let loadingBar = new progressBar.Circle('#progress-bar-container' /* Element tha
         className:"progress-bar-text",
         autoStyleContainer:"false",
         style:{
-            position:"absolute",
-            top:"0px",
-            width:"100%",
-            height:"100%",
+            // position:"absolute",
+            // top:"0px",
+            width:"fit-content",
+            height:"fit-content",
             color:"white",
             display:"flex",
             justifyContent:"center",
@@ -211,7 +211,8 @@ let loadingBar = new progressBar.Circle('#progress-bar-container' /* Element tha
             zIndex:"3",
             fontFamily: '"Rubik",sans-serif',
             fontSize: '1em',
-            opacity:'0.8'
+            opacity:'1',
+            margin:"0 auto"
         }
     },
     step: function(state, circle) {
@@ -226,7 +227,8 @@ let loadingBar = new progressBar.Circle('#progress-bar-container' /* Element tha
     svgStyle:{
         position:"relative",
         strokeLinecap:"round",
-        zIndex:"3"
+        zIndex:"3",
+        display:'none'
     }
 })
 
@@ -241,7 +243,7 @@ const loadingBarGradient = `
 
 loadingBar.svg.insertAdjacentHTML('afterbegin',loadingBarGradient)
 
-document.getElementById('progress-bar-background').style.display = ''
+// document.getElementById('progress-bar-background').style.display = ''
 
 //set the progress bar value to 0
 loadingBar.animate(loadedPercentage)
