@@ -80,8 +80,16 @@ canvas.webgl{
     text-align: center;
 }
 
-.loading-title{
+.loading-text-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     margin: auto;
+}
+
+.loading-title{
+    margin: 0 auto;
     width: 70%;
     font-weight: 800;
     font-size: 1.5em;
@@ -90,12 +98,21 @@ canvas.webgl{
 
 }
 
+.loading-subtext{
+    margin: 0 auto;
+    margin-top: 20px;
+    width: 70%;
+    font-size: calc(0.5em + 0.3vw);
+    font-weight: 300;
+    color: white;
+    font-family: 'Rubik',sans-serif;
+}
 
 .progress-bar-container{
     margin: auto;
     /* position: relative; */
     width: 100%;
-    height: 40vh;
+    height: calc(15vh + 15vw);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -110,7 +127,7 @@ canvas.webgl{
     background-image: url('../static//loading_banner.png') ;
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 100% auto;
+    background-size: auto 100%;
 }
 
 #loading-banner-image{
@@ -134,6 +151,7 @@ canvas.webgl{
 }
 
 .survey-start-button{
+    margin-top: 10px;
     background: #CBFA01;
     color: black;
     font-family: 'Rubik',sans-serif;
