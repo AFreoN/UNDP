@@ -28,7 +28,7 @@ export const Questions = [
                 si : 'ඔබ ගැන',
                 //translations need to be added  extra not on doc
                 ta : 'உங்களைப் பற்றி?',
-                dv : 'ތިބާއާމެދު'
+                dv : 'ތިބާއާމެދެ'
             },
             age:{
                 en : 'Age',
@@ -40,7 +40,7 @@ export const Questions = [
                 en : 'Gender',
                 si : 'ස්ත්රී පුරුෂ භාවය',
                 ta : 'பாலினம்',
-                dv : 'ޖެންޑާ'
+                dv : 'ޖިންސު'
             }
         },
         answers :{
@@ -175,7 +175,7 @@ export const Questions = [
             en : 'Mother',
             si : 'මව',
             ta : 'தாய்',
-            dv : 'Mother'//Note - Unfinished Translations
+            dv : 'ތިބާއާމެދެ'
         },
         compulsory: true
     },
@@ -236,7 +236,7 @@ export const Questions = [
             en : 'father',
             si : 'පියා',
             ta : 'தந்தை',
-            dv : 'Father'//Note - Unfinished Translations
+            dv : 'ތިބާއާމެދެ'
         },
         compulsory: true
     },
@@ -297,7 +297,7 @@ export const Questions = [
             en : 'Siblings',
             si : 'සහෝදර සහෝදරියන්',
             ta : 'உடன்பிறந்தவர்கள்',
-            dv : 'Siblings'//Note - Unfinished Translations
+            dv : 'އެއްބަނޑު އެއްބަފާ ކުދިން'
         },
         compulsory: true
     },
@@ -358,7 +358,7 @@ export const Questions = [
             en : 'Closest Friends',
             si : 'සමීපතම මිතුරෝ',
             ta : 'நெருங்கிய நண்பர்கள்',
-            dv : 'Closest Friends'//Note - Unfinished Translations
+            dv : 'ގާތް ރަހުމަތްތެރިން'
         },
         compulsory: true
     },
@@ -419,7 +419,7 @@ export const Questions = [
             en : 'Distant Friends',
             si : 'දුරස්ථ මිතුරෝ',
             ta : 'தொலைதூர நண்பர்கள்',
-            dv : 'Distant Friends'//Note - Unfinished Translations
+            dv : 'ދުރު ރަހުމަތްތެރިން'
         },
         compulsory: true
     },
@@ -480,7 +480,7 @@ export const Questions = [
             en : 'Community',
             si : 'ප්‍රජාව',
             ta : 'சமூகம்',
-            dv : 'Community'//Note - Unfinished Translations
+            dv : 'މުޖުތަމައު'
         },
         compulsory: true
     },
@@ -541,7 +541,7 @@ export const Questions = [
             en : 'Religious Community',
             si : 'ආගමික ප්‍රජාව',
             ta : 'மத ரீதியான சமூகம்',
-            dv : 'Community'//Note - Unfinished Translations
+            dv : 'ދީނީ މުޖުތަމައު'
         },
         compulsory: true
     },
@@ -602,7 +602,7 @@ export const Questions = [
             en : 'Different Language',
             si : 'විවිධ භාෂා',
             ta : 'வேறு மொழி',
-            dv : 'Community'//Note - Unfinished Translations
+            dv : 'ތަފާތު ބަސްތައް'
         },
         compulsory: true
     },
@@ -663,7 +663,7 @@ export const Questions = [
             en : 'Different Religions',
             si : 'විවිධ ආගම්',
             ta : 'வேறு மதங்கள்',
-            dv : 'Community'//Note - Unfinished Translations
+            dv : 'ތަފާތު ދީންތައް'
         },
         compulsory: true
     },
@@ -724,7 +724,7 @@ export const Questions = [
             en : 'Home Country',
             si : 'මාතෘ භූමිය',
             ta : 'தாய் நாடு',
-            dv : 'Community'//Note - Unfinished Translations
+            dv : 'އަމިއްލަ ޤައުމު'
         },
         compulsory: true
     },

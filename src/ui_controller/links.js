@@ -37,19 +37,19 @@ let allTexts = {
             en : 'You are the Change Seeker',
             si : 'ඔබ තමයි වෙනස්කම් නිර්මාණය කරන්නා',
             ta : 'நீங்கள்தான் ஒரு மாற்றத்தை உருவாக்குபவர்',
-            dv : ''//Note - Unfinished Translations
+            dv : 'ތިބާއަކީ ބަދަލެއް އެދި ހޯދާ މީހެއް'
         },
         {
             en : 'You are the Map Maker',
             si : 'ඔබ තමයි සිතියම් සකසන්නා ',
             ta : 'நீங்கள்தான் ஒரு வரைபட வகுப்பாளர்',
-            dv : ''//Note - Unfinished Translations
+            dv : 'ތިއީ ޗާޓި ކުރަހާ މީހެއް'
         },
         {
             en : 'You are the Adventurer',
             si : 'ඔබ තමයි සූරයා',
             ta : 'நீங்கள்தான் ஒரு விநோத விரும்பி ',
-            dv : ''//Note - Unfinished Translations
+            dv : 'ތިއީ އާ ކަންކަން ތަޖުރިބާކުރާ މީހެއް'
         }
     ],
     linksPage:[
@@ -111,13 +111,10 @@ let allTexts = {
             <br>
             <br>
             உங்களுக்கு உந்துதல் தேவையா? உங்களுக்கு உதவியாக இருக்கும் இந்த இணையதளங்களைப் பாருங்கள்:`,
-            //Note - Unfinished Translations
-            dv : `From the way you’ve
-            answered, it sounds like you
-            can often feel at a loss when
-            it comes to making big
-            decisions in your life. 
             
+            dv : `
+            ހެޔޮ ބަދަލަކަށްޓަކައި ކުދިކުދި ކަންކަން ކުރުމަށް ތިބާގެ ގާބިލުކަމާއި، އަމިއްލަ ނަފްސުގެ ބާރު އެބަ ހުއްޓެވެ ތިބާގެ ހަޔާތުގެ ބޮޑެތި ނިންމުންތައް ނިންމަންޖެހުމުން، ހަދާނެގޮތް ނޭނގޭކަމުގެ އިހުސާސް ކުރެވިދާނެއެވެ. ހަނދާންކުރާށެވެ. ތިބާގެ ހަޔާތުގެ މައިގަނޑު ރޯލު އަދާކުރާ މީހަކީ ހަމަ ތިބާއެވެ.
+
             <br>
             <br>
 
@@ -178,13 +175,11 @@ let allTexts = {
             <br>
             <br>
             அதற்கான சிறிது  ஆலோசனை வேண்டுமா? உங்களுக்கு ஆர்வமூட்டக்கூடிய சில இணையதளங்கள் இதோ:`,
-            //Note - Unfinished Translations
-            dv : `From the answers you’ve
-            provided, it sounds like you
-            can sometimes feel a bit
-            unsure when it comes to
-            making big decisions in your
-            life.
+            
+            dv : `
+            އަމިއްލަ ނަފްސަށް ކުރާ އިތުބާރަކީ ތިބާގެ ނަފްސުގެ ތެރެއިން ލިބޭނެ އެއްޗެކެވެ. އަދި އެ އިތުބާރު އިތުރަށް ބިނާކުރެވޭނެ ގޮތްތައް ތިބާއަށް ހޯދިދާނެއެވެ
+ހަޔާތުގެ ބޮޑެތި ނިންމުންތައް ނިންމަންޖެހުމުން ތިބާއަށް އެހާ ޔަގީންކަން ނެތްކަން އިހުސާސްކުރެވިދާނެއެވެ.
+
 
             <br>
             <br>
@@ -249,12 +244,11 @@ let allTexts = {
             <br>
             <br>
             உதவ விரும்புகிறீர்களா, ஆனால் சில ஆலோசனைகள் தேவையா? இந்த பயனுள்ள இணையதளங்களைப் பாருங்கள்:`,
-            //Note - Unfinished Translations
-            dv : `Nice one! It sounds like you
-            feel reasonably empowered
-            when it comes to making big
-            decisions about which path
-            in life to take!
+            
+            dv : `
+            އަމިއްލަ ނަފްސަށް ކުރާ އިތުބާރަކީ ތިބާގެ ނަފްސުގެ ތެރެއިން ލިބޭނެ އެއްޗެކެވެ. އަދި އެ އިތުބާރު އިތުރަށް ބިނާކުރެވޭނެ ގޮތްތައް ތިބާއަށް ހޯދިދާނެއެވެ
+ހަޔާތުގެ ބޮޑެތި ނިންމުންތައް ނިންމަންޖެހުމުން ތިބާއަށް އެހާ ޔަގީންކަން ނެތްކަން އިހުސާސްކުރެވިދާނެއެވެ.
+
 
             <br>
             <br>

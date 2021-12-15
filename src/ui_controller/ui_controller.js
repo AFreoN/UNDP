@@ -685,19 +685,19 @@ let allTexts = {
             en : 'You are the Change Seeker',
             si : 'ඔබ තමයි වෙනස්කම් නිර්මාණය කරන්නා',
             ta : 'நீங்கள்தான் ஒரு மாற்றத்தை உருவாக்குபவர்',
-            dv : ''//Note - Unfinished Translations
+            dv : 'ތިއީ ޗާޓި ކުރަހާ މީހެއް'
         },
         {
             en : 'You are the Map Maker',
             si : 'ඔබ තමයි සිතියම් සකසන්නා ',
             ta : 'நீங்கள்தான் ஒரு வரைபட வகுப்பாளர்',
-            dv : ''//Note - Unfinished Translations
+            dv : 'ތިއީ ޗާޓި ކުރަހާ މީހެއް'
         },
         {
             en : 'You are the Adventurer',
             si : 'ඔබ තමයි සූරයා',
             ta : 'நீங்கள்தான் ஒரு விநோத விரும்பி ',
-            dv : ''//Note - Unfinished Translations
+            dv : 'ތިއީ އާ ކަންކަން ތަޖުރިބާކުރާ މީހެއް'
         }
     ],
     maldivesName:{
@@ -878,19 +878,19 @@ function updateResultSubtexts(loc){
                 en : 'You have ability and inner strength to…',   //'You can often feel at a loss when it comes to making big decisions in your life. Remember, you are the main character in your life story. Each of us has the ability and inner strength to make small changes for the better. Click to learn more'
                 si : 'යහපත වෙනුවෙන් පුංචි වෙනස්කම් සිදුකිරීමේ හැකියාව හා අභ්‍යන්තර ශක්තිය ඔබට තිබෙනවා....',
                 ta : 'சிறந்த விடயங்களுக்காக சிறிய மாற்றங்களைச் செய்யக்கூடிய திறனும் மன வலிமையும் உங்களிடம் உண்டு...',
-                dv : 'loc 0 dhivehi'//Note - Unfinished Translations
+                dv : '...ހެޔޮ ބަދަލަކަށްޓަކައި ކުދިކުދި ކަންކަން ކުރުމަށް ތިބާގެ ގާބިލުކަމާއި، އަމިއްލަ ނަފްސުގެ ބާރު އެބަ ހުއްޓެވެ'
             },
             {
                 en : 'Confidence comes from within, and you can find…', //'You can sometimes feel a bit unsure when it comes to making big decisions in your life. Confidence comes from within, and you can find ways to build it. Find out more!'
                 si : 'විශ්වාසය ගොඩනැගෙන්නේ ඇතුළතිනි. ඔබට එය ගොඩනගාගත හැකි ආකාරය සොයාගත හැකිය....',
                 ta : 'தன்னம்பிக்கை என்பது உள்ளிருந்து வருகின்றது. அதனை உருவாக்குவதற்கான வழிகளை நீங்கள் கண்டுபிடிக்கலாம்...',
-                dv : 'loc 0 dhivehi'//Note - Unfinished Translations
+                dv : '...އަމިއްލަ ނަފްސަށް ކުރާ އިތުބާރަކީ ތިބާގެ ނަފްސުގެ ތެރެއިން ލިބޭނެ އެއްޗެކެވެ. އަދި އެ އިތުބާރު އިތުރަށް ބިނާކުރެވޭނެ ގޮތްތައް ތިބާއަށް ހޯދިދާނެއެވެ'
             },
             {
                 en : 'Nice one! You are not afraid to make big decisions and..',   //'Nice one! You are not afraid to make big decisions and confident you can accomplish whatever you set your mind to. Find out more.'
                 si : 'ඉතා හොඳයි! ඔබ ආත්ම විශ්වාසයෙන් යුක්තයි. ජීවිතය සම්බන්ධ වැදගත් තීරණ ගන්නට ඔබ බය නැහැ....',
                 ta : 'சிறந்த விடயம்! முக்கியமான தீர்மானங்களை எடுக்க நீங்கள் அஞ்சமாட்டீர்கள் மற்றும் நம்பிக்கையுடன் உள்ளீர்கள்...',
-                dv : 'loc 0 dhivehi'//Note - Unfinished Translations
+                dv : '...ވަރަށް ރަނގަޅު! ތިޔައީ ބޮޑެތި ނިންމުންތައް ނިންމަން ޖެހިލުންނުވާ، އަމިއްލަ ނަފްސަށް އިތުބާރުކުރާ މީހެއް'
             },
         ],
         
