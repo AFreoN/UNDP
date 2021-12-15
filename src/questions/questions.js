@@ -230,7 +230,7 @@ const playerNamesLang = {
     en : 'You',
     si : 'ඔබ',
     ta : 'நீங்கள்',
-    dv : 'You'//Note - Unfinished Translations
+    dv : 'ނުމުވެއި'//Note - Unfinished Translations
 }
 
 
