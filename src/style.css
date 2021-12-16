@@ -2009,7 +2009,7 @@ input::-moz-range-thumb {
 }
 
 .links-main-container{
-    width: min(79.9%, 900px);
+    width: min(79.9%, 1000px);
     display: flex;
     flex-direction: row;
     margin: 0 auto;
@@ -2022,7 +2022,7 @@ input::-moz-range-thumb {
     display: flex;
     flex-direction: column;
 
-    width: min(100%, 650px);
+    width: min(100%, 750px);
     
 
     /* margin: 0 0 0 auto; */
@@ -2158,8 +2158,8 @@ input::-moz-range-thumb {
 .links-email-submission-container{
     margin-top: 10vw;
     margin-left: 20px;
-    border: 2px solid white;
-    padding: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.438);
+    padding: 30px;
     box-sizing: border-box;
     height: fit-content;
 
@@ -2179,11 +2179,15 @@ input::-moz-range-thumb {
     font-family: 'Rubik',sans-serif;
     font-size: calc(0.8em + 0.8vw);
     margin-bottom: 10px ;
+    font-weight: 300;
 }
 
 .links-email-submission-subtext{
     font-family: 'Rubik',sans-serif;
     font-size: calc(0.4em + 0.4vw);
+    font-weight: 300;
+    margin-top:calc(10px + 1vw) ;
+    margin-bottom: calc(25px + 1vw);
 }
 
 #links-email-input{
@@ -2199,6 +2203,8 @@ input::-moz-range-thumb {
     font-size: 1em;
     outline: none;
     box-sizing: border-box;
+
+    padding: 15px 10px;
 }
 
 #links-email-input:focus{
@@ -2220,7 +2226,7 @@ input::-moz-range-thumb {
     
     box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.5);
 
-    margin: 0 0 20px 0;
+    /* margin: 0 0 20px 0; */
 }
 
 .links-email-submit-indicator{
