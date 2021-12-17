@@ -1395,7 +1395,7 @@ input::-moz-range-thumb {
     opacity: 1;
   }
   form #likert7-slider input:checked:nth-child(1) ~ #likert7-pointer {
-    left: 7%;
+    left: 7.1%;
     width: 28px;
     height: 28px;
   }
@@ -1415,17 +1415,17 @@ input::-moz-range-thumb {
     height: 15px;
   }
   form #likert7-slider input:checked:nth-child(9) ~ #likert7-pointer {
-    left: 64.33%;
+    left: 64.3%;
     width: 18px;
     height: 18px;
   }
   form #likert7-slider input:checked:nth-child(11) ~ #likert7-pointer {
-    left: 78.7%;
+    left: 78.6%;
     width: 22px;
     height: 22px;
   }
   form #likert7-slider input:checked:nth-child(13) ~ #likert7-pointer {
-    left: 93%;
+    left: 92.798%;
     width: 28px;
     height: 28px;
   }
@@ -1438,10 +1438,10 @@ input::-moz-range-thumb {
     width: 15px;
     height: 15px;
     background: rgb(251, 255, 29);
+    border: 3px solid rgb(255, 255, 255);
     border-radius: 50%;
     transition: all 0.15s ease-in-out;
     transform: translate(-50%, -50%);
-    border: 2px solid #fff;
     opacity: 0;
     z-index: 2;
   }
