@@ -39,7 +39,7 @@ let locValue = 0
 //
 
 export let surveyStarted = false //other modules can read this value to see if the survey has started
-export let isDebugging = true
+export let isDebugging = false  //Set to true for skipping questions, otherwise question input field will be hided and skip function will be disabled
 let showingTutorial = false
 
 let joystickTutorialShown = false;
