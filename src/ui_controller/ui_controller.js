@@ -420,7 +420,7 @@ function setVidQuestionLang(){
             en:'Have you watched Extreme Lives videos?',
             si:'ඔබ Extreme Lives වීඩියෝ නරඹා තිබේද?',
             ta:'Extreme Lives வீடியோக்களைப் பார்த்திருக்கிறீர்களா?',
-            dv:'Have you watched Extreme Lives videos?',//Note - Unfinished Translations
+            dv:'ހަޔާތުން ސަފުހާއެއް‘ ގެ ވީޑިއޯތައް ބަލައިފިންތަ؟',//Note - Unfinished Translations
         },
         answers:{
             yes:{
