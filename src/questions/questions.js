@@ -151,7 +151,7 @@ document.getElementsByTagName('html')[0].style.height = window.innerHeight + "px
 
 //      Implementing game loop
 var animMixers = []
-
+let newModel;
 const clock = new THREE.Clock()
 let previousTime = 0
 const tick = () =>
@@ -194,6 +194,10 @@ const tick = () =>
             element.update(deltatime)
         });
     }
+
+    if(newModel){
+        if(newModel.animMixer) newModel.animMixer.update(deltatime)
+    }
     //Implement loop here
 
     window.requestAnimationFrame(tick)
@@ -230,7 +234,7 @@ const playerNamesLang = {
     en : 'You',
     si : 'ඔබ',
     ta : 'நீங்கள்',
-    dv : 'ނުމުވެއި'//Note - Unfinished Translations
+    dv : 'މަންމަ'//Note - Unfinished Translations
 }
 
 
@@ -1063,7 +1067,7 @@ export function enableSubmitScene(){
     }
 }
 
-let newModel = assetLoader.getModel('playerCharacter')
+newModel = assetLoader.getModel('playerCharacter')
 export function updateSubmitModel(loc){
     submitScene.remove(assetLoader.getModel('playerCharacter'))
     submitScene.remove(newModel)
@@ -1079,8 +1083,7 @@ export function updateSubmitModel(loc){
             newModel = assetLoader.getModel('adventurer')
             break;        
     }
-
-    submitScene.add(newModel)
+    if(newModel) submitScene.add(newModel)
 
 }
 //Calculating distance between player and the center model

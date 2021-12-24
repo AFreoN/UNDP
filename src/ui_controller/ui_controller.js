@@ -420,14 +420,14 @@ function setVidQuestionLang(){
             en:'Have you watched Extreme Lives videos?',
             si:'ඔබ Extreme Lives වීඩියෝ නරඹා තිබේද?',
             ta:'Extreme Lives வீடியோக்களைப் பார்த்திருக்கிறீர்களா?',
-            dv:'ހަޔާތުން ސަފުހާއެއް‘ ގެ ވީޑިއޯތައް ބަލައިފިންތަ؟',//Note - Unfinished Translations
+            dv:'ހަޔާތުން ސަފުހާއެއްގެ ވީޑިއޯތައް ބަލައިފިންތަ؟'
         },
         answers:{
             yes:{
                 en:'Yes',
                 si:'ඔව්',
                 ta:'ஆம்',
-                dv:'އެއަހ',
+                dv:'އާން',
             },
             no:{
                 en:'No',
@@ -1153,15 +1153,19 @@ let genderScrollContainer = document.getElementById('scroll-container-gender')
 let genderSelectorHeader = document.getElementById('selector-header-gender')
 let genderSelectionIndicator = document.getElementById('selected-item-indicator-gender')
 
-let genderItems = document.getElementsByClassName('scroll-item-gender')
-
-let genderFirstChildItem = genderItems[0]
-let genderLastChildItem = genderItems[genderItems.length - 1]
+let genderItems
+let genderFirstChildItem
 
 let genderItemOffset
 
 function genderCalculateMargins(){
     
+    genderItems = document.getElementsByClassName('scroll-item-gender')
+    genderItems = [...genderItems]
+
+    genderFirstChildItem = genderItems[0]
+    let genderLastChildItem = genderItems[genderItems.length - 1]
+
     let genderMiddleChildrenMargin = ((genderScrollContainer.offsetHeight/2) - genderFirstChildItem.offsetHeight * 4)/3
 
     // genderSelectorContainer.style.height = genderScrollContainer.clientHeight + 'px'
@@ -1222,7 +1226,7 @@ var genderSelectionTimeout = null;
 function onScrollGender(){
     genderCurrentItemIndex = Math.round(genderScrollContainer.scrollTop /genderItemOffset)  
     genderSelectedItem = genderItems[genderCurrentItemIndex]
-    console.log(genderCurrentItemIndex);
+    // console.log(genderCurrentItemIndex);
 
     enableConfirmation({
         gender:genderSelectedItem.getAttribute('data-index'),
@@ -1281,7 +1285,10 @@ function onScrollGender(){
 }
 
 genderScrollContainer.addEventListener('scroll',onScrollGender)
-window.addEventListener('resize',genderCalculateMargins)
+window.addEventListener('resize',()=>{
+    genderCalculateMargins()
+    if(langId == 'dv') setGenderFarthestStyle(genderItems[2])
+})
 
 
 function resetGenderItemStyle(genderItem){
@@ -1707,6 +1714,20 @@ export function updateUI(questionType, questionText, answers){
             
             ageSelectorHeader.innerText =  questionText.age[langId]
             genderSelectorHeader.innerText = questionText.gender[langId]
+
+            if(langId === 'dv'){
+                genderItems[2].style.display = 'none'
+                genderItems[3].style.display = 'none'
+                genderItems[4].style.display = 'none'
+                console.log(genderItems);
+                genderItems.splice(2,3)
+                setGenderFarthestStyle(genderItems[2])
+
+            }else{
+                genderItems[2].style.display = ''
+                genderItems[3].style.display = ''
+                genderItems[4].style.display = ''
+            }        
 
             if(answers){
                 for (let i = 0; i < genderItems.length; i++) {

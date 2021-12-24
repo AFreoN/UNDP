@@ -1315,7 +1315,7 @@ export function loadPostModels(){
             let model = gltf.scene
             model.name = key
             model.scale.set(0.3,0.3,0.3)
-            model.position.set(0,-0.6, 2)
+            model.position.set(-1.5,-0.6, 2)
             models[key] = model
             // console.log(model);
             model.traverse((child) => {
@@ -1328,10 +1328,18 @@ export function loadPostModels(){
                     }
                 }
             });
+            // console.log(gltf);
             if(preLoadModels.includes(key)){
                 loadedPercentage += (1/numberOfAssets)
                 loadingBar.animate(loadedPercentage)
             }
+
+            model.animMixer = new THREE.AnimationMixer(model)
+            const clips = gltf.animations
+
+            clips.forEach(clip => {
+                model.animMixer.clipAction(clip).play();
+            });
         }
     )
 
@@ -1351,28 +1359,41 @@ export function loadPostModels(){
                     child.castShadow = true
                     
 
-                    if(child.name == "SimpleCharacter" ){
+                    if(child.name == "SimpleCharacter002" ){
                         child.material = shaderMaterial
                     }
                 }
             });
+            // console.log(gltf);
             if(preLoadModels.includes(key)){
                 loadedPercentage += (1/numberOfAssets)
                 loadingBar.animate(loadedPercentage)
             }
+            model.animMixer = new THREE.AnimationMixer(model)
+            const clips = gltf.animations
+
+            clips.forEach(clip => {
+                model.animMixer.clipAction(clip).play();
+            });
         }
     )
 
     //Change seeker - Low LOC
     gltfloader.load(
-        'change_seeker2.gltf',
+        'change_seeker.gltf',
         (gltf) =>
         {
             const key = 'changeSeeker'
             let model = gltf.scene
             model.name = key
             model.scale.set(0.3,0.3,0.3)
-            model.position.set(0,-0.61, 2)
+            model.position.set(-0.75,-0.61, 2)
+
+            console.log(model.children[1].position)
+            // model.children[1].position.x = 4
+            // model.children[1].position.z = -4
+            // gltf.animations[1].tracks[1].values.forEach(value)
+
             models[key] = model
             // console.log(model);
             model.traverse((child) => {
@@ -1380,15 +1401,23 @@ export function loadPostModels(){
                     child.castShadow = true
 
                     
-                    if(child.name == "SimpleCharacter" ){
+                    if(child.name == "SimpleCharacter001" ){
                         child.material = shaderMaterial
                     }
                 }
             });
+            console.log(gltf);
             if(preLoadModels.includes(key)){
                 loadedPercentage += (1/numberOfAssets)
                 loadingBar.animate(loadedPercentage)
             }
+
+            model.animMixer = new THREE.AnimationMixer(model)
+            const clips = gltf.animations
+
+            clips.forEach(clip => {
+                model.animMixer.clipAction(clip).play();
+            });
         }
     )
 

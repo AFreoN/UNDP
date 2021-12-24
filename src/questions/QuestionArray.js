@@ -111,7 +111,7 @@ export const Questions = [
                     en : 'Prefer not to Say',
                     si : 'කීමට අකැමැතියි',
                     ta : 'குறிப்பிட விரும்பவில்லை',
-                    dv : 'ބޮޑަށް ބޭނުންވަނީ ހާމަނުކުރަން'
+                    dv : 'ބޭނުންވަނީ ހާމަނުކުރަން'
                 }
             ]
         },
@@ -175,7 +175,7 @@ export const Questions = [
             en : 'Mother',
             si : 'මව',
             ta : 'தாய்',
-            dv : 'ތިބާއާމެދެ'
+            dv : 'އަހަރެން'
         },
         compulsory: true
     },
