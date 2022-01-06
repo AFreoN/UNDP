@@ -88,7 +88,7 @@ export const Questions = [
                     si : 'කාන්තා',
                     ta : 'பெண்',
                     dv : 'އަންހެން'
-                },
+                }/* ,
                 {
                     en : 'Intersex',
                     si : 'අන්තර් ලිංගික',
@@ -100,7 +100,7 @@ export const Questions = [
                     si : 'ද්වි නොවන',
                     ta : 'மாற்றுப்பாலினம் (binary)',
                     dv : 'ނޮން-ބައިނަރީ'
-                },
+                } */,
                 {
                     en : 'Other',
                     si : 'වෙනත්',

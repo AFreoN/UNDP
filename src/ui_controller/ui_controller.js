@@ -1717,16 +1717,16 @@ export function updateUI(questionType, questionText, answers){
 
             if(langId === 'dv'){
                 genderItems[2].style.display = 'none'
-                genderItems[3].style.display = 'none'
-                genderItems[4].style.display = 'none'
+                // genderItems[3].style.display = 'none'
+                // genderItems[4].style.display = 'none'
                 console.log(genderItems);
-                genderItems.splice(2,3)
+                genderItems.splice(2,1)
                 setGenderFarthestStyle(genderItems[2])
 
             }else{
                 genderItems[2].style.display = ''
-                genderItems[3].style.display = ''
-                genderItems[4].style.display = ''
+                // genderItems[3].style.display = ''
+                // genderItems[4].style.display = ''
             }        
 
             if(answers){
