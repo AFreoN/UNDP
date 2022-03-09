@@ -3,7 +3,7 @@ import * as THREE from 'three'
 import * as assetLoader from '../assets_loader/assets_loader'
 import * as uiControl from '../ui_controller/ui_controller'
 import * as mainScipt from '../script'
-import { clamp } from 'three/src/math/mathutils'
+import { clamp } from 'three/src/math/MathUtils'
 import * as outliner from '../character_controller/charcater_outliner'
 //import { MathUtils } from 'three'
 
