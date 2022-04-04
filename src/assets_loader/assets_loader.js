@@ -1027,7 +1027,7 @@ export function loadPostModels(){
     )
     //Community
     gltfloader.load(
-        'Models/community.gltf',
+        'Models/Community.gltf',
         (gltf) =>
         {
             const key = 'community'
