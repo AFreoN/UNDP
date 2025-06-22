@@ -6,6 +6,11 @@ module.exports = merge(
     commonConfiguration,
     {
         mode: 'production',
+        output: {
+            // for relative paths use './'
+            publicPath: './'
+            // or for absolute: '/<your-username>/<your-repo>/'
+        },
         plugins:
         [
             new CleanWebpackPlugin()
